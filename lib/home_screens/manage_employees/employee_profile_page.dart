@@ -73,7 +73,7 @@ class _F_EmployeeProfilePageState extends State<F_EmployeeProfilePage> {
                     backgroundColor: Colors.red,
                     radius: 50,
                   ),
-                  Text('username is ${employee.employeeName}',style: titleStyle,),
+                  Text('username is the${employee.employeeName}',style: titleStyle,),
                   Text('role${employee.employeeRole}',style: subTitleStyle,),
                   Text('user project',style: subTitleStyle,),
                   Text('number${employee.employeeContactNumber}',style: subTitleStyle,),
