@@ -5,10 +5,6 @@ var backgroundColor = Color(0xFF1F4B6E);
 var subBackgroundColor = Colors.greenAccent;
 
 
-var topNavigationBackgroundColor = Color(0xFF1F4B6E);
-var bottomNavigationBackgroundColor = Colors.greenAccent;
-
-
 var bigTitleColor = Colors.greenAccent;
 var titleColor = Colors.greenAccent;
 var subTitleColor = Colors.greenAccent;
@@ -26,3 +22,4 @@ var inActiveButtonTextColor = Colors.black54;
 
 var activeButtonBackgroundColor = Color(0xFF1F4B6E);
 var inActiveButtonBackgroundColor = Colors.black12;
+var removeButtonBackgroundColor = Colors.deepOrange;
