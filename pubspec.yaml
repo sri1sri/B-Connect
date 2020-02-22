@@ -27,8 +27,9 @@ dependencies:
   flutter_offline: ^0.3.0
   firebase_auth: ^0.15.4
   cloud_firestore: ^0.13.2+1
-
-
+  image_picker: ^0.6.3+4
+  image_cropper: ^1.2.1
+  firebase_storage: ^3.1.1
 
 dev_dependencies:
   flutter_test:

@@ -1,4 +1,5 @@
 import 'package:bhavani_connect/common_variables/app_fonts.dart';
+import 'package:bhavani_connect/common_variables/app_functions.dart';
 import 'package:bhavani_connect/common_widgets/list_item_builder/list_items_builder.dart';
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
 import 'package:bhavani_connect/database_model/employee_list_model.dart';
@@ -85,12 +86,7 @@ class _F_ManageEmployeesPageState extends State<F_ManageEmployeesPage> {
                         trailing: Text('Edit', style: subTitleStyle,),
                       ),
                       onTap: (){
-                        Navigator.of(context).push(
-                          MaterialPageRoute<void>(
-                            fullscreenDialog: true,
-                            builder: (context) => EmployeeProfilePage(database: widget.database, employeeID: data.employeeID,),
-                          ),
-                        );
+                        GoToPage(context, EmployeeProfilePage(database: widget.database, employeeID: data.employeeID,));
                         print('id${data.employeeID}');
                       },
                     ),

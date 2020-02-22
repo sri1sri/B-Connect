@@ -1,5 +1,6 @@
 import 'package:bhavani_connect/common_variables/app_colors.dart';
 import 'package:bhavani_connect/common_variables/app_fonts.dart';
+import 'package:bhavani_connect/common_variables/app_functions.dart';
 import 'package:bhavani_connect/common_widgets/button_widget/to_do_button.dart';
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
 import 'package:bhavani_connect/common_widgets/platform_alert/platform_exception_alert_dialog.dart';
@@ -170,22 +171,13 @@ class _F_SignUpPageState extends State<F_SignUpPage> {
         path: APIPath.employeeDetails(user1.uid),
         data: customerDetails.toMap(),
       );
-      _goToPage(context, HomePage());
+      GoToPage(context, HomePage());
     } on PlatformException catch (e) {
       PlatformExceptionAlertDialog(
         title: 'Something went wrong.',
         exception: e,
       ).show(context);
     }
-  }
-
-  void _goToPage(BuildContext context, Widget page) {
-    Navigator.of(context).push(
-      MaterialPageRoute<void>(
-        fullscreenDialog: true,
-        builder: (context) => page,
-      ),
-    );
   }
 }
 

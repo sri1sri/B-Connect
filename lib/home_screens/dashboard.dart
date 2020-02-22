@@ -1,10 +1,12 @@
 import 'package:bhavani_connect/common_variables/app_colors.dart';
 import 'package:bhavani_connect/common_variables/app_fonts.dart';
+import 'package:bhavani_connect/common_variables/app_functions.dart';
 import 'package:bhavani_connect/common_widgets/button_widget/to_do_button.dart';
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
 import 'package:bhavani_connect/common_widgets/platform_alert/platform_alert_dialog.dart';
 import 'package:bhavani_connect/firebase/auth.dart';
 import 'package:bhavani_connect/firebase/database.dart';
+import 'package:bhavani_connect/home_screens/manage_goods/goods_approvals.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -49,7 +51,7 @@ class _F_DashboardState extends State<F_Dashboard> {
   }
   @override
   Widget _buildContent(BuildContext context) {
-    var features = ["Approvals","Item entry","Store","Inventory","More","Attendance","Employees"];
+    var features = ["Goods Approvals","Item entry","Store","Inventory","More","Attendance","Employees"];
     List<IconData> F_icons=[Icons.touch_app,Icons.note_add,Icons.store,Icons.dashboard,Icons.people,Icons.pan_tool];
     var myGridView = new GridView.builder(
 
@@ -69,14 +71,15 @@ class _F_DashboardState extends State<F_Dashboard> {
           onTap: () {
             switch(features[index]) {
               case 'Employees': {
-                Navigator.of(context).push(
-                  MaterialPageRoute<void>(
-                    fullscreenDialog: true,
-                    builder: (context) => ManageEmployeesPage(database: widget.database,),
-                  ),
-                );
+                GoToPage(context, ManageEmployeesPage(database: widget.database,));
               }
               break;
+
+              case 'Goods Approvals': {
+                GoToPage(context, GoodsApprovalsPage(database: widget.database,));
+              }
+              break;
+
               default: {}
               break;
             }

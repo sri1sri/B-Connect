@@ -1,4 +1,5 @@
 import 'package:bhavani_connect/authentication_screen/registrtion_screens/sign_up_page.dart';
+import 'package:bhavani_connect/common_variables/app_functions.dart';
 import 'package:bhavani_connect/common_widgets/button_widget/to_do_button.dart';
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
 import 'package:bhavani_connect/common_variables/app_fonts.dart';
@@ -173,16 +174,10 @@ class _F_OTPPageState extends State<F_OTPPage> {
       print('otp${widget.newUser}');
       if(widget.newUser){
         await model.submit();
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => SignUpPage(phoneNo: widget.phoneNo,)),
-        );
+        GoToPage(context, SignUpPage(phoneNo: widget.phoneNo));
       }else{
         await model.submit();
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => HomePage()),
-        );
+        GoToPage(context, HomePage());
       }
     } on PlatformException catch (e) {
       PlatformExceptionAlertDialog(

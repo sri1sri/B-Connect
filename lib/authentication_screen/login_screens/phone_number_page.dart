@@ -1,5 +1,6 @@
 import 'package:bhavani_connect/authentication_screen/login_screens/otp_page.dart';
 import 'package:bhavani_connect/common_variables/app_colors.dart';
+import 'package:bhavani_connect/common_variables/app_functions.dart';
 import 'package:bhavani_connect/common_widgets/button_widget/to_do_button.dart';
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
 import 'package:bhavani_connect/common_variables/app_fonts.dart';
@@ -172,12 +173,12 @@ class _F_PhoneNumberPageState extends State<F_PhoneNumberPage> {
         if (data.documents.length == 0)
           {
         model.submit(),
-      _goToPage(context, OTPPage(phoneNo: _phoneNumberController.value.text, newUser: true)),
+    GoToPage(context, OTPPage(phoneNo: _phoneNumberController.value.text, newUser: true)),
           }
         else
           {
             model.submit(),
-            _goToPage(context, OTPPage(phoneNo: _phoneNumberController.value.text, newUser: false)),
+            GoToPage(context, OTPPage(phoneNo: _phoneNumberController.value.text, newUser: false)),
           }
       });
     } on PlatformException catch (e) {
@@ -186,14 +187,5 @@ class _F_PhoneNumberPageState extends State<F_PhoneNumberPage> {
         exception: e,
       ).show(context);
     }
-  }
-
-  void _goToPage(BuildContext context, Widget page) {
-    Navigator.of(context).push(
-      MaterialPageRoute<void>(
-        fullscreenDialog: true,
-        builder: (context) => page,
-      ),
-    );
   }
 }
