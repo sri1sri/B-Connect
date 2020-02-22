@@ -35,7 +35,7 @@ void _startUpload() async{
   });
   _itemEntry = new ItemEntry(vehicelImagePath: vehiceImagePath, mrrImagePath: MRRImagePath);
 
-  await widget.database.setItemEntry(_itemEntry);
+  await widget.database. setItemEntry(_itemEntry);
 
 }
 
