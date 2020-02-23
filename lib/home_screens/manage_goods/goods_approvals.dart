@@ -1,12 +1,16 @@
 import 'package:bhavani_connect/common_variables/app_colors.dart';
 import 'package:bhavani_connect/common_variables/app_fonts.dart';
 import 'package:bhavani_connect/common_variables/app_functions.dart';
+import 'package:bhavani_connect/common_widgets/list_item_builder/list_items_builder.dart';
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
+import 'package:bhavani_connect/database_model/item_entry_model.dart';
 import 'package:bhavani_connect/firebase/database.dart';
 import 'package:bhavani_connect/home_screens/camera_screens/Camera_page.dart';
 import 'package:bhavani_connect/home_screens/manage_goods/add_goods_entry_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+
 
 class GoodsApprovalsPage extends StatelessWidget {
   GoodsApprovalsPage({@required this.database});
@@ -29,6 +33,7 @@ class F_GoodsApprovalsPage extends StatefulWidget {
 }
 
 class _F_GoodsApprovalsPageState extends State<F_GoodsApprovalsPage> {
+
   @override
   Widget build(BuildContext context) {
     return offlineWidget(context);
@@ -45,6 +50,16 @@ class _F_GoodsApprovalsPageState extends State<F_GoodsApprovalsPage> {
             leading: IconButton(icon:Icon(Icons.arrow_back),
               onPressed:() => Navigator.pop(context, false),
             ),
+            actions: <Widget>[
+              IconButton(
+                icon: Icon(
+                  Icons.add_circle,
+                  color: Colors.white,
+                ),
+                onPressed: () { GoToPage(context, AddGoodsEntryPage(database: widget.database,));}
+                // do something
+              )
+            ],
 
             centerTitle: true,
           ),
@@ -59,43 +74,40 @@ class _F_GoodsApprovalsPageState extends State<F_GoodsApprovalsPage> {
   }
 
   Widget _buildCards(BuildContext context) {
-    return Scaffold(
-      body: new SingleChildScrollView(
-        padding: EdgeInsets.all(10.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return StreamBuilder<List<ItemEntry>>(
+      stream: widget.database.readItemEntries(),
+      builder: (context, snapshot) {
+        print(snapshot.data.length);
+        return ListItemsBuilder<ItemEntry>(
+        snapshot: snapshot,
+        itemBuilder: (context, data) => Column(
           children: <Widget>[
-            Column(
-              children: <Widget>[
-
-                _ItemEntry('images/lorry.jpg','images/bill.jpg','Vasanth Steels','21-02-2020','12.20 pm',context, CameraPage()),
-                _ItemEntry('images/lorry.jpg','images/bill.jpg','Vasanth Steels','21-02-2020','12.20 pm',context, CameraPage()),
-                _ItemEntry('images/lorry.jpg','images/bill.jpg','Vasanth Steels','21-02-2020','12.20 pm',context, CameraPage()),
-
-
-              ],
+            Container(
+              child: SingleChildScrollView(
+                padding: EdgeInsets.all(10.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Column(
+                      children: <Widget>[
+                          _ItemEntry('images/lorry.jpg','images/bill.jpg','Vasanth Steels','${readTimestamp(data.securityEntryTimestamp.seconds)}',context, CameraPage()),
+                      ],
+                    ),
+                    SizedBox(height: 20,),
+                  ],
+                ),
+              ),
             ),
-            SizedBox(height: 20,),
-
           ],
         ),
-
-
-
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-      GoToPage(context, AddGoodsEntryPage(database: widget.database,));
-      },
-        backgroundColor: backgroundColor,
-        child: Icon(Icons.add,),
-      ), // Thi
+        );
+      }
     );
   }
 }
 
 
-_ItemEntry(String vehicelImgPath,String mmrImagepath, String companyName, String itemEntryDate,String itemEntryTime,BuildContext context,Widget page)
+_ItemEntry(String vehicelImgPath,String mmrImagepath, String companyName, String itemEntryTime, BuildContext context, Widget page)
 {
   return InkWell(
     child: Container(
@@ -150,10 +162,6 @@ _ItemEntry(String vehicelImgPath,String mmrImagepath, String companyName, String
                               image: DecorationImage(
                                   image: AssetImage(mmrImagepath), fit: BoxFit.cover))),
                       SizedBox(height: 20,),
-                      Text("Entry Date",style: descriptionStyle,),
-                      SizedBox(height: 10,),
-                      Text(itemEntryDate,style: descriptionStyleDark,),
-
                     ]
                 ),
               ],

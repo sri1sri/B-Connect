@@ -62,7 +62,8 @@ Future<void>_submitItemEntryDetails(String vehiceImage, String MRRImage, String 
     securityID: 'VlkppQFc9jaeLgpjyt2yAIQL5wy2',
     supervisorID: 'N0aPI4jS3RRE4yiDPyQhS0sVNfU2',
     managerID: 'HuOG1oaJCHSebSOKVeN3MNIU0eT2',
-    accountantID: '',
+    accountantID: 'abc',
+    storeManagerID: 'TzgGqaGfbNZ6wbnzBIuTUBdLtJi2',
 
     securityApproval: false,
     supervisorApproval: false,
