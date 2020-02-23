@@ -81,7 +81,7 @@ class _F_AddGoodsEntryPageState extends State<F_AddGoodsEntryPage> {
           body: _buildContent(context),
 
           bottomNavigationBar: BottomAppBar(
-            child:   Uploader(vehiceImage: _vehicelImage, MRRImage: _MRRImage),
+            child:   Uploader(vehiceImage: _vehicelImage, MRRImage: _MRRImage, database: widget.database,),
 //            ToDoButton(
           ),
         ),

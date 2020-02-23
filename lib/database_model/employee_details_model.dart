@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:meta/meta.dart';
 
@@ -16,8 +17,8 @@ class EmployeeDetails{
   final String username;
   final String phoneNumber;
   final String gender;
-  final String dateOfBirth;
-  final String joinedDate;
+  final Timestamp dateOfBirth;
+  final Timestamp joinedDate;
   final String latitude;
   final String longitude;
   final String role;
@@ -31,8 +32,8 @@ class EmployeeDetails{
     final String username = data['employee_name'];
     final String phoneNumber = data['employee_contact_number'];
     final String gender = data['employee_gender'];
-    final String dateOfBirth = data['employee_date_of_birth'];
-    final String joinedDate = data['employee_join_date'];
+    final Timestamp dateOfBirth = data['employee_date_of_birth'];
+    final Timestamp joinedDate = data['employee_join_date'];
     final String latitude = data['employee_latitude'];
     final String longitude = data['employee_longitude'];
     final String role = data['employee_role'];

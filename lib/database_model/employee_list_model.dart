@@ -22,9 +22,9 @@ class EmployeesList {
   final String employeeRole;
   final String employeeLatitude;
   final String employeeLongitude;
-  final String employeeJoinDate;
+  final Timestamp employeeJoinDate;
   final String employeeGender;
-  final String employeeDateOfBirth;
+  final Timestamp employeeDateOfBirth;
   final String employeeContactNumber;
 
 
@@ -38,9 +38,9 @@ class EmployeesList {
     final String employeeRole = data['employee_role'];
     final String employeeLatitude = data['employee_latitude'];
     final String employeeLongitude = data['employee_longitude'];
-    final String employeeJoinDate = data['employee_join_date'];
+    final Timestamp employeeJoinDate = data['employee_join_date'];
     final String employeeGender = data['employee_gender'];
-    final String employeeDateOfBirth = data['employee_date_of_birth'];
+    final Timestamp employeeDateOfBirth = data['employee_date_of_birth'];
     final String employeeContactNumber = data['employee_contact_number'];
 
     return EmployeesList(

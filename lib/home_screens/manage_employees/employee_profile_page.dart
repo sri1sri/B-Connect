@@ -77,7 +77,8 @@ class _F_EmployeeProfilePageState extends State<F_EmployeeProfilePage> {
         builder: (context, snapshot) {
           final employee = snapshot.data;
           return Center(
-            child: Padding(
+            child:
+            Padding(
               padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
               child: Column(
                 children: <Widget>[
@@ -85,7 +86,7 @@ class _F_EmployeeProfilePageState extends State<F_EmployeeProfilePage> {
                       height: 430,
                       width: 440,
                       //color: Colors.red,
-                      padding: EdgeInsets.symmetric(horizontal: -60.0),
+                      //padding: EdgeInsets.symmetric(horizontal: -60.0),
                       margin: const EdgeInsets.only(left: .2),
                       child: Column(children: <Widget>[
                         Stack(children: [
@@ -400,7 +401,7 @@ class _F_EmployeeProfilePageState extends State<F_EmployeeProfilePage> {
           );
         });
   }
-}//
+}
 
 void editUserRole(BuildContext context) {
   Dialog fancyDialog = Dialog(
@@ -481,4 +482,3 @@ void editUserRole(BuildContext context) {
   );
   showDialog(context: context, builder: (BuildContext context) => fancyDialog);
 }
-////lllhruwhruwhuiwdd

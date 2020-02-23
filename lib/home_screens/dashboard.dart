@@ -7,6 +7,7 @@ import 'package:bhavani_connect/common_widgets/platform_alert/platform_alert_dia
 import 'package:bhavani_connect/firebase/auth.dart';
 import 'package:bhavani_connect/firebase/database.dart';
 import 'package:bhavani_connect/home_screens/manage_goods/goods_approvals.dart';
+import 'package:bhavani_connect/home_screens/notifications_screens/notification_page.dart';
 import 'package:bhavani_connect/home_screens/store_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -52,8 +53,8 @@ class _F_DashboardState extends State<F_Dashboard> {
   }
   @override
   Widget _buildContent(BuildContext context) {
-    var features = ["Goods Approvals","Item entry","Store","Inventory","More","Attendance","Employees"];
-    List<IconData> F_icons=[Icons.touch_app,Icons.note_add,Icons.store,Icons.dashboard,Icons.people,Icons.pan_tool,Icons.account_circle];
+    var features = ["Goods Approvals","Item entry","Store","Inventory","Notifications","Attendance","Employees"];
+    List<IconData> F_icons=[Icons.touch_app,Icons.note_add,Icons.store,Icons.dashboard,Icons.notifications,Icons.pan_tool,Icons.account_circle];
     var myGridView = new GridView.builder(
 
       itemCount: features.length,
@@ -89,6 +90,10 @@ class _F_DashboardState extends State<F_Dashboard> {
               break;
               case 'Store': {
                 GoToPage(context, MrTabs());
+              }
+              break;
+              case 'Notifications': {
+                GoToPage(context, NotificationsPage());
               }
               break;
 

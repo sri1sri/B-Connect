@@ -1,6 +1,7 @@
 
 import 'package:bhavani_connect/database_model/employee_list_model.dart';
 import 'package:bhavani_connect/database_model/item_entry_model.dart';
+import 'package:bhavani_connect/database_model/notification_model.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
@@ -11,7 +12,9 @@ abstract class Database{
 
   Stream<List<EmployeesList>> readEmployees();
   Stream<EmployeesList> readEmployee(String employeeID);
-  Future<void> setItemEntry(ItemEntry job);
+  Future<void> setItemEntry(ItemEntry itemEntry, String itemID);
+  Stream<EmployeesList> currentUserDetails();
+  Future<void> setNotification(NotificationModel notificationEntry);
 
 //  Future<void> addCustomerDetails(CustomersDetails customersDetails);
 //  Stream<UserDetails> userDetails();
@@ -30,6 +33,11 @@ class FirestoreDatabase implements Database {
     path: APIPath.employeesList(),
     builder: (data, documentId) => EmployeesList.fromMap(data, documentId),
   );
+  @override
+  Stream<EmployeesList> currentUserDetails() => _service.documentStream(
+    path: APIPath.employeeDetails(uid),
+    builder: (data, documentId) => EmployeesList.fromMap(data, documentId),
+  );
 
   @override
   Stream<EmployeesList> readEmployee(String employeeID) => _service.documentStream(
@@ -37,22 +45,20 @@ class FirestoreDatabase implements Database {
     builder: (data, documentId) => EmployeesList.fromMap(data, documentId),
   );
 
+
+
+
   @override
-  Future<void> setItemEntry(ItemEntry itemEntry) async => await _service.setData(
-    path: APIPath.itemEntry(DateTime.now().toString()),
+  Future<void> setItemEntry(ItemEntry itemEntry, String itemID) async => await _service.setData(
+    path: APIPath.itemEntry(itemID),
     data: itemEntry.toMap(),
   );
 
-//  @override
-//  Future<void> addCustomerDetails(CustomersDetails customersDetails) async => await _service.setData(
-//    path: APIPath.customersDetails(uid),
-//    data: customersDetails.toMap(),
-//  );
-//
-//
-//  @override
-//  Stream<UserDetails> userDetails() => _service.documentStream(
-//    path: APIPath.customersDetails(uid),
-//    builder: (data, _) => UserDetails.fromMap(data),
-//  );
+  @override
+  Future<void> setNotification(NotificationModel notificationEntry) async => await _service.setData(
+    path: APIPath.notification(DateTime.now().toString()),
+    data: notificationEntry.toMap(),
+  );
+
+
 }
