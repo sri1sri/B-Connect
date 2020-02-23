@@ -31,7 +31,7 @@ dependencies:
   image_cropper: ^1.2.1
   firebase_storage: ^3.1.1
   url_launcher: ^5.1.2
-  flutter_launch: ^0.2.0
+  intl: ^0.16.1
 
 dev_dependencies:
   flutter_test:
@@ -67,7 +67,6 @@ flutter:
     - profile_image.jpg
     - images/bill.jpg
     - images/lorry.jpg
-    - images/whatsapp.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

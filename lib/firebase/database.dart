@@ -15,6 +15,7 @@ abstract class Database{
   Future<void> setItemEntry(ItemEntry itemEntry, String itemID);
   Stream<EmployeesList> currentUserDetails();
   Future<void> setNotification(NotificationModel notificationEntry);
+  Stream<List<ItemEntry>> readItemEntries();
 
 //  Future<void> addCustomerDetails(CustomersDetails customersDetails);
 //  Stream<UserDetails> userDetails();
@@ -45,6 +46,11 @@ class FirestoreDatabase implements Database {
     builder: (data, documentId) => EmployeesList.fromMap(data, documentId),
   );
 
+  @override
+  Stream<List<ItemEntry>> readItemEntries() => _service.collectionStream(
+    path: APIPath.itemEntriesList(),
+    builder: (data, documentId) => ItemEntry.fromMap(data, documentId),
+  );
 
 
 

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 void GoToPage(BuildContext context, Widget page) {
   Navigator.of(context).push(
@@ -8,4 +9,13 @@ void GoToPage(BuildContext context, Widget page) {
       builder: (context) => page,
     ),
   );
+}
+
+//var format = new DateFormat('HH:mm a');
+//String branchName;
+
+String readTimestamp(int timestamp) {
+  var format = new DateFormat('dd MMM yyyy, hh:mm a');
+  var date = new DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
+  return format.format(date);
 }
