@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:async';
+import 'package:bhavani_connect/common_variables/app_colors.dart';
 import 'package:bhavani_connect/common_variables/app_fonts.dart';
 import 'package:bhavani_connect/common_variables/app_functions.dart';
 import 'package:bhavani_connect/common_widgets/button_widget/to_do_button.dart';
@@ -69,14 +70,20 @@ class _F_AddGoodsEntryPageState extends State<F_AddGoodsEntryPage> {
         padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
         child: Scaffold(
           appBar: new AppBar(
-            title: Text(
-              'Add goods',
-              style: subTitleStyle,
+            backgroundColor: Color(0xFF1F4B6E),
+            title: Center(child:Text('Add Goods',style: subTitleStyleLight,)),
+            leading: IconButton(icon:Icon(Icons.arrow_back),
+              onPressed:() => Navigator.pop(context, false),
             ),
+
             centerTitle: true,
-            backgroundColor: Colors.white,
           ),
           body: _buildContent(context),
+
+          bottomNavigationBar: BottomAppBar(
+            child:   Uploader(vehiceImage: _vehicelImage, MRRImage: _MRRImage, database: widget.database,),
+//            ToDoButton(
+          ),
         ),
       ),
     );
@@ -88,84 +95,92 @@ class _F_AddGoodsEntryPageState extends State<F_AddGoodsEntryPage> {
 
   Widget _buildCards(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(10.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          Column(
-            children: <Widget>[
-              Column(
-                children: <Widget>[],
-              ),
-              Column(
-                children: <Widget>[
-                  Text('Upload vehicel Photo'),
-                  if (_vehicelImage != null) ...[
+      padding: EdgeInsets.all(20.0),
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
+          children: <Widget>[
+            Column(
+
+              children: <Widget>[
+                Column(
+                  children: <Widget>[],
+                ),
+                Column(
+                  children: <Widget>[
+
+                    Text('Upload vehicel Photo',style: subTitleStyle,),
+                    if (_vehicelImage != null) ...[
+                      InkWell(
+                        child: Container(
+                          width: 200,
+                          height: 200,
+                          //color: Colors.black12,
+                          child: Image.file(_vehicelImage),
+                        ),
+                        onTap: () {
+                          vechicelCamera = true;
+                          _captureImage();
+                        },
+                      ),
+                    ],
+
+                    SizedBox(height: 20,),
+
+
                     InkWell(
                       child: Container(
-                        width: 100,
-                        height: 100,
-                        color: Colors.black12,
-                        child: Image.file(_vehicelImage),
+                        width: 200,
+                        height: 20,
+//                        color: Colors.green,
+                        child: Center(child: Text('tap to add vehicle photo',style: descriptionStyle)),
                       ),
                       onTap: () {
                         vechicelCamera = true;
                         _captureImage();
                       },
                     ),
-                  ],
-
-                  InkWell(
-                    child: Container(
-                      width: 100,
-                      height: 100,
-                      color: Colors.black12,
-                      child: Center(child: Text('tap to add vehicel photo')),
+                    SizedBox(
+                      height: 30,
                     ),
-                    onTap: () {
-                      vechicelCamera = true;
-                      _captureImage();
-                    },
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  Text('Upload MRR'),
-                  if (_MRRImage != null) ...[
+                    Text('Upload MRR',style: subTitleStyle,),
+                    if (_MRRImage != null) ...[
+                      InkWell(
+                        child: Container(
+                          width: 200,
+                          height: 200,
+                          //color: Colors.black12,
+                          child: Image.file(_MRRImage),
+                        ),
+                        onTap: () {
+                          vechicelCamera = false;
+                          _captureImage();
+                        },
+                      ),
+                    ],
+                    SizedBox(height: 20,),
                     InkWell(
                       child: Container(
-                        width: 100,
-                        height: 100,
-                        color: Colors.black12,
-                        child: Image.file(_MRRImage),
+                        width: 200,
+                        height: 20,
+                        //color: Colors.black12,
+                        child: Center(child: Text('tap to add MRR photo',style: descriptionStyle)),
                       ),
                       onTap: () {
                         vechicelCamera = false;
                         _captureImage();
                       },
                     ),
-                  ],
-                  InkWell(
-                    child: Container(
-                      width: 100,
-                      height: 100,
-                      color: Colors.black12,
-                      child: Center(child: Text('tap to add MRR photo')),
+                    SizedBox(
+                      height: 30,
                     ),
-                    onTap: () {
-                      vechicelCamera = false;
-                      _captureImage();
-                    },
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  Uploader(vehiceImage: _vehicelImage, MRRImage: _MRRImage),
-                ],
-              ),
-            ],
-          ),
-        ],
+                  ],
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

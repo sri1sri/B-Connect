@@ -4,7 +4,9 @@ import 'package:bhavani_connect/common_widgets/list_item_builder/list_items_buil
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
 import 'package:bhavani_connect/database_model/employee_list_model.dart';
 import 'package:bhavani_connect/firebase/database.dart';
+import 'package:bhavani_connect/firebase/firebase_common_variables.dart';
 import 'package:bhavani_connect/home_screens/manage_employees/employee_profile_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -40,12 +42,13 @@ class _F_ManageEmployeesPageState extends State<F_ManageEmployeesPage> {
         padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
         child: Scaffold(
           appBar: new AppBar(
-            title: Text(
-              'Manage Employees',
-              style: subTitleStyle,
+            backgroundColor: Color(0xFF1F4B6E),
+            title: Center(child:Text('Manage Employees',style: subTitleStyleLight,)),
+            leading: IconButton(icon:Icon(Icons.arrow_back),
+              onPressed:() => Navigator.pop(context, false),
             ),
+
             centerTitle: true,
-            backgroundColor: Colors.white,
           ),
           body: _buildContent(context),
         ),
@@ -57,17 +60,21 @@ class _F_ManageEmployeesPageState extends State<F_ManageEmployeesPage> {
     return _buildCards(context);
   }
 
-  Widget _buildCards(BuildContext context) {
+  Widget getEditStatus (){
+    if(USERID() == 'HuOG1oaJCHSebSOKVeN3MNIU0eT2'){
+      return Text('Edit', style: subTitleStyle);
+    }
+    return Text('View', style: subTitleStyle);
+  }
 
-    print('read employees=>${widget.database.readEmployees()}');
+  Widget _buildCards(BuildContext context) {
 
     return StreamBuilder<List<EmployeesList>>(
       stream: widget.database.readEmployees(),
       builder: (context, snapshots) {
         return ListItemsBuilder<EmployeesList>(
           snapshot: snapshots,
-          itemBuilder: (context, data) => InkWell(
-            child: Container(
+          itemBuilder: (context, data) => Container(
               height: 100,
               child: Card(
                 child: Column(
@@ -77,13 +84,13 @@ class _F_ManageEmployeesPageState extends State<F_ManageEmployeesPage> {
                     InkWell(
                       child: ListTile(
                         leading: CircleAvatar(
-                          backgroundImage: AssetImage("images/apple.png"),
+                          backgroundImage: AssetImage("images/profile_image.jpg"),
                           backgroundColor: Colors.red,
-                          radius: 50,
+                          radius: 30,
                         ),
                         title: Text('${data.employeeName}',style: subTitleStyle,),
                         subtitle: Text(data.employeeRole, style: descriptionStyle,),
-                        trailing: Text('Edit', style: subTitleStyle,),
+                        trailing: getEditStatus(),
                       ),
                       onTap: (){
                         GoToPage(context, EmployeeProfilePage(database: widget.database, employeeID: data.employeeID,));
@@ -94,10 +101,7 @@ class _F_ManageEmployeesPageState extends State<F_ManageEmployeesPage> {
                 ),
               ),
             ),
-            onTap: () => {
-              print(''),
-            },
-          ),
+
         );
       }
     );

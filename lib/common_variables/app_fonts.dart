@@ -22,10 +22,32 @@ var descriptionStyle = TextStyle(
     fontFamily: 'Quicksand',
     fontWeight: FontWeight.w500,
     fontSize: 15.0);
+var subTitleStyleLight = TextStyle(
+    color: Colors.white,
+    fontFamily: 'Quicksand',
+    fontWeight: FontWeight.w700,
+    fontSize: 20.0);
 
 
+
+
+var descriptionStyleDark = TextStyle(
+    color: Colors.black,
+    fontFamily: 'Quicksand',
+    fontWeight: FontWeight.w500,
+    fontSize: 17.0);
 var activeSubTitleStyle = TextStyle(
     color: Colors.white,
     fontFamily: 'Quicksand',
     fontWeight: FontWeight.w600,
     fontSize: 22.0);
+var titleStylelight = TextStyle(
+    color: Colors.white,
+    fontFamily: 'Quicksand',
+    fontWeight: FontWeight.w700,
+    fontSize: 28.0);
+var descriptionStyleDarkBlur = TextStyle(
+    color: Colors.black.withOpacity(.5),
+    fontFamily: 'Quicksand',
+    fontWeight: FontWeight.w800,
+    fontSize: 18.0);

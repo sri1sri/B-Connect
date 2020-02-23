@@ -10,6 +10,7 @@ import 'package:bhavani_connect/firebase/auth.dart';
 import 'package:bhavani_connect/firebase/firestore_service.dart';
 import 'package:bhavani_connect/home_screens/home_page.dart';
 import 'package:bhavani_connect/models/sign_up_model.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -154,22 +155,22 @@ class _F_SignUpPageState extends State<F_SignUpPage> {
 
   Future<void> _submit() async {
     try {
-      FirebaseUser user1 = await FirebaseAuth.instance.currentUser();
+      FirebaseUser user = await FirebaseAuth.instance.currentUser();
 
-      final customerDetails = EmployeeDetails(
+      final employeeDetails = EmployeeDetails(
         username: _usernameController.value.text,
         phoneNumber: '+91${widget.phoneNo}',
         gender: 'N',
-        dateOfBirth: '',
-        joinedDate: '',
+        dateOfBirth: null,
+        joinedDate: Timestamp.fromDate(DateTime.now()),
         latitude: '',
         longitude: '',
         role: 'not assigned',
       );
 
       FirestoreService.instance.setData(
-        path: APIPath.employeeDetails(user1.uid),
-        data: customerDetails.toMap(),
+        path: APIPath.employeeDetails(user.uid),
+        data: employeeDetails.toMap(),
       );
       GoToPage(context, HomePage());
     } on PlatformException catch (e) {
