@@ -1,5 +1,6 @@
 import 'package:bhavani_connect/common_variables/app_colors.dart';
 import 'package:bhavani_connect/common_variables/app_fonts.dart';
+import 'package:bhavani_connect/common_variables/app_functions.dart';
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
 import 'package:bhavani_connect/database_model/employee_list_model.dart';
 import 'package:bhavani_connect/firebase/database.dart';
@@ -153,7 +154,7 @@ class _F_EmployeeProfilePageState extends State<F_EmployeeProfilePage> {
                                                     height: 5,
                                                   ),
                                                   Text(
-                                                      'role${employee.employeeRole}',
+                                                      '${employee.employeeRole}',
                                                       style:
                                                           descriptionStyleDark),
                                                 ],
@@ -308,7 +309,7 @@ class _F_EmployeeProfilePageState extends State<F_EmployeeProfilePage> {
                                   height: 5,
                                 ),
                                 Text(
-                                  '29-10-1996${employee.employeeDateOfBirth}',
+                                  '${getDate(employee.employeeDateOfBirth.seconds)}',
                                   style: subTitleStyle,
                                 ),
                                 SizedBox(
@@ -319,7 +320,7 @@ class _F_EmployeeProfilePageState extends State<F_EmployeeProfilePage> {
                                   height: 5,
                                 ),
                                 Text(
-                                  'Male${employee.employeeGender}',
+                                  '${employee.employeeGender}',
                                   style: subTitleStyle,
                                 ),
                                 SizedBox(
@@ -330,7 +331,7 @@ class _F_EmployeeProfilePageState extends State<F_EmployeeProfilePage> {
                                   height: 5,
                                 ),
                                 Text(
-                                  '21-02-2017${employee.employeeJoinDate}',
+                                  '${getDate(employee.employeeJoinDate.seconds)}',
                                   style: subTitleStyle,
                                 ),
                                 SizedBox(
@@ -380,7 +381,7 @@ class _F_EmployeeProfilePageState extends State<F_EmployeeProfilePage> {
                                 ],
                               ),
                               SizedBox(
-                                height: 10.0,
+                                height: 50.0,
                               ),
                             ],
                           ),
@@ -390,8 +391,12 @@ class _F_EmployeeProfilePageState extends State<F_EmployeeProfilePage> {
                             editUserRole(context);
                             print('editProfile');
                           },
-                        )
+                        ),
+                        SizedBox(
+                          height: 30.0,
+                        ),
                       ],
+
                     ),
                   ],
                 ),
