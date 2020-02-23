@@ -59,93 +59,122 @@ class _F_GoodsApprovalsPageState extends State<F_GoodsApprovalsPage> {
   }
 
   Widget _buildCards(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.all(10.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          Column(
-            children: <Widget>[
-              InkWell(
-                child: ListTile(
-                  leading: CircleAvatar(
-                    backgroundImage: AssetImage("images/apple.png"),
-                    backgroundColor: Colors.red,
-                    radius: 50,
-                  ),
-                  title: Text(
-                    'company name not updated',
-                    style: subTitleStyle,
-                  ),
-                  subtitle: Text(
-                    'MRR added time',
-                    style: descriptionStyle,
-                  ),
-                  //trailing: Text('Edit', style: subTitleStyle,),
-                ),
-                onTap: () {},
-              ),
+    return Scaffold(
+      body: new SingleChildScrollView(
+        padding: EdgeInsets.all(10.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Column(
+              children: <Widget>[
+
+                _ItemEntry('images/lorry.jpg','images/bill.jpg','Vasanth Steels','21-02-2020','12.20 pm',context, CameraPage()),
+                _ItemEntry('images/lorry.jpg','images/bill.jpg','Vasanth Steels','21-02-2020','12.20 pm',context, CameraPage()),
+                _ItemEntry('images/lorry.jpg','images/bill.jpg','Vasanth Steels','21-02-2020','12.20 pm',context, CameraPage()),
+
+
+              ],
+            ),
+            SizedBox(height: 20,),
+
+          ],
+        ),
 
 
 
-
-
-
-
-
-
-
-
-              InkWell(
-                child: ListTile(
-                  leading: CircleAvatar(
-                    backgroundImage: AssetImage("images/apple.png"),
-                    backgroundColor: Colors.red,
-                    radius: 50,
-                  ),
-                  title: Text(
-                    'company name not updated',
-                    style: subTitleStyle,
-                  ),
-                  subtitle: Text(
-                    'MRR added time',
-                    style: descriptionStyle,
-                  ),
-                  //trailing: Text('Edit', style: subTitleStyle,),
-                ),
-                onTap: () {
-                  GoToPage(context, CameraPage());
-                },
-              ),
-            ],
-          ),
-//          Column(children: <Widget>[
-//          ],),
-
-          Column(
-            children: <Widget>[
-              InkWell(
-                child: Center(
-                  child: CircleAvatar(
-                    child: Icon(Icons.add,size: 30,),
-                    backgroundColor: backgroundColor,
-                    radius: 30,
-                  ),
-                ),
-                onTap: () {
-                  GoToPage(context, AddGoodsEntryPage());
-                },
-              ),
-              SizedBox(
-                height: 50,
-              ),
-            ],
-          ),
-        ],
       ),
-
-
-
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+      GoToPage(context, AddGoodsEntryPage());
+      },
+        backgroundColor: backgroundColor,
+        child: Icon(Icons.add,),
+      ), // Thi
     );
   }
+}
+
+
+_ItemEntry(String vehicelImgPath,String mmrImagepath, String companyName, String itemEntryDate,String itemEntryTime,BuildContext context,Widget page)
+{
+  return InkWell(
+    child: Container(
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        color: Colors.white,
+        elevation: 10,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+
+          children: <Widget>[
+            SizedBox(height: 20,),
+            Center(child: Text(companyName,style: subTitleStyle,)),
+            SizedBox(height: 15,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Column(
+                    children: <Widget>[
+
+                      Text("Vehicle Photo",style: descriptionStyle,),
+                      SizedBox(height: 10,),
+                      Container(
+                          height: 100.0,
+                          width: 100.0,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                  topLeft: const Radius.circular(10.0),
+                                  topRight: const Radius.circular(10.0)),
+                              image: DecorationImage(
+                                  image: AssetImage(vehicelImgPath), fit: BoxFit.cover))),
+                      SizedBox(height: 20,),
+                      Text("Entry Time",style: descriptionStyle,),
+                      SizedBox(height: 10,),
+                      Text(itemEntryTime,style: descriptionStyleDark,),
+
+                    ]
+                ),
+                Column(
+                    children: <Widget>[
+                      Text("MRR Photo",style: descriptionStyle,),
+                      SizedBox(height: 10,),
+                      Container(
+                          height: 100.0,
+                          width: 100.0,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                  topLeft: const Radius.circular(10.0),
+                                  topRight: const Radius.circular(10.0)),
+                              image: DecorationImage(
+                                  image: AssetImage(mmrImagepath), fit: BoxFit.cover))),
+                      SizedBox(height: 20,),
+                      Text("Entry Date",style: descriptionStyle,),
+                      SizedBox(height: 10,),
+                      Text(itemEntryDate,style: descriptionStyleDark,),
+
+                    ]
+                ),
+              ],
+            ),
+            SizedBox(height: 20,),
+            Text("Order Status",style: descriptionStyle,),
+            SizedBox(height: 10,),
+            Text("Approval pending from store manager",style: descriptionStyleDark,),
+            SizedBox(height: 20,),
+            Text("Tap for Goods Details",style: descriptionStyleDarkBlur,),
+            SizedBox(height: 20,),
+          ],
+
+        ),
+      ),
+    ),
+    onTap: (){
+      GoToPage(context, page);
+
+
+    },
+  );
+
 }
