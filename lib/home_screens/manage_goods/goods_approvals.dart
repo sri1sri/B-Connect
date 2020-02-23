@@ -161,7 +161,52 @@ _ItemEntry(String vehicelImgPath,String mmrImagepath, String companyName, String
             SizedBox(height: 20,),
             Text("Order Status",style: descriptionStyle,),
             SizedBox(height: 10,),
-            Text("Approval pending from store manager",style: descriptionStyleDark,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Column(
+                    children: <Widget>[
+                      Row(
+                      children: <Widget>[
+                        CircleAvatar(backgroundColor: Colors.green,radius: 6,),
+                        SizedBox(width: 10,),
+                      Text("Entry Time",style: descriptionStyle,),
+                      ]
+                      ),
+                      SizedBox(height: 10,),
+                      Row(
+                          children: <Widget>[
+                            CircleAvatar(backgroundColor: Colors.red,radius: 8,),
+                            SizedBox(width: 10,),
+                            Text("Entry Time",style: descriptionStyle,),
+                          ]
+                      ),
+
+                    ]
+                ),
+                Column(
+                    children: <Widget>[
+                      Row(
+                          children: <Widget>[
+                            CircleAvatar(backgroundColor: Colors.yellow,radius: 8,),
+                            SizedBox(width: 10,),
+                            Text("Entry Time",style: descriptionStyle,),
+                          ]
+                      ),
+                      SizedBox(height: 10,),
+                      Row(
+                          children: <Widget>[
+                            CircleAvatar(backgroundColor: Colors.grey,radius: 8,),
+                            SizedBox(width: 10,),
+                            Text("Entry Time",style: descriptionStyle,),
+                          ]
+                      ),
+
+                    ]
+                ),
+              ],
+            ),
+            //Text("Approval pending from store manager",style: descriptionStyleDark,),
             SizedBox(height: 20,),
             Text("Tap for Goods Details",style: descriptionStyleDarkBlur,),
             SizedBox(height: 20,),

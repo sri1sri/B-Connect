@@ -130,7 +130,7 @@ Future<void>_submitNotificationDetails(String itemID) async {
     return FlatButton.icon(
         color: activeButtonTextColor,
         onPressed: _startUpload,
-        icon: Icon(Icons.add,size: 30,color: backgroundColor,),
+        icon: Icon(Icons.cloud_upload,size: 30,color: backgroundColor,),
         label: Text('Submit',style:titleStyle));
   }
   }
