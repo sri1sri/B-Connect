@@ -85,7 +85,7 @@ class _F_GoodsApprovalsPageState extends State<F_GoodsApprovalsPage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-      GoToPage(context, AddGoodsEntryPage());
+      GoToPage(context, AddGoodsEntryPage(database: widget.database,));
       },
         backgroundColor: backgroundColor,
         child: Icon(Icons.add,),
