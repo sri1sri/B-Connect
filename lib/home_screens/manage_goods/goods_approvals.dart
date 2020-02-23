@@ -90,7 +90,7 @@ class _F_GoodsApprovalsPageState extends State<F_GoodsApprovalsPage> {
                   children: <Widget>[
                     Column(
                       children: <Widget>[
-                          _ItemEntry('images/lorry.jpg','images/bill.jpg','Vasanth Steels','${readTimestamp(data.securityEntryTimestamp.seconds)}',context, CameraPage()),
+                          _ItemEntry('images/lorry.jpg','images/bill.jpg','Vasanth Steels','${getDateTime(data.securityEntryTimestamp.seconds)}',context, CameraPage()),
                       ],
                     ),
                     SizedBox(height: 20,),
