@@ -7,7 +7,6 @@ import 'package:bhavani_connect/database_model/item_entry_model.dart';
 import 'package:bhavani_connect/firebase/database.dart';
 import 'package:bhavani_connect/home_screens/camera_screens/Camera_page.dart';
 import 'package:bhavani_connect/home_screens/manage_goods/add_goods_entry_page.dart';
-import 'package:bhavani_connect/home_screens/manage_goods/goods_details_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -91,7 +90,7 @@ class _F_GoodsApprovalsPageState extends State<F_GoodsApprovalsPage> {
                   children: <Widget>[
                     Column(
                       children: <Widget>[
-                          _ItemEntry('images/lorry.jpg','images/bill.jpg','Vasanth Steels','${readTimestamp(data.securityEntryTimestamp.seconds)}',context, GoodsDetailsPage(database: widget.database,)),
+                          _ItemEntry('images/lorry.jpg','images/bill.jpg','Vasanth Steels','${readTimestamp(data.securityEntryTimestamp.seconds)}',context, CameraPage()),
                       ],
                     ),
                     SizedBox(height: 20,),
@@ -143,7 +142,9 @@ _ItemEntry(String vehicelImgPath,String mmrImagepath, String companyName, String
                               image: DecorationImage(
                                   image: AssetImage(vehicelImgPath), fit: BoxFit.cover))),
                       SizedBox(height: 20,),
-
+                      Text("Entry Time",style: descriptionStyle,),
+                      SizedBox(height: 10,),
+                      Text(itemEntryTime,style: descriptionStyleDark,),
 
                     ]
                 ),
@@ -165,64 +166,55 @@ _ItemEntry(String vehicelImgPath,String mmrImagepath, String companyName, String
                 ),
               ],
             ),
-            Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Text("Entry Time",style: descriptionStyle,),
-                  SizedBox(height: 10,),
-                  Text(itemEntryTime,style: descriptionStyleDark,),
-                ],
-            ),
             SizedBox(height: 20,),
             Text("Order Status",style: descriptionStyle,),
             SizedBox(height: 10,),
-//            Row(
-//              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//              children: [
-//                Column(
-//                    children: <Widget>[
-//                      Row(
-//                      children: <Widget>[
-//                        CircleAvatar(backgroundColor: Colors.green,radius: 6,),
-//                        SizedBox(width: 10,),
-//                      Text("Supervisor Approval",style: descriptionStyle,),
-//                      ]
-//                      ),
-//                      SizedBox(height: 10,),
-//                      Row(
-//                          children: <Widget>[
-//                            CircleAvatar(backgroundColor: Colors.red,radius: 6,),
-//                            SizedBox(width: 10,),
-//                            Text("Store Manager Approval",style: descriptionStyle,),
-//                          ]
-//                      ),
-//
-//
-//                    ]
-//                ),
-//                Column(
-//                    children: <Widget>[
-//                      Row(
-//                          children: <Widget>[
-//                            CircleAvatar(backgroundColor: Colors.yellow,radius: 6,),
-//                            SizedBox(width: 10,),
-//                            Text("Manager Approval",style: descriptionStyle,),
-//                          ]
-//                      ),
-//                      SizedBox(height: 10,),
-//                      Row(
-//                          children: <Widget>[
-//                            CircleAvatar(backgroundColor: Colors.grey,radius: 6,),
-//                            SizedBox(width: 10,),
-//                            Text("Accountant Approval",style: descriptionStyle,),
-//                          ]
-//                      ),
-//
-//                    ]
-//                ),
-//              ],
-//            ),
-            Text("Approval pending from store manager",style: descriptionStyleDark,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Column(
+                    children: <Widget>[
+                      Row(
+                      children: <Widget>[
+                        CircleAvatar(backgroundColor: Colors.green,radius: 6,),
+                        SizedBox(width: 10,),
+                      Text("Entry Time",style: descriptionStyle,),
+                      ]
+                      ),
+                      SizedBox(height: 10,),
+                      Row(
+                          children: <Widget>[
+                            CircleAvatar(backgroundColor: Colors.red,radius: 8,),
+                            SizedBox(width: 10,),
+                            Text("Entry Time",style: descriptionStyle,),
+                          ]
+                      ),
+
+                    ]
+                ),
+                Column(
+                    children: <Widget>[
+                      Row(
+                          children: <Widget>[
+                            CircleAvatar(backgroundColor: Colors.yellow,radius: 8,),
+                            SizedBox(width: 10,),
+                            Text("Entry Time",style: descriptionStyle,),
+                          ]
+                      ),
+                      SizedBox(height: 10,),
+                      Row(
+                          children: <Widget>[
+                            CircleAvatar(backgroundColor: Colors.grey,radius: 8,),
+                            SizedBox(width: 10,),
+                            Text("Entry Time",style: descriptionStyle,),
+                          ]
+                      ),
+
+                    ]
+                ),
+              ],
+            ),
+            //Text("Approval pending from store manager",style: descriptionStyleDark,),
             SizedBox(height: 20,),
             Text("Tap for Goods Details",style: descriptionStyleDarkBlur,),
             SizedBox(height: 20,),
