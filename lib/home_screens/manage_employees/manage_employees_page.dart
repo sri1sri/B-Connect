@@ -40,12 +40,13 @@ class _F_ManageEmployeesPageState extends State<F_ManageEmployeesPage> {
         padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
         child: Scaffold(
           appBar: new AppBar(
-            title: Text(
-              'Manage Employees',
-              style: subTitleStyle,
+            backgroundColor: Color(0xFF1F4B6E),
+            title: Center(child:Text('Manage Employees',style: subTitleStyleLight,)),
+            leading: IconButton(icon:Icon(Icons.arrow_back),
+              onPressed:() => Navigator.pop(context, false),
             ),
+
             centerTitle: true,
-            backgroundColor: Colors.white,
           ),
           body: _buildContent(context),
         ),
@@ -77,9 +78,9 @@ class _F_ManageEmployeesPageState extends State<F_ManageEmployeesPage> {
                     InkWell(
                       child: ListTile(
                         leading: CircleAvatar(
-                          backgroundImage: AssetImage("images/apple.png"),
+                          backgroundImage: AssetImage("images/profile_image.jpg"),
                           backgroundColor: Colors.red,
-                          radius: 50,
+                          radius: 30,
                         ),
                         title: Text('${data.employeeName}',style: subTitleStyle,),
                         subtitle: Text(data.employeeRole, style: descriptionStyle,),

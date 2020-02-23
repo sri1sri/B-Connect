@@ -7,6 +7,7 @@ import 'package:bhavani_connect/common_widgets/platform_alert/platform_alert_dia
 import 'package:bhavani_connect/firebase/auth.dart';
 import 'package:bhavani_connect/firebase/database.dart';
 import 'package:bhavani_connect/home_screens/manage_goods/goods_approvals.dart';
+import 'package:bhavani_connect/home_screens/store_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -52,7 +53,7 @@ class _F_DashboardState extends State<F_Dashboard> {
   @override
   Widget _buildContent(BuildContext context) {
     var features = ["Goods Approvals","Item entry","Store","Inventory","More","Attendance","Employees"];
-    List<IconData> F_icons=[Icons.touch_app,Icons.note_add,Icons.store,Icons.dashboard,Icons.people,Icons.pan_tool];
+    List<IconData> F_icons=[Icons.touch_app,Icons.note_add,Icons.store,Icons.dashboard,Icons.people,Icons.pan_tool,Icons.account_circle];
     var myGridView = new GridView.builder(
 
       itemCount: features.length,
@@ -62,9 +63,16 @@ class _F_DashboardState extends State<F_Dashboard> {
           child: new Card(
             elevation: 5.0,
             child: new Container(
-              alignment: Alignment.centerLeft,
-              margin: new EdgeInsets.only(top: 10.0, bottom: 10.0,left: 10.0),
-              child: new Text(features[index]),
+              alignment: Alignment.center,
+              margin: new EdgeInsets.only(top: 30.0, bottom: 10.0,left: 10.0,right: 10.0),
+              child: new Column(
+                children: <Widget>[
+                  new Icon(F_icons[index],size: 50,color: backgroundColor,),
+                  new Text( features[index],style: descriptionStyle,),
+
+                ],
+              ),
+
 
             ),
           ),
@@ -77,6 +85,10 @@ class _F_DashboardState extends State<F_Dashboard> {
 
               case 'Goods Approvals': {
                 GoToPage(context, GoodsApprovalsPage(database: widget.database,));
+              }
+              break;
+              case 'Store': {
+                GoToPage(context, MrTabs());
               }
               break;
 
@@ -110,15 +122,15 @@ class _F_DashboardState extends State<F_Dashboard> {
         backgroundColor: Colors.white,
 
       appBar: AppBar(
-        automaticallyImplyLeading: false,
+        automaticallyImplyLeading: true,
         backgroundColor: Colors.white,
         elevation: 0,
         title: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
+          //mainAxisAlignment: MainAxisAlignment.center,
+          //crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text("Hello!",style: subTitleStyle,),
-            Text("Vasanthakumar V G",style: descriptionStyle,),
+            Text("Hello!",style: titleStyle,),
+            Text("Vasanthakumar V G",style: subTitleStyle,),
           ],
         ),
         actions: <Widget>[

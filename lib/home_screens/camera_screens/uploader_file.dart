@@ -1,5 +1,7 @@
 import 'dart:io';
 import 'dart:async';
+import 'package:bhavani_connect/common_variables/app_colors.dart';
+import 'package:bhavani_connect/common_variables/app_fonts.dart';
 import 'package:bhavani_connect/database_model/item_entry_model.dart';
 import 'package:bhavani_connect/firebase/database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -76,9 +78,17 @@ void _startUpload() async{
     );
   }else{
     return FlatButton.icon(
+
+        color: activeButtonTextColor,
         onPressed: _startUpload,
-        icon: Icon(Icons.cloud_upload),
-        label: Text('Submit'));
+        icon: Icon(Icons.cloud_upload,size: 30,color: backgroundColor,),
+        label: Text('Submit',style:titleStyle));
   }
   }
 }
+
+
+
+
+
+
