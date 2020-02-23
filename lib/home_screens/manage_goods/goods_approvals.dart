@@ -133,7 +133,7 @@ class _F_GoodsApprovalsPageState extends State<F_GoodsApprovalsPage> {
                   ),
                 ),
                 onTap: () {
-                  GoToPage(context, AddGoodsEntryPage());
+                  GoToPage(context, AddGoodsEntryPage(database: widget.database,));
                 },
               ),
               SizedBox(
@@ -143,9 +143,6 @@ class _F_GoodsApprovalsPageState extends State<F_GoodsApprovalsPage> {
           ),
         ],
       ),
-
-
-
     );
   }
 }
