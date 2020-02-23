@@ -24,5 +24,9 @@ var activeButtonTextColor = Colors.white;
 var inActiveButtonTextColor = Colors.black54;
 
 
+
+
+
 var activeButtonBackgroundColor = Color(0xFF1F4B6E);
 var inActiveButtonBackgroundColor = Colors.black12;
+var removeButtonBackgroundColor = Colors.deepOrange;

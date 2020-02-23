@@ -1,3 +1,4 @@
+import 'package:bhavani_connect/common_variables/app_colors.dart';
 import 'package:bhavani_connect/common_variables/app_fonts.dart';
 import 'package:bhavani_connect/common_variables/app_functions.dart';
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
@@ -39,12 +40,13 @@ class _F_GoodsApprovalsPageState extends State<F_GoodsApprovalsPage> {
         padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
         child: Scaffold(
           appBar: new AppBar(
-            title: Text(
-              'Goods Approvals',
-              style: subTitleStyle,
+            backgroundColor: Color(0xFF1F4B6E),
+            title: Center(child:Text('Goods Approvals',style: subTitleStyleLight,)),
+            leading: IconButton(icon:Icon(Icons.arrow_back),
+              onPressed:() => Navigator.pop(context, false),
             ),
+
             centerTitle: true,
-            backgroundColor: Colors.white,
           ),
           body: _buildContent(context),
         ),
@@ -125,8 +127,8 @@ class _F_GoodsApprovalsPageState extends State<F_GoodsApprovalsPage> {
               InkWell(
                 child: Center(
                   child: CircleAvatar(
-                    backgroundImage: AssetImage("images/prolfile_image.jpg"),
-                    backgroundColor: Colors.red,
+                    child: Icon(Icons.add,size: 30,),
+                    backgroundColor: backgroundColor,
                     radius: 30,
                   ),
                 ),
@@ -141,6 +143,9 @@ class _F_GoodsApprovalsPageState extends State<F_GoodsApprovalsPage> {
           ),
         ],
       ),
+
+
+
     );
   }
 }
