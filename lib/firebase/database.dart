@@ -1,6 +1,7 @@
 
 import 'package:bhavani_connect/database_model/employee_list_model.dart';
-import 'package:bhavani_connect/database_model/item_entry_model.dart';
+import 'package:bhavani_connect/database_model/goods_entry_model.dart';
+import 'package:bhavani_connect/database_model/items_entry_model.dart';
 import 'package:bhavani_connect/database_model/notification_model.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
@@ -12,13 +13,11 @@ abstract class Database{
 
   Stream<List<EmployeesList>> readEmployees();
   Stream<EmployeesList> readEmployee(String employeeID);
-  Future<void> setItemEntry(ItemEntry itemEntry, String itemID);
+  Future<void> setGoodsEntry(GoodsEntry itemEntry, String itemID);
   Stream<EmployeesList> currentUserDetails();
   Future<void> setNotification(NotificationModel notificationEntry);
-  Stream<List<ItemEntry>> readItemEntries();
-
-//  Future<void> addCustomerDetails(CustomersDetails customersDetails);
-//  Stream<UserDetails> userDetails();
+  Stream<List<GoodsEntry>> readItemEntries();
+  Future<void> setItemEntry(ItemEntry itemEntry,String goodsID);
 
 }
 
@@ -47,16 +46,14 @@ class FirestoreDatabase implements Database {
   );
 
   @override
-  Stream<List<ItemEntry>> readItemEntries() => _service.collectionStream(
-    path: APIPath.itemEntriesList(),
-    builder: (data, documentId) => ItemEntry.fromMap(data, documentId),
+  Stream<List<GoodsEntry>> readItemEntries() => _service.collectionStream(
+    path: APIPath.goodsEntriesList(),
+    builder: (data, documentId) => GoodsEntry.fromMap(data, documentId),
   );
 
-
-
   @override
-  Future<void> setItemEntry(ItemEntry itemEntry, String itemID) async => await _service.setData(
-    path: APIPath.itemEntry(itemID),
+  Future<void> setGoodsEntry(GoodsEntry itemEntry, String itemID) async => await _service.setData(
+    path: APIPath.goodsEntry(itemID),
     data: itemEntry.toMap(),
   );
 
@@ -66,5 +63,10 @@ class FirestoreDatabase implements Database {
     data: notificationEntry.toMap(),
   );
 
+  @override
+  Future<void> setItemEntry(ItemEntry itemEntry,String goodsID) async => await _service.setData(
+    path: APIPath.addItem(goodsID, DateTime.now().toString()),
+    data: itemEntry.toMap(),
+  );
 
 }

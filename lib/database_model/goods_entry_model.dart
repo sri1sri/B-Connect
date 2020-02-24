@@ -2,8 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:meta/meta.dart';
 
-class ItemEntry {
-  ItemEntry({
+class GoodsEntry {
+  GoodsEntry({
     @required this.itemEntryID,
 
     @required this.vehicelImagePath,
@@ -25,6 +25,9 @@ class ItemEntry {
     @required this.managerApprovalTimestamp,
     @required this.storeMangerItemReceivedTimestamp,
     @required this.accountantTransactionStatusTimestamp,
+
+    @required this.MRRNumber,
+
   });
 
   final String itemEntryID;
@@ -49,7 +52,9 @@ class ItemEntry {
   final Timestamp storeMangerItemReceivedTimestamp;
   final Timestamp accountantTransactionStatusTimestamp;
 
-  factory ItemEntry.fromMap(Map<String, dynamic> data, String documentId) {
+  final int MRRNumber;
+
+  factory GoodsEntry.fromMap(Map<String, dynamic> data, String documentId) {
     if (data == null) {
       return null;
     }
@@ -80,7 +85,10 @@ class ItemEntry {
     final Timestamp accountantTransactionStatusTimestamp =
         data['accountant_transaction_status_timestamp'];
 
-    return ItemEntry(
+    final int MRRNumber =
+    data['mrr_number'];
+
+    return GoodsEntry(
       itemEntryID: itemEntryID,
       vehicelImagePath: vehicelImagePath,
       mrrImagePath: mrrImagePath,
@@ -99,6 +107,7 @@ class ItemEntry {
       storeMangerItemReceivedTimestamp: storeMangerItemReceivedTimestamp,
       accountantTransactionStatusTimestamp:
           accountantTransactionStatusTimestamp,
+      MRRNumber: MRRNumber,
     );
   }
 
@@ -120,6 +129,8 @@ class ItemEntry {
       'manager_approval_timestamp': managerApprovalTimestamp,
       'store_manger_item_received_timestamp': storeMangerItemReceivedTimestamp,
       'accountant_transaction_status_timestamp': accountantTransactionStatusTimestamp,
+      'mrr_number': MRRNumber,
+
     };
   }
 }

@@ -5,10 +5,10 @@ import 'package:bhavani_connect/common_variables/app_fonts.dart';
 import 'package:bhavani_connect/common_variables/app_functions.dart';
 import 'package:bhavani_connect/common_widgets/button_widget/to_do_button.dart';
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
-import 'package:bhavani_connect/database_model/item_entry_model.dart';
+import 'package:bhavani_connect/database_model/goods_entry_model.dart';
 import 'package:bhavani_connect/firebase/database.dart';
 import 'package:bhavani_connect/home_screens/camera_screens/Camera_page.dart';
-import 'package:bhavani_connect/home_screens/camera_screens/uploader_file.dart';
+import 'package:bhavani_connect/home_screens/manage_goods/uploader_file.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -37,7 +37,7 @@ class F_AddGoodsEntryPage extends StatefulWidget {
 class _F_AddGoodsEntryPageState extends State<F_AddGoodsEntryPage> {
   File _vehicelImage;
   File _MRRImage;
-
+  final TextEditingController _MRRNumberController = TextEditingController();
   bool vechicelCamera;
 
   Future<void> _captureImage() async {
@@ -75,13 +75,11 @@ class _F_AddGoodsEntryPageState extends State<F_AddGoodsEntryPage> {
             leading: IconButton(icon:Icon(Icons.arrow_back),
               onPressed:() => Navigator.pop(context, false),
             ),
-
             centerTitle: true,
           ),
           body: _buildContent(context),
-
           bottomNavigationBar: BottomAppBar(
-            child:   Uploader(vehiceImage: _vehicelImage, MRRImage: _MRRImage, database: widget.database,),
+            child: Uploader(vehiceImage: _vehicelImage, MRRImage: _MRRImage, database: widget.database, MRRNumber: _MRRNumberController.value.text,),
 //            ToDoButton(
           ),
         ),
@@ -90,7 +88,7 @@ class _F_AddGoodsEntryPageState extends State<F_AddGoodsEntryPage> {
   }
 
   Widget _buildContent(BuildContext context) {
-    return _buildCards(context);
+    return SingleChildScrollView(child: _buildCards(context));
   }
 
   Widget _buildCards(BuildContext context) {
@@ -174,6 +172,35 @@ class _F_AddGoodsEntryPageState extends State<F_AddGoodsEntryPage> {
                     ),
                     SizedBox(
                       height: 30,
+                    ),
+                    new TextFormField(
+                      keyboardType: TextInputType.number,
+                      controller: _MRRNumberController,
+                      textInputAction: TextInputAction.done,
+                      obscureText: false,
+                      decoration: new InputDecoration(
+                        prefixIcon: Icon(
+                          Icons.receipt,
+                          color: backgroundColor,
+                        ),
+                        labelText: "Enter MRR No.",
+                        border: new OutlineInputBorder(
+                          borderRadius: new BorderRadius.circular(5.0),
+                          borderSide: new BorderSide(
+                          ),
+                        ),
+                      ),
+
+                      validator: (val) {
+                        if(val.length==0) {
+                          return "MRR No. cannot be empty";
+                        }else{
+                          return null;
+                        }
+                      },
+                      style: new TextStyle(
+                        fontFamily: "Poppins",
+                      ),
                     ),
                   ],
                 ),

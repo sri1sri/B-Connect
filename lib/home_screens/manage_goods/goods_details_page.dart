@@ -4,30 +4,32 @@ import 'package:bhavani_connect/common_variables/app_functions.dart';
 import 'package:bhavani_connect/common_widgets/button_widget/add_to_cart_button.dart';
 import 'package:bhavani_connect/common_widgets/list_item_builder/list_items_builder.dart';
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
-import 'package:bhavani_connect/database_model/item_entry_model.dart';
+import 'package:bhavani_connect/database_model/goods_entry_model.dart';
 import 'package:bhavani_connect/firebase/database.dart';
 import 'package:bhavani_connect/home_screens/camera_screens/Camera_page.dart';
 import 'package:bhavani_connect/home_screens/manage_goods/add_goods_entry_page.dart';
+import 'package:bhavani_connect/home_screens/manage_goods/add_items_entry_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 
 class GoodsDetailsPage extends StatelessWidget {
-  GoodsDetailsPage({@required this.database});
+  GoodsDetailsPage({@required this.database, @required this.goodsID});
   Database database;
-
+String goodsID;
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: F_GoodsDetailsPage(database: database,),
+      child: F_GoodsDetailsPage(database: database,goodsID: goodsID,),
     );
   }
 }
 
 class F_GoodsDetailsPage extends StatefulWidget {
-  F_GoodsDetailsPage({@required this.database});
+  F_GoodsDetailsPage({@required this.database, @required this.goodsID});
   Database database;
+  String goodsID;
 
   @override
   _F_GoodsDetailsPageState createState() => _F_GoodsDetailsPageState();
@@ -41,6 +43,7 @@ class _F_GoodsDetailsPageState extends State<F_GoodsDetailsPage> {
   }
 
   Widget offlineWidget(BuildContext context) {
+    print('goodsID=>${widget.goodsID}');
     return CustomOfflineWidget(
       onlineChild: Padding(
         padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
@@ -57,8 +60,7 @@ class _F_GoodsDetailsPageState extends State<F_GoodsDetailsPage> {
                     Icons.add_circle,
                     color: Colors.white,
                   ),
-                  onPressed: () { GoToPage(context, CameraPage());}
-                // do something
+                  onPressed: () { GoToPage(context, ItemsEntryPage(database: widget.database,goodsID: widget.goodsID,),);}
               )
             ],
 
@@ -75,11 +77,11 @@ class _F_GoodsDetailsPageState extends State<F_GoodsDetailsPage> {
   }
 
   Widget _buildCards(BuildContext context) {
-    return StreamBuilder<List<ItemEntry>>(
+    return StreamBuilder<List<GoodsEntry>>(
         stream: widget.database.readItemEntries(),
         builder: (context, snapshot) {
           print(snapshot.data.length);
-          return ListItemsBuilder<ItemEntry>(
+          return ListItemsBuilder<GoodsEntry>(
             snapshot: snapshot,
             itemBuilder: (context, data) =>
                 Column(
