@@ -83,7 +83,7 @@ class _F_GoodsApprovalsPageState extends State<F_GoodsApprovalsPage> {
 
   Widget _buildCards(BuildContext context) {
     return StreamBuilder<List<GoodsEntry>>(
-        stream: widget.database.readItemEntries(),
+        stream: widget.database.readGoodsEntries(),
         builder: (context, snapshot) {
           print(snapshot.data.length);
           return ListItemsBuilder<GoodsEntry>(

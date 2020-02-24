@@ -16,9 +16,10 @@ abstract class Database{
   Future<void> setGoodsEntry(GoodsEntry itemEntry, String itemID);
   Stream<EmployeesList> currentUserDetails();
   Future<void> setNotification(NotificationModel notificationEntry);
-  Stream<List<GoodsEntry>> readItemEntries();
+  Stream<List<GoodsEntry>> readGoodsEntries();
   Future<void> setItemEntry(ItemEntry itemEntry,String goodsID);
-
+  Stream<GoodsEntry> readGoodsDetails(String goodsID);
+  Stream<List<ItemEntry>> viewItemsList(String goodsID);
 }
 
 class FirestoreDatabase implements Database {
@@ -46,7 +47,7 @@ class FirestoreDatabase implements Database {
   );
 
   @override
-  Stream<List<GoodsEntry>> readItemEntries() => _service.collectionStream(
+  Stream<List<GoodsEntry>> readGoodsEntries() => _service.collectionStream(
     path: APIPath.goodsEntriesList(),
     builder: (data, documentId) => GoodsEntry.fromMap(data, documentId),
   );
@@ -68,5 +69,17 @@ class FirestoreDatabase implements Database {
     path: APIPath.addItem(goodsID, DateTime.now().toString()),
     data: itemEntry.toMap(),
   );
+  @override
+  Stream<List<ItemEntry>> viewItemsList(String goodsID) => _service.collectionStream(
+    path: APIPath.viewItemsList(goodsID),
+    builder: (data, documentId) => ItemEntry.fromMap(data, documentId),
+  );
+
+  @override
+  Stream<GoodsEntry> readGoodsDetails(String goodsID) => _service.documentStream(
+    path: APIPath.goodsEntry(goodsID),
+    builder: (data, documentId) => GoodsEntry.fromMap(data, documentId),
+  );
+
 
 }
