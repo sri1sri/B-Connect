@@ -134,8 +134,7 @@ class _F_GoodsDetailsPageState extends State<F_GoodsDetailsPage> {
 //                            goods.managerApprovalTimestamp.seconds == null ? getDateTime(goods.securityEntryTimestamp.seconds) : getDateTime(goods.managerApprovalTimestamp.seconds),
 //                            goods.storeMangerItemReceivedTimestamp.seconds == null ? getDateTime(goods.securityEntryTimestamp.seconds) : getDateTime(goods.storeMangerItemReceivedTimestamp.seconds),
 //                            goods.accountantTransactionStatusTimestamp.seconds == null ? getDateTime(goods.securityEntryTimestamp.seconds) : getDateTime(goods.accountantTransactionStatusTimestamp.seconds),
-                                    context,
-                                    CameraPage()),
+                                ),
                                 _ItemCard(itemsData.companyName, itemsData.itemName, itemsData.categoryName,
                                     itemsData.quantity.toString()),
                                 //_ApprovalButton(),
@@ -162,182 +161,213 @@ class _F_GoodsDetailsPageState extends State<F_GoodsDetailsPage> {
       String managerUpdatedTime,
       String storeManagerUpdatedTime,
       String accountantUpdatedTime,
-      BuildContext context,
-      Widget page) {
-    return InkWell(
-      child: Container(
-        child: Card(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10.0),
+     ) {
+    return Container(
+        child: Column(
+          children: <Widget>[
+           Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+            color: Colors.white,
+            elevation: 10,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                SizedBox(
+                  height: 20,
+                ),
+                Center(
+                    child: Text(
+                  companyName,
+                  style: subTitleStyle,
+                )),
+                SizedBox(
+                  height: 15,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Column(children: <Widget>[
+                      Text(
+                        "Vehicle Photo",
+                        style: descriptionStyle,
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Container(
+                          height: 100.0,
+                          width: 100.0,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                  topLeft: const Radius.circular(10.0),
+                                  topRight: const Radius.circular(10.0)),
+                              image: DecorationImage(
+                                  image: NetworkImage(vehicelImgPath),
+                                  fit: BoxFit.cover))),
+                      SizedBox(
+                        height: 20,
+                      ),
+                    ]),
+                    Column(children: <Widget>[
+                      Text(
+                        "MRR Photo",
+                        style: descriptionStyle,
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Container(
+                          height: 100.0,
+                          width: 100.0,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                  topLeft: const Radius.circular(10.0),
+                                  topRight: const Radius.circular(10.0)),
+                              image: DecorationImage(
+                                  image: NetworkImage(mmrImagepath),
+                                  fit: BoxFit.cover))),
+                      SizedBox(
+                        height: 20,
+                      ),
+                    ]),
+                  ],
+                ),
+                Row(
+                  children: <Widget>[
+                    SizedBox(width: 50,),
+                    Column(
+                      //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+
+                          SizedBox(height: 20,),
+                          CircleAvatar(backgroundColor: Colors.grey,radius: 6,),
+                          Text(" | ",style: descriptionStyle,),
+                          Text(" | ",style: descriptionStyle,),
+                          Text(" | ",style: descriptionStyle,),
+                          Text(" | ",style: descriptionStyle,),
+                          CircleAvatar(backgroundColor: Colors.grey,radius: 6,),
+                          Text(" | ",style: descriptionStyle,),
+                          Text(" | ",style: descriptionStyle,),
+                          Text(" | ",style: descriptionStyle,),
+                          Text(" | ",style: descriptionStyle,),
+                          CircleAvatar(backgroundColor: Colors.grey,radius: 6,),
+                          Text(" | ",style: descriptionStyle,),
+                          Text(" | ",style: descriptionStyle,),
+                          Text(" | ",style: descriptionStyle,),
+                          Text(" | ",style: descriptionStyle,),
+                          CircleAvatar(backgroundColor: Colors.grey,radius: 6,),
+                          Text(" | ",style: descriptionStyle,),
+                          Text(" | ",style: descriptionStyle,),
+                          Text(" | ",style: descriptionStyle,),
+                          Text(" | ",style: descriptionStyle,),
+                          CircleAvatar(backgroundColor: Colors.grey,radius: 6,),
+                          SizedBox(height: 20,),
+
+                        ],
+                    ),
+                    SizedBox(width: 50,),
+                    Column(
+                      //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Text(
+                          "Security Approved Time",
+                          style: descriptionStyle,
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          securityUpdatedTime,
+                          style: descriptionStyleDark,
+                        ),
+                        SizedBox(
+                          height: 30,
+                        ),
+                        Text(
+                          "Supervisor Approved Time",
+                          style: descriptionStyle,
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          supervisorUpdatedTime,
+                          style: descriptionStyleDark,
+                        ),
+                        SizedBox(
+                          height: 30,
+                        ),
+                        Text(
+                          "Manager Approved Time",
+                          style: descriptionStyle,
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          managerUpdatedTime,
+                          style: descriptionStyleDark,
+                        ),
+                        SizedBox(
+                          height: 30,
+                        ),
+                        Text(
+                          "Store Manager Approved Time",
+                          style: descriptionStyle,
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          storeManagerUpdatedTime,
+                          style: descriptionStyleDark,
+                        ),
+                        SizedBox(
+                          height: 30,
+                        ),
+                        Text(
+                          "Accountant Approved Time",
+                          style: descriptionStyle,
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          accountantUpdatedTime,
+                          style: descriptionStyleDark,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+
+                SizedBox(
+                  height: 10,
+                ),
+
+              ],
+
+            ),
           ),
-          color: Colors.white,
-          elevation: 10,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              SizedBox(
-                height: 20,
-              ),
-              Center(
-                  child: Text(
-                companyName,
-                style: subTitleStyle,
-              )),
-              SizedBox(
-                height: 15,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Column(children: <Widget>[
-                    Text(
-                      "Vehicle Photo",
-                      style: descriptionStyle,
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Container(
-                        height: 100.0,
-                        width: 100.0,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.only(
-                                topLeft: const Radius.circular(10.0),
-                                topRight: const Radius.circular(10.0)),
-                            image: DecorationImage(
-                                image: NetworkImage(vehicelImgPath),
-                                fit: BoxFit.cover))),
-                    SizedBox(
-                      height: 20,
-                    ),
-                  ]),
-                  Column(children: <Widget>[
-                    Text(
-                      "MRR Photo",
-                      style: descriptionStyle,
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Container(
-                        height: 100.0,
-                        width: 100.0,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.only(
-                                topLeft: const Radius.circular(10.0),
-                                topRight: const Radius.circular(10.0)),
-                            image: DecorationImage(
-                                image: NetworkImage(mmrImagepath),
-                                fit: BoxFit.cover))),
-                    SizedBox(
-                      height: 20,
-                    ),
-                  ]),
-                ],
-              ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Text(
-                    "Security Approved Time",
-                    style: descriptionStyle,
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    securityUpdatedTime,
-                    style: descriptionStyleDark,
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Text(
-                    "Supervisor Approved Time",
-                    style: descriptionStyle,
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    supervisorUpdatedTime,
-                    style: descriptionStyleDark,
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Text(
-                    "Manager Approved Time",
-                    style: descriptionStyle,
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    managerUpdatedTime,
-                    style: descriptionStyleDark,
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Text(
-                    "Store Manager Approved Time",
-                    style: descriptionStyle,
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    storeManagerUpdatedTime,
-                    style: descriptionStyleDark,
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Text(
-                    "Accountant Approved Time",
-                    style: descriptionStyle,
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    accountantUpdatedTime,
-                    style: descriptionStyleDark,
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 20,
-              ),
-            ],
-          ),
+
+
+
+//            _ItemCard(itemsData.companyName, itemsData.itemName, itemsData.categoryName,
+//                itemsData.quantity.toString()),
+
+
+
+          ],
         ),
-      ),
-      onTap: () {
-        GoToPage(context, page);
-      },
+
     );
+
+//      onTap: () {
+//        GoToPage(context, page);
+//      },
+//    );
   }
 
   _ItemCard(

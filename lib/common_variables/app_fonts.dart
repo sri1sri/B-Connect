@@ -28,7 +28,11 @@ var subTitleStyleLight = TextStyle(
     fontWeight: FontWeight.w700,
     fontSize: 20.0);
 
-
+var statusTracker = TextStyle(
+    color: Color(0xFF1F4B6E),
+    fontFamily: 'Quicksand',
+    fontWeight: FontWeight.w500,
+    fontSize: 14.0);
 
 
 var descriptionStyleDark = TextStyle(

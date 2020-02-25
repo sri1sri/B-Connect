@@ -260,7 +260,38 @@ _OrderCard(String companyName, String itemName, String category, String quantity
             SizedBox(height: 10,),
             Text("Order Status",style: descriptionStyle,),
             SizedBox(height: 10,),
-            Text("Approval pending from store manager",style: descriptionStyleDark,),
+            Row(
+              children: <Widget>[
+                SizedBox(width: 40,),
+                CircleAvatar(backgroundColor: Colors.grey,radius: 6,),
+                Text(" ------------ ",style: descriptionStyle,),
+                CircleAvatar(backgroundColor: Colors.yellow,radius: 6,),
+                Text(" ------------ ",style: descriptionStyle,),
+                CircleAvatar(backgroundColor: Colors.green,radius: 6,),
+                Text(" ------------ ",style: descriptionStyle,),
+                CircleAvatar(backgroundColor: Colors.red,radius: 6,),
+                SizedBox(width: 40,),
+              ],
+            ),
+            SizedBox(height: 10,),
+            Row(
+              children: <Widget>[
+                SizedBox(width: 10,),
+                Text("Supervisor",style: statusTracker,),
+                SizedBox(width: 25,),
+
+                Text("Manager",style: statusTracker,),
+                SizedBox(width: 10,),
+                Text("Store Manager",style: statusTracker,),
+                SizedBox(width: 10,),
+
+                Text("Accountant",style: statusTracker,),
+
+              ],
+            ),
+
+
+
             SizedBox(height: 20,),
             Text("Tap for Order Details",style: descriptionStyleDarkBlur,),
             SizedBox(height: 20,),

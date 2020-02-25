@@ -224,54 +224,35 @@ class _F_GoodsApprovalsPageState extends State<F_GoodsApprovalsPage> {
               SizedBox(
                 height: 10,
               ),
-//            Row(
-//              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//              children: [
-//                Column(
-//                    children: <Widget>[
-//                      Row(
-//                      children: <Widget>[
-//                        CircleAvatar(backgroundColor: Colors.green,radius: 6,),
-//                        SizedBox(width: 10,),
-//                      Text("Entry Time",style: descriptionStyle,),
-//                      ]
-//                      ),
-//                      SizedBox(height: 10,),
-//                      Row(
-//                          children: <Widget>[
-//                            CircleAvatar(backgroundColor: Colors.red,radius: 8,),
-//                            SizedBox(width: 10,),
-//                            Text("Entry Time",style: descriptionStyle,),
-//                          ]
-//                      ),
-//
-//                    ]
-//                ),
-//                Column(
-//                    children: <Widget>[
-//                      Row(
-//                          children: <Widget>[
-//                            CircleAvatar(backgroundColor: Colors.yellow,radius: 8,),
-//                            SizedBox(width: 10,),
-//                            Text("Entry Time",style: descriptionStyle,),
-//                          ]
-//                      ),
-//                      SizedBox(height: 10,),
-//                      Row(
-//                          children: <Widget>[
-//                            CircleAvatar(backgroundColor: Colors.grey,radius: 8,),
-//                            SizedBox(width: 10,),
-//                            Text("Entry Time",style: descriptionStyle,),
-//                          ]
-//                      ),
-//
-//                    ]
-//                ),
-//              ],
-//            ),
-              Text(
-                "Approval pending from store manager",
-                style: descriptionStyleDark,
+              SizedBox(height: 10,),
+              Row(
+                children: <Widget>[
+                  SizedBox(width: 50,),
+                  CircleAvatar(backgroundColor: Colors.grey,radius: 6,),
+                  Text(" ------------ ",style: descriptionStyle,),
+                  CircleAvatar(backgroundColor: Colors.grey,radius: 6,),
+                  Text(" ------------ ",style: descriptionStyle,),
+                  CircleAvatar(backgroundColor: Colors.grey,radius: 6,),
+                  Text(" ------------ ",style: descriptionStyle,),
+                  CircleAvatar(backgroundColor: Colors.grey,radius: 6,),
+                  SizedBox(width: 50,),
+                ],
+              ),
+              SizedBox(height: 10,),
+              Row(
+                children: <Widget>[
+                  SizedBox(width: 20,),
+                  Text("Supervisor",style: statusTracker,),
+                  SizedBox(width: 25,),
+
+                  Text("Manager",style: statusTracker,),
+                  SizedBox(width: 10,),
+                  Text("Store Manager",style: statusTracker,),
+                  SizedBox(width: 10,),
+
+                  Text("Accountant",style: statusTracker,),
+
+                ],
               ),
               SizedBox(
                 height: 20,
