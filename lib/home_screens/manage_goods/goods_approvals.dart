@@ -2,6 +2,7 @@ import 'package:bhavani_connect/common_variables/app_fonts.dart';
 import 'package:bhavani_connect/common_variables/app_functions.dart';
 import 'package:bhavani_connect/common_widgets/list_item_builder/list_items_builder.dart';
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
+import 'package:bhavani_connect/database_model/employee_details_model.dart';
 import 'package:bhavani_connect/database_model/goods_entry_model.dart';
 import 'package:bhavani_connect/firebase/database.dart';
 import 'package:bhavani_connect/home_screens/manage_goods/add_goods_entry_page.dart';
@@ -10,28 +11,51 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class GoodsApprovalsPage extends StatelessWidget {
-  GoodsApprovalsPage({@required this.database});
+  GoodsApprovalsPage({@required this.database, @required this.employee});
   Database database;
+  EmployeeDetails employee;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       child: F_GoodsApprovalsPage(
         database: database,
+        employee: employee,
       ),
     );
   }
 }
 
 class F_GoodsApprovalsPage extends StatefulWidget {
-  F_GoodsApprovalsPage({@required this.database});
+  F_GoodsApprovalsPage({@required this.database, @required this.employee});
   Database database;
+  EmployeeDetails employee;
 
   @override
   _F_GoodsApprovalsPageState createState() => _F_GoodsApprovalsPageState();
 }
 
 class _F_GoodsApprovalsPageState extends State<F_GoodsApprovalsPage> {
+
+  Widget addGoods(){
+    if(widget.employee.role == 'Security'){
+      return IconButton(
+          icon: Icon(
+            Icons.add_circle,
+            color: Colors.white,
+          ),
+          onPressed: () {
+            GoToPage(
+                context,
+                AddGoodsEntryPage(
+                  database: widget.database,
+                ));
+          }
+      );
+    }else{
+      return Container();
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return offlineWidget(context);
@@ -54,20 +78,7 @@ class _F_GoodsApprovalsPageState extends State<F_GoodsApprovalsPage> {
               onPressed: () => Navigator.pop(context, false),
             ),
             actions: <Widget>[
-              IconButton(
-                  icon: Icon(
-                    Icons.add_circle,
-                    color: Colors.white,
-                  ),
-                  onPressed: () {
-                    GoToPage(
-                        context,
-                        AddGoodsEntryPage(
-                          database: widget.database,
-                        ));
-                  }
-                  // do something
-                  )
+              addGoods(),
             ],
             centerTitle: true,
           ),
@@ -99,15 +110,12 @@ class _F_GoodsApprovalsPageState extends State<F_GoodsApprovalsPage> {
                         Column(
                           children: <Widget>[
                             _ItemEntry(
-                                data.vehicelImagePath,
-                                data.mrrImagePath,
-                                'MRR No. - ${data.MRRNumber}',
-                                '${getDateTime(data.securityEntryTimestamp.seconds)}',
                                 context,
                                 GoodsDetailsPage(
                                   database: widget.database,
                                   goodsID: data.itemEntryID,
-                                )),
+                                  employee: widget.employee,
+                                ), data),
                           ],
                         ),
                         SizedBox(
@@ -123,9 +131,7 @@ class _F_GoodsApprovalsPageState extends State<F_GoodsApprovalsPage> {
         });
   }
 
-  _ItemEntry(String vehicelImgPath, String mrrImagepath, String companyName,
-      String itemEntryTime, BuildContext context, Widget page) {
-
+  _ItemEntry(BuildContext context, Widget page, GoodsEntry data) {
     return InkWell(
       child: Container(
         child: Card(
@@ -142,7 +148,7 @@ class _F_GoodsApprovalsPageState extends State<F_GoodsApprovalsPage> {
               ),
               Center(
                   child: Text(
-                companyName,
+                'MRR No. - ${data.MRRNumber}',
                 style: subTitleStyle,
               )),
               SizedBox(
@@ -168,7 +174,7 @@ class _F_GoodsApprovalsPageState extends State<F_GoodsApprovalsPage> {
                             topRight: const Radius.circular(10.0),
                         ),
                         image: DecorationImage(
-                          image: NetworkImage(vehicelImgPath),
+                          image: NetworkImage(data.vehicelImagePath),
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -177,7 +183,8 @@ class _F_GoodsApprovalsPageState extends State<F_GoodsApprovalsPage> {
                       height: 20,
                     ),
                   ]),
-                  Column(children: <Widget>[
+                  Column(
+                      children: <Widget>[
                     Text(
                       "MRR Photo",
                       style: descriptionStyle,
@@ -193,7 +200,7 @@ class _F_GoodsApprovalsPageState extends State<F_GoodsApprovalsPage> {
                                 topLeft: const Radius.circular(10.0),
                                 topRight: const Radius.circular(10.0)),
                             image: DecorationImage(
-                                image: NetworkImage(mrrImagepath),
+                                image: NetworkImage(data.mrrImagePath),
                                 fit: BoxFit.cover))),
                     SizedBox(
                       height: 20,
@@ -210,7 +217,7 @@ class _F_GoodsApprovalsPageState extends State<F_GoodsApprovalsPage> {
                   height: 10,
                 ),
                 Text(
-                  itemEntryTime,
+                  '${getDateTime(data.securityRequestedTimestamp.seconds)}',
                   style: descriptionStyleDark,
                 ),
               ]),
@@ -225,27 +232,15 @@ class _F_GoodsApprovalsPageState extends State<F_GoodsApprovalsPage> {
                 height: 10,
               ),
               SizedBox(height: 10,),
-              Row(
-                children: <Widget>[
-                  SizedBox(width: 50,),
-                  CircleAvatar(backgroundColor: Colors.grey,radius: 6,),
-                  Text(" ------------ ",style: descriptionStyle,),
-                  CircleAvatar(backgroundColor: Colors.grey,radius: 6,),
-                  Text(" ------------ ",style: descriptionStyle,),
-                  CircleAvatar(backgroundColor: Colors.grey,radius: 6,),
-                  Text(" ------------ ",style: descriptionStyle,),
-                  CircleAvatar(backgroundColor: Colors.grey,radius: 6,),
-                  SizedBox(width: 50,),
-                ],
-              ),
+              _trackGoodsStatus(data.approvalLevel),
               SizedBox(height: 10,),
               Row(
                 children: <Widget>[
                   SizedBox(width: 20,),
-                  Text("Supervisor",style: statusTracker,),
+                  Text("Security",style: statusTracker,),
                   SizedBox(width: 25,),
 
-                  Text("Manager",style: statusTracker,),
+                  Text("Supervisor",style: statusTracker,),
                   SizedBox(width: 10,),
                   Text("Store Manager",style: statusTracker,),
                   SizedBox(width: 10,),
@@ -271,6 +266,46 @@ class _F_GoodsApprovalsPageState extends State<F_GoodsApprovalsPage> {
       onTap: () {
          GoToPage(context, page);
       },
+    );
+  }
+
+  Widget _trackGoodsStatus(int approvalLevel){
+    switch (approvalLevel) {
+      case 0:
+        return statusTrackerWidget(Colors.orangeAccent, Colors.grey, Colors.grey, Colors.grey);
+        break;
+
+      case 1:
+        return statusTrackerWidget(Colors.green, Colors.orangeAccent, Colors.grey, Colors.grey);
+        break;
+
+      case 2:
+        return statusTrackerWidget(Colors.green, Colors.green, Colors.orangeAccent, Colors.grey);
+        break;
+
+      case 3:
+        return statusTrackerWidget(Colors.green, Colors.green, Colors.green, Colors.orangeAccent);
+        break;
+
+      case 4:
+        return statusTrackerWidget(Colors.green, Colors.green, Colors.green, Colors.green);
+        break;
+
+    }
+  }
+  Widget statusTrackerWidget(Color levelOne, Color levelTwo, Color levelThree, Color levelFour){
+    return Row(
+      children: <Widget>[
+        SizedBox(width: 50,),
+        CircleAvatar(backgroundColor: levelOne,radius: 6,),
+        Text(" ------------ ",style: descriptionStyle,),
+        CircleAvatar(backgroundColor: levelTwo,radius: 6,),
+        Text(" ------------ ",style: descriptionStyle,),
+        CircleAvatar(backgroundColor: levelThree,radius: 6,),
+        Text(" ------------ ",style: descriptionStyle,),
+        CircleAvatar(backgroundColor: levelFour,radius: 6,),
+        SizedBox(width: 50,),
+      ],
     );
   }
 }

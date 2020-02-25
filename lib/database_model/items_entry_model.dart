@@ -9,6 +9,7 @@ class ItemEntry {
     @required this.categoryName,
     @required this.quantity,
     @required this.itemName,
+    @required this.measure,
   });
 
   final String itemID;
@@ -16,6 +17,7 @@ class ItemEntry {
   final String categoryName;
   final String itemName;
   final int quantity;
+  final String measure;
 
   factory ItemEntry.fromMap(Map<String, dynamic> data, String documentId) {
     if (data == null) {
@@ -27,6 +29,7 @@ class ItemEntry {
     final String categoryName = data['category_name'];
     final String itemName = data['item_name'];
     final int quantity = data['quantity'];
+    final String measure = data['measure'];
 
     return ItemEntry(
       itemID: itemID,
@@ -34,6 +37,7 @@ class ItemEntry {
       categoryName: categoryName,
       itemName: itemName,
       quantity: quantity,
+        measure:measure,
     );
   }
 
@@ -42,7 +46,8 @@ class ItemEntry {
       'company_name': companyName,
       'category_name':categoryName,
       'item_name': itemName,
-      'quantity':quantity
+      'quantity':quantity,
+      'measure': measure,
     };
   }
 }

@@ -11,7 +11,8 @@ class EmployeeDetails{
     this.joinedDate,
     this.latitude,
     this.longitude,
-    this.role
+    this.role,
+    this.employeeID,
   });
 
   final String username;
@@ -23,12 +24,16 @@ class EmployeeDetails{
   final String longitude;
   final String role;
 
+  final String employeeID;
 
 
-  factory EmployeeDetails.fromMap(Map<String, dynamic> data){
+
+  factory EmployeeDetails.fromMap(Map<String, dynamic> data, String documentID){
     if(data == null){
       return null;
     }
+    final String employeeID = documentID;
+
     final String username = data['employee_name'];
     final String phoneNumber = data['employee_contact_number'];
     final String gender = data['employee_gender'];
@@ -47,6 +52,7 @@ class EmployeeDetails{
       latitude: latitude,
       longitude: longitude,
       role: role,
+      employeeID: employeeID,
     );
   }
 

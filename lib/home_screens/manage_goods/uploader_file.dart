@@ -86,16 +86,13 @@ class _UploaderState extends State<Uploader> {
       managerID: 'HuOG1oaJCHSebSOKVeN3MNIU0eT2',
       accountantID: 'abc',
       storeManagerID: 'TzgGqaGfbNZ6wbnzBIuTUBdLtJi2',
-      securityApproval: false,
-      supervisorApproval: false,
-      storeManagerItemReceivedStatus: false,
-      transactionStatus: false,
-      securityEntryTimestamp: Timestamp.fromDate(DateTime.now()),
+      securityRequestedTimestamp: Timestamp.fromDate(DateTime.now()),
       supervisorApprovalTimestamp: null,
       managerApprovalTimestamp: null,
       storeMangerItemReceivedTimestamp: null,
       accountantTransactionStatusTimestamp: null,
       MRRNumber: MRRNumber,
+      approvalLevel: 0,
     );
 
     await widget.database.setGoodsEntry(_itemEntry, itemID);

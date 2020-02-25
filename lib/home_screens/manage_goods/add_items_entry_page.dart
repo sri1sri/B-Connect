@@ -173,32 +173,32 @@ class _F_ItemsEntryPageState extends State<F_ItemsEntryPage> {
         ),
       ),
       SizedBox(height: 20,),
-//      Row(
-//          children: <Widget>[
-//            Column(
-//              children: <Widget>[
-//                TextFormField(
-//                  decoration: new InputDecoration(
-//                    labelText: "Company name",
-//                    fillColor: Colors.white,
-//                    border: new OutlineInputBorder(
-//                      borderRadius: new BorderRadius.circular(15.0),
-//                      borderSide: new BorderSide(
-//                      ),
-//                    ),
-//                    //fillColor: Colors.green
-//                  ),
-//                  initialValue: _companyName,
-//                  onSaved: (value) => _companyName = value,
-//                  validator: (value) => value.isNotEmpty ? null : 'Company name cant\'t be empty.',
-//                  keyboardType: TextInputType.text,
-//                  style: new TextStyle(
-//                    fontFamily: "Poppins",
-//                  ),
-//                ),
-//
-//              ],
-//            ),
+      Row(
+          children: <Widget>[
+            Column(
+              children: <Widget>[
+                TextFormField(
+                  decoration: new InputDecoration(
+                    labelText: "Company name",
+                    fillColor: Colors.white,
+                    border: new OutlineInputBorder(
+                      borderRadius: new BorderRadius.circular(15.0),
+                      borderSide: new BorderSide(
+                      ),
+                    ),
+                    //fillColor: Colors.green
+                  ),
+                  initialValue: _companyName,
+                  onSaved: (value) => _companyName = value,
+                  validator: (value) => value.isNotEmpty ? null : 'Company name cant\'t be empty.',
+                  keyboardType: TextInputType.text,
+                  style: new TextStyle(
+                    fontFamily: "Poppins",
+                  ),
+                ),
+
+              ],
+            ),
 //            Column(
 //              children: <Widget>[
 //                DropDownFormField(
@@ -247,34 +247,34 @@ class _F_ItemsEntryPageState extends State<F_ItemsEntryPage> {
 //                ),
 //              ],
 //            ),
-//          ],
-//      ),
-//      Row(
-//        children: <Widget>[
-//          Column(
-//            children: <Widget>[
-//              TextFormField(
-//                decoration: new InputDecoration(
-//                  labelText: "Category Name",
-//                  fillColor: Colors.white,
-//                  border: new OutlineInputBorder(
-//                    borderRadius: new BorderRadius.circular(15.0),
-//                    borderSide: new BorderSide(
-//                    ),
-//                  ),
-//                  //fillColor: Colors.green
-//                ),
-//                initialValue:  _categoryName,
-//                onSaved: (value) =>  _categoryName = value,
-//                validator: (value) => value.isNotEmpty ? null : 'Category Name cant\'t be empty.',
-//                keyboardType: TextInputType.text,
-//                style: new TextStyle(
-//                  fontFamily: "Poppins",
-//                ),
-//              ),
-//
-//            ],
-//          ),
+          ],
+      ),
+      Row(
+        children: <Widget>[
+          Column(
+            children: <Widget>[
+              TextFormField(
+                decoration: new InputDecoration(
+                  labelText: "Category Name",
+                  fillColor: Colors.white,
+                  border: new OutlineInputBorder(
+                    borderRadius: new BorderRadius.circular(15.0),
+                    borderSide: new BorderSide(
+                    ),
+                  ),
+                  //fillColor: Colors.green
+                ),
+                initialValue:  _categoryName,
+                onSaved: (value) =>  _categoryName = value,
+                validator: (value) => value.isNotEmpty ? null : 'Category Name cant\'t be empty.',
+                keyboardType: TextInputType.text,
+                style: new TextStyle(
+                  fontFamily: "Poppins",
+                ),
+              ),
+
+            ],
+          ),
 //          Column(
 //            children: <Widget>[
 //              DropDownFormField(
@@ -323,34 +323,34 @@ class _F_ItemsEntryPageState extends State<F_ItemsEntryPage> {
 //              ),
 //            ],
 //          ),
-//        ],
-//      ),
-//      Row(
-//        children: <Widget>[
-//          Column(
-//            children: <Widget>[
-//              TextFormField(
-//                decoration: new InputDecoration(
-//                  labelText: "Item Name",
-//                  fillColor: Colors.white,
-//                  border: new OutlineInputBorder(
-//                    borderRadius: new BorderRadius.circular(15.0),
-//                    borderSide: new BorderSide(
-//                    ),
-//                  ),
-//                  //fillColor: Colors.green
-//                ),
-//                initialValue:  _itemName,
-//                onSaved: (value) =>  _itemName = value,
-//                validator: (value) => value.isNotEmpty ? null : 'Item Name cant\'t be empty.',
-//                keyboardType: TextInputType.text,
-//                style: new TextStyle(
-//                  fontFamily: "Poppins",
-//                ),
-//              ),
-//
-//            ],
-//          ),
+        ],
+      ),
+      Row(
+        children: <Widget>[
+          Column(
+            children: <Widget>[
+              TextFormField(
+                decoration: new InputDecoration(
+                  labelText: "Item Name",
+                  fillColor: Colors.white,
+                  border: new OutlineInputBorder(
+                    borderRadius: new BorderRadius.circular(15.0),
+                    borderSide: new BorderSide(
+                    ),
+                  ),
+                  //fillColor: Colors.green
+                ),
+                initialValue:  _itemName,
+                onSaved: (value) =>  _itemName = value,
+                validator: (value) => value.isNotEmpty ? null : 'Item Name cant\'t be empty.',
+                keyboardType: TextInputType.text,
+                style: new TextStyle(
+                  fontFamily: "Poppins",
+                ),
+              ),
+
+            ],
+          ),
 //          Column(
 //            children: <Widget>[
 //              DropDownFormField(
@@ -399,8 +399,8 @@ class _F_ItemsEntryPageState extends State<F_ItemsEntryPage> {
 //              ),
 //            ],
 //          ),
-//        ],
-//      ),
+        ],
+      ),
       TextFormField(
         decoration: new InputDecoration(
           labelText: "Quantity",

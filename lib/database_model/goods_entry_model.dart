@@ -15,18 +15,21 @@ class GoodsEntry {
     @required this.accountantID,
     @required this.storeManagerID,
 
-    @required this.securityApproval,
-    @required this.supervisorApproval,
-    @required this.storeManagerItemReceivedStatus,
-    @required this.transactionStatus,
+//    @required this.securityEntryStatus,
+//    @required this.supervisorApproval,
+//    @required this.managerApproval,
+//    @required this.storeManagerItemReceivedStatus,
+//    @required this.transactionStatus,
 
-    @required this.securityEntryTimestamp,
+    @required this.securityRequestedTimestamp,
     @required this.supervisorApprovalTimestamp,
     @required this.managerApprovalTimestamp,
     @required this.storeMangerItemReceivedTimestamp,
     @required this.accountantTransactionStatusTimestamp,
 
     @required this.MRRNumber,
+
+    @required this.approvalLevel,
 
   });
 
@@ -40,19 +43,22 @@ class GoodsEntry {
   final String managerID;
   final String storeManagerID;
   final String accountantID;
+//
+//  final bool securityEntryStatus;
+//  final bool supervisorApproval;
+//  final bool managerApproval;
+//  final bool storeManagerItemReceivedStatus;
+//  final bool transactionStatus;
 
-  final bool securityApproval;
-  final bool supervisorApproval;
-  final bool storeManagerItemReceivedStatus;
-  final bool transactionStatus;
-
-  final Timestamp securityEntryTimestamp;
+  final Timestamp securityRequestedTimestamp;
   final Timestamp supervisorApprovalTimestamp;
   final Timestamp managerApprovalTimestamp;
   final Timestamp storeMangerItemReceivedTimestamp;
   final Timestamp accountantTransactionStatusTimestamp;
 
   final int MRRNumber;
+
+  final int approvalLevel;
 
   factory GoodsEntry.fromMap(Map<String, dynamic> data, String documentId) {
     if (data == null) {
@@ -69,13 +75,14 @@ class GoodsEntry {
     final String accountantID = data['accountant_id'];
     final String storeManagerID = data['store_manager_id'];
 
-    final bool securityApproval = data['security_approval'];
-    final bool supervisorApproval = data['supervisor_approval'];
-    final bool storeManagerItemReceivedStatus =
-        data['store_manager_item_received_status'];
-    final bool transactionStatus = data['transaction_status'];
+//    final bool securityEntryStatus = data['security_entry_status'];
+//    final bool supervisorApproval = data['supervisor_approval'];
+//    final bool managerApproval = data['manager_approval'];
+//    final bool storeManagerItemReceivedStatus =
+//        data['store_manager_item_received_status'];
+//    final bool transactionStatus = data['transaction_status'];
 
-    final Timestamp securityEntryTimestamp = data['security_entry_timestamp'];
+    final Timestamp securityRequestedTimestamp = data['security_requested_timestamp'];
     final Timestamp supervisorApprovalTimestamp =
         data['supervisor_approval_timestamp'];
     final Timestamp managerApprovalTimestamp =
@@ -88,6 +95,9 @@ class GoodsEntry {
     final int MRRNumber =
     data['mrr_number'];
 
+    final int approvalLevel =
+    data['approval_level'];
+
     return GoodsEntry(
       itemEntryID: itemEntryID,
       vehicelImagePath: vehicelImagePath,
@@ -97,17 +107,19 @@ class GoodsEntry {
       managerID: managerID,
       accountantID: accountantID,
       storeManagerID: storeManagerID,
-      securityApproval: securityApproval,
-      supervisorApproval: supervisorApproval,
-      storeManagerItemReceivedStatus: storeManagerItemReceivedStatus,
-      transactionStatus: transactionStatus,
-      securityEntryTimestamp: securityEntryTimestamp,
+//      securityEntryStatus: securityEntryStatus,
+//      supervisorApproval: supervisorApproval,
+//      managerApproval: managerApproval,
+//      storeManagerItemReceivedStatus: storeManagerItemReceivedStatus,
+//      transactionStatus: transactionStatus,
+      securityRequestedTimestamp: securityRequestedTimestamp,
       supervisorApprovalTimestamp: supervisorApprovalTimestamp,
       managerApprovalTimestamp: managerApprovalTimestamp,
       storeMangerItemReceivedTimestamp: storeMangerItemReceivedTimestamp,
       accountantTransactionStatusTimestamp:
           accountantTransactionStatusTimestamp,
       MRRNumber: MRRNumber,
+      approvalLevel: approvalLevel,
     );
   }
 
@@ -120,16 +132,18 @@ class GoodsEntry {
       'manager_id': managerID,
       'accountant_id': accountantID,
       'store_manager_id': storeManagerID,
-      'security_approval': securityApproval,
-      'supervisor_approval': supervisorApproval,
-      'store_manager_item_received_status': storeManagerItemReceivedStatus,
-      'transaction_status': transactionStatus,
-      'security_entry_timestamp': securityEntryTimestamp,
+//      'security_entry_status': securityEntryStatus,
+//      'supervisor_approval': supervisorApproval,
+//      'manager_approval': managerApproval,
+//      'store_manager_item_received_status': storeManagerItemReceivedStatus,
+//      'transaction_status': transactionStatus,
+      'security_requested_timestamp': securityRequestedTimestamp,
       'supervisor_approval_timestamp': supervisorApprovalTimestamp,
       'manager_approval_timestamp': managerApprovalTimestamp,
       'store_manger_item_received_timestamp': storeMangerItemReceivedTimestamp,
       'accountant_transaction_status_timestamp': accountantTransactionStatusTimestamp,
       'mrr_number': MRRNumber,
+      'approval_level':approvalLevel,
 
     };
   }

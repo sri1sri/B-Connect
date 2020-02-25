@@ -1,4 +1,5 @@
 
+import 'package:bhavani_connect/database_model/employee_details_model.dart';
 import 'package:bhavani_connect/database_model/employee_list_model.dart';
 import 'package:bhavani_connect/database_model/goods_entry_model.dart';
 import 'package:bhavani_connect/database_model/items_entry_model.dart';
@@ -20,6 +21,8 @@ abstract class Database{
   Future<void> setItemEntry(ItemEntry itemEntry,String goodsID);
   Stream<GoodsEntry> readGoodsDetails(String goodsID);
   Stream<List<ItemEntry>> viewItemsList(String goodsID);
+  Stream<EmployeeDetails> readEmployeeDetails();
+
 }
 
 class FirestoreDatabase implements Database {
@@ -79,6 +82,12 @@ class FirestoreDatabase implements Database {
   Stream<GoodsEntry> readGoodsDetails(String goodsID) => _service.documentStream(
     path: APIPath.goodsEntry(goodsID),
     builder: (data, documentId) => GoodsEntry.fromMap(data, documentId),
+  );
+
+  @override
+  Stream<EmployeeDetails> readEmployeeDetails() => _service.documentStream(
+    path: APIPath.employeeDetails(uid),
+    builder: (data, documentId) => EmployeeDetails.fromMap(data, documentId),
   );
 
 
