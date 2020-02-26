@@ -9,6 +9,7 @@ import 'package:bhavani_connect/home_screens/manage_goods/add_goods_entry_page.d
 import 'package:bhavani_connect/home_screens/manage_goods/goods_details_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:percent_indicator/linear_percent_indicator.dart';
 
 class GoodsApprovalsPage extends StatelessWidget {
   GoodsApprovalsPage({@required this.database, @required this.employee});
@@ -238,7 +239,7 @@ class _F_GoodsApprovalsPageState extends State<F_GoodsApprovalsPage> {
                 children: <Widget>[
                   SizedBox(width: 20,),
                   Text("Security",style: statusTracker,),
-                  SizedBox(width: 25,),
+                  SizedBox(width: 20,),
 
                   Text("Supervisor",style: statusTracker,),
                   SizedBox(width: 10,),
@@ -296,15 +297,48 @@ class _F_GoodsApprovalsPageState extends State<F_GoodsApprovalsPage> {
   Widget statusTrackerWidget(Color levelOne, Color levelTwo, Color levelThree, Color levelFour){
     return Row(
       children: <Widget>[
-        SizedBox(width: 50,),
+        SizedBox(width: 40,),
         CircleAvatar(backgroundColor: levelOne,radius: 6,),
-        Text(" ------------ ",style: descriptionStyle,),
+        Padding(
+          padding: EdgeInsets.all(0.0),
+          child: new LinearPercentIndicator(
+            width: 80,
+            animation: true,
+            lineHeight: 4.0,
+            animationDuration: 3000,
+            percent: 1,
+            linearStrokeCap: LinearStrokeCap.roundAll,
+            progressColor: Colors.green,
+          ),
+        ),
         CircleAvatar(backgroundColor: levelTwo,radius: 6,),
-        Text(" ------------ ",style: descriptionStyle,),
+        Padding(
+          padding: EdgeInsets.all(0.0),
+          child: new LinearPercentIndicator(
+            width: 80,
+            animation: true,
+            lineHeight: 4.0,
+            animationDuration: 3000,
+            percent: 1,
+            linearStrokeCap: LinearStrokeCap.roundAll,
+            progressColor: Colors.green,
+          ),
+        ),
         CircleAvatar(backgroundColor: levelThree,radius: 6,),
-        Text(" ------------ ",style: descriptionStyle,),
+        Padding(
+          padding: EdgeInsets.all(0.0),
+          child: new LinearPercentIndicator(
+            width: 80,
+            animation: true,
+            lineHeight: 4.0,
+            animationDuration: 3000,
+            percent: 1,
+            linearStrokeCap: LinearStrokeCap.roundAll,
+            progressColor: Colors.green,
+          ),
+        ),
         CircleAvatar(backgroundColor: levelFour,radius: 6,),
-        SizedBox(width: 50,),
+        SizedBox(width: 40,),
       ],
     );
   }

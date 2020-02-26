@@ -209,7 +209,7 @@ class _F_EmployeeProfilePageState extends State<F_EmployeeProfilePage> {
                                                 MainAxisAlignment.center,
                                             children: <Widget>[
                                               MaterialButton(
-                                                minWidth: 40,
+                                                minWidth: 20,
                                                 onPressed: () {
                                                   FlutterLaunch.launchWathsApp(phone: "${employee.employeeContactNumber}", message: "Hello ${employee.employeeName}");
                                                 },
@@ -222,7 +222,7 @@ class _F_EmployeeProfilePageState extends State<F_EmployeeProfilePage> {
                                                   ],
                                                 ),
                                               ),
-                                              SizedBox(width: 5.0),
+                                              //SizedBox(width: 5.0),
                                               MaterialButton(
                                                 minWidth: 40,
                                                 onPressed: () {

@@ -81,101 +81,135 @@ class _F_DashboardState extends State<F_Dashboard> {
 
         return Scaffold(
           backgroundColor: Colors.white,
-          appBar: AppBar(
-            automaticallyImplyLeading: true,
-            backgroundColor: Colors.white,
-            elevation: 0,
-            title: Column(
-              //mainAxisAlignment: MainAxisAlignment.center,
-              //crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  "Hello!",
-                  style: titleStyle,
+
+          appBar: PreferredSize(
+            preferredSize: Size(double.infinity, 100),
+            child: Container(
+              decoration: BoxDecoration(
+                  boxShadow: [BoxShadow(
+                      color: Colors.black12,
+                      spreadRadius: 5,
+                      blurRadius: 2
+                  )]
+              ),
+              width: MediaQuery.of(context).size.width,
+              height: 130,
+              child: Container(
+                decoration: BoxDecoration(
+                    color: backgroundColor,
+                    borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20),bottomRight: Radius.circular(20))
                 ),
-                Text(
-                  "${employee.username}(${employee.role})",
-                  style: subTitleStyle,
-                ),
-              ],
-            ),
-            actions: <Widget>[
-              InkWell(
-                child: Icon(
-                  Icons.notifications,
-                  color: backgroundColor,
-                ),
-                onTap: () => _confirmSignOut(context),
-              )
-            ],
-          ),
-          body: new GridView.builder(
-            itemCount: features.length,
-            gridDelegate:
-            new SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
-            itemBuilder: (BuildContext context, int index) {
-              return new GestureDetector(
-                child: new Card(
-                  elevation: 5.0,
-                  child: new Container(
-                    alignment: Alignment.center,
-                    margin: new EdgeInsets.only(
-                        top: 30.0, bottom: 10.0, left: 10.0, right: 10.0),
-                    child: new Column(
-                      children: <Widget>[
-                        new Icon(
-                          F_icons[index],
-                          size: 50,
-                          color: backgroundColor,
-                        ),
-                        new Text(
-                          features[index],
-                          style: descriptionStyle,
-                        ),
-                      ],
-                    ),
+                child: Container(
+                  margin: EdgeInsets.fromLTRB(20, 60, 20, 0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            "Hello!",
+                            style: activeSubTitleStyle,
+                          ),
+                          Text(
+                            "${employee.username}(${employee.role})",
+                            style: subTitleStyleLight,
+                          ),
+                        ],
+                      ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          InkWell(
+                            child: Icon(
+                              Icons.notifications,
+                              color: activeButtonTextColor,
+                            ),
+                            onTap: () => _confirmSignOut(context),
+                          ),
+                        ],
+                      )
+
+                    ],
                   ),
                 ),
-                onTap: () {
-                  switch (features[index]) {
-                    case 'Employees':
-                      {
-                        GoToPage(
-                            context,
-                            ManageEmployeesPage(
-                              database: widget.database,
-                            ));
-                      }
-                      break;
+              ),
+            ),
+          ),
 
-                    case 'Goods Approvals':
-                      {
-                        GoToPage(
-                            context,
-                            GoodsApprovalsPage(
-                              database: widget.database,
-                              employee: employee,
-                            ));
-                      }
-                      break;
-                    case 'Store':
-                      {
-                        GoToPage(context, MrTabs());
-                      }
-                      break;
-                    case 'Notifications':
-                      {
-                        GoToPage(context, NotificationsPage());
-                      }
-                      break;
 
-                    default:
-                      {}
-                      break;
-                  }
-                },
-              );
-            },
+          body: Padding(
+            padding: const EdgeInsets.only(
+                top: 50.0, bottom: 10.0, left: 10.0, right: 10.0),
+            child: new GridView.builder(
+              itemCount: features.length,
+              gridDelegate:
+              new SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
+              itemBuilder: (BuildContext context, int index) {
+                return new GestureDetector(
+                  child: new Card(
+                    elevation: 5.0,
+                    child: new Container(
+                      alignment: Alignment.center,
+                      margin: new EdgeInsets.only(
+                          top: 25.0, bottom: 10.0, left: 10.0, right: 10.0),
+                      child: new Column(
+                        children: <Widget>[
+                          new Icon(
+                            F_icons[index],
+                            size: 50,
+                            color: backgroundColor,
+                          ),
+                          new Text(
+                            features[index],
+                            style: descriptionStyle,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  onTap: () {
+                    switch (features[index]) {
+                      case 'Employees':
+                        {
+                          GoToPage(
+                              context,
+                              ManageEmployeesPage(
+                                database: widget.database,
+                              ));
+                        }
+                        break;
+
+                      case 'Goods Approvals':
+                        {
+                          GoToPage(
+                              context,
+                              GoodsApprovalsPage(
+                                database: widget.database,
+                                employee: employee,
+                              ));
+                        }
+                        break;
+                      case 'Store':
+                        {
+                          GoToPage(context, MrTabs());
+                        }
+                        break;
+                      case 'Notifications':
+                        {
+                          GoToPage(context, NotificationsPage());
+                        }
+                        break;
+
+                      default:
+                        {}
+                        break;
+                    }
+                  },
+                );
+              },
+            ),
           ),
         );
       },

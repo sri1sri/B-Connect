@@ -54,4 +54,4 @@ var descriptionStyleDarkBlur = TextStyle(
     color: Colors.black.withOpacity(.5),
     fontFamily: 'Quicksand',
     fontWeight: FontWeight.w800,
-    fontSize: 18.0);
+    fontSize: 12.0);

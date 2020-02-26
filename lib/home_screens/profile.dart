@@ -6,6 +6,7 @@ import 'package:bhavani_connect/common_widgets/platform_alert/platform_alert_dia
 import 'package:bhavani_connect/database_model/employee_list_model.dart';
 import 'package:bhavani_connect/firebase/auth.dart';
 import 'package:bhavani_connect/firebase/database.dart';
+import 'package:bhavani_connect/home_screens/settings_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -75,27 +76,73 @@ class _F_ProfilePageState extends State<F_ProfilePage> {
         padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
         child: Scaffold(
           backgroundColor: Colors.white,
-          appBar: AppBar(
-            automaticallyImplyLeading: true,
-            backgroundColor: Colors.white,
-            elevation: 1,
-            title: Column(
-              //mainAxisAlignment: MainAxisAlignment.center,
-              //crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text("Hello!",style: titleStyle,),
-                Text("Vasanthakumar V G",style: subTitleStyle,),
-              ],
+
+
+
+          appBar: PreferredSize(
+            preferredSize: Size(double.infinity, 100),
+            child: Container(
+              decoration: BoxDecoration(
+                  boxShadow: [BoxShadow(
+                      color: Colors.black12,
+                      spreadRadius: 5,
+                      blurRadius: 2
+                  )]
+              ),
+              width: MediaQuery.of(context).size.width,
+              height: 130,
+              child: Container(
+                decoration: BoxDecoration(
+                    color: backgroundColor,
+                    borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20),bottomRight: Radius.circular(20))
+                ),
+                child: Container(
+                  margin: EdgeInsets.fromLTRB(20, 60, 20, 0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            "Hello!",
+                            style: activeSubTitleStyle,
+                          ),
+                          Text(
+                            "Your Profile",
+                            style: subTitleStyleLight,
+                          ),
+                        ],
+                      ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          InkWell(
+                            child: Icon(
+                              Icons.more_vert,
+                              color: activeButtonTextColor,
+                            ),
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => SettingsPage()),
+                              );
+
+                            },
+                            //onTap: () => _confirmSignOut(context),
+                          ),
+                        ],
+                      )
+
+                    ],
+                  ),
+                ),
+              ),
             ),
-            actions: <Widget>[
-
-
-              InkWell(
-                child: Icon(Icons.power_settings_new,color: backgroundColor,),
-                onTap: () => _confirmSignOut(context),
-              )
-            ],
           ),
+
+
           body: _buildContent(context),
         ),
       ),

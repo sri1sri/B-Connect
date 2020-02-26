@@ -15,6 +15,8 @@ import 'package:bhavani_connect/home_screens/manage_goods/add_items_entry_page.d
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:percent_indicator/linear_percent_indicator.dart';
+import 'package:flutter_animation_progress_bar/flutter_animation_progress_bar.dart';
 
 class GoodsDetailsPage extends StatelessWidget {
   GoodsDetailsPage(
@@ -178,17 +180,16 @@ class _F_GoodsDetailsPageState extends State<F_GoodsDetailsPage> {
 
   Widget _buildContent(BuildContext context) {
     return SingleChildScrollView(
-      child: Column(children: <Widget>[
-        _goodsDetails(context),
-        SizedBox(
-          height: 20,
-        ),
-        _statusApprovalButton(),
-        SizedBox(
-          height: 50,
-        ),
-        //_goodsItemsDetails(context),
-      ]),
+      child: Container(
+        child: Column(children: <Widget>[
+          Column(children: <Widget>[
+            _goodsDetails(context),
+          ]),
+          Column(children: <Widget>[
+            _goodsItemsDetails(context),
+          ]),
+        ]),
+      ),
     );
   }
 
@@ -202,6 +203,7 @@ class _F_GoodsDetailsPageState extends State<F_GoodsDetailsPage> {
           child: Column(
             children: <Widget>[
               Container(
+                height: 800,
                 padding: EdgeInsets.all(10.0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -209,6 +211,26 @@ class _F_GoodsDetailsPageState extends State<F_GoodsDetailsPage> {
                     Column(
                       children: <Widget>[
                         _ItemEntry(goods),
+                      ],
+                    ),
+                    Column(
+                      children: <Widget>[
+
+
+
+
+
+                        //sample data
+                        _OrderedItemsCard("ABC company", "Wires", "Electricals", "100 mts"),
+
+                        _goodsItemsDetails(context),
+
+
+
+
+
+
+
                       ],
                     ),
                   ],
@@ -365,81 +387,45 @@ class _F_GoodsDetailsPageState extends State<F_GoodsDetailsPage> {
               backgroundColor: levelOne,
               radius: 6,
             ),
-            Text(
-              " | ",
-              style: descriptionStyle,
+            SizedBox(
+              height: 2,
             ),
-            Text(
-              " | ",
-              style: descriptionStyle,
-            ),
-            Text(
-              " | ",
-              style: descriptionStyle,
-            ),
-            Text(
-              " | ",
-              style: descriptionStyle,
+            SizedBox(height: 60,width: 3,child: Container(color: Colors.green,),),
+            SizedBox(
+              height: 2,
             ),
             CircleAvatar(
               backgroundColor: levelTwo,
               radius: 6,
             ),
-            Text(
-              " | ",
-              style: descriptionStyle,
+            SizedBox(
+              height: 2,
             ),
-            Text(
-              " | ",
-              style: descriptionStyle,
-            ),
-            Text(
-              " | ",
-              style: descriptionStyle,
-            ),
-            Text(
-              " | ",
-              style: descriptionStyle,
+            SizedBox(height: 60,width: 3,child: Container(color: Colors.green,),),
+            SizedBox(
+              height: 2,
             ),
             CircleAvatar(
               backgroundColor: levelThree,
               radius: 6,
             ),
-            Text(
-              " | ",
-              style: descriptionStyle,
+            SizedBox(
+              height: 2,
             ),
-            Text(
-              " | ",
-              style: descriptionStyle,
-            ),
-            Text(
-              " | ",
-              style: descriptionStyle,
-            ),
-            Text(
-              " | ",
-              style: descriptionStyle,
+            SizedBox(height: 60,width: 3,child: Container(color: Colors.green,),),
+            SizedBox(
+              height: 2,
             ),
             CircleAvatar(
               backgroundColor: levelFour,
               radius: 6,
             ),
-            Text(
-              " | ",
-              style: descriptionStyle,
+            SizedBox(
+              height: 2,
             ),
-            Text(
-              " | ",
-              style: descriptionStyle,
-            ),
-            Text(
-              " | ",
-              style: descriptionStyle,
-            ),
-            Text(
-              " | ",
-              style: descriptionStyle,
+            SizedBox(height: 60,width: 3,child: Container(color: Colors.green,),),
+            SizedBox(
+              height: 2,
             ),
             CircleAvatar(
               backgroundColor: levelFive,
@@ -470,7 +456,7 @@ class _F_GoodsDetailsPageState extends State<F_GoodsDetailsPage> {
               style: descriptionStyleDark,
             ),
             SizedBox(
-              height: 30,
+              height: 20,
             ),
             Text(
               "Supervisor Approved Time",
@@ -486,7 +472,7 @@ class _F_GoodsDetailsPageState extends State<F_GoodsDetailsPage> {
               style: descriptionStyleDark,
             ),
             SizedBox(
-              height: 30,
+              height: 20,
             ),
             Text(
               "Manager Approved Time",
@@ -502,7 +488,7 @@ class _F_GoodsDetailsPageState extends State<F_GoodsDetailsPage> {
               style: descriptionStyleDark,
             ),
             SizedBox(
-              height: 30,
+              height: 20,
             ),
             Text(
               "Store Manager Approved Time",
@@ -518,7 +504,7 @@ class _F_GoodsDetailsPageState extends State<F_GoodsDetailsPage> {
               style: descriptionStyleDark,
             ),
             SizedBox(
-              height: 30,
+              height: 20,
             ),
             Text(
               "Accountant Approved Time",
@@ -623,4 +609,61 @@ class _F_GoodsDetailsPageState extends State<F_GoodsDetailsPage> {
       ),
     );
   }
+}
+
+
+_OrderedItemsCard(String companyName, String itemName, String category, String quantity)
+{
+  return Container(
+
+    child: Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10.0),
+      ),
+      color: Colors.white,
+      elevation: 10,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+
+        children: <Widget>[
+          SizedBox(height: 20,),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Column(
+                  children: <Widget>[
+
+                    Text("Company Name",style: descriptionStyle,),
+                    SizedBox(height: 10,),
+                    Text(companyName,style: descriptionStyleDark,),
+                    SizedBox(height: 10,),
+                    Text("Item names",style: descriptionStyle,),
+                    SizedBox(height: 10,),
+                    Text(itemName,style: descriptionStyleDark,),
+                  ]
+              ),
+              Column(
+                  children: <Widget>[
+
+                    Text("Category",style: descriptionStyle,),
+                    SizedBox(height: 10,),
+                    Text(category,style: descriptionStyleDark,),
+                    SizedBox(height: 10,),
+                    Text("Quantity",style: descriptionStyle,),
+                    SizedBox(height: 10,),
+                    Text(quantity,style: descriptionStyleDark,),
+                  ]
+              ),
+            ],
+          ),
+          SizedBox(height: 20,),
+        ],
+
+
+
+      ),
+    ),
+  );
+
+
 }
