@@ -8,6 +8,7 @@ import 'package:bhavani_connect/firebase/auth.dart';
 import 'package:bhavani_connect/firebase/database.dart';
 import 'package:bhavani_connect/home_screens/add_stock_details/add_stock.dart';
 import 'package:bhavani_connect/home_screens/manage_goods/goods_approvals.dart';
+import 'package:bhavani_connect/home_screens/notification_screen.dart';
 import 'package:bhavani_connect/home_screens/notifications_screens/notification_page.dart';
 import 'package:bhavani_connect/home_screens/store_screen.dart';
 import 'package:flutter/cupertino.dart';
@@ -42,7 +43,7 @@ class _F_DashboardState extends State<F_Dashboard> {
     "Add stock details",
     "Store",
     "Inventory",
-    "Notifications",
+//    "Notifications",
     "Attendance",
     "Employees"
   ];
@@ -51,7 +52,7 @@ class _F_DashboardState extends State<F_Dashboard> {
     Icons.note_add,
     Icons.store,
     Icons.dashboard,
-    Icons.notifications,
+//    Icons.notifications,
     Icons.pan_tool,
     Icons.account_circle
   ];
@@ -127,7 +128,7 @@ class _F_DashboardState extends State<F_Dashboard> {
                               Icons.notifications,
                               color: activeButtonTextColor,
                             ),
-                            onTap: () => _confirmSignOut(context),
+                            onTap: () => GoToPage(context, NotificationPage())
                           ),
                         ],
                       )
@@ -198,11 +199,11 @@ class _F_DashboardState extends State<F_Dashboard> {
                           GoToPage(context, MrTabs());
                         }
                         break;
-                      case 'Notifications':
-                        {
-                          GoToPage(context, NotificationsPage());
-                        }
-                        break;
+//                      case 'Notifications':
+//                        {
+//                          GoToPage(context, NotificationsPage());
+//                        }
+//                        break;
 
                       case 'Add stock details':
                         {
