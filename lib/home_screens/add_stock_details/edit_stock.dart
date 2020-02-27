@@ -1,4 +1,6 @@
+import 'package:bhavani_connect/common_variables/app_colors.dart';
 import 'package:bhavani_connect/common_variables/app_fonts.dart';
+import 'package:bhavani_connect/common_widgets/button_widget/add_to_cart_button.dart';
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
 import 'package:bhavani_connect/common_widgets/platform_alert/platform_exception_alert_dialog.dart';
 import 'package:bhavani_connect/database_model/common_variables.dart';
@@ -31,6 +33,8 @@ class F_EditStock extends StatefulWidget {
 
 class _F_EditStockState extends State<F_EditStock> {
   final _formKey = GlobalKey<FormState>();
+  final TextEditingController _enterCompanyController = TextEditingController();
+  final FocusNode _enterCompanyFocusNode = FocusNode();
 
   String _name;
 
@@ -98,17 +102,46 @@ class _F_EditStockState extends State<F_EditStock> {
             centerTitle: true,
             actions: <Widget>[
               FlatButton(
-                child: Text('Add',
+                child: Text('',
                   style: TextStyle(
                     fontSize: 18,
                     color: Colors.white,
                   ),
                 ),
-                onPressed: _submit,
+                onPressed: ()=> print(''),
               )
             ],
           ),
-          body: _buildContent(),
+          body: Column(
+            children: <Widget>[
+              _buildContent(),
+              Container(
+                child: AnimatedButton(
+                  onTap: _submit,
+                  animationDuration: const Duration(milliseconds: 1000),
+                  initialText: "Add Company",
+                  finalText: "Company Added",
+                  iconData: Icons.check,
+                  iconSize: 32.0,
+                  buttonStyle: ButtonStyle(
+                    primaryColor: activeButtonBackgroundColor,
+                    secondaryColor: Colors.white,
+                    elevation: 10.0,
+                    initialTextStyle: TextStyle(
+                      fontSize: 22.0,
+                      color: Colors.white,
+                    ),
+                    finalTextStyle: TextStyle(
+                      fontSize: 22.0,
+                      color: backgroundColor,
+                    ),
+                    borderRadius: 10.0,
+                  ),
+                ),
+              ),
+            ],
+          ),
+
         ),
       ),
     );
@@ -138,11 +171,31 @@ class _F_EditStockState extends State<F_EditStock> {
   List<Widget>_buildFormChildren() {
 
     return [
-      TextFormField(
-        decoration: InputDecoration(labelText: 'Enter ${widget.title} name'),
+      new TextFormField(
+        controller: _enterCompanyController,
         initialValue: _name,
-        onSaved: (value) => _name = value,
+        textInputAction: TextInputAction.done,
+        obscureText: false,
         validator: (value) => value.isNotEmpty ? null : 'company name cant\'t be empty.',
+        focusNode: _enterCompanyFocusNode,
+        onSaved: (value) => _name = value,
+        decoration: new InputDecoration(
+          prefixIcon: Icon(
+            Icons.store,
+            color: backgroundColor,
+          ),
+          labelText: 'Enter ${widget.title} name',
+          //fillColor: Colors.redAccent,
+          border: new OutlineInputBorder(
+            borderRadius: new BorderRadius.circular(5.0),
+            borderSide: new BorderSide(),
+          ),
+        ),
+
+        keyboardType: TextInputType.text,
+        style: new TextStyle(
+          fontFamily: "Poppins",
+        ),
       ),
     ];
   }

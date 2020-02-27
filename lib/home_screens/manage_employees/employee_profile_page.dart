@@ -73,6 +73,17 @@ class _F_EmployeeProfilePageState extends State<F_EmployeeProfilePage> {
               onPressed: () => Navigator.pop(context, false),
             ),
             centerTitle: true,
+            actions: <Widget>[
+              FlatButton(
+                child: Text('',
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.white,
+                  ),
+                ),
+                onPressed: ()=> print(''),
+              )
+            ],
           ),
           body: _buildContent(context),
         ),

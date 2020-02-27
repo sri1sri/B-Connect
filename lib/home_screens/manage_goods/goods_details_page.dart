@@ -64,7 +64,7 @@ class _F_GoodsDetailsPageState extends State<F_GoodsDetailsPage> {
   Widget offlineWidget(BuildContext context) {
     return CustomOfflineWidget(
       onlineChild: Padding(
-        padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+        padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
         child: Scaffold(
           appBar: new AppBar(
             backgroundColor: Color(0xFF1F4B6E),
@@ -77,12 +77,40 @@ class _F_GoodsDetailsPageState extends State<F_GoodsDetailsPage> {
               icon: Icon(Icons.arrow_back),
               onPressed: () => Navigator.pop(context, false),
             ),
+//            actions: <Widget>[
+//              _addItem(),
+//            ],
             actions: <Widget>[
-              _addItem(),
+              FlatButton(
+                child: Text('',
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.white,
+                  ),
+                ),
+                onPressed: ()=> print(''),
+              )
             ],
             centerTitle: true,
           ),
           body: _buildContent(context),
+          floatingActionButton: FloatingActionButton(
+            elevation: 90,
+            backgroundColor: backgroundColor,
+            autofocus: true,
+            onPressed: () {
+    GoToPage(
+    context,
+    ItemsEntryPage(
+    database: widget.database,
+    goodsID: widget.goodsID,
+    ),
+    );
+
+            },
+            child: Icon(Icons.add),
+            tooltip: 'Add Items',
+          ),
         ),
       ),
     );
@@ -256,7 +284,7 @@ class _F_GoodsDetailsPageState extends State<F_GoodsDetailsPage> {
           child: Column(
             children: <Widget>[
               Container(
-                height: 800,
+                height:  MediaQuery.of(context).size.height,
                 padding: EdgeInsets.all(10.0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -274,9 +302,11 @@ class _F_GoodsDetailsPageState extends State<F_GoodsDetailsPage> {
 
 
                         //sample data
-                        //_OrderedItemsCard("ABC company", "Wires", "Electricals", "100 mts"),
+                        _OrderedItemsCard("ABC company", "Wires", "Electricals", "100 mts"),
+
 
                         _goodsItemsDetails(context),
+
 
 
 
@@ -391,7 +421,6 @@ class _F_GoodsDetailsPageState extends State<F_GoodsDetailsPage> {
       ),
     );
   }
-
   Widget _trackGoodsStatus(GoodsEntry data) {
     switch (data.approvalLevel) {
       case 0:
@@ -420,7 +449,6 @@ class _F_GoodsDetailsPageState extends State<F_GoodsDetailsPage> {
         break;
     }
   }
-
   Widget _statusTracker(GoodsEntry data, Color levelOne, Color levelTwo,
       Color levelThree, Color levelFour, Color levelFive) {
     print('time => ${data.storeMangerItemReceivedTimestamp.seconds}');
@@ -577,7 +605,6 @@ class _F_GoodsDetailsPageState extends State<F_GoodsDetailsPage> {
       ],
     );
   }
-
   Widget _ItemCard(ItemEntry data) {
     print(
         'comp = ${data.categoryName},${data.categoryName},${data.measure}, ${data.quantity}');
@@ -662,8 +689,6 @@ class _F_GoodsDetailsPageState extends State<F_GoodsDetailsPage> {
     );
   }
 }
-
-
 _OrderedItemsCard(String companyName, String itemName, String category, String quantity)
 {
   return Container(

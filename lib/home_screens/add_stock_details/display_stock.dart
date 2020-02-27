@@ -1,3 +1,4 @@
+import 'package:bhavani_connect/common_variables/app_colors.dart';
 import 'package:bhavani_connect/common_variables/app_fonts.dart';
 import 'package:bhavani_connect/common_variables/app_functions.dart';
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
@@ -41,7 +42,7 @@ class _F_DisplayStockState extends State<F_DisplayStock> {
   Widget offlineWidget(BuildContext context) {
     return CustomOfflineWidget(
       onlineChild: Padding(
-        padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+        padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
         child: Scaffold(
           appBar: new AppBar(
             backgroundColor: Color(0xFF1F4B6E),
@@ -56,33 +57,105 @@ class _F_DisplayStockState extends State<F_DisplayStock> {
             ),
             centerTitle: true,
             actions: <Widget>[
-              IconButton(
-                  icon: Icon(
-                    Icons.add_circle,
+              FlatButton(
+                child: Text('',
+                  style: TextStyle(
+                    fontSize: 18,
                     color: Colors.white,
                   ),
-                  onPressed: () {
-                    GoToPage(
-                        context,
-                        EditStock(
-                          database: widget.database,
-                          title: widget.title,
-                        ));
-                  }),
+                ),
+                onPressed: ()=> print(''),
+              )
             ],
           ),
           body: _buildContent(context),
+          floatingActionButton: FloatingActionButton(
+            elevation: 90,
+            backgroundColor: backgroundColor,
+            autofocus: true,
+            onPressed: () {
+              GoToPage(
+                  context,
+                  EditStock(
+                    database: widget.database,
+                    title: widget.title,
+                  ));
+            },
+            child: Icon(Icons.add),
+            tooltip: 'Add Company',
+          ),
+          floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         ),
       ),
     );
   }
 
   Widget _buildContent(BuildContext context) {
-    return StreamBuilder<CommonVaribles>(
-      stream: widget.database.readCommonVariables(),
-      builder: (context, snapshot) {
-        final commonVariables = snapshot.data;
-      },
+    return SingleChildScrollView(
+      child: Center(
+        child: Padding(
+          padding: EdgeInsets.fromLTRB( 10,0,10,0 ),
+          child: Column(
+            children: <Widget>[
+              SizedBox( height: 5.0 ),
+              _companyCard( 'Vasanth Steels',Icons.format_align_center ),
+              _companyCard( 'Konda Bricks' ,Icons.dashboard),
+              _companyCard( 'Vamsi Cements' ,Icons.opacity),
+//              _options(''),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+
+  Widget _companyCard(String companyName, IconData icons) {
+    return Container(
+      width: double.infinity,
+      child: FlatButton(
+        onPressed: () => print('Company'),
+        padding: EdgeInsets.all( 15.0 ),
+
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular( 0.0 ),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Column(
+              children: <Widget>[
+                new Icon(
+                  icons,
+                  size: 40,
+                  color: backgroundColor,
+                ),
+              ],
+            ),
+            Column(
+              children: <Widget>[
+
+                Text( companyName,style: titleStyle ),
+              ],
+
+            ),
+            Column(
+              children: <Widget>[
+                Icon(
+                  Icons.add,
+                  color: Colors.black54,
+                  size: 30,
+                ),
+              ],
+
+            ),
+
+          ],
+
+        ),
+      ),
+
     );
   }
 }

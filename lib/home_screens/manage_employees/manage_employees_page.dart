@@ -51,6 +51,17 @@ class _F_ManageEmployeesPageState extends State<F_ManageEmployeesPage> {
             ),
 
             centerTitle: true,
+            actions: <Widget>[
+              FlatButton(
+                child: Text('',
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.white,
+                  ),
+                ),
+                onPressed: ()=> print(''),
+              )
+            ],
           ),
           body: _buildContent(context),
         ),
