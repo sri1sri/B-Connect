@@ -14,6 +14,8 @@ void GoToPage(BuildContext context, Widget page) {
 //var format = new DateFormat('HH:mm a');
 //String branchName;
 
+String EMPLOYEE_ID;
+
 String getDateTime(int timestamp) {
   var format = new DateFormat('dd MMM yyyy, hh:mm a');
   var date = new DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);

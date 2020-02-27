@@ -100,25 +100,25 @@ class _F_SettingsPageState extends State<F_SettingsPage> {
                   children: <Widget>[
                     SizedBox(height: 5.0),
 
-                    Divider(
-                      color: Colors.black,
-                    ),
+//                    Divider(
+//                      color: Colors.black,
+//                    ),
                     _reportAnIssue(),
-                    Divider(
-                      color: Colors.black,
-                    ),
+//                    Divider(
+//                      color: Colors.black,
+//                    ),
                     _howToUse(),
-                    Divider(
-                      color: Colors.black,
-                    ),
+//                    Divider(
+//                      color: Colors.black,
+//                    ),
                     _privacyPolicy(),
-                    Divider(
-                      color: Colors.black,
-                    ),
+//                    Divider(
+//                      color: Colors.black,
+//                    ),
                     _termsAndConditions(),
-                    Divider(
-                      color: Colors.black,
-                    ),
+//                    Divider(
+//                      color: Colors.black,
+//                    ),
                     RaisedButton(
                       onPressed: () => _confirmSignOut(context),
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(80.0)),

@@ -10,4 +10,6 @@ class APIPath {
 
   static String notification(String notificationID) => 'notifications/$notificationID';
 
+  static String commonVariables() => 'common_variables/6r2stU44qAbxESqfPc2v';
+
 }

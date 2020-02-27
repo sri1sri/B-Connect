@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:async';
 import 'package:bhavani_connect/common_variables/app_colors.dart';
 import 'package:bhavani_connect/common_variables/app_fonts.dart';
+import 'package:bhavani_connect/common_variables/app_functions.dart';
 import 'package:bhavani_connect/common_widgets/platform_alert/platform_exception_alert_dialog.dart';
 import 'package:bhavani_connect/database_model/goods_entry_model.dart';
 import 'package:bhavani_connect/database_model/notification_model.dart';
@@ -81,24 +82,27 @@ class _UploaderState extends State<Uploader> {
     final _itemEntry = GoodsEntry(
       vehicelImagePath: vehiceImage,
       mrrImagePath: MRRImage,
-      securityID: 'VlkppQFc9jaeLgpjyt2yAIQL5wy2',
-      supervisorID: 'N0aPI4jS3RRE4yiDPyQhS0sVNfU2',
-      managerID: 'HuOG1oaJCHSebSOKVeN3MNIU0eT2',
-      accountantID: 'abc',
-      storeManagerID: 'TzgGqaGfbNZ6wbnzBIuTUBdLtJi2',
+      securityID: EMPLOYEE_ID,
+      supervisorID: 'Not assigned',
+      managerID: 'Not assigned',
+      accountantID: 'Not assigned',
+      storeManagerID: 'Not assigned',
       securityRequestedTimestamp: Timestamp.fromDate(DateTime.now()),
-      supervisorApprovalTimestamp: null,
-      managerApprovalTimestamp: null,
-      storeMangerItemReceivedTimestamp: null,
-      accountantTransactionStatusTimestamp: null,
+      supervisorApprovalTimestamp: Timestamp.fromDate(DateTime.parse('2000-01-01 00:00:00.000')),
+      managerApprovalTimestamp: Timestamp.fromDate(DateTime.parse('2000-01-01 00:00:00.000')),
+      storeMangerItemReceivedTimestamp: Timestamp.fromDate(DateTime.parse('2000-01-01 00:00:00.000')),
+      accountantTransactionStatusTimestamp: Timestamp.fromDate(DateTime.parse('2000-01-01 00:00:00.000')),
       MRRNumber: MRRNumber,
       approvalLevel: 0,
+      itemsAdded: false,
+      empty: null,
     );
 
     await widget.database.setGoodsEntry(_itemEntry, itemID);
   }
 
   Future<void> _submitNotificationDetails(String itemID) async {
+    print('time=>${Timestamp.fromDate(DateTime.parse('2000-01-01 00:00:00.000'))}');
     final _notificationEntry = NotificationModel(
       notificationTitle: 'Item entry',
       notificationDescription:

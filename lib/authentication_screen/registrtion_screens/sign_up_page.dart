@@ -2,6 +2,7 @@ import 'package:bhavani_connect/common_variables/app_colors.dart';
 import 'package:bhavani_connect/common_variables/app_fonts.dart';
 import 'package:bhavani_connect/common_variables/app_functions.dart';
 import 'package:bhavani_connect/common_widgets/button_widget/to_do_button.dart';
+import 'package:bhavani_connect/common_widgets/loading_page.dart';
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
 import 'package:bhavani_connect/common_widgets/platform_alert/platform_exception_alert_dialog.dart';
 import 'package:bhavani_connect/database_model/employee_details_model.dart';
@@ -81,75 +82,77 @@ class _F_SignUpPageState extends State<F_SignUpPage> {
 
   Widget _buildContent(BuildContext context) {
 
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: <Widget>[
-        Column(
-          children: <Widget>[],
-        ),
-        Column(
-          children: <Widget>[
-            Text(
-              'Create your own \naccount today',
-              style: titleStyle,
-              textAlign: TextAlign.center,
-            ),
-            SizedBox(height: 10,),
-            Text(
-              'To create an Account or SignIn use your phone number.',
-              style: descriptionStyle,
-              textAlign: TextAlign.center,
-            ),
-          ],
-        ),
+    return TransparentLoading(
+      loading: widget.model.isLoading,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Column(
+            children: <Widget>[],
+          ),
+          Column(
+            children: <Widget>[
+              Text(
+                'Create your own \naccount today',
+                style: titleStyle,
+                textAlign: TextAlign.center,
+              ),
+              SizedBox(height: 10,),
+              Text(
+                'To create an Account or SignIn use your phone number.',
+                style: descriptionStyle,
+                textAlign: TextAlign.center,
+              ),
+            ],
+          ),
 
+          Column(
+            children: <Widget>[
 
-        Column(
-          children: <Widget>[
-
-            new TextFormField(
-              controller: _usernameController,
-              textInputAction: TextInputAction.done,
-              obscureText: false,
-              focusNode: _usernameFocusNode,
-              onEditingComplete: () => _submit(),
-              onChanged: model.updateUsername,
-              decoration: new InputDecoration(
-                prefixIcon: Icon(
-                  Icons.account_circle,
-                  color: backgroundColor,
+              new TextFormField(
+                controller: _usernameController,
+                textInputAction: TextInputAction.done,
+                obscureText: false,
+                focusNode: _usernameFocusNode,
+                onEditingComplete: () => _submit(),
+                onChanged: model.updateUsername,
+                decoration: new InputDecoration(
+                  prefixIcon: Icon(
+                    Icons.account_circle,
+                    color: backgroundColor,
+                  ),
+                  labelText: "Enter your name",
+                  border: new OutlineInputBorder(
+                    borderRadius: new BorderRadius.circular(5.0),
+                    borderSide: new BorderSide(),
+                  ),
                 ),
-                labelText: "Enter your name",
-                border: new OutlineInputBorder(
-                  borderRadius: new BorderRadius.circular(5.0),
-                  borderSide: new BorderSide(),
+                validator: (val) {
+                  if(val.length==0) {
+                    return "Username cannot be empty";
+                  }else{
+                    return null;
+                  }
+                },
+                keyboardType: TextInputType.text,
+                style: new TextStyle(
+                  fontFamily: "Poppins",
                 ),
               ),
-              validator: (val) {
-                if(val.length==0) {
-                  return "Username cannot be empty";
-                }else{
-                  return null;
-                }
-              },
-              keyboardType: TextInputType.text,
-              style: new TextStyle(
-                fontFamily: "Poppins",
-              ),
-            ),
 
-            SizedBox(height: 20.0),
-            ToDoButton(
-              assetName: 'images/googl-logo.png',
-              text: 'Register',
-              textColor: Colors.white,
-              backgroundColor: activeButtonBackgroundColor,
-              onPressed: model.canSubmit ? () => _submit() : null,
-            ),
-            SizedBox(height: 100.0),
-          ],
-        ),
-      ],
+              SizedBox(height: 20.0),
+              ToDoButton(
+                assetName: 'images/googl-logo.png',
+                text: 'Register',
+                textColor: Colors.white,
+                backgroundColor: activeButtonBackgroundColor,
+                onPressed: model.canSubmit ? () => _submit() : null,
+              ),
+              SizedBox(height: 100.0),
+            ],
+          ),
+        ],
+      ),
     );
   }
 
@@ -161,7 +164,7 @@ class _F_SignUpPageState extends State<F_SignUpPage> {
         username: _usernameController.value.text,
         phoneNumber: '+91${widget.phoneNo}',
         gender: 'N',
-        dateOfBirth: null,
+        dateOfBirth: Timestamp.fromDate(DateTime.parse('2000-01-01 00:00:00.000')),
         joinedDate: Timestamp.fromDate(DateTime.now()),
         latitude: '',
         longitude: '',

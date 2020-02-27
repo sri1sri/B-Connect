@@ -1,4 +1,6 @@
+import 'package:bhavani_connect/common_variables/app_functions.dart';
 import 'package:bhavani_connect/firebase/database.dart';
+import 'package:bhavani_connect/firebase/firebase_common_variables.dart';
 import 'package:bhavani_connect/home_screens/dashboard.dart';
 import 'package:bhavani_connect/home_screens/profile.dart';
 import 'package:flutter/cupertino.dart';
@@ -55,8 +57,7 @@ class _F_HomePageState extends State<F_HomePage> {
         break;
       case 1:
         child = ProfilePage(
-            database: database,
-            employeeID: 'N0aPI4jS3RRE4yiDPyQhS0sVNfU2');
+            database: database);
         break;
     }
     return Scaffold(

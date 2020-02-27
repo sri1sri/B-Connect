@@ -37,6 +37,9 @@ dependencies:
   dropdown_formfield: ^0.1.1
   percent_indicator: ^2.1.1+1
   flutter_animation_progress_bar: ^1.0.0
+  flutter_picker: ^1.1.0
+  configurable_expansion_tile: ^1.0.0
+
 
 dev_dependencies:
   flutter_test:
@@ -73,6 +76,10 @@ flutter:
     - images/bill.jpg
     - images/lorry.jpg
     - images/whatsapp.png
+    - images/splash1.jpg
+    - images/splash2.jpg
+    - images/splash3.jpg
+    - images/no_internet.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

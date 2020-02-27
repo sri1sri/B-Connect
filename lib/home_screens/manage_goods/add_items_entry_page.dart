@@ -5,6 +5,7 @@ import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.da
 import 'package:bhavani_connect/common_widgets/platform_alert/platform_exception_alert_dialog.dart';
 import 'package:bhavani_connect/database_model/items_entry_model.dart';
 import 'package:bhavani_connect/firebase/database.dart';
+import 'package:configurable_expansion_tile/configurable_expansion_tile.dart';
 import 'package:dropdown_formfield/dropdown_formfield.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -75,7 +76,8 @@ class _F_ItemsEntryPageState extends State<F_ItemsEntryPage> {
               child:   FlatButton.icon(
 
                   color: activeButtonTextColor,
-                  onPressed: _submit,
+//                  onPressed: _submit,
+              onPressed: (){},
                   icon: Icon(Icons.save_alt,size: 30,color: backgroundColor,),
                   label: Text('Save',style:titleStyle))
 
@@ -88,7 +90,7 @@ class _F_ItemsEntryPageState extends State<F_ItemsEntryPage> {
 
   @override
   Widget _buildContent(BuildContext context) {
-    return _buildForm();
+    return _buildFormChildren();
   }
 
   Widget _buildForm() {
@@ -99,17 +101,41 @@ class _F_ItemsEntryPageState extends State<F_ItemsEntryPage> {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         //crossAxisAlignment: CrossAxisAlignment.center|,
         children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-            child: Column(
-              children: _buildFormChildren(),
-            ),
-          ),
+          _buildFormChildren(),
+//          Padding(
+//            padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+//            child: Column(
+//              children: _buildFormChildren(),
+//            ),
+//          ),
         ],
       ),
     );
   }
 
+  ConfigurableExpansionTile _buildFormChildren(){
+    return ConfigurableExpansionTile(
+      headerExpanded: Flexible(child: Center(child: Text("A Header Changed"))),
+      header: Container(child: Center(child: Text("A Header"))),
+      children: [
+        Row(
+          children: <Widget>[Text("CHILD 1")],
+        ),
+        // + more params, see example !!
+      ],
+    );
+
+
+
+
+//      ListView.builder(
+//      itemBuilder: (BuildContext context, int index) =>
+//          EntryItem(data[index]),
+//      itemCount: data.length,
+//    );
+  }
+
+/*
   List<Widget>_buildFormChildren() {
     return [
 
@@ -454,5 +480,74 @@ class _F_ItemsEntryPageState extends State<F_ItemsEntryPage> {
         ).show(context);
       }
     }
+  }
+ */
+}
+
+class Entry {
+  Entry(this.title, [this.children = const <Entry>[]]);
+
+  final String title;
+  final List<Entry> children;
+}
+
+final List<Entry> data = <Entry>[
+  Entry(
+    'Chapter A',
+    <Entry>[
+      Entry(
+        'Section A0',
+        <Entry>[
+          Entry('Item A0.1'),
+          Entry('Item A0.2'),
+          Entry('Item A0.3'),
+        ],
+      ),
+      Entry('Section A1'),
+      Entry('Section A2'),
+    ],
+  ),
+  Entry(
+    'Chapter B',
+    <Entry>[
+      Entry('Section B0'),
+      Entry('Section B1'),
+    ],
+  ),
+  Entry(
+    'Chapter C',
+    <Entry>[
+      Entry('Section C0'),
+      Entry('Section C1'),
+      Entry(
+        'Section C2',
+        <Entry>[
+          Entry('Item C2.0'),
+          Entry('Item C2.1'),
+          Entry('Item C2.2'),
+          Entry('Item C2.3'),
+        ],
+      ),
+    ],
+  ),
+];
+
+class EntryItem extends StatelessWidget {
+  const EntryItem(this.entry);
+
+  final Entry entry;
+
+  Widget _buildTiles(Entry root) {
+    if (root.children.isEmpty) return ListTile(title: Text(root.title));
+    return ExpansionTile(
+      key: PageStorageKey<Entry>(root),
+      title: Text(root.title),
+      children: root.children.map(_buildTiles).toList(),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return _buildTiles(entry);
   }
 }

@@ -38,25 +38,22 @@ Future<void> _confirmSignOut(BuildContext context) async {
 }
 
 class ProfilePage extends StatelessWidget {
-  ProfilePage({@required this.database, @required this.employeeID});
+  ProfilePage({@required this.database});
   Database database;
-  String employeeID;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       child: F_ProfilePage(
-        database: database,
-        employeeID: employeeID,
+        database: database
       ),
     );
   }
 }
 
 class F_ProfilePage extends StatefulWidget {
-  F_ProfilePage({@required this.database, @required this.employeeID});
+  F_ProfilePage({@required this.database});
   Database database;
-  String employeeID;
 
   @override
   _F_ProfilePageState createState() => _F_ProfilePageState();
@@ -65,12 +62,10 @@ class F_ProfilePage extends StatefulWidget {
 class _F_ProfilePageState extends State<F_ProfilePage> {
   @override
   Widget build(BuildContext context) {
-    print('userID =>${widget.employeeID}');
     return offlineWidget(context);
   }
 
   Widget offlineWidget(BuildContext context) {
-    print(widget.employeeID);
     return CustomOfflineWidget(
       onlineChild: Padding(
         padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
@@ -153,7 +148,7 @@ class _F_ProfilePageState extends State<F_ProfilePage> {
 
   Widget _buildContent(BuildContext context) {
     return StreamBuilder<EmployeesList>(
-        stream: widget.database.readEmployee(widget.employeeID),
+        stream: widget.database.readEmployee(EMPLOYEE_ID),
         builder: (context, snapshot) {
           final employee = snapshot.data;
           return SingleChildScrollView(

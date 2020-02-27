@@ -1,4 +1,5 @@
 
+import 'package:bhavani_connect/database_model/common_variables.dart';
 import 'package:bhavani_connect/database_model/employee_details_model.dart';
 import 'package:bhavani_connect/database_model/employee_list_model.dart';
 import 'package:bhavani_connect/database_model/goods_entry_model.dart';
@@ -22,6 +23,11 @@ abstract class Database{
   Stream<GoodsEntry> readGoodsDetails(String goodsID);
   Stream<List<ItemEntry>> viewItemsList(String goodsID);
   Stream<EmployeeDetails> readEmployeeDetails();
+  Future<void> updateGoodsEntry(GoodsEntry itemEntry, String itemID);
+  Future<void> updateNotification(NotificationModel notificationEntry, String notificationID);
+  Stream<CommonVaribles> readCommonVariables();
+  Future<void> updateCommonVariables(CommonVaribles itemEntry);
+
 
 }
 
@@ -63,7 +69,13 @@ class FirestoreDatabase implements Database {
 
   @override
   Future<void> setNotification(NotificationModel notificationEntry) async => await _service.setData(
-    path: APIPath.notification(DateTime.now().toString()),
+    path: APIPath.notification( DateTime.now().toString()),
+    data: notificationEntry.toMap(),
+  );
+
+  @override
+  Future<void> updateNotification(NotificationModel notificationEntry, String notificationID) async => await _service.updateData(
+    path: APIPath.notification(notificationID),
     data: notificationEntry.toMap(),
   );
 
@@ -72,6 +84,14 @@ class FirestoreDatabase implements Database {
     path: APIPath.addItem(goodsID, DateTime.now().toString()),
     data: itemEntry.toMap(),
   );
+
+  @override
+  Future<void> updateGoodsEntry(GoodsEntry itemEntry, String itemID) async => await _service.updateData(
+    path: APIPath.goodsEntry(itemID),
+    data: itemEntry.toMap(),
+  );
+
+
   @override
   Stream<List<ItemEntry>> viewItemsList(String goodsID) => _service.collectionStream(
     path: APIPath.viewItemsList(goodsID),
@@ -89,6 +109,19 @@ class FirestoreDatabase implements Database {
     path: APIPath.employeeDetails(uid),
     builder: (data, documentId) => EmployeeDetails.fromMap(data, documentId),
   );
+
+  @override
+  Stream<CommonVaribles> readCommonVariables() => _service.documentStream(
+    path: APIPath.commonVariables(),
+    builder: (data, documentId) => CommonVaribles.fromMap(data, documentId),
+  );
+
+  @override
+  Future<void> updateCommonVariables(CommonVaribles itemEntry) async => await _service.updateData(
+    path: APIPath.commonVariables(),
+    data: itemEntry.toMap(),
+  );
+
 
 
 }

@@ -12,6 +12,7 @@ class NotificationModel {
     @required this.senderID,
     @required this.receiverID,
     @required this.itemEntryID,
+    @required this.empty,
   });
 
   final String notificationID;
@@ -20,6 +21,7 @@ class NotificationModel {
   final String senderID;
   final String receiverID;
   final String itemEntryID;
+  final Null empty;
 
 
   factory NotificationModel.fromMap(Map<String, dynamic> data, String documentId) {
@@ -33,6 +35,8 @@ class NotificationModel {
     final String senderID = data['sender_id'];
     final String receiverID = data['receiver_id'];
     final String itemEntryID = data['item_entry_id'];
+    final Null empty = data['empty'];
+
 
     return NotificationModel(
       notificationID: notificationID,
@@ -41,17 +45,17 @@ class NotificationModel {
       senderID: senderID,
       receiverID: receiverID,
       itemEntryID: itemEntryID,
-
+      empty: empty,
     );
   }
 
   Map<String, dynamic> toMap() {
     return {
-      'notification_title': notificationTitle,
-      'notification_description': notificationDescription,
-      'sender_id': senderID,
-      'receiver_id': receiverID,
-      'item_entry_id': itemEntryID,
+      notificationDescription != null ? 'notification_description': 'empty' : notificationDescription,
+      notificationTitle != null ? 'notification_title': 'empty' : notificationTitle,
+      senderID != null ? 'sender_id': 'empty' : senderID,
+      receiverID != null ? 'receiver_id': 'empty' : receiverID,
+      itemEntryID != null ? 'item_entry_id': 'empty' : itemEntryID,
     };
   }
 }

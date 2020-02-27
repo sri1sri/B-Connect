@@ -1,3 +1,5 @@
+import 'package:bhavani_connect/authentication_screen/login_screens/login_page.dart';
+import 'package:bhavani_connect/common_variables/app_functions.dart';
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -6,15 +8,21 @@ import 'package:bhavani_connect/common_variables/app_colors.dart';
 import 'package:bhavani_connect/common_variables/app_fonts.dart';
 
 class OnboardingScreen extends StatelessWidget {
+  OnboardingScreen({@required this.context});
+  BuildContext context;
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: F_OnboardingScreen(),
+      child: F_OnboardingScreen(context: context,),
     );
   }
 }
 
 class F_OnboardingScreen extends StatefulWidget {
+  F_OnboardingScreen({@required this.context});
+  BuildContext context;
+
   @override
   _F_OnboardingScreenState createState() => _F_OnboardingScreenState();
 }
@@ -76,7 +84,7 @@ class _F_OnboardingScreenState extends State<F_OnboardingScreen> {
                 Container(
                   alignment: Alignment.centerRight,
                   child: FlatButton(
-                    onPressed: () => MyNavigator.goToHome(context),
+                    onPressed: () => GoToPage(context, LoginPage.create(widget.context)),
                     child: Text(
                       'Skip',
                       style: subTitleStyle,
@@ -102,10 +110,10 @@ class _F_OnboardingScreenState extends State<F_OnboardingScreen> {
                             Center(
                               child: Image(
                                 image: AssetImage(
-                                  'images/onboarding0.png',
+                                  'images/splash1.jpg',
                                 ),
-                                height: 200.0,
-                                width: 200.0,
+                                height: 500.0,
+                                width: 500.0,
                               ),
                             ),
                             SizedBox(
@@ -131,10 +139,10 @@ class _F_OnboardingScreenState extends State<F_OnboardingScreen> {
                             Center(
                               child: Image(
                                 image: AssetImage(
-                                  'images/onboarding1.png',
+                                  'images/splash2.jpg',
                                 ),
-                                height: 200.0,
-                                width: 200.0,
+                                height: 500.0,
+                                width: 500.0,
                               ),
                             ),
                             SizedBox(
@@ -162,10 +170,10 @@ class _F_OnboardingScreenState extends State<F_OnboardingScreen> {
                             Center(
                               child: Image(
                                 image: AssetImage(
-                                  'images/onboarding2.png',
+                                  'images/splash3.jpg',
                                 ),
-                                height: 200.0,
-                                width: 200.0,
+                                height: 500.0,
+                                width: 500.0,
                               ),
                             ),
                             SizedBox(
@@ -236,7 +244,7 @@ class _F_OnboardingScreenState extends State<F_OnboardingScreen> {
         width: double.infinity,
         color: Color(0xFF1F4B6E),
         child: GestureDetector(
-          onTap: () => MyNavigator.goToHome(context),
+          onTap: () => {LoginPage.create(widget.context)},
           child: Center(
             child: Padding(
               padding: EdgeInsets.only(bottom: 10.0),

@@ -2,6 +2,7 @@ import 'package:bhavani_connect/authentication_screen/login_screens/otp_page.dar
 import 'package:bhavani_connect/common_variables/app_colors.dart';
 import 'package:bhavani_connect/common_variables/app_functions.dart';
 import 'package:bhavani_connect/common_widgets/button_widget/to_do_button.dart';
+import 'package:bhavani_connect/common_widgets/loading_page.dart';
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
 import 'package:bhavani_connect/common_variables/app_fonts.dart';
 import 'package:bhavani_connect/common_widgets/platform_alert/platform_alert_dialog.dart';
@@ -75,88 +76,91 @@ class _F_PhoneNumberPageState extends State<F_PhoneNumberPage> {
 
   Widget _buildContent(BuildContext context) {
 
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: <Widget>[
-        Column(
-          children: <Widget>[],
-        ),
-        Column(
-          children: <Widget>[
-            Text(
-              'Enter Mobile Number',
-              style: titleStyle,
-              textAlign: TextAlign.center,
-            ),
-            SizedBox(height: 10,),
-            Text(
-              'To create an Account or SignIn \nuse your phone number.',
-              style: descriptionStyle,
-              textAlign: TextAlign.center,
-            ),
-          ],
-        ),
+    return TransparentLoading(
+      loading: widget.model.isLoading,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: <Widget>[
+          Column(
+            children: <Widget>[],
+          ),
+          Column(
+            children: <Widget>[
+              Text(
+                'Enter Mobile Number',
+                style: titleStyle,
+                textAlign: TextAlign.center,
+              ),
+              SizedBox(height: 10,),
+              Text(
+                'To create an Account or SignIn \nuse your phone number.',
+                style: descriptionStyle,
+                textAlign: TextAlign.center,
+              ),
+            ],
+          ),
 
-        Column(
-          children: <Widget>[],
-        ),
-        Column(
-          children: <Widget>[
-            new TextFormField(
-              controller: _phoneNumberController,
-              textInputAction: TextInputAction.done,
-              obscureText: false,
-              focusNode: _phoneNumberFocusNode,
-              onEditingComplete: () => _submit(context),
-              onChanged: model.updatePhoneNumber,
-              decoration: new InputDecoration(
-                prefixIcon: Icon(
-                  Icons.phone,
-                  color: backgroundColor,
+          Column(
+            children: <Widget>[],
+          ),
+          Column(
+            children: <Widget>[
+              new TextFormField(
+                controller: _phoneNumberController,
+                textInputAction: TextInputAction.done,
+                obscureText: false,
+                focusNode: _phoneNumberFocusNode,
+                onEditingComplete: () => _submit(context),
+                onChanged: model.updatePhoneNumber,
+                decoration: new InputDecoration(
+                  prefixIcon: Icon(
+                    Icons.phone,
+                    color: backgroundColor,
+                  ),
+                  labelText: "Enter your mobile no.",
+                  //fillColor: Colors.redAccent,
+                  border: new OutlineInputBorder(
+                    borderRadius: new BorderRadius.circular(5.0),
+                    borderSide: new BorderSide(),
+                  ),
                 ),
-                labelText: "Enter your mobile no.",
-                //fillColor: Colors.redAccent,
-                border: new OutlineInputBorder(
-                  borderRadius: new BorderRadius.circular(5.0),
-                  borderSide: new BorderSide(),
+                validator: (val) {
+                  if (val.length == 0) {
+                    return "Phone number cannot be empty";
+                  } else if (val.length == 10) {
+                    return null;
+                  } else {
+                    return "Phone number you entered is invalid.";
+                  }
+                },
+                keyboardType: TextInputType.phone,
+                style: new TextStyle(
+                  fontFamily: "Poppins",
                 ),
               ),
-              validator: (val) {
-                if (val.length == 0) {
-                  return "Phone number cannot be empty";
-                } else if (val.length == 10) {
-                  return null;
-                } else {
-                  return "Phone number you entered is invalid.";
-                }
-              },
-              keyboardType: TextInputType.phone,
-              style: new TextStyle(
-                fontFamily: "Poppins",
+              SizedBox(height: 20.0),
+              ToDoButton(
+                assetName: 'images/googl-logo.png',
+                text: 'Get OTP',
+                textColor: Colors.white,
+                backgroundColor: activeButtonBackgroundColor,
+                onPressed: model.canSubmit ? () => _submit(context) : null,
               ),
-            ),
-            SizedBox(height: 20.0),
-            ToDoButton(
-              assetName: 'images/googl-logo.png',
-              text: 'Get OTP',
-              textColor: Colors.white,
-              backgroundColor: activeButtonBackgroundColor,
-              onPressed: model.canSubmit ? () => _submit(context) : null,
-            ),
-            SizedBox(height: 10.0),
-            ToDoButton(
-              assetName: 'images/googl-logo.png',
-              text: 'back',
-              textColor: Colors.black,
-              backgroundColor: Colors.white,
-             onPressed: (){
-               Navigator.of(context).pop();
-             },
-             // onPressed: model.canSubmit ? () => _submit() : null,
-            ),
-          ],
-        ),
-      ],
+              SizedBox(height: 10.0),
+              ToDoButton(
+                assetName: 'images/googl-logo.png',
+                text: 'back',
+                textColor: Colors.black,
+                backgroundColor: Colors.white,
+               onPressed: (){
+                 Navigator.of(context).pop();
+               },
+               // onPressed: model.canSubmit ? () => _submit() : null,
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 

@@ -12,6 +12,7 @@ import 'package:bhavani_connect/firebase/database.dart';
 import 'package:bhavani_connect/home_screens/camera_screens/Camera_page.dart';
 import 'package:bhavani_connect/home_screens/manage_goods/add_goods_entry_page.dart';
 import 'package:bhavani_connect/home_screens/manage_goods/add_items_entry_page.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -22,12 +23,10 @@ class GoodsDetailsPage extends StatelessWidget {
   GoodsDetailsPage(
       {@required this.database,
       @required this.goodsID,
-      @required this.employee,
-        @required this.appovalStatusLevel});
+      @required this.employee});
   Database database;
   String goodsID;
   EmployeeDetails employee;
-  int appovalStatusLevel;
 
 
   @override
@@ -36,8 +35,7 @@ class GoodsDetailsPage extends StatelessWidget {
       child: F_GoodsDetailsPage(
         database: database,
         goodsID: goodsID,
-        employee: employee,
-        appovalStatusLevel: appovalStatusLevel,
+        employee: employee
       ),
     );
   }
@@ -47,12 +45,10 @@ class F_GoodsDetailsPage extends StatefulWidget {
   F_GoodsDetailsPage(
       {@required this.database,
       @required this.goodsID,
-      @required this.employee,
-      @required this.appovalStatusLevel});
+      @required this.employee});
   Database database;
   String goodsID;
   EmployeeDetails employee;
-  int appovalStatusLevel;
 
   @override
   _F_GoodsDetailsPageState createState() => _F_GoodsDetailsPageState();
@@ -115,33 +111,88 @@ class _F_GoodsDetailsPageState extends State<F_GoodsDetailsPage> {
   }
 
   Widget _statusApprovalButton() {
-    switch (widget.appovalStatusLevel){
+    return StreamBuilder<GoodsEntry>(
+        stream: widget.database.readGoodsDetails(widget.goodsID),
+        builder: (context, snapshot) {
+          final goods = snapshot.data;
+          return _approvalButtonVisibility(goods.approvalLevel, goods.itemsAdded);
+        },
+    );
+  }
+
+  Widget _approvalButtonVisibility(int approvalLevel, bool itemsAdded){
+    switch (approvalLevel){
       case 0:
         if(widget.employee.role == 'Supervisor'){
-          return _approvalButton('Accpet security request');
+          return _approvalButtonWidget('Accpet security request',
+                  (){
+            final _itemEntry = GoodsEntry(
+              supervisorApprovalTimestamp: Timestamp.fromDate(DateTime.now()),
+              supervisorID: widget.employee.employeeID,
+              approvalLevel: 1,
+            );
+            widget.database.updateGoodsEntry(_itemEntry, widget.goodsID);
+          }
+          );
         }else{
-          return Container();
+          return Container(
+            height: 0.0,
+            width: 0.0,
+          );
         }
         break;
       case 1:
-        if(widget.employee.role == 'Manager'){
-          return _approvalButton('Accpet supervisor request');
+        if(widget.employee.role == 'Manager' && itemsAdded){
+          return _approvalButtonWidget('Accpet supervisor request', (){
+            final _itemEntry = GoodsEntry(
+              managerApprovalTimestamp: Timestamp.fromDate(DateTime.now()),
+              managerID: widget.employee.employeeID,
+              approvalLevel: 2,
+            );
+            widget.database.updateGoodsEntry(_itemEntry, widget.goodsID);
+          }
+          );
         }else{
-          return Container();
+          return Container(
+            height: 0.0,
+            width: 0.0,
+          );
         }
         break;
       case 2:
         if(widget.employee.role == 'Store Manager'){
-          return _approvalButton('update received status.');
+          return _approvalButtonWidget('update received status.', (){
+          final _itemEntry = GoodsEntry(
+          storeMangerItemReceivedTimestamp: Timestamp.fromDate(DateTime.now()),
+          storeManagerID: widget.employee.employeeID,
+          approvalLevel: 3,
+          );
+          widget.database.updateGoodsEntry(_itemEntry, widget.goodsID);
+          }
+          );
         }else{
-          return Container();
+          return Container(
+            height: 0.0,
+            width: 0.0,
+          );
         }
         break;
       case 3:
         if(widget.employee.role == 'Accountant'){
-          return _approvalButton('update received status.');
+          return _approvalButtonWidget('update received status.', (){
+            final _itemEntry = GoodsEntry(
+              accountantTransactionStatusTimestamp: Timestamp.fromDate(DateTime.now()),
+              accountantID: widget.employee.employeeID,
+              approvalLevel: 4,
+            );
+            widget.database.updateGoodsEntry(_itemEntry, widget.goodsID);
+          }
+          );
         }else{
-          return Container();
+          return Container(
+            height: 0.0,
+            width: 0.0,
+          );
         }
         break;
 
@@ -149,11 +200,11 @@ class _F_GoodsDetailsPageState extends State<F_GoodsDetailsPage> {
   }
 
 
-  Widget _approvalButton(String title) {
+  Widget _approvalButtonWidget(String title, VoidCallback onTap) {
     return Container(
       child: AnimatedButton(
         onTap: () {
-          print("Supervisor Approval Status");
+          onTap();
         },
         animationDuration: const Duration(milliseconds: 1000),
         initialText: title,
@@ -184,10 +235,12 @@ class _F_GoodsDetailsPageState extends State<F_GoodsDetailsPage> {
         child: Column(children: <Widget>[
           Column(children: <Widget>[
             _goodsDetails(context),
+            _statusApprovalButton(),
+
           ]),
-          Column(children: <Widget>[
-            _goodsItemsDetails(context),
-          ]),
+//          Column(children: <Widget>[
+//            _goodsItemsDetails(context),
+//          ]),
         ]),
       ),
     );
@@ -221,10 +274,9 @@ class _F_GoodsDetailsPageState extends State<F_GoodsDetailsPage> {
 
 
                         //sample data
-                        _OrderedItemsCard("ABC company", "Wires", "Electricals", "100 mts"),
+                        //_OrderedItemsCard("ABC company", "Wires", "Electricals", "100 mts"),
 
                         _goodsItemsDetails(context),
-
 
 
 
@@ -390,7 +442,7 @@ class _F_GoodsDetailsPageState extends State<F_GoodsDetailsPage> {
             SizedBox(
               height: 2,
             ),
-            SizedBox(height: 60,width: 3,child: Container(color: Colors.green,),),
+            SizedBox(height: 60,width: 3,child: Container(color: levelTwo,),),
             SizedBox(
               height: 2,
             ),
@@ -401,7 +453,7 @@ class _F_GoodsDetailsPageState extends State<F_GoodsDetailsPage> {
             SizedBox(
               height: 2,
             ),
-            SizedBox(height: 60,width: 3,child: Container(color: Colors.green,),),
+            SizedBox(height: 60,width: 3,child: Container(color: levelThree,),),
             SizedBox(
               height: 2,
             ),
@@ -412,7 +464,7 @@ class _F_GoodsDetailsPageState extends State<F_GoodsDetailsPage> {
             SizedBox(
               height: 2,
             ),
-            SizedBox(height: 60,width: 3,child: Container(color: Colors.green,),),
+            SizedBox(height: 60,width: 3,child: Container(color: levelFour,),),
             SizedBox(
               height: 2,
             ),
@@ -423,7 +475,7 @@ class _F_GoodsDetailsPageState extends State<F_GoodsDetailsPage> {
             SizedBox(
               height: 2,
             ),
-            SizedBox(height: 60,width: 3,child: Container(color: Colors.green,),),
+            SizedBox(height: 60,width: 3,child: Container(color: levelFive,),),
             SizedBox(
               height: 2,
             ),

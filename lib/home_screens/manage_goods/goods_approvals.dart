@@ -81,7 +81,7 @@ class _F_GoodsApprovalsPageState extends State<F_GoodsApprovalsPage> {
             actions: <Widget>[
               addGoods(),
             ],
-            centerTitle: true,
+            centerTitle : true,
           ),
           body: _buildContent(context),
         ),
@@ -97,7 +97,6 @@ class _F_GoodsApprovalsPageState extends State<F_GoodsApprovalsPage> {
     return StreamBuilder<List<GoodsEntry>>(
         stream: widget.database.readGoodsEntries(),
         builder: (context, snapshot) {
-          print(snapshot.data.length);
           return ListItemsBuilder<GoodsEntry>(
             snapshot: snapshot,
             itemBuilder: (context, data) => Column(
@@ -308,7 +307,7 @@ class _F_GoodsApprovalsPageState extends State<F_GoodsApprovalsPage> {
             animationDuration: 3000,
             percent: 1,
             linearStrokeCap: LinearStrokeCap.roundAll,
-            progressColor: Colors.green,
+            progressColor: levelTwo,
           ),
         ),
         CircleAvatar(backgroundColor: levelTwo,radius: 6,),
@@ -321,7 +320,7 @@ class _F_GoodsApprovalsPageState extends State<F_GoodsApprovalsPage> {
             animationDuration: 3000,
             percent: 1,
             linearStrokeCap: LinearStrokeCap.roundAll,
-            progressColor: Colors.green,
+            progressColor: levelThree,
           ),
         ),
         CircleAvatar(backgroundColor: levelThree,radius: 6,),
@@ -334,7 +333,7 @@ class _F_GoodsApprovalsPageState extends State<F_GoodsApprovalsPage> {
             animationDuration: 3000,
             percent: 1,
             linearStrokeCap: LinearStrokeCap.roundAll,
-            progressColor: Colors.green,
+            progressColor: levelFour,
           ),
         ),
         CircleAvatar(backgroundColor: levelFour,radius: 6,),
