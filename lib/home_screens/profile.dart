@@ -1,6 +1,7 @@
 import 'package:bhavani_connect/common_variables/app_colors.dart';
 import 'package:bhavani_connect/common_variables/app_fonts.dart';
 import 'package:bhavani_connect/common_variables/app_functions.dart';
+import 'package:bhavani_connect/common_widgets/custom_appbar_widget/custom_app_bar.dart';
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
 import 'package:bhavani_connect/common_widgets/platform_alert/platform_alert_dialog.dart';
 import 'package:bhavani_connect/database_model/employee_list_model.dart';
@@ -45,8 +46,7 @@ class ProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: F_ProfilePage(
-        database: database
-      ),
+        database: database),
     );
   }
 }
@@ -54,12 +54,14 @@ class ProfilePage extends StatelessWidget {
 class F_ProfilePage extends StatefulWidget {
   F_ProfilePage({@required this.database});
   Database database;
+  String employeeName ;
 
   @override
   _F_ProfilePageState createState() => _F_ProfilePageState();
 }
 
 class _F_ProfilePageState extends State<F_ProfilePage> {
+
   @override
   Widget build(BuildContext context) {
     return offlineWidget(context);
@@ -72,72 +74,37 @@ class _F_ProfilePageState extends State<F_ProfilePage> {
         child: Scaffold(
           backgroundColor: Colors.white,
 
-
-
-          appBar: PreferredSize(
-            preferredSize: Size(double.infinity, 100),
-            child: Container(
-              decoration: BoxDecoration(
-                  boxShadow: [BoxShadow(
-                      color: Colors.black12,
-                      spreadRadius: 5,
-                      blurRadius: 2
-                  )]
-              ),
-              width: MediaQuery.of(context).size.width,
-              height: 130,
-              child: Container(
-                decoration: BoxDecoration(
-                    color: backgroundColor,
-                    borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20),bottomRight: Radius.circular(20))
-                ),
-                child: Container(
-                  margin: EdgeInsets.fromLTRB(20, 60, 20, 0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            "Hello!",
-                            style: activeSubTitleStyle,
-                          ),
-                          Text(
-                            "Your Profile",
-                            style: subTitleStyleLight,
-                          ),
-                        ],
-                      ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          InkWell(
-                            child: Icon(
-                              Icons.more_vert,
-                              color: activeButtonTextColor,
-                            ),
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => SettingsPage()),
-                              );
-
-                            },
-                            //onTap: () => _confirmSignOut(context),
-                          ),
-                        ],
-                      )
-
-                    ],
+          appBar:
+          PreferredSize(
+            preferredSize: Size.fromHeight(123),
+            //preferredSize : Size(double.infinity, 100),
+            child: CustomAppBar(
+              leftActionBar: null,
+              leftAction: (){
+                Navigator.pop(context,true);
+              },
+              rightActionBar: Container(
+                child: InkWell(
+                  child: Icon(Icons.more_vert,
+                    color: Colors.black,
                   ),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => SettingsPage() ),
+                    );
+                  }
                 ),
               ),
+              rightAction: (){
+                print('right action bar is pressed in appbar');
+              },
+              primaryText: 'Hello!',
+              secondaryText: 'Hard coded value',
+              tabBarWidget: null,
             ),
           ),
-
-
           body: _buildContent(context),
         ),
       ),
@@ -158,11 +125,8 @@ class _F_ProfilePageState extends State<F_ProfilePage> {
               Padding(
                 padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
                 child: Column(
-
                   children: <Widget>[
-
                     Container(
-
                         height: 400,
                         width: 440,
                         //color: Colors.red,

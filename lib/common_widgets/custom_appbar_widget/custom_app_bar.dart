@@ -40,7 +40,7 @@ class CustomAppBar extends StatelessWidget {
             children: <Widget>[
               Padding(
                 padding: EdgeInsets.only(
-                  top: 45,
+                  top: 55,
                   left: 20,
                 ),
                 child: InkWell(
@@ -79,7 +79,7 @@ class CustomAppBar extends StatelessWidget {
               secondaryText == null ? Container(height: 0, width: 0,): Text(
                 secondaryText,
                 textAlign: TextAlign.center,
-                style: titleStyle,
+                style: bigTitleStyle,
               ),
             ],
 

@@ -2,6 +2,7 @@ import 'package:bhavani_connect/common_variables/app_colors.dart';
 import 'package:bhavani_connect/common_variables/app_fonts.dart';
 import 'package:bhavani_connect/common_variables/app_functions.dart';
 import 'package:bhavani_connect/common_widgets/button_widget/add_to_cart_button.dart';
+import 'package:bhavani_connect/common_widgets/custom_appbar_widget/custom_app_bar.dart';
 import 'package:bhavani_connect/common_widgets/list_item_builder/list_goods_items_builder.dart';
 import 'package:bhavani_connect/common_widgets/list_item_builder/list_items_builder.dart';
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
@@ -66,33 +67,56 @@ class _F_GoodsDetailsPageState extends State<F_GoodsDetailsPage> {
       onlineChild: Padding(
         padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
         child: Scaffold(
-          appBar: new AppBar(
-            backgroundColor: Color(0xFF1F4B6E),
-            title: Center(
-                child: Text(
-              'Goods Details',
-              style: subTitleStyleLight,
-            )),
-            leading: IconButton(
-              icon: Icon(Icons.arrow_back),
-              onPressed: () => Navigator.pop(context, false),
+          appBar: PreferredSize(
+            preferredSize: Size.fromHeight(115),
+            //preferredSize : Size(double.infinity, 100),
+            child: CustomAppBar(
+              leftActionBar: Container(
+                child: Icon(Icons.arrow_back, size: 40,color: Colors.black38,),
+              ),
+              leftAction: (){
+                Navigator.pop(context,true);
+              },
+              rightActionBar: Container(
+                //child: Icon(Icons.notifications, size: 40,),
+              ),
+              rightAction: (){
+                print('right action bar is pressed in appbar');
+              },
+              primaryText: null,
+              secondaryText: 'Goods Details',
+              tabBarWidget: null,
             ),
-//            actions: <Widget>[
-//              _addItem(),
-//            ],
-            actions: <Widget>[
-              FlatButton(
-                child: Text('',
-                  style: TextStyle(
-                    fontSize: 18,
-                    color: Colors.white,
-                  ),
-                ),
-                onPressed: ()=> print(''),
-              )
-            ],
-            centerTitle: true,
           ),
+
+//          new AppBar(
+//            backgroundColor: Color(0xFF1F4B6E),
+//            title: Center(
+//                child: Text(
+//              'Goods Details',
+//              style: subTitleStyleLight,
+//            )),
+//            leading: IconButton(
+//              icon: Icon(Icons.arrow_back),
+//              onPressed: () => Navigator.pop(context, false),
+//            ),
+////            actions: <Widget>[
+////              _addItem(),
+////            ],
+//            actions: <Widget>[
+//              FlatButton(
+//                child: Text('',
+//                  style: TextStyle(
+//                    fontSize: 18,
+//                    color: Colors.white,
+//                  ),
+//                ),
+//                onPressed: ()=> print(''),
+//              )
+//            ],
+//            centerTitle: true,
+
+
           body: _buildContent(context),
           floatingActionButton: FloatingActionButton(
             elevation: 90,

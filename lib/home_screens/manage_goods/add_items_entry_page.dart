@@ -2,6 +2,7 @@ import 'package:bhavani_connect/common_variables/app_colors.dart';
 import 'package:bhavani_connect/common_variables/app_fonts.dart';
 import 'package:bhavani_connect/common_variables/app_functions.dart';
 import 'package:bhavani_connect/common_widgets/button_widget/to_do_button.dart';
+import 'package:bhavani_connect/common_widgets/custom_appbar_widget/custom_app_bar.dart';
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
 import 'package:bhavani_connect/common_widgets/platform_alert/platform_exception_alert_dialog.dart';
 import 'package:bhavani_connect/database_model/items_entry_model.dart';
@@ -49,30 +50,57 @@ class _F_ItemsEntryPageState extends State<F_ItemsEntryPage> {
       onlineChild: Padding(
         padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
         child: Scaffold(
-          appBar: new AppBar(
-            backgroundColor: Color(0xFF1F4B6E),
-            title: Center(
-                child: Text(
-                  'Add items',
-                  style: subTitleStyleLight,
-                )),
-            leading: IconButton(
-              icon: Icon(Icons.arrow_back),
-              onPressed: () => Navigator.pop(context, false),
-            ),
-            actions: <Widget>[
-              FlatButton(
-                child: Text('Clear',
-                  style: TextStyle(
-                    fontSize: 18,
-                    color: Colors.white,
-                  ),
+          appBar:
+          PreferredSize(
+            preferredSize: Size.fromHeight(115),
+            //preferredSize : Size(double.infinity, 100),
+            child: CustomAppBar(
+              leftActionBar: Container(
+                child: Icon(Icons.arrow_back, size: 40,color: Colors.black38,),
+              ),
+              leftAction: (){
+                Navigator.pop(context,true);
+              },
+              rightActionBar: Container(
+                child: FlatButton(onPressed: (){print('pressed clear in Add items');},
+                    child: Text('Clear',
+                style: subTitleStyle,
                 ),
-                onPressed: () => {print("Clear Fields")},
-              )
-            ],
-            centerTitle: true,
+                ),
+              ),
+              rightAction: (){
+                print('right action bar is pressed in appbar');
+              },
+              primaryText: null,
+              secondaryText: 'Add items',
+              tabBarWidget: null,
+            ),
           ),
+
+//          new AppBar(
+//            backgroundColor: Color(0xFF1F4B6E),
+//            title: Center(
+//                child: Text(
+//                  'Add items',
+//                  style: subTitleStyleLight,
+//                )),
+//            leading: IconButton(
+//              icon: Icon(Icons.arrow_back),
+//              onPressed: () => Navigator.pop(context, false),
+//            ),
+//            actions: <Widget>[
+//              FlatButton(
+//                child: Text('Clear',
+//                  style: TextStyle(
+//                    fontSize: 18,
+//                    color: Colors.white,
+//                  ),
+//                ),
+//                onPressed: () => {print("Clear Fields")},
+//              )
+//            ],
+//            centerTitle: true,
+//          ),
           body: _buildContent(context),
           bottomNavigationBar: BottomAppBar(
               child: ToDoButton(
