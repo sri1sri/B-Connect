@@ -6,7 +6,7 @@ var bigTitleStyle = TextStyle(
     color: Color(0xFF1F4B6E),
     fontFamily: 'Quicksand',
     fontWeight: FontWeight.w900,
-    fontSize: 28.0);
+    fontSize: 30.0);
 var titleStyle = TextStyle(
     color: Color(0xFF1F4B6E),
     fontFamily: 'Quicksand',

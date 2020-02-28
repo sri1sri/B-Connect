@@ -1,6 +1,7 @@
 import 'package:bhavani_connect/common_variables/app_colors.dart';
 import 'package:bhavani_connect/common_variables/app_fonts.dart';
 import 'package:bhavani_connect/common_variables/app_functions.dart';
+import 'package:bhavani_connect/common_widgets/custom_appbar_widget/custom_app_bar.dart';
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
 import 'package:bhavani_connect/common_widgets/platform_alert/platform_alert_dialog.dart';
 import 'package:bhavani_connect/database_model/employee_details_model.dart';
@@ -85,60 +86,89 @@ class _F_DashboardState extends State<F_Dashboard> {
           backgroundColor: Colors.white,
 
           appBar: PreferredSize(
-            preferredSize: Size(double.infinity, 100),
-            child: Container(
-              decoration: BoxDecoration(
-                  boxShadow: [BoxShadow(
-                      color: Colors.black12,
-                      spreadRadius: 5,
-                      blurRadius: 2
-                  )]
+            preferredSize: Size.fromHeight(160),
+            //preferredSize : Size(double.infinity, 100),
+            child: CustomAppBar(
+              leftActionBar: Container(
+               // child: Icon(Icons.arrow_back, size: 40,),
               ),
-              width: MediaQuery.of(context).size.width,
-              height: 130,
-              child: Container(
-                decoration: BoxDecoration(
-                    color: backgroundColor,
-                    borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20),bottomRight: Radius.circular(20))
-                ),
-                child: Container(
-                  margin: EdgeInsets.fromLTRB(20, 60, 20, 0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            "Hello!",
-                            style: activeSubTitleStyle,
-                          ),
-                          Text(
-                            "${employee.username}(${employee.role})",
-                            style: subTitleStyleLight,
-                          ),
-                        ],
-                      ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          InkWell(
-                            child: Icon(
-                              Icons.notifications,
-                              color: activeButtonTextColor,
-                            ),
-                            onTap: () => GoToPage(context, NotificationPage())
-                          ),
-                        ],
-                      )
-
-                    ],
-                  ),
-                ),
+              leftAction: (){
+                print('left action bar is pressed in appbar');
+              },
+              rightActionBar: Container(
+                child: Icon(Icons.notifications, size: 40,),
               ),
+              rightAction: (){
+                print('right action bar is pressed in appbar');
+              },
+              secondaryText: 'Welcome to B-Connect',
+              primaryText: 'Hello ${employee.username},',
             ),
+
+            //customAppBar1(Container(color: Colors.green,),Container(color:  Colors.red,), 'hghg', 'hgygi',  (){print('tftft');}, (){print('tftft');}),
           ),
+
+
+//          body: PreferredSize(
+//            preferredSize: Size(double.infinity, 100),
+//            child: Container(
+//              decoration: BoxDecoration(
+//                  boxShadow: [BoxShadow(
+//                      color: Colors.black12,
+//                      spreadRadius: 5,
+//                      blurRadius: 2
+//                  )]
+//              ),
+//              width: MediaQuery.of(context).size.width,
+//              height: 130,
+//              child: Container(
+//                decoration: BoxDecoration(
+//                    color: backgroundColor,
+//                    borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20),bottomRight: Radius.circular(20))
+//                ),
+//                child: Container(
+//                  margin: EdgeInsets.fromLTRB(20, 60, 20, 0),
+//                  child: Row(
+//                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                    crossAxisAlignment: CrossAxisAlignment.center,
+//                    children: [
+//                      Column(
+//                        crossAxisAlignment: CrossAxisAlignment.start,
+//                        children: <Widget>[
+//                          Text(
+//                            "Hello!",
+//                            style: activeSubTitleStyle,
+//                          ),
+//                          Text(
+//                            "${employee.username}(${employee.role})",
+//                            style: subTitleStyleLight,
+//                          ),
+//                        ],
+//                      ),
+//                      Column(
+//                        mainAxisAlignment: MainAxisAlignment.center,
+//                        children: <Widget>[
+//                          InkWell(
+//                            child: Icon(
+//                              Icons.notifications,
+//                              color: activeButtonTextColor,
+//                            ),
+//                            onTap: () => GoToPage(context, NotificationPage())
+//                          ),
+//                        ],
+//                      )
+//
+//                    ],
+//                  ),
+//                ),
+//              ),
+//            ),
+//          ),
+
+
+
+
+
 
 
           body: Padding(

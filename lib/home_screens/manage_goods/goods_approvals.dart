@@ -1,5 +1,6 @@
 import 'package:bhavani_connect/common_variables/app_fonts.dart';
 import 'package:bhavani_connect/common_variables/app_functions.dart';
+import 'package:bhavani_connect/common_widgets/custom_appbar_widget/custom_app_bar.dart';
 import 'package:bhavani_connect/common_widgets/list_item_builder/list_items_builder.dart';
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
 import 'package:bhavani_connect/database_model/employee_details_model.dart';
@@ -67,32 +68,26 @@ class _F_GoodsApprovalsPageState extends State<F_GoodsApprovalsPage> {
       onlineChild: Padding(
         padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
         child: Scaffold(
-          appBar: new AppBar(
-            backgroundColor: Color(0xFF1F4B6E),
-            title: Center(
-                child: Text(
-              'Goods Approvals',
-              style: subTitleStyleLight,
-            )),
-            leading: IconButton(
-              icon: Icon(Icons.arrow_back),
-              onPressed: () => Navigator.pop(context, false),
+          appBar: PreferredSize(
+            preferredSize: Size.fromHeight(115),
+            //preferredSize : Size(double.infinity, 100),
+            child: CustomAppBar(
+              leftActionBar: Container(
+                 child: Icon(Icons.arrow_back, size: 40,color: Colors.black38,),
+              ),
+              leftAction: (){
+                Navigator.pop(context,true);
+              },
+              rightActionBar: Container(
+                //child: Icon(Icons.notifications, size: 40,),
+              ),
+              rightAction: (){
+                print('right action bar is pressed in appbar');
+              },
+              primaryText: null,
+              secondaryText: 'Goods Approvals',
+                tabBarWidget: null,
             ),
-
-            actions: <Widget>[
-              addGoods(),
-
-              FlatButton(
-                child: Text('',
-                  style: TextStyle(
-                    fontSize: 18,
-                    color: Colors.white,
-                  ),
-                ),
-                onPressed: ()=> print(''),
-              )
-            ],
-            centerTitle : true,
           ),
           body: _buildContent(context),
         ),
@@ -113,6 +108,7 @@ class _F_GoodsApprovalsPageState extends State<F_GoodsApprovalsPage> {
             itemBuilder: (context, data) => Column(
               children: <Widget>[
                 Container(
+                  color: Colors.white,
                   child: SingleChildScrollView(
                     padding: EdgeInsets.all(10.0),
                     child: Column(
@@ -145,6 +141,7 @@ class _F_GoodsApprovalsPageState extends State<F_GoodsApprovalsPage> {
   _ItemEntry(BuildContext context, Widget page, GoodsEntry data) {
     return InkWell(
       child: Container(
+        color: Colors.white,
         child: Card(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10.0),

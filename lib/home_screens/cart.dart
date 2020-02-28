@@ -1,3 +1,4 @@
+import 'package:bhavani_connect/common_widgets/custom_appbar_widget/custom_app_bar.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:bhavani_connect/common_variables/app_colors.dart';
 import 'package:bhavani_connect/common_variables/app_fonts.dart';
@@ -42,23 +43,50 @@ class _F_CartPageState extends State<F_CartPage> {
 
   Widget _buildContent(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Color(0xFF1F4B6E),
-          title: Center(child:Text('Cart',style: subTitleStyleLight,)),
-
-    leading: IconButton(icon:Icon(Icons.arrow_back),
-    onPressed:() => Navigator.pop(context, false),
-        ),
-          centerTitle: true,
-          actions: <Widget>[
-            FlatButton(
-              textColor: Colors.white,
-              onPressed: () {},
-              child: Text("Clear",style: subTitleStyleLight,),
-              shape: CircleBorder(side: BorderSide(color: Colors.transparent)),
+        appBar:  PreferredSize(
+          preferredSize: Size.fromHeight(115),
+          //preferredSize : Size(double.infinity, 100),
+          child: CustomAppBar(
+            leftActionBar: Container(
+              child: Icon(Icons.arrow_back, size: 40,color: Colors.black38,),
             ),
-          ],
+            leftAction: (){
+              Navigator.pop(context,true);
+            },
+            rightActionBar: Container(
+//              color: Colors.white,
+              child: FlatButton(
+              onPressed: () {print('clearing cart');},
+              child: Text("Clear",style: subTitleStyle,),
+              //shape: CircleBorder(side: BorderSide(color: Colors.transparent)),
+              )
+            ),
+            rightAction: (){
+              print('right action bar is pressed in appbar');
+            },
+            primaryText: null,
+            secondaryText: 'Cart',
+            tabBarWidget: null,
+          ),
         ),
+
+//        AppBar(
+//          backgroundColor: Color(0xFF1F4B6E),
+//          title: Center(child:Text('Cart',style: subTitleStyleLight,)),
+//
+//    leading: IconButton(icon:Icon(Icons.arrow_back),
+//    onPressed:() => Navigator.pop(context, false),
+//        ),
+//          centerTitle: true,
+//          actions: <Widget>[
+//            FlatButton(
+//              textColor: Colors.white,
+//              onPressed: () {},
+//              child: Text("Clear",style: subTitleStyleLight,),
+//              shape: CircleBorder(side: BorderSide(color: Colors.transparent)),
+//            ),
+//          ],
+//        ),
         body: Container(
           child: SingleChildScrollView(
             padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
