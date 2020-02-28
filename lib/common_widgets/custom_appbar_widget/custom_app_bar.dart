@@ -73,7 +73,7 @@ class CustomAppBar extends StatelessWidget {
               primaryText == null ? Container(height: 0, width: 0,): Text(
             primaryText,
             textAlign: TextAlign.center,
-            style: titleStyle,
+            style: bigTitleStyle,
           ),
 
               secondaryText == null ? Container(height: 0, width: 0,): Text(

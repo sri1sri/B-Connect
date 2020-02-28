@@ -151,9 +151,9 @@ class _F_ProfilePageState extends State<F_ProfilePage> {
         stream: widget.database.readEmployee(EMPLOYEE_ID),
         builder: (context, snapshot) {
           final employee = snapshot.data;
+
           return SingleChildScrollView(
             child: Center(
-
               child:
               Padding(
                 padding: EdgeInsets.fromLTRB(10, 0, 10, 0),

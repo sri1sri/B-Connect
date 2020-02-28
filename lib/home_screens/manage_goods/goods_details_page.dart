@@ -314,7 +314,7 @@ class _F_GoodsDetailsPageState extends State<F_GoodsDetailsPage> {
 
   Widget _goodsItemsDetails(BuildContext context) {
     return StreamBuilder<List<ItemEntry>>(
-      stream: widget.database.viewItemsList(widget.goodsID),
+      stream: widget.database.viewItemsList(),
       builder: (context, snapshot) {
         print('snapshot=${snapshot.data.length}');
         return ListItemsBuilder<ItemEntry>(

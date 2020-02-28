@@ -7,7 +7,7 @@ class APIPath {
 
 //  static String addItem(String goodsID, String itemID) => 'goods_entry/$goodsID/items/$itemID';
   static String addItem(String itemID) => 'items/$itemID';
-  static String viewItemsList(String goodsID) => 'items/';
+  static String viewItemsList() => 'items/';
 
   static String notification(String notificationID) => 'notifications/$notificationID';
 

@@ -6,7 +6,7 @@ import 'package:bhavani_connect/home_screens/stepper_screens/StepFourView.dart';
 import 'package:bhavani_connect/home_screens/stepper_screens/StepOneView.dart';
 import 'package:bhavani_connect/home_screens/stepper_screens/StepThreeView.dart';
 import 'package:bhavani_connect/home_screens/stepper_screens/StepTwoView.dart';
-import 'package:bhavani_connect/home_screens/store_screen.dart';
+import 'package:bhavani_connect/home_screens/store/store_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

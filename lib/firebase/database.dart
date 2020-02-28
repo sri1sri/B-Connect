@@ -21,7 +21,7 @@ abstract class Database{
   Stream<List<GoodsEntry>> readGoodsEntries();
   Future<void> setItemEntry(ItemEntry itemEntry);
   Stream<GoodsEntry> readGoodsDetails(String goodsID);
-  Stream<List<ItemEntry>> viewItemsList(String goodsID);
+  Stream<List<ItemEntry>> viewItemsList();
   Stream<EmployeeDetails> readEmployeeDetails();
   Future<void> updateGoodsEntry(GoodsEntry itemEntry, String itemID);
   Future<void> updateNotification(NotificationModel notificationEntry, String notificationID);
@@ -93,8 +93,8 @@ class FirestoreDatabase implements Database {
 
 
   @override
-  Stream<List<ItemEntry>> viewItemsList(String goodsID) => _service.collectionStream(
-    path: APIPath.viewItemsList(goodsID),
+  Stream<List<ItemEntry>> viewItemsList() => _service.collectionStream(
+    path: APIPath.viewItemsList(),
     builder: (data, documentId) => ItemEntry.fromMap(data, documentId),
   );
 

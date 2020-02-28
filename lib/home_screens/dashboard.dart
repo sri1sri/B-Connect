@@ -11,7 +11,8 @@ import 'package:bhavani_connect/home_screens/add_stock_details/add_stock.dart';
 import 'package:bhavani_connect/home_screens/manage_goods/goods_approvals.dart';
 import 'package:bhavani_connect/home_screens/notification_screen.dart';
 import 'package:bhavani_connect/home_screens/notifications_screens/notification_page.dart';
-import 'package:bhavani_connect/home_screens/store_screen.dart';
+import 'package:bhavani_connect/home_screens/store/orders_screen.dart';
+import 'package:bhavani_connect/home_screens/store/store_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -80,7 +81,6 @@ class _F_DashboardState extends State<F_Dashboard> {
       stream: widget.database.readEmployeeDetails(),
       builder: (context, snapshot) {
         final employee = snapshot.data;
-       // print(employee.username);
 
         return Scaffold(
           backgroundColor: Colors.white,
@@ -226,7 +226,7 @@ class _F_DashboardState extends State<F_Dashboard> {
                         break;
                       case 'Store':
                         {
-                          GoToPage(context, MrTabs());
+                          GoToPage(context, StorePage(database: widget.database,));
                         }
                         break;
 //                      case 'Notifications':
