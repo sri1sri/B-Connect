@@ -68,8 +68,8 @@ class LoginPage extends StatelessWidget {
               SizedBox(height: 50),
               new Image.asset(
                   'images/1.JPG', width: 300, height: 150),
-              new Image.asset(
-                  'images/1.JPG', width: 300, height: 150),
+//              new Image.asset(
+//                  'images/1.JPG', width: 300, height: 150),
             ],
           ),
           Column(children: <Widget>[

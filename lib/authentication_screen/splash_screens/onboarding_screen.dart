@@ -77,7 +77,7 @@ class _F_OnboardingScreenState extends State<F_OnboardingScreen> {
             color: Colors.white,
           ),
           child: Padding(
-            padding: EdgeInsets.symmetric(vertical: 25.0),
+            padding: EdgeInsets.symmetric(vertical: 0.0), // changed padding from 25 to 0
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
@@ -92,7 +92,7 @@ class _F_OnboardingScreenState extends State<F_OnboardingScreen> {
                   ),
                 ),
                 Container(
-                  height: 500.0,
+                  height: MediaQuery.of(context).size.height - 160,
                   child: PageView(
                     physics: ClampingScrollPhysics(),
                     controller: _pageController,
@@ -103,7 +103,8 @@ class _F_OnboardingScreenState extends State<F_OnboardingScreen> {
                     },
                     children: <Widget>[
                       Padding(
-                        padding: EdgeInsets.all(10.0),
+                        padding: EdgeInsets.only(top: 10,left: 10,right: 10),
+
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
@@ -112,13 +113,13 @@ class _F_OnboardingScreenState extends State<F_OnboardingScreen> {
                                 image: AssetImage(
                                   'images/splash1.jpg',
                                 ),
-                                height: 500.0,
+                                fit: BoxFit.fill,
+                                height: MediaQuery.of(context).size.height/2,
                                 width: 500.0,
                               ),
                             ),
                             SizedBox(
-                                height:
-                                MediaQuery.of(context).size.height * 0.15),
+                                height:50),
                             Text(
                               'Co-operative \nhousing societies',
                               style: titleStyle,
@@ -132,7 +133,7 @@ class _F_OnboardingScreenState extends State<F_OnboardingScreen> {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.all(10.0),
+                        padding: EdgeInsets.only(top: 10,left: 10,right: 10),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
@@ -141,13 +142,13 @@ class _F_OnboardingScreenState extends State<F_OnboardingScreen> {
                                 image: AssetImage(
                                   'images/splash2.jpg',
                                 ),
-                                height: 500.0,
+                                fit: BoxFit.fill,
+                                height: MediaQuery.of(context).size.height / 2,
                                 width: 500.0,
                               ),
                             ),
                             SizedBox(
-                                height:
-                                MediaQuery.of(context).size.height * 0.15),
+                                height:50),
                             Text(
                               'Developers',
                               style: titleStyle,
@@ -161,7 +162,7 @@ class _F_OnboardingScreenState extends State<F_OnboardingScreen> {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.all(10.0),
+                        padding: EdgeInsets.only(top: 10,left: 10,right: 10),
 
                         child: Column(
 
@@ -172,18 +173,18 @@ class _F_OnboardingScreenState extends State<F_OnboardingScreen> {
                                 image: AssetImage(
                                   'images/splash3.jpg',
                                 ),
-                                height: 500.0,
+                                fit: BoxFit.fill,
+                                height: MediaQuery.of(context).size.height / 2,
                                 width: 500.0,
                               ),
                             ),
                             SizedBox(
-                                height:
-                                MediaQuery.of(context).size.height * 0.15),
+                                height:50),
                             Text(
                               'Security companies',
                               style: titleStyle,
                             ),
-                            SizedBox(height: 15.0),
+                            SizedBox(height: 2.0),
                             Text(
                               'Equip yourself to deliver beyond the expectations of your clients.',
                               style: descriptionStyle,
@@ -244,7 +245,7 @@ class _F_OnboardingScreenState extends State<F_OnboardingScreen> {
         width: double.infinity,
         color: Color(0xFF1F4B6E),
         child: GestureDetector(
-          onTap: () => {LoginPage.create(widget.context)},
+          onTap: () => GoToPage(context, LoginPage.create(widget.context)),
           child: Center(
             child: Padding(
               padding: EdgeInsets.only(bottom: 10.0),
