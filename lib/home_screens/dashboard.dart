@@ -226,7 +226,7 @@ class _F_DashboardState extends State<F_Dashboard> {
                         break;
                       case 'Store':
                         {
-                          GoToPage(context, StorePage(database: widget.database,));
+                          GoToPage(context, StorePage(database: widget.database,employeeRole: employee.role,));
                         }
                         break;
 //                      case 'Notifications':

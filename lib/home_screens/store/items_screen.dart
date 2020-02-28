@@ -5,30 +5,34 @@ import 'package:bhavani_connect/common_widgets/list_item_builder/list_items_buil
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
 import 'package:bhavani_connect/database_model/items_entry_model.dart';
 import 'package:bhavani_connect/firebase/database.dart';
+import 'package:bhavani_connect/home_screens/store/no_access_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'categories_tab.dart';
 
 class ItemsPage extends StatelessWidget {
-  const ItemsPage({Key key, this.choice, @required this.database})
+  const ItemsPage({Key key, this.choice, @required this.database, @required this.employeeRole})
       : super(key: key);
   final Category choice;
   final Database database;
+  final String employeeRole;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       child: F_ItemsPage(
         database: database,
+        employeeRole: employeeRole,
       ),
     );
   }
 }
 
 class F_ItemsPage extends StatefulWidget {
-  F_ItemsPage({@required this.database});
+  F_ItemsPage({@required this.database, @required this.employeeRole});
   Database database;
+  String employeeRole;
 
   @override
   _F_ItemsPageState createState() => _F_ItemsPageState();
@@ -156,7 +160,8 @@ class _F_ItemsPageState extends State<F_ItemsPage> {
             SizedBox(
               height: 20,
             ),
-            Container(
+
+            widget.employeeRole != 'Site Manager' ? Container() : Container(
               child: AnimatedButton(
                 onTap: () {
                   print("Add to Cart");

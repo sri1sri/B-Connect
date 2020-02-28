@@ -6,23 +6,26 @@ import 'package:bhavani_connect/home_screens/cart.dart';
 import 'package:flutter/material.dart';
 import 'categories_tab.dart';
 import 'items_screen.dart';
+import 'no_access_screen.dart';
 import 'orders_screen.dart';
 
 class StorePage extends StatelessWidget {
-  StorePage({@required this.database});
-  final Database database;
+  StorePage({@required this.database, @required this.employeeRole});
+  Database database;
+  String employeeRole;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: F_StorePage(database: database),
+      child: F_StorePage(database: database, employeeRole: employeeRole,),
     );
   }
 }
 
 class F_StorePage extends StatefulWidget {
-  F_StorePage({@required this.database});
+  F_StorePage({@required this.database, @required this.employeeRole});
   Database database;
+  String employeeRole;
 
   @override
   _F_StorePageState createState() => _F_StorePageState();
@@ -112,12 +115,12 @@ class _F_StorePageState extends State<F_StorePage> {
               if (choice.name == 'Items') {
                 return new Padding(
                   padding: const EdgeInsets.all(16.0),
-                  child: new ItemsPage(choice: choice, database: widget.database,),
+                  child: widget.employeeRole != 'Security' ? new ItemsPage(choice: choice, database: widget.database,) : NoAccessPage(),
                 );
               } else {
                 return new Padding(
                   padding: const EdgeInsets.all(16.0),
-                  child: new OrdersPage(choice: choice, database: widget.database,),
+                  child: widget.employeeRole != 'Security' ? new OrdersPage(choice: choice, database: widget.database,) : NoAccessPage(),
                 );
               }
             }).toList(),
