@@ -44,7 +44,7 @@ class _F_CartPageState extends State<F_CartPage> {
   Widget _buildContent(BuildContext context) {
     return Scaffold(
         appBar:  PreferredSize(
-          preferredSize: Size.fromHeight(115),
+          preferredSize: Size.fromHeight(120),
           //preferredSize : Size(double.infinity, 100),
           child: CustomAppBar(
             leftActionBar: Container(

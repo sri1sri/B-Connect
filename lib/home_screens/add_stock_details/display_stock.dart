@@ -46,7 +46,7 @@ class _F_DisplayStockState extends State<F_DisplayStock> {
         padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
         child: Scaffold(
           appBar: PreferredSize(
-            preferredSize: Size.fromHeight(115),
+            preferredSize: Size.fromHeight(120),
             //preferredSize : Size(double.infinity, 100),
             child: CustomAppBar(
               leftActionBar: Container(

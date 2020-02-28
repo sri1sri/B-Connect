@@ -76,7 +76,7 @@ class _F_ProfilePageState extends State<F_ProfilePage> {
 
           appBar:
           PreferredSize(
-            preferredSize: Size.fromHeight(132),
+            preferredSize: Size.fromHeight(150),
             //preferredSize : Size(double.infinity, 100),
             child: CustomAppBar(
               leftActionBar: null,

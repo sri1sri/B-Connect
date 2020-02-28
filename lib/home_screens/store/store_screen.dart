@@ -68,7 +68,7 @@ class _F_StorePageState extends State<F_StorePage> {
         length: categories.length,
         child: new Scaffold(
           appBar: PreferredSize(
-            preferredSize: Size.fromHeight(150),
+            preferredSize: Size.fromHeight(160),
             //preferredSize : Size(double.infinity, 100),
             child: CustomAppBar(
               leftActionBar: Container(
