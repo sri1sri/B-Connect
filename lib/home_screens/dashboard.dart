@@ -79,7 +79,7 @@ class _F_DashboardState extends State<F_Dashboard> {
       stream: widget.database.readEmployeeDetails(),
       builder: (context, snapshot) {
         final employee = snapshot.data;
-        print(employee.username);
+       // print(employee.username);
 
         return Scaffold(
           backgroundColor: Colors.white,
