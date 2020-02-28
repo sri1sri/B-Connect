@@ -44,7 +44,7 @@ class _F_GoodsApprovalsPageState extends State<F_GoodsApprovalsPage> {
       return IconButton(
           icon: Icon(
             Icons.add_circle,
-            color: Colors.white,
+            color: Colors.red,
           ),
           onPressed: () {
             GoToPage(
@@ -78,9 +78,7 @@ class _F_GoodsApprovalsPageState extends State<F_GoodsApprovalsPage> {
               leftAction: (){
                 Navigator.pop(context,true);
               },
-              rightActionBar: Container(
-                //child: Icon(Icons.notifications, size: 40,),
-              ),
+              rightActionBar: addGoods(),
               rightAction: (){
                 print('right action bar is pressed in appbar');
               },

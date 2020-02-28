@@ -1,6 +1,7 @@
 import 'package:bhavani_connect/common_variables/app_colors.dart';
 import 'package:bhavani_connect/common_variables/app_fonts.dart';
 import 'package:bhavani_connect/common_variables/app_functions.dart';
+import 'package:bhavani_connect/common_widgets/custom_appbar_widget/custom_app_bar.dart';
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
 import 'package:bhavani_connect/common_widgets/platform_alert/platform_alert_dialog.dart';
 import 'package:bhavani_connect/database_model/employee_list_model.dart';
@@ -65,20 +66,54 @@ class _F_SettingsPageState extends State<F_SettingsPage> {
         child: Scaffold(
           backgroundColor: Colors.white,
 
-          appBar: AppBar(
-            backgroundColor: backgroundColor,
-            iconTheme: IconThemeData(
-              color: Colors.white, //change your color here
+          appBar:
+          PreferredSize(
+            preferredSize: Size.fromHeight(105),
+            //preferredSize : Size(double.infinity, 100),
+            child: CustomAppBar(
+              leftActionBar:  Icon(Icons.arrow_back,
+                color: Colors.black, ),
+              leftAction: (){
+                Navigator.pop(context,true);
+              },
+              rightActionBar: null,
+//              Container(
+//                child: InkWell(
+//                    child: Icon(Icons.more_vert,
+//                      color: Colors.black,
+//                    ),
+//                    onTap: () {
+//                      Navigator.push(
+//                        context,
+//                        MaterialPageRoute(
+//                            builder: (context) => SettingsPage() ),
+//                      );
+//                    }
+//                ),
+//              ),
+              rightAction: (){
+                print('right action bar is pressed in appbar');
+              },
+              primaryText: null,
+              secondaryText: 'Settings',
+              tabBarWidget: null,
             ),
-            title: Text(
-                      "Settings",
-                        style: activeSubTitleStyle,
-                      ),
-
-            brightness: Brightness.light,
-            elevation: 0,
-
           ),
+
+//          AppBar(
+//            backgroundColor: backgroundColor,
+//            iconTheme: IconThemeData(
+//              color: Colors.white, //change your color here
+//            ),
+//            title: Text(
+//                      "Settings",
+//                        style: activeSubTitleStyle,
+//                      ),
+//
+//            brightness: Brightness.light,
+//            elevation: 0,
+//
+//          ),
 
           body: _buildContent(context),
         ),

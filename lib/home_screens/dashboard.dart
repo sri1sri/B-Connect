@@ -8,6 +8,7 @@ import 'package:bhavani_connect/database_model/employee_details_model.dart';
 import 'package:bhavani_connect/firebase/auth.dart';
 import 'package:bhavani_connect/firebase/database.dart';
 import 'package:bhavani_connect/home_screens/add_stock_details/add_stock.dart';
+import 'package:bhavani_connect/home_screens/inventory/iventory_home_page.dart';
 import 'package:bhavani_connect/home_screens/manage_goods/goods_approvals.dart';
 import 'package:bhavani_connect/home_screens/notification_screen.dart';
 import 'package:bhavani_connect/home_screens/notifications_screens/notification_page.dart';
@@ -229,6 +230,17 @@ class _F_DashboardState extends State<F_Dashboard> {
                           GoToPage(context, StorePage(database: widget.database,));
                         }
                         break;
+
+                      case 'Inventory':
+                        {
+                          GoToPage(context, InventoryPage(),);
+                        }
+                        break;
+
+                      case 'Attendance':{
+                        GoToPage(context, InventoryPage(),);
+                      }
+                      break;
 //                      case 'Notifications':
 //                        {
 //                          GoToPage(context, NotificationsPage());
@@ -240,6 +252,7 @@ class _F_DashboardState extends State<F_Dashboard> {
                           GoToPage(context, AddStock(database: widget.database,));
                         }
                         break;
+
 
                       default:
                         {}
