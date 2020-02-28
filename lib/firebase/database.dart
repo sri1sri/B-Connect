@@ -19,7 +19,7 @@ abstract class Database{
   Stream<EmployeesList> currentUserDetails();
   Future<void> setNotification(NotificationModel notificationEntry);
   Stream<List<GoodsEntry>> readGoodsEntries();
-  Future<void> setItemEntry(ItemEntry itemEntry,String goodsID);
+  Future<void> setItemEntry(ItemEntry itemEntry);
   Stream<GoodsEntry> readGoodsDetails(String goodsID);
   Stream<List<ItemEntry>> viewItemsList(String goodsID);
   Stream<EmployeeDetails> readEmployeeDetails();
@@ -80,8 +80,8 @@ class FirestoreDatabase implements Database {
   );
 
   @override
-  Future<void> setItemEntry(ItemEntry itemEntry,String goodsID) async => await _service.setData(
-    path: APIPath.addItem(goodsID, DateTime.now().toString()),
+  Future<void> setItemEntry(ItemEntry itemEntry) async => await _service.setData(
+    path: APIPath.addItem(DateTime.now().toString()),
     data: itemEntry.toMap(),
   );
 

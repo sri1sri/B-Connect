@@ -27,7 +27,7 @@ class CommonVaribles{
     final itemNames = data['item_names'];
     final categories = data['categories'];
     final companies = data['companies'];
-    final empty = data['empty'];
+    final Null empty = data['empty'];
 
     return CommonVaribles(
       employeeRoles: employeeRoles,

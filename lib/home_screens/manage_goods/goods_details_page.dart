@@ -297,22 +297,9 @@ class _F_GoodsDetailsPageState extends State<F_GoodsDetailsPage> {
                     Column(
                       children: <Widget>[
 
-
-
-
-
                         //sample data
-                        _OrderedItemsCard("ABC company", "Wires", "Electricals", "100 mts"),
-
-
-                        _goodsItemsDetails(context),
-
-
-
-
-
-
-
+                        _OrderedItemsCard('f', 'r', 'r', 'e'),
+                       _goodsItemsDetails(context),
                       ],
                     ),
                   ],
@@ -329,9 +316,10 @@ class _F_GoodsDetailsPageState extends State<F_GoodsDetailsPage> {
     return StreamBuilder<List<ItemEntry>>(
       stream: widget.database.viewItemsList(widget.goodsID),
       builder: (context, snapshot) {
-        return ListGoodsItemsBuilder<ItemEntry>(
+        print('snapshot=${snapshot.data.length}');
+        return ListItemsBuilder<ItemEntry>(
           snapshot: snapshot,
-          itemBuilder: (context, itemsData) => _ItemCard(itemsData),
+          itemBuilder: (context, itemsData) => _OrderedItemsCard('f', 'r', 'r', 'e'),
         );
       },
     );
@@ -691,6 +679,8 @@ class _F_GoodsDetailsPageState extends State<F_GoodsDetailsPage> {
 }
 _OrderedItemsCard(String companyName, String itemName, String category, String quantity)
 {
+
+  print('details == ${companyName}, ${itemName}, ${category}, ${quantity.toString()}');
   return Container(
 
     child: Card(

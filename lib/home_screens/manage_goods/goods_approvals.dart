@@ -78,10 +78,10 @@ class _F_GoodsApprovalsPageState extends State<F_GoodsApprovalsPage> {
               icon: Icon(Icons.arrow_back),
               onPressed: () => Navigator.pop(context, false),
             ),
-//            actions: <Widget>[
-//              addGoods(),
-//            ],
+
             actions: <Widget>[
+              addGoods(),
+
               FlatButton(
                 child: Text('',
                   style: TextStyle(

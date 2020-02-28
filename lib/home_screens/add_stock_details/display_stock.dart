@@ -58,13 +58,14 @@ class _F_DisplayStockState extends State<F_DisplayStock> {
             centerTitle: true,
             actions: <Widget>[
               FlatButton(
-                child: Text('',
+                child: Text(
+                  '',
                   style: TextStyle(
                     fontSize: 18,
                     color: Colors.white,
                   ),
                 ),
-                onPressed: ()=> print(''),
+                onPressed: () => print(''),
               )
             ],
           ),
@@ -84,41 +85,78 @@ class _F_DisplayStockState extends State<F_DisplayStock> {
             child: Icon(Icons.add),
             tooltip: 'Add Company',
           ),
-          floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerFloat,
         ),
       ),
+    );
+  }
+
+  Widget buildCompanyCard(CommonVaribles commonVariables) {
+    GridView.builder(
+      itemCount: commonVariables.companies.length,
+      gridDelegate:
+      new SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
+      itemBuilder: (BuildContext context, int index) {
+        return new GestureDetector(
+          child: new Card(
+            elevation: 5.0,
+            child: new Container(
+              alignment: Alignment.center,
+              margin: new EdgeInsets.only(
+                  top: 25.0, bottom: 10.0, left: 10.0, right: 10.0),
+              child: new Column(
+                children: <Widget>[
+//                  new Icon(
+//                    F_icons[index],
+//                    size: 50,
+//                    color: backgroundColor,
+//                  ),
+                  new Text(
+                    commonVariables.companies[index],
+                    style: descriptionStyle,
+                  ),
+                ],
+              ),
+            ),
+          ),
+          onTap: () {
+          },
+        );
+      },
     );
   }
 
   Widget _buildContent(BuildContext context) {
-    return SingleChildScrollView(
-      child: Center(
-        child: Padding(
-          padding: EdgeInsets.fromLTRB( 10,0,10,0 ),
-          child: Column(
-            children: <Widget>[
-              SizedBox( height: 5.0 ),
-              _companyCard( 'Vasanth Steels',Icons.format_align_center ),
-              _companyCard( 'Konda Bricks' ,Icons.dashboard),
-              _companyCard( 'Vamsi Cements' ,Icons.opacity),
-//              _options(''),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
+    return StreamBuilder<CommonVaribles>(
+        stream: widget.database.readCommonVariables(),
+        builder: (context, snapshot) {
+          final commonVariables = snapshot.data;
 
+          return SingleChildScrollView(
+            child: Center(
+              child: Padding(
+                padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                child: Column(
+                  children: <Widget>[
+                    SizedBox(height: 5.0),
+                    buildCompanyCard(commonVariables),
+                  ],
+                ),
+              ),
+            ),
+          );
+        });
+  }
 
   Widget _companyCard(String companyName, IconData icons) {
     return Container(
       width: double.infinity,
       child: FlatButton(
         onPressed: () => print('Company'),
-        padding: EdgeInsets.all( 15.0 ),
-
+        padding: EdgeInsets.all(15.0),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular( 0.0 ),
+          borderRadius: BorderRadius.circular(0.0),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -135,10 +173,8 @@ class _F_DisplayStockState extends State<F_DisplayStock> {
             ),
             Column(
               children: <Widget>[
-
-                Text( companyName,style: titleStyle ),
+                Text(companyName, style: titleStyle),
               ],
-
             ),
             Column(
               children: <Widget>[
@@ -148,14 +184,10 @@ class _F_DisplayStockState extends State<F_DisplayStock> {
                   size: 30,
                 ),
               ],
-
             ),
-
           ],
-
         ),
       ),
-
     );
   }
 }

@@ -1,6 +1,7 @@
 import 'package:bhavani_connect/common_variables/app_colors.dart';
 import 'package:bhavani_connect/common_variables/app_fonts.dart';
 import 'package:bhavani_connect/common_variables/app_functions.dart';
+import 'package:bhavani_connect/common_widgets/button_widget/to_do_button.dart';
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
 import 'package:bhavani_connect/common_widgets/platform_alert/platform_exception_alert_dialog.dart';
 import 'package:bhavani_connect/database_model/items_entry_model.dart';
@@ -40,6 +41,7 @@ class _F_ItemsEntryPageState extends State<F_ItemsEntryPage> {
   String _categoryName;
   String _itemName;
   int _quantity = 0;
+  String _description = 'No description entered.';
 
   @override
   Widget build(BuildContext context) {
@@ -73,13 +75,25 @@ class _F_ItemsEntryPageState extends State<F_ItemsEntryPage> {
           ),
           body: _buildContent(context),
           bottomNavigationBar: BottomAppBar(
-              child:   FlatButton.icon(
+              child: ToDoButton(
+                assetName: 'images/googe-logo.png',
+                text: 'Save',
+                textColor: Colors.white,
+                backgroundColor: activeButtonBackgroundColor,
+                onPressed: () {_submit();},
+              ),
 
-                  color: activeButtonTextColor,
-//                  onPressed: _submit,
-              onPressed: (){},
-                  icon: Icon(Icons.save_alt,size: 30,color: backgroundColor,),
-                  label: Text('Save',style:titleStyle))
+
+
+
+
+//              FlatButton.icon(
+//
+//                  color: activeButtonTextColor,
+////                  onPressed: _submit,
+//              onPressed: (){},
+//                  icon: Icon(Icons.save_alt,size: 30,color: backgroundColor,),
+//                  label: Text('Save',style:titleStyle))
 
 
           ),
@@ -90,7 +104,7 @@ class _F_ItemsEntryPageState extends State<F_ItemsEntryPage> {
 
   @override
   Widget _buildContent(BuildContext context) {
-    return _buildFormChildren();
+    return _buildForm();
   }
 
   Widget _buildForm() {
@@ -98,45 +112,15 @@ class _F_ItemsEntryPageState extends State<F_ItemsEntryPage> {
     return Form(
       key: _formKey,
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        //mainAxisAlignment: MainAxisAlignment.spaceBetween,
         //crossAxisAlignment: CrossAxisAlignment.center|,
-        children: <Widget>[
-          _buildFormChildren(),
-//          Padding(
-//            padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-//            child: Column(
-//              children: _buildFormChildren(),
-//            ),
-//          ),
-        ],
+        children: _buildFormChildren(),
       ),
     );
   }
 
-  ConfigurableExpansionTile _buildFormChildren(){
-    return ConfigurableExpansionTile(
-      headerExpanded: Flexible(child: Center(child: Text("A Header Changed"))),
-      header: Container(child: Center(child: Text("A Header"))),
-      children: [
-        Row(
-          children: <Widget>[Text("CHILD 1")],
-        ),
-        // + more params, see example !!
-      ],
-    );
 
-
-
-
-//      ListView.builder(
-//      itemBuilder: (BuildContext context, int index) =>
-//          EntryItem(data[index]),
-//      itemCount: data.length,
-//    );
-  }
-
-/*
-  List<Widget>_buildFormChildren() {
+  List<Widget> _buildFormChildren() {
     return [
 
       TextFormField(
@@ -199,260 +183,124 @@ class _F_ItemsEntryPageState extends State<F_ItemsEntryPage> {
         ),
       ),
       SizedBox(height: 20,),
-      Row(
-          children: <Widget>[
-            Column(
-              children: <Widget>[
-                TextFormField(
-                  decoration: new InputDecoration(
-                    labelText: "Company name",
-                    fillColor: Colors.white,
-                    border: new OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(15.0),
-                      borderSide: new BorderSide(
-                      ),
-                    ),
-                    //fillColor: Colors.green
-                  ),
-                  initialValue: _companyName,
-                  onSaved: (value) => _companyName = value,
-                  validator: (value) => value.isNotEmpty ? null : 'Company name cant\'t be empty.',
-                  keyboardType: TextInputType.text,
-                  style: new TextStyle(
-                    fontFamily: "Poppins",
-                  ),
-                ),
-
-              ],
-            ),
-//            Column(
-//              children: <Widget>[
-//                DropDownFormField(
-//                  titleText: 'My workout',
-//                  hintText: 'Please choose one',
-//                  value: _companyName,
-//                  onSaved: (value) => _companyName = value,
-//                  validator: (value) => value.isNotEmpty ? null : 'Company name cant\'t be empty.',
-//                  onChanged: (value) {
-//                    setState(() {
-//                      _companyName = value;
-//                    });
-//                  },
-//                  dataSource: [
-//                    {
-//                      "display": "Running",
-//                      "value": "Running",
-//                    },
-//                    {
-//                      "display": "Climbing",
-//                      "value": "Climbing",
-//                    },
-//                    {
-//                      "display": "Walking",
-//                      "value": "Walking",
-//                    },
-//                    {
-//                      "display": "Swimming",
-//                      "value": "Swimming",
-//                    },
-//                    {
-//                      "display": "Soccer Practice",
-//                      "value": "Soccer Practice",
-//                    },
-//                    {
-//                      "display": "Baseball Practice",
-//                      "value": "Baseball Practice",
-//                    },
-//                    {
-//                      "display": "Football Practice",
-//                      "value": "Football Practice",
-//                    },
-//                  ],
-//                  textField: 'display',
-//                  valueField: 'value',
+//      Row(
+//        children: <Widget>[
+//          Column(
+//            children: <Widget>[
+//              TextFormField(
+//                decoration: new InputDecoration(
+//                  labelText: "Company name",
+//                  fillColor: Colors.white,
+//                  border: new OutlineInputBorder(
+//                    borderRadius: new BorderRadius.circular(15.0),
+//                    borderSide: new BorderSide(
+//                    ),
+//                  ),
+//                  //fillColor: Colors.green
 //                ),
-//              ],
-//            ),
-          ],
-      ),
-      Row(
-        children: <Widget>[
-          Column(
-            children: <Widget>[
-              TextFormField(
-                decoration: new InputDecoration(
-                  labelText: "Category Name",
-                  fillColor: Colors.white,
-                  border: new OutlineInputBorder(
-                    borderRadius: new BorderRadius.circular(15.0),
-                    borderSide: new BorderSide(
-                    ),
-                  ),
-                  //fillColor: Colors.green
-                ),
-                initialValue:  _categoryName,
-                onSaved: (value) =>  _categoryName = value,
-                validator: (value) => value.isNotEmpty ? null : 'Category Name cant\'t be empty.',
-                keyboardType: TextInputType.text,
-                style: new TextStyle(
-                  fontFamily: "Poppins",
-                ),
-              ),
-
-            ],
-          ),
-//          Column(
-//            children: <Widget>[
-//              DropDownFormField(
-//                titleText: 'Category Name',
-//                hintText: 'Please choose one',
-//                value: _categoryName,
-//                onSaved: (value) => _categoryName = value,
-//                validator: (value) => value.isNotEmpty ? null : 'Category name cant\'t be empty.',
-//                onChanged: (value) {
-//                  setState(() {
-//                    _categoryName = value;
-//                  });
-//                },
-//                dataSource: [
-//                  {
-//                    "display": "Running",
-//                    "value": "Running",
-//                  },
-//                  {
-//                    "display": "Climbing",
-//                    "value": "Climbing",
-//                  },
-//                  {
-//                    "display": "Walking",
-//                    "value": "Walking",
-//                  },
-//                  {
-//                    "display": "Swimming",
-//                    "value": "Swimming",
-//                  },
-//                  {
-//                    "display": "Soccer Practice",
-//                    "value": "Soccer Practice",
-//                  },
-//                  {
-//                    "display": "Baseball Practice",
-//                    "value": "Baseball Practice",
-//                  },
-//                  {
-//                    "display": "Football Practice",
-//                    "value": "Football Practice",
-//                  },
-//                ],
-//                textField: 'display',
-//                valueField: 'value',
+//                initialValue: _companyName,
+//                onSaved: (value) => _companyName = value,
+//                validator: (value) => value.isNotEmpty ? null : 'Company name cant\'t be empty.',
+//                keyboardType: TextInputType.text,
+//                style: new TextStyle(
+//                  fontFamily: "Poppins",
+//                ),
 //              ),
+//
 //            ],
 //          ),
-        ],
-      ),
-      Row(
-        children: <Widget>[
-          Column(
-            children: <Widget>[
-              TextFormField(
-                decoration: new InputDecoration(
-                  labelText: "Item Name",
-                  fillColor: Colors.white,
-                  border: new OutlineInputBorder(
-                    borderRadius: new BorderRadius.circular(15.0),
-                    borderSide: new BorderSide(
-                    ),
-                  ),
-                  //fillColor: Colors.green
-                ),
-                initialValue:  _itemName,
-                onSaved: (value) =>  _itemName = value,
-                validator: (value) => value.isNotEmpty ? null : 'Item Name cant\'t be empty.',
-                keyboardType: TextInputType.text,
-                style: new TextStyle(
-                  fontFamily: "Poppins",
-                ),
-              ),
-
-            ],
-          ),
+//        ],
+//      ),
+//      Row(
+//        children: <Widget>[
 //          Column(
 //            children: <Widget>[
-//              DropDownFormField(
-//                titleText: 'Item Name',
-//                hintText: 'Please choose one',
-//                value: _itemName,
-//                onSaved: (value) => _itemName = value,
-//                validator: (value) => value.isNotEmpty ? null : 'Item name cant\'t be empty.',
-//                onChanged: (value) {
-//                  setState(() {
-//                    _itemName = value;
-//                  });
-//                },
-//                dataSource: [
-//                  {
-//                    "display": "Running",
-//                    "value": "Running",
-//                  },
-//                  {
-//                    "display": "Climbing",
-//                    "value": "Climbing",
-//                  },
-//                  {
-//                    "display": "Walking",
-//                    "value": "Walking",
-//                  },
-//                  {
-//                    "display": "Swimming",
-//                    "value": "Swimming",
-//                  },
-//                  {
-//                    "display": "Soccer Practice",
-//                    "value": "Soccer Practice",
-//                  },
-//                  {
-//                    "display": "Baseball Practice",
-//                    "value": "Baseball Practice",
-//                  },
-//                  {
-//                    "display": "Football Practice",
-//                    "value": "Football Practice",
-//                  },
-//                ],
-//                textField: 'display',
-//                valueField: 'value',
+//              TextFormField(
+//                decoration: new InputDecoration(
+//                  labelText: "Category Name",
+//                  fillColor: Colors.white,
+//                  border: new OutlineInputBorder(
+//                    borderRadius: new BorderRadius.circular(15.0),
+//                    borderSide: new BorderSide(
+//                    ),
+//                  ),
+//                  //fillColor: Colors.green
+//                ),
+//                initialValue:  _categoryName,
+//                onSaved: (value) =>  _categoryName = value,
+//                validator: (value) => value.isNotEmpty ? null : 'Category Name cant\'t be empty.',
+//                keyboardType: TextInputType.text,
+//                style: new TextStyle(
+//                  fontFamily: "Poppins",
+//                ),
 //              ),
+//
 //            ],
 //          ),
-        ],
-      ),
-      TextFormField(
-        decoration: new InputDecoration(
-          labelText: "Quantity",
-          fillColor: Colors.white,
-          border: new OutlineInputBorder(
-            borderRadius: new BorderRadius.circular(15.0),
-            borderSide: new BorderSide(
-            ),
-          ),
-          //fillColor: Colors.green
-        ),
-        initialValue:  _quantity.toString(),
-        onSaved: (value) =>  _quantity = int.tryParse(value),
-        validator: (value) => value.isNotEmpty ? null : 'Quantity cant\'t be empty.',
-        keyboardType: TextInputType.number,
-        style: new TextStyle(
-          fontFamily: "Quicksand",
-        ),
-      ),
+//        ],
+//      ),
+//      Row(
+//        children: <Widget>[
+//          Column(
+//            children: <Widget>[
+//              TextFormField(
+//                decoration: new InputDecoration(
+//                  labelText: "Item Name",
+//                  fillColor: Colors.white,
+//                  border: new OutlineInputBorder(
+//                    borderRadius: new BorderRadius.circular(15.0),
+//                    borderSide: new BorderSide(
+//                    ),
+//                  ),
+//                  //fillColor: Colors.green
+//                ),
+//                initialValue:  _itemName,
+//                onSaved: (value) =>  _itemName = value,
+//                validator: (value) => value.isNotEmpty ? null : 'Item Name cant\'t be empty.',
+//                keyboardType: TextInputType.text,
+//                style: new TextStyle(
+//                  fontFamily: "Poppins",
+//                ),
+//              ),
+//
+//            ],
+//          ),
+//        ],
+//      ),
 //      TextFormField(
-//        decoration: InputDecoration(labelText: 'Quantity'),
-//        initialValue: _quantity.toString(),
-//        onSaved: (value) => _quantity = int.tryParse(value),
+//        decoration: new InputDecoration(
+//          labelText: "Quantity",
+//          fillColor: Colors.white,
+//          border: new OutlineInputBorder(
+//            borderRadius: new BorderRadius.circular(15.0),
+//            borderSide: new BorderSide(
+//            ),
+//          ),
+//          //fillColor: Colors.green
+//        ),
+//        initialValue:  _quantity.toString(),
+//        onSaved: (value) =>  _quantity = int.tryParse(value),
 //        validator: (value) => value.isNotEmpty ? null : 'Quantity cant\'t be empty.',
 //        keyboardType: TextInputType.number,
+//        style: new TextStyle(
+//          fontFamily: "Quicksand",
+//        ),
 //      ),
+      TextFormField(
+        decoration: InputDecoration(labelText: 'Quantity'),
+        initialValue: _quantity.toString(),
+        onSaved: (value) => _quantity = int.tryParse(value),
+        validator: (value) => value.isNotEmpty ? null : 'Quantity cant\'t be empty.',
+        keyboardType: TextInputType.number,
+      ),
+
+      TextFormField(
+        decoration: InputDecoration(labelText: 'Description'),
+        initialValue: _description.toString(),
+        onSaved: (value) => _description = value,
+        validator: (value) => value.isNotEmpty ? null : 'Description cant\'t be empty.',
+        keyboardType: TextInputType.number,
+      ),
     ];
   }
 
@@ -465,12 +313,13 @@ class _F_ItemsEntryPageState extends State<F_ItemsEntryPage> {
     return false;
   }
 
+  @override
   Future<void> _submit() async{
     if(_validateAndSaveForm()) {
       try{
 
-        final itemEntry = ItemEntry(itemName: _itemName, companyName: _companyName, categoryName: _categoryName, quantity: _quantity);
-        await widget.database.setItemEntry(itemEntry, widget.goodsID);
+        final itemEntry = ItemEntry(itemName: _itemName, companyName: _companyName, categoryName: _categoryName, quantity: _quantity, goodsID: widget.goodsID);
+        await widget.database.setItemEntry(itemEntry);
 
         Navigator.of(context).pop();
       }on PlatformException catch (e){
@@ -480,74 +329,5 @@ class _F_ItemsEntryPageState extends State<F_ItemsEntryPage> {
         ).show(context);
       }
     }
-  }
- */
-}
-
-class Entry {
-  Entry(this.title, [this.children = const <Entry>[]]);
-
-  final String title;
-  final List<Entry> children;
-}
-
-final List<Entry> data = <Entry>[
-  Entry(
-    'Chapter A',
-    <Entry>[
-      Entry(
-        'Section A0',
-        <Entry>[
-          Entry('Item A0.1'),
-          Entry('Item A0.2'),
-          Entry('Item A0.3'),
-        ],
-      ),
-      Entry('Section A1'),
-      Entry('Section A2'),
-    ],
-  ),
-  Entry(
-    'Chapter B',
-    <Entry>[
-      Entry('Section B0'),
-      Entry('Section B1'),
-    ],
-  ),
-  Entry(
-    'Chapter C',
-    <Entry>[
-      Entry('Section C0'),
-      Entry('Section C1'),
-      Entry(
-        'Section C2',
-        <Entry>[
-          Entry('Item C2.0'),
-          Entry('Item C2.1'),
-          Entry('Item C2.2'),
-          Entry('Item C2.3'),
-        ],
-      ),
-    ],
-  ),
-];
-
-class EntryItem extends StatelessWidget {
-  const EntryItem(this.entry);
-
-  final Entry entry;
-
-  Widget _buildTiles(Entry root) {
-    if (root.children.isEmpty) return ListTile(title: Text(root.title));
-    return ExpansionTile(
-      key: PageStorageKey<Entry>(root),
-      title: Text(root.title),
-      children: root.children.map(_buildTiles).toList(),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return _buildTiles(entry);
   }
 }
