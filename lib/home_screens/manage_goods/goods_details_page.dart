@@ -118,7 +118,7 @@ class _F_GoodsDetailsPageState extends State<F_GoodsDetailsPage> {
 
 
           body: _buildContent(context),
-          floatingActionButton: FloatingActionButton(
+          floatingActionButton: widget.employee.role == 'Supervisor' ? Container(): FloatingActionButton(
             elevation: 90,
             backgroundColor: backgroundColor,
             autofocus: true,
@@ -140,27 +140,27 @@ class _F_GoodsDetailsPageState extends State<F_GoodsDetailsPage> {
     );
   }
 
-  Widget _addItem() {
-    if (widget.employee.role == 'Supervisor') {
-      return IconButton(
-        icon: Icon(
-          Icons.add_circle,
-          color: Colors.white,
-        ),
-        onPressed: () {
-          GoToPage(
-            context,
-            ItemsEntryPage(
-              database: widget.database,
-              goodsID: widget.goodsID,
-            ),
-          );
-        },
-      );
-    } else {
-      return Container();
-    }
-  }
+//  Widget _addItem() {
+//    if (widget.employee.role == 'Supervisor') {
+//      return IconButton(
+//        icon: Icon(
+//          Icons.add_circle,
+//          color: Colors.white,
+//        ),
+//        onPressed: () {
+//          GoToPage(
+//            context,
+//            ItemsEntryPage(
+//              database: widget.database,
+//              goodsID: widget.goodsID,
+//            ),
+//          );
+//        },
+//      );
+//    } else {
+//      return Container();
+//    }
+//  }
 
   Widget _statusApprovalButton() {
     return StreamBuilder<GoodsEntry>(
@@ -320,10 +320,10 @@ class _F_GoodsDetailsPageState extends State<F_GoodsDetailsPage> {
                     ),
                     Column(
                       children: <Widget>[
-
+Text('open items'),
                         //sample data
-                        _OrderedItemsCard('f', 'r', 'r', 'e'),
-                       _goodsItemsDetails(context),
+                       // _OrderedItemsCard('f', 'r', 'r', 'e'),
+                       //_goodsItemsDetails(context),
                       ],
                     ),
                   ],

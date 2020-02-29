@@ -91,7 +91,7 @@ class LoginPage extends StatelessWidget {
                 text: 'Don\'t have an Account? Sign Up',
                 textColor: inActiveButtonTextColor,
                 backgroundColor: inActiveButtonBackgroundColor,
-                onPressed: () => GoToPage(context, ManageEmployeesPage()),
+                onPressed: () => GoToPage(context, PhoneNumberPage()),
               ),
             ],
           ),
