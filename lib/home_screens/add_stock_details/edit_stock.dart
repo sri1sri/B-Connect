@@ -4,7 +4,7 @@ import 'package:bhavani_connect/common_widgets/button_widget/add_to_cart_button.
 import 'package:bhavani_connect/common_widgets/custom_appbar_widget/custom_app_bar.dart';
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
 import 'package:bhavani_connect/common_widgets/platform_alert/platform_exception_alert_dialog.dart';
-import 'package:bhavani_connect/database_model/common_variables.dart';
+import 'package:bhavani_connect/database_model/common_variables_model.dart';
 import 'package:bhavani_connect/firebase/database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

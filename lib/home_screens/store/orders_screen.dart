@@ -10,21 +10,22 @@ import 'package:flutter/material.dart';
 import 'categories_tab.dart';
 
 class OrdersPage extends StatelessWidget {
-  const OrdersPage({Key key, this.choice, @required this.database}) : super(key: key);
+  const OrdersPage({Key key, this.choice, @required this.database, @required this.employeeRole}) : super(key: key);
   final Category choice;
   final Database database;
-
+  final String employeeRole;
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: F_OrdersPage(database: database,),
+      child: F_OrdersPage(database: database,employeeRole: employeeRole,),
     );
   }
 }
 
 class F_OrdersPage extends StatefulWidget {
-  F_OrdersPage({ @required this.database});
+  F_OrdersPage({ @required this.database, @required this.employeeRole});
   Database database;
+  String employeeRole;
 
   @override
   _F_OrdersPageState createState() => _F_OrdersPageState();

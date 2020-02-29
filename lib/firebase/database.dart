@@ -1,5 +1,7 @@
 
-import 'package:bhavani_connect/database_model/common_variables.dart';
+import 'package:bhavani_connect/common_variables/app_functions.dart';
+import 'package:bhavani_connect/database_model/cart_model.dart';
+import 'package:bhavani_connect/database_model/common_variables_model.dart';
 import 'package:bhavani_connect/database_model/employee_details_model.dart';
 import 'package:bhavani_connect/database_model/employee_list_model.dart';
 import 'package:bhavani_connect/database_model/goods_entry_model.dart';
@@ -27,6 +29,12 @@ abstract class Database{
   Future<void> updateNotification(NotificationModel notificationEntry, String notificationID);
   Stream<CommonVaribles> readCommonVariables();
   Future<void> updateCommonVariables(CommonVaribles itemEntry);
+  Future<void> setcartItems(Cart cart, String cartID);
+  Stream<Cart> readCartDetails(String cartID);
+  Stream<List<Cart>> viewCartItems();
+  Stream<ItemEntry> viewItem(String itemID);
+  Future<void> deleteCartItem(String cartID);
+  Stream<List<Cart>> addCartItemStatus(String itemID);
 
 
 }
@@ -122,6 +130,40 @@ class FirestoreDatabase implements Database {
     data: itemEntry.toMap(),
   );
 
+  @override
+  Future<void> setcartItems(Cart cart, String cartID) async => await _service.setData(
+    path: APIPath.addCart(cartID),
+    data: cart.toMap(),
+  );
 
+  @override
+  Stream<Cart> readCartDetails(String cartID) => _service.documentStream(
+    path: APIPath.addCart(cartID),
+    builder: (data, documentId) => Cart.fromMap(data, documentId),
+  );
 
+  @override
+  Stream<List<Cart>> viewCartItems() => _service.collectionStream(
+    path: APIPath.viewCart(),
+    builder: (data, documentId) => Cart.fromMap(data, documentId),
+    queryBuilder: (query) => query.where('employee_id', isEqualTo: EMPLOYEE_ID),
+  );
+
+  @override
+  Stream<ItemEntry> viewItem(String itemID) => _service.documentStream(
+    path: APIPath.addItem(itemID),
+    builder: (data, documentId) => ItemEntry.fromMap(data, documentId),
+  );
+
+  @override
+  Future<void> deleteCartItem(String cartID) async => await _service.deleteData(
+    path: APIPath.addCart(cartID),
+  );
+
+  @override
+  Stream<List<Cart>> addCartItemStatus(String itemID) => _service.collectionStream(
+    path: APIPath.viewCart(),
+    builder: (data, documentId) => Cart.fromMap(data, documentId),
+    queryBuilder: (query) => query.where('item_id', isEqualTo: itemID),
+  );
 }

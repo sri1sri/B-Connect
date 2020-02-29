@@ -2,7 +2,7 @@ import 'package:bhavani_connect/common_variables/app_functions.dart';
 import 'package:bhavani_connect/common_widgets/custom_appbar_widget/custom_app_bar.dart';
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
 import 'package:bhavani_connect/firebase/database.dart';
-import 'package:bhavani_connect/home_screens/cart.dart';
+import 'package:bhavani_connect/home_screens/store/cart_page.dart';
 import 'package:flutter/material.dart';
 import 'categories_tab.dart';
 import 'items_screen.dart';
@@ -82,13 +82,14 @@ class _F_StorePageState extends State<F_StorePage> {
                 Navigator.pop(context, true);
               },
               rightActionBar: Container(
-                  child: IconButton(
+                  child: widget.employeeRole != 'Site Manager' ? Container() : IconButton(
                     icon: Icon(
                       Icons.shopping_cart,
                       size: 40,
                     ),
-                    onPressed: () => GoToPage(context, CartPage()),
-                  )),
+                    onPressed: () => GoToPage(context, CartPage(database: widget.database,)),
+                  ),
+                  ),
               rightAction: () {
                 print('right action bar is pressed in appbar');
               },
@@ -115,12 +116,12 @@ class _F_StorePageState extends State<F_StorePage> {
               if (choice.name == 'Items') {
                 return new Padding(
                   padding: const EdgeInsets.all(16.0),
-                  child: widget.employeeRole != 'Security' ? new ItemsPage(choice: choice, database: widget.database,) : NoAccessPage(),
+                  child: widget.employeeRole != 'Security' ? new ItemsPage(choice: choice, database: widget.database,employeeRole: widget.employeeRole,) : NoAccessPage(),
                 );
               } else {
                 return new Padding(
                   padding: const EdgeInsets.all(16.0),
-                  child: widget.employeeRole != 'Security' ? new OrdersPage(choice: choice, database: widget.database,) : NoAccessPage(),
+                  child: widget.employeeRole != 'Security' ? new OrdersPage(choice: choice, database: widget.database,employeeRole: widget.employeeRole,) : NoAccessPage(),
                 );
               }
             }).toList(),
