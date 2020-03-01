@@ -190,11 +190,18 @@ class _F_DashboardState extends State<F_Dashboard> {
                           top: 25.0, bottom: 10.0, left: 10.0, right: 10.0),
                       child: new Column(
                         children: <Widget>[
+
+//
+//                          new Image.asset(
+//                            'images/2.jpg', height: 20, width: 20,),
+
                           new Icon(
                             F_icons[index],
                             size: 50,
                             color: backgroundColor,
                           ),
+
+
                           new Text(
                             features[index],
                             style: descriptionStyle,
