@@ -13,6 +13,7 @@ import 'package:bhavani_connect/firebase/database.dart';
 import 'package:bhavani_connect/home_screens/camera_screens/Camera_page.dart';
 import 'package:bhavani_connect/home_screens/manage_goods/add_goods_entry_page.dart';
 import 'package:bhavani_connect/home_screens/manage_goods/add_items_entry_page.dart';
+import 'package:bhavani_connect/home_screens/manage_goods/item_details_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -350,87 +351,99 @@ Text('open items'),
   }
 
   _ItemEntry(GoodsEntry data) {
-    return Container(
-      child: Column(
-        children: <Widget>[
-          Card(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10.0),
+    return InkWell(
+      child: Container(
+        child: Column(
+          children: <Widget>[
+            Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              color: Colors.white,
+              elevation: 10,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Center(
+                      child: Text(
+                    'MRR No. - ${data.MRRNumber.toString()}',
+                    style: subTitleStyle,
+                  )),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Column(children: <Widget>[
+                        Text(
+                          "Vehicle Photo",
+                          style: descriptionStyle,
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Container(
+                            height: 100.0,
+                            width: 100.0,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.only(
+                                    topLeft: const Radius.circular(10.0),
+                                    topRight: const Radius.circular(10.0)),
+                                image: DecorationImage(
+                                    image: NetworkImage(data.vehicelImagePath),
+                                    fit: BoxFit.cover))),
+                        SizedBox(
+                          height: 20,
+                        ),
+                      ]),
+                      Column(children: <Widget>[
+                        Text(
+                          "MRR Photo",
+                          style: descriptionStyle,
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Container(
+                            height: 100.0,
+                            width: 100.0,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.only(
+                                    topLeft: const Radius.circular(10.0),
+                                    topRight: const Radius.circular(10.0)),
+                                image: DecorationImage(
+                                    image: NetworkImage(data.mrrImagePath),
+                                    fit: BoxFit.cover))),
+                        SizedBox(
+                          height: 20,
+                        ),
+                      ]),
+                    ],
+                  ),
+                  _trackGoodsStatus(data),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Text(
+                    "Tap for Item Details",
+                    style: descriptionStyleDarkBlur,
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                ],
+              ),
             ),
-            color: Colors.white,
-            elevation: 10,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                SizedBox(
-                  height: 20,
-                ),
-                Center(
-                    child: Text(
-                  'MRR No. - ${data.MRRNumber.toString()}',
-                  style: subTitleStyle,
-                )),
-                SizedBox(
-                  height: 15,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Column(children: <Widget>[
-                      Text(
-                        "Vehicle Photo",
-                        style: descriptionStyle,
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Container(
-                          height: 100.0,
-                          width: 100.0,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.only(
-                                  topLeft: const Radius.circular(10.0),
-                                  topRight: const Radius.circular(10.0)),
-                              image: DecorationImage(
-                                  image: NetworkImage(data.vehicelImagePath),
-                                  fit: BoxFit.cover))),
-                      SizedBox(
-                        height: 20,
-                      ),
-                    ]),
-                    Column(children: <Widget>[
-                      Text(
-                        "MRR Photo",
-                        style: descriptionStyle,
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Container(
-                          height: 100.0,
-                          width: 100.0,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.only(
-                                  topLeft: const Radius.circular(10.0),
-                                  topRight: const Radius.circular(10.0)),
-                              image: DecorationImage(
-                                  image: NetworkImage(data.mrrImagePath),
-                                  fit: BoxFit.cover))),
-                      SizedBox(
-                        height: 20,
-                      ),
-                    ]),
-                  ],
-                ),
-                _trackGoodsStatus(data),
-                SizedBox(
-                  height: 10,
-                ),
-              ],
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
+      onTap: () {
+        GoToPage(context, ItemDetailsPage());
+      },
     );
   }
   Widget _trackGoodsStatus(GoodsEntry data) {

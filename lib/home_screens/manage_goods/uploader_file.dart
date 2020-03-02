@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bhavani_connect/common_variables/app_colors.dart';
 import 'package:bhavani_connect/common_variables/app_fonts.dart';
 import 'package:bhavani_connect/common_variables/app_functions.dart';
+import 'package:bhavani_connect/common_widgets/custom_appbar_widget/custom_app_bar.dart';
 import 'package:bhavani_connect/common_widgets/platform_alert/platform_exception_alert_dialog.dart';
 import 'package:bhavani_connect/database_model/goods_entry_model.dart';
 import 'package:bhavani_connect/database_model/notification_model.dart';
@@ -47,18 +48,18 @@ class _UploaderState extends State<Uploader> {
             _storage.ref().child(MRRImagePath).putFile(widget.MRRImage);
       });
       var vehiceImagePathURL = await (await _storage
-              .ref()
-              .child(vehiceImagePath)
-              .putFile(widget.vehiceImage)
-              .onComplete)
+          .ref()
+          .child(vehiceImagePath)
+          .putFile(widget.vehiceImage)
+          .onComplete)
           .ref
           .getDownloadURL();
 
       var MRRImagePathURL = await (await _storage
-              .ref()
-              .child(MRRImagePath)
-              .putFile(widget.MRRImage)
-              .onComplete)
+          .ref()
+          .child(MRRImagePath)
+          .putFile(widget.MRRImage)
+          .onComplete)
           .ref
           .getDownloadURL();
 
@@ -106,7 +107,7 @@ class _UploaderState extends State<Uploader> {
     final _notificationEntry = NotificationModel(
       notificationTitle: 'Item entry',
       notificationDescription:
-          'Item has been entered the dite. waiting for your approval.',
+      'Item has been entered the dite. waiting for your approval.',
       itemEntryID: itemID,
       senderID: 'VlkppQFc9jaeLgpjyt2yAIQL5wy2',
       receiverID: 'N0aPI4jS3RRE4yiDPyQhS0sVNfU2',
@@ -123,23 +124,65 @@ class _UploaderState extends State<Uploader> {
           var event = snapshot?.data?.snapshot;
 
           double progressPercent =
-              event != null ? event.bytesTransferred / event.totalByteCount : 0;
-          return Column(
-            children: <Widget>[
-              if (_uploadTask.isComplete) Text('completed successufully'),
-              if (_uploadTask.isPaused)
-                FlatButton(
-                  child: Icon(Icons.pause),
-                  onPressed: _uploadTask.resume,
+          event != null ? event.bytesTransferred / event.totalByteCount : 0;
+          return Scaffold(
+            appBar: PreferredSize(
+              preferredSize: Size.fromHeight(150),
+              //preferredSize : Size(double.infinity, 100),
+              child: CustomAppBar(
+                leftActionBar: Container(
+                  child: Icon(Icons.arrow_back, size: 40,color: Colors.black38,),
                 ),
-              if (_uploadTask.isInProgress)
-                FlatButton(
-                  child: Icon(Icons.pause),
-                  onPressed: _uploadTask.pause,
+                leftAction: (){
+                  Navigator.pop(context,true);
+                },
+                rightActionBar: Container(
+                  //child: Icon(Icons.notifications, size: 40,),
                 ),
-              LinearProgressIndicator(value: progressPercent),
-              Text('${(progressPercent * 100).toStringAsFixed(2)}%'),
-            ],
+                rightAction: (){
+                  print('right action bar is pressed in appbar');
+                },
+                primaryText: null,
+                secondaryText: 'Details Upload',
+                tabBarWidget: null,
+              ),
+            ),
+            body: Container(
+              color: Colors.white,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  if (_uploadTask.isComplete)  Image.asset(
+                    "images/done.png",
+                    width: 150,
+                    height: 150,
+                  ),
+                  SizedBox(height: 10,),
+                  if (_uploadTask.isComplete) Text('Uploaded Successfully',style: titleStyle,),
+                  if (_uploadTask.isPaused)
+                    FlatButton(
+                      child: Icon(Icons.play_arrow,color: backgroundColor,size: 40,),
+                      onPressed: _uploadTask.resume,
+                    ),
+                  if (_uploadTask.isInProgress)
+                    FlatButton(
+                      child: Icon(Icons.pause,color: backgroundColor,size: 40,),
+                      onPressed: _uploadTask.pause,
+                    ),
+                  Padding(
+                    padding: const EdgeInsets.only(top:30.0,left:20,right: 20,bottom: 30),
+                    child: SizedBox(
+                      height: 10.0,
+                      child: new LinearProgressIndicator(
+                          value: progressPercent,
+                          backgroundColor: backgroundColor),
+                    ),
+                    // LinearProgressIndicator(value: progressPercent,),
+                  ),
+                  Text('${(progressPercent * 100).toStringAsFixed(2)}%',style: titleStyle,),
+                ],
+              ),
+            ),
           );
         },
       );

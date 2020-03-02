@@ -1,3 +1,4 @@
+import 'package:bhavani_connect/common_variables/app_colors.dart';
 import 'package:bhavani_connect/common_variables/app_fonts.dart';
 import 'package:bhavani_connect/common_variables/app_functions.dart';
 import 'package:bhavani_connect/common_widgets/custom_appbar_widget/custom_app_bar.dart';
@@ -44,7 +45,8 @@ class _F_GoodsApprovalsPageState extends State<F_GoodsApprovalsPage> {
       return IconButton(
           icon: Icon(
             Icons.add_circle,
-            color: Colors.red,
+            color: backgroundColor,
+            size: 30,
           ),
           onPressed: () {
             GoToPage(
@@ -73,7 +75,7 @@ class _F_GoodsApprovalsPageState extends State<F_GoodsApprovalsPage> {
             //preferredSize : Size(double.infinity, 100),
             child: CustomAppBar(
               leftActionBar: Container(
-                 child: Icon(Icons.arrow_back, size: 40,color: Colors.black38,),
+                child: Icon(Icons.arrow_back, size: 40,color: Colors.black38,),
               ),
               leftAction: (){
                 Navigator.pop(context,true);
@@ -84,7 +86,7 @@ class _F_GoodsApprovalsPageState extends State<F_GoodsApprovalsPage> {
               },
               primaryText: null,
               secondaryText: 'Goods Approvals',
-                tabBarWidget: null,
+              tabBarWidget: null,
             ),
           ),
           body: _buildContent(context),
@@ -154,9 +156,9 @@ class _F_GoodsApprovalsPageState extends State<F_GoodsApprovalsPage> {
               ),
               Center(
                   child: Text(
-                'MRR No. - ${data.MRRNumber}',
-                style: subTitleStyle,
-              )),
+                    'MRR No. - ${data.MRRNumber}',
+                    style: subTitleStyle,
+                  )),
               SizedBox(
                 height: 15,
               ),
@@ -176,8 +178,8 @@ class _F_GoodsApprovalsPageState extends State<F_GoodsApprovalsPage> {
                       width: 100.0,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.only(
-                            topLeft: const Radius.circular(10.0),
-                            topRight: const Radius.circular(10.0),
+                          topLeft: const Radius.circular(10.0),
+                          topRight: const Radius.circular(10.0),
                         ),
                         image: DecorationImage(
                           image: NetworkImage(data.vehicelImagePath),
@@ -191,27 +193,27 @@ class _F_GoodsApprovalsPageState extends State<F_GoodsApprovalsPage> {
                   ]),
                   Column(
                       children: <Widget>[
-                    Text(
-                      "MRR Photo",
-                      style: descriptionStyle,
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Container(
-                        height: 100.0,
-                        width: 100.0,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.only(
-                                topLeft: const Radius.circular(10.0),
-                                topRight: const Radius.circular(10.0)),
-                            image: DecorationImage(
-                                image: NetworkImage(data.mrrImagePath),
-                                fit: BoxFit.cover))),
-                    SizedBox(
-                      height: 20,
-                    ),
-                  ]),
+                        Text(
+                          "MRR Photo",
+                          style: descriptionStyle,
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Container(
+                            height: 100.0,
+                            width: 100.0,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.only(
+                                    topLeft: const Radius.circular(10.0),
+                                    topRight: const Radius.circular(10.0)),
+                                image: DecorationImage(
+                                    image: NetworkImage(data.mrrImagePath),
+                                    fit: BoxFit.cover))),
+                        SizedBox(
+                          height: 20,
+                        ),
+                      ]),
                 ],
               ),
               Column(children: <Widget>[
@@ -240,20 +242,23 @@ class _F_GoodsApprovalsPageState extends State<F_GoodsApprovalsPage> {
               SizedBox(height: 10,),
               _trackGoodsStatus(data.approvalLevel),
               SizedBox(height: 10,),
-              Row(
-                children: <Widget>[
-                  SizedBox(width: 20,),
-                  Text("Security",style: statusTracker,),
-                  SizedBox(width: 20,),
+              Container(
+                width: MediaQuery.of(context).size.width ,
+                child: Row(
+                  children: <Widget>[
+                    SizedBox(width: 10,),
+                    Text("Security",style: statusTracker,),
+                    SizedBox(width: 15,),
 
-                  Text("Supervisor",style: statusTracker,),
-                  SizedBox(width: 10,),
-                  Text("Store Manager",style: statusTracker,),
-                  SizedBox(width: 10,),
+                    Text("Supervisor",style: statusTracker,),
+                    SizedBox(width: 10,),
+                    Text("Store Manager",style: statusTracker,),
+                    SizedBox(width: 10,),
 
-                  Text("Accountant",style: statusTracker,),
+                    Text("Accountant",style: statusTracker,),
 
-                ],
+                  ],
+                ),
               ),
               SizedBox(
                 height: 20,
@@ -270,7 +275,7 @@ class _F_GoodsApprovalsPageState extends State<F_GoodsApprovalsPage> {
         ),
       ),
       onTap: () {
-         GoToPage(context, page);
+        GoToPage(context, page);
       },
     );
   }
@@ -300,51 +305,54 @@ class _F_GoodsApprovalsPageState extends State<F_GoodsApprovalsPage> {
     }
   }
   Widget statusTrackerWidget(Color levelOne, Color levelTwo, Color levelThree, Color levelFour){
-    return Row(
-      children: <Widget>[
-        SizedBox(width: 40,),
-        CircleAvatar(backgroundColor: levelOne,radius: 6,),
-        Padding(
-          padding: EdgeInsets.all(0.0),
-          child: new LinearPercentIndicator(
-            width: 80,
-            animation: true,
-            lineHeight: 4.0,
-            animationDuration: 3000,
-            percent: 1,
-            linearStrokeCap: LinearStrokeCap.roundAll,
-            progressColor: levelTwo,
+    return Container(
+      width: MediaQuery.of(context).size.width ,
+      child: Row(
+        children: <Widget>[
+          SizedBox(width: 25,),
+          CircleAvatar(backgroundColor: levelOne,radius: 6,),
+          Padding(
+            padding: EdgeInsets.all(0.0),
+            child: new LinearPercentIndicator(
+              width: 80,
+              animation: true,
+              lineHeight: 4.0,
+              animationDuration: 3000,
+              percent: 1,
+              linearStrokeCap: LinearStrokeCap.roundAll,
+              progressColor: levelTwo,
+            ),
           ),
-        ),
-        CircleAvatar(backgroundColor: levelTwo,radius: 6,),
-        Padding(
-          padding: EdgeInsets.all(0.0),
-          child: new LinearPercentIndicator(
-            width: 80,
-            animation: true,
-            lineHeight: 4.0,
-            animationDuration: 3000,
-            percent: 1,
-            linearStrokeCap: LinearStrokeCap.roundAll,
-            progressColor: levelThree,
+          CircleAvatar(backgroundColor: levelTwo,radius: 6,),
+          Padding(
+            padding: EdgeInsets.all(0.0),
+            child: new LinearPercentIndicator(
+              width: 80,
+              animation: true,
+              lineHeight: 4.0,
+              animationDuration: 3000,
+              percent: 1,
+              linearStrokeCap: LinearStrokeCap.roundAll,
+              progressColor: levelThree,
+            ),
           ),
-        ),
-        CircleAvatar(backgroundColor: levelThree,radius: 6,),
-        Padding(
-          padding: EdgeInsets.all(0.0),
-          child: new LinearPercentIndicator(
-            width: 80,
-            animation: true,
-            lineHeight: 4.0,
-            animationDuration: 3000,
-            percent: 1,
-            linearStrokeCap: LinearStrokeCap.roundAll,
-            progressColor: levelFour,
+          CircleAvatar(backgroundColor: levelThree,radius: 6,),
+          Padding(
+            padding: EdgeInsets.all(0.0),
+            child: new LinearPercentIndicator(
+              width: 80,
+              animation: true,
+              lineHeight: 4.0,
+              animationDuration: 3000,
+              percent: 1,
+              linearStrokeCap: LinearStrokeCap.roundAll,
+              progressColor: levelFour,
+            ),
           ),
-        ),
-        CircleAvatar(backgroundColor: levelFour,radius: 6,),
-        SizedBox(width: 40,),
-      ],
+          CircleAvatar(backgroundColor: levelFour,radius: 6,),
+          SizedBox(width: 25,),
+        ],
+      ),
     );
   }
 }

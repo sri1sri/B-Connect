@@ -7,8 +7,8 @@ import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.da
 import 'package:bhavani_connect/common_widgets/platform_alert/platform_exception_alert_dialog.dart';
 import 'package:bhavani_connect/database_model/items_entry_model.dart';
 import 'package:bhavani_connect/firebase/database.dart';
-import 'package:configurable_expansion_tile/configurable_expansion_tile.dart';
-import 'package:dropdown_formfield/dropdown_formfield.dart';
+//import 'package:configurable_expansion_tile/configurable_expansion_tile.dart';
+//import 'package:dropdown_formfield/dropdown_formfield.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -61,13 +61,19 @@ class _F_ItemsEntryPageState extends State<F_ItemsEntryPage> {
               leftAction: (){
                 Navigator.pop(context,true);
               },
-              rightActionBar: Container(
-                child: FlatButton(onPressed: (){print('pressed clear in Add items');},
+              rightActionBar:Container(
+                padding: EdgeInsets.only(top: 10),
+                child: InkWell(
                     child: Text('Clear',
-                style: subTitleStyle,
-                ),
+                      style: subTitleStyle,
+                    ),
+                    onTap: () {
+                      print('pressed clear in Add items');
+
+                    }
                 ),
               ),
+
               rightAction: (){
                 print('right action bar is pressed in appbar');
               },
@@ -103,26 +109,24 @@ class _F_ItemsEntryPageState extends State<F_ItemsEntryPage> {
 //          ),
           body: _buildContent(context),
           bottomNavigationBar: BottomAppBar(
-              child: ToDoButton(
-                assetName: 'images/googe-logo.png',
-                text: 'Save',
-                textColor: Colors.white,
-                backgroundColor: activeButtonBackgroundColor,
+            child:
+            FlatButton.icon(
+                color: activeButtonTextColor,
                 onPressed: () {_submit();},
-              ),
+                icon: Icon(
+                  Icons.save_alt,
+                  size: 30,
+                  color: backgroundColor,
+                ),
+                label: Text('Save', style: titleStyle)),
 
-
-
-
-
-//              FlatButton.icon(
-//
-//                  color: activeButtonTextColor,
-////                  onPressed: _submit,
-//              onPressed: (){},
-//                  icon: Icon(Icons.save_alt,size: 30,color: backgroundColor,),
-//                  label: Text('Save',style:titleStyle))
-
+//              ToDoButton(
+//                assetName: 'images/googe-logo.png',
+//                text: 'Save',
+//                textColor: Colors.white,
+//                backgroundColor: activeButtonBackgroundColor,
+//                onPressed: () {_submit();},
+//              ),
 
           ),
         ),
@@ -139,10 +143,13 @@ class _F_ItemsEntryPageState extends State<F_ItemsEntryPage> {
 
     return Form(
       key: _formKey,
-      child: Column(
-        //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        //crossAxisAlignment: CrossAxisAlignment.center|,
-        children: _buildFormChildren(),
+      child: Padding(
+        padding: const EdgeInsets.all(15.0),
+        child: Column(
+          //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //crossAxisAlignment: CrossAxisAlignment.center|,
+          children: _buildFormChildren(),
+        ),
       ),
     );
   }
@@ -150,7 +157,6 @@ class _F_ItemsEntryPageState extends State<F_ItemsEntryPage> {
 
   List<Widget> _buildFormChildren() {
     return [
-
       TextFormField(
         decoration: new InputDecoration(
           labelText: "Company name",
@@ -210,7 +216,6 @@ class _F_ItemsEntryPageState extends State<F_ItemsEntryPage> {
           fontFamily: "Quicksand",
         ),
       ),
-      SizedBox(height: 20,),
 //      Row(
 //        children: <Widget>[
 //          Column(
@@ -314,20 +319,45 @@ class _F_ItemsEntryPageState extends State<F_ItemsEntryPage> {
 //          fontFamily: "Quicksand",
 //        ),
 //      ),
+      SizedBox(height: 20,),
       TextFormField(
-        decoration: InputDecoration(labelText: 'Quantity'),
-        initialValue: _quantity.toString(),
-        onSaved: (value) => _quantity = int.tryParse(value),
+        decoration: new InputDecoration(
+          labelText: "Quantity",
+          fillColor: Colors.white,
+          border: new OutlineInputBorder(
+            borderRadius: new BorderRadius.circular(15.0),
+            borderSide: new BorderSide(
+            ),
+          ),
+          //fillColor: Colors.green
+        ),
+        initialValue:  _quantity.toString(),
+        onSaved: (value) =>  _quantity = int.tryParse(value),
         validator: (value) => value.isNotEmpty ? null : 'Quantity cant\'t be empty.',
         keyboardType: TextInputType.number,
+        style: new TextStyle(
+          fontFamily: "Quicksand",
+        ),
       ),
-
+      SizedBox(height: 20,),
       TextFormField(
-        decoration: InputDecoration(labelText: 'Description'),
-        initialValue: _description.toString(),
-        onSaved: (value) => _description = value,
+        decoration: new InputDecoration(
+          labelText: "Description",
+          fillColor: Colors.white,
+          border: new OutlineInputBorder(
+            borderRadius: new BorderRadius.circular(15.0),
+            borderSide: new BorderSide(
+            ),
+          ),
+          //fillColor: Colors.green
+        ),
+        initialValue:  _description,
+        onSaved: (value) =>  _description = value,
         validator: (value) => value.isNotEmpty ? null : 'Description cant\'t be empty.',
-        keyboardType: TextInputType.number,
+        keyboardType: TextInputType.text,
+        style: new TextStyle(
+          fontFamily: "Quicksand",
+        ),
       ),
     ];
   }

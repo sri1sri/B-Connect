@@ -30,6 +30,7 @@ class F_AddStock extends StatefulWidget {
 }
 
 class _F_AddStockState extends State<F_AddStock> {
+
   @override
   Widget build(BuildContext context) {
     return offlineWidget( context );
@@ -57,7 +58,7 @@ class _F_AddStockState extends State<F_AddStock> {
                 print('right action bar is pressed in appbar');
               },
               primaryText: null,
-              secondaryText: 'Stock Details',
+              secondaryText: 'Add Stock',
               tabBarWidget: null,
             ),
           ),
@@ -118,6 +119,8 @@ class _F_AddStockState extends State<F_AddStock> {
         onPressed: () =>
             GoToPage( context,
                 DisplayStock( database: widget.database,title: optionTitle ) ),
+
+
         padding: EdgeInsets.all( 15.0 ),
 
         shape: RoundedRectangleBorder(

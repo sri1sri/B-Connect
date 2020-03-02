@@ -7,21 +7,21 @@ import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.da
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class NotificationPage extends StatelessWidget {
+class ItemDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: F_NotificationPage(),
+      child: F_ItemDetailsPage(),
     );
   }
 }
 
-class F_NotificationPage extends StatefulWidget {
+class F_ItemDetailsPage extends StatefulWidget {
   @override
-  _F_NotificationPageState createState() => _F_NotificationPageState();
+  _F_ItemDetailsPageState createState() => _F_ItemDetailsPageState();
 }
 
-class _F_NotificationPageState extends State<F_NotificationPage> {
+class _F_ItemDetailsPageState extends State<F_ItemDetailsPage> {
   int _n = 0;
   @override
   Widget build(BuildContext context) {
@@ -64,7 +64,7 @@ class _F_NotificationPageState extends State<F_NotificationPage> {
                     print('clearing notification');
                   },
                   child: Text(
-                    "Clear",
+                    "",
                     style: subTitleStyle,
                   ),
                   //shape: CircleBorder(side: BorderSide(color: Colors.transparent)),
@@ -74,7 +74,7 @@ class _F_NotificationPageState extends State<F_NotificationPage> {
             print('right action bar is pressed in appbar');
           },
           primaryText: null,
-          secondaryText: 'Notifications',
+          secondaryText: 'Item Details',
           tabBarWidget: null,
         ),
       ),
@@ -85,9 +85,9 @@ class _F_NotificationPageState extends State<F_NotificationPage> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               SizedBox(height: 10,),
-              _Notificationcard("Aproval Needed", "Manager approved the request"),
-              _Notificationcard("Goods Delivered", "Goods collected by security"),
-              _Notificationcard("Items Order", "100 tons of steels ordered"),
+              _OrderedItemsCard('vasanth steel', 'iron rod', 'beam', '3 tons'),
+              _OrderedItemsCard('sri bricks', 'bricks', 'wall', '2 load'),
+              _OrderedItemsCard('vamsi cements', 'cements', 'patch', '1 ton'),
               SizedBox(height: 20,),
 
             ],
@@ -98,8 +98,10 @@ class _F_NotificationPageState extends State<F_NotificationPage> {
     );
   }
 
-  _Notificationcard(String messageTitle, String messageContent,)
+  _OrderedItemsCard(String companyName, String itemName, String category, String quantity)
   {
+
+    print('details == ${companyName}, ${itemName}, ${category}, ${quantity.toString()}');
     return Container(
 
       child: Card(
@@ -108,36 +110,49 @@ class _F_NotificationPageState extends State<F_NotificationPage> {
         ),
         color: Colors.white,
         elevation: 10,
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
 
-            children: <Widget>[
-              SizedBox(height: 20,),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Column(
-                      children: <Widget>[
+          children: <Widget>[
+            SizedBox(height: 20,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Column(
+                    children: <Widget>[
 
-                        Text(messageTitle,style: descriptionStyle,),
-                        SizedBox(height: 10,),
-                        Text(messageContent,style: descriptionStyleDark,),
-                        SizedBox(height: 10,),
-                      ]
-                  ),
-                ],
-              ),
+                      Text("Company Name",style: descriptionStyle,),
+                      SizedBox(height: 10,),
+                      Text(companyName,style: descriptionStyleDark,),
+                      SizedBox(height: 10,),
+                      Text("Item names",style: descriptionStyle,),
+                      SizedBox(height: 10,),
+                      Text(itemName,style: descriptionStyleDark,),
+                    ]
+                ),
+                Column(
+                    children: <Widget>[
 
-              SizedBox(height: 20,),
-            ],
+                      Text("Category",style: descriptionStyle,),
+                      SizedBox(height: 10,),
+                      Text(category,style: descriptionStyleDark,),
+                      SizedBox(height: 10,),
+                      Text("Quantity",style: descriptionStyle,),
+                      SizedBox(height: 10,),
+                      Text(quantity,style: descriptionStyleDark,),
+                    ]
+                ),
+              ],
+            ),
+            SizedBox(height: 20,),
+          ],
 
 
 
-          ),
         ),
       ),
     );
+
 
   }
 

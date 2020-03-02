@@ -43,8 +43,8 @@ class F_Dashboard extends StatefulWidget {
 
 class _F_DashboardState extends State<F_Dashboard> {
   var features = [
-    "Goods Approvals",
-    "Add stock details",
+    "Approvals",
+    "Add stock",
     "Store",
     "Inventory",
 //    "Notifications",
@@ -92,16 +92,43 @@ class _F_DashboardState extends State<F_Dashboard> {
             //preferredSize : Size(double.infinity, 100),
             child: CustomAppBar(
               leftActionBar: Container(
-               // child: Icon(Icons.arrow_back, size: 40,),
+                // child: Icon(Icons.arrow_back, size: 40,),
               ),
               leftAction: (){
                 print('left action bar is pressed in appbar');
               },
-              rightActionBar: Container(
-                child: Icon(Icons.notifications, size: 40,),
+              rightActionBar:Container(
+                padding: EdgeInsets.only(top: 10),
+                child: InkWell(
+                    child: Icon(Icons.notifications,
+                      color: backgroundColor,
+                      size: 30,
+                    ),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => NotificationPage()),
+                      );
+                    }
+                ),
               ),
+
+
+
+
+//
+//              Container(
+//                  child: FlatButton(
+//                    onPressed: () {
+//                      GoToPage(context, NotificationPage());
+//                    },
+//                    child: Icon(Icons.notifications, size: 30,color: backgroundColor),
+//                    //shape: CircleBorder(side: BorderSide(color: Colors.transparent)),
+//                  )),
+
               rightAction: (){
-                print('right action bar is pressed in appbar');
+                GoToPage(context, NotificationPage());
               },
               secondaryText: 'Welcome to B-Connect',
               primaryText: 'Hello ${employee.username},',
@@ -173,102 +200,190 @@ class _F_DashboardState extends State<F_Dashboard> {
 
 
 
-          body: Padding(
-            padding: const EdgeInsets.only(
-                top: 50.0, bottom: 10.0, left: 10.0, right: 10.0),
-            child: new GridView.builder(
-              itemCount: features.length,
-              gridDelegate:
-              new SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
-              itemBuilder: (BuildContext context, int index) {
-                return new GestureDetector(
-                  child: new Card(
-                    elevation: 5.0,
-                    child: new Container(
-                      alignment: Alignment.center,
-                      margin: new EdgeInsets.only(
-                          top: 25.0, bottom: 10.0, left: 10.0, right: 10.0),
-                      child: new Column(
-                        children: <Widget>[
-
+//          body: Padding(
+//            padding: const EdgeInsets.only(
+//                top: 50.0, bottom: 10.0, left: 10.0, right: 10.0),
+//            child: new GridView.builder(
+//              itemCount: features.length,
+//              gridDelegate:
+//              new SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
+//              itemBuilder: (BuildContext context, int index) {
+//                return new GestureDetector(
+//                  child: new Card(
+//                    elevation: 5.0,
+//                    child: new Container(
+//                      alignment: Alignment.center,
+//                      margin: new EdgeInsets.only(
+//                          top: 25.0, bottom: 10.0, left: 10.0, right: 10.0),
+//                      child: new Column(
+//                        children: <Widget>[
+//                          new Icon(
+//                            F_icons[index],
+//                            size: 50,
+//                            color: backgroundColor,
+//                          ),
+//                          new Text(
+//                            features[index],
+//                            style: descriptionStyle,
+//                          ),
+//                        ],
+//                      ),
+//                    ),
+//                  ),
+//                  onTap: () {
+//                    switch (features[index]) {
+//                      case 'Employees':
+//                        {
+//                          GoToPage(
+//                              context,
+//                              ManageEmployeesPage(
+//                                database: widget.database,
+//                                employee: employee,
+//                              ));
+//                        }
+//                        break;
 //
-//                          new Image.asset(
-//                            'images/2.jpg', height: 20, width: 20,),
-
-                          new Icon(
-                            F_icons[index],
-                            size: 50,
-                            color: backgroundColor,
-                          ),
-
-
-                          new Text(
-                            features[index],
-                            style: descriptionStyle,
-                          ),
-                        ],
+//                      case 'Goods Approvals':
+//                        {
+//                          GoToPage(
+//                              context,
+//                              GoodsApprovalsPage(
+//                                database: widget.database,
+//                                employee: employee,
+//                              ));
+//                        }
+//                        break;
+//                      case 'Store':
+//                        {
+//                          GoToPage(context, StorePage(database: widget.database,employeeRole: employee.role,));
+//                        }
+//                        break;
+//
+//                      case 'Inventory':
+//                        {
+//                          GoToPage(context, InventoryPage(),);
+//                        }
+//                        break;
+//
+//                      case 'Attendance':{
+//                        GoToPage(context, AttendancePage(),);
+//                      }
+//                      break;
+////                      case 'Notifications':
+////                        {
+////                          GoToPage(context, NotificationsPage());
+////                        }
+////                        break;
+//
+//                      case 'Add stock details':
+//                        {
+//                          GoToPage(context, AddStock(database: widget.database,));
+//                        }
+//                        break;
+//
+//
+//                      default:
+//                        {}
+//                        break;
+//                    }
+//                  },
+//                );
+//              },
+//            ),
+//          ),
+          bottomSheet: Container(
+            color: Colors.white,
+            child: Padding(
+              padding: const EdgeInsets.only(
+                  top: 200.0, bottom: 40.0, left: 10.0, right: 10.0),
+              child: new GridView.builder(
+                itemCount: features.length,
+                gridDelegate:
+                new SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
+                itemBuilder: (BuildContext context, int index) {
+                  return new GestureDetector(
+                    child: new Card(
+                      elevation: 5.0,
+                      child: new Container(
+                        alignment: Alignment.center,
+                        margin: new EdgeInsets.only(
+                            top: 25.0, bottom: 10.0, left: 10.0, right: 10.0),
+                        child: new Column(
+                          children: <Widget>[
+                            new Icon(
+                              F_icons[index],
+                              size: 35,
+                              color: backgroundColor,
+                            ),
+                            SizedBox(height: 10,),
+                            new Text(
+                              features[index],
+                              style: descriptionStyle,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                  onTap: () {
-                    switch (features[index]) {
-                      case 'Employees':
-                        {
-                          GoToPage(
-                              context,
-                              ManageEmployeesPage(
-                                database: widget.database,
-                                employee: employee,
-                              ));
-                        }
-                        break;
+                    onTap: () {
+                      switch (features[index]) {
+                        case 'Employees':
+                          {
+                            GoToPage(
+                                context,
+                                ManageEmployeesPage(
+                                  database: widget.database,
+                                  employee: employee,
+                                ));
+                          }
+                          break;
 
-                      case 'Goods Approvals':
-                        {
-                          GoToPage(
-                              context,
-                              GoodsApprovalsPage(
-                                database: widget.database,
-                                employee: employee,
-                              ));
-                        }
-                        break;
-                      case 'Store':
-                        {
-                          GoToPage(context, StorePage(database: widget.database,employeeRole: employee.role,));
-                        }
-                        break;
+                        case 'Approvals':
+                          {
+                            GoToPage(
+                                context,
+                                GoodsApprovalsPage(
+                                  database: widget.database,
+                                  employee: employee,
+                                ));
+                          }
+                          break;
+                        case 'Store':
+                          {
+                            GoToPage(context, StorePage(database: widget.database,employeeRole: employee.role,));
+                          }
+                          break;
 
-                      case 'Inventory':
-                        {
-                          GoToPage(context, InventoryPage(),);
+                        case 'Inventory':
+                          {
+                            GoToPage(context, InventoryPage(),);
+                          }
+                          break;
+
+                        case 'Attendance':{
+                          GoToPage(context, AttendancePage(),);
                         }
                         break;
-
-                      case 'Attendance':{
-                        GoToPage(context, AttendancePage(),);
-                      }
-                      break;
 //                      case 'Notifications':
 //                        {
 //                          GoToPage(context, NotificationsPage());
 //                        }
 //                        break;
 
-                      case 'Add stock details':
-                        {
-                          GoToPage(context, AddStock(database: widget.database,));
-                        }
-                        break;
+                        case 'Add stock':
+                          {
+                            GoToPage(context, AddStock(database: widget.database,));
+                          }
+                          break;
 
 
-                      default:
-                        {}
-                        break;
-                    }
-                  },
-                );
-              },
+                        default:
+                          {}
+                          break;
+                      }
+                    },
+                  );
+                },
+              ),
             ),
           ),
         );

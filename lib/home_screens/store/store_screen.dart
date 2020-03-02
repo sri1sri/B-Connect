@@ -1,3 +1,4 @@
+import 'package:bhavani_connect/common_variables/app_colors.dart';
 import 'package:bhavani_connect/common_variables/app_functions.dart';
 import 'package:bhavani_connect/common_widgets/custom_appbar_widget/custom_app_bar.dart';
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
@@ -97,7 +98,7 @@ class _F_StorePageState extends State<F_StorePage> {
               secondaryText: null,
               tabBarWidget: Center(
                 child: new TabBar(
-                  labelColor: Colors.black,
+                  labelColor: backgroundColor,
                   labelStyle: selectedLabel,
                   unselectedLabelStyle: unselectedLabel,
                   isScrollable: true,

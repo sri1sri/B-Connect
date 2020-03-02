@@ -11,7 +11,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:flutter_launch/flutter_launch.dart';
+//import 'package:flutter_launch/flutter_launch.dart';
 
 
 
@@ -124,98 +124,98 @@ class _F_SettingsPageState extends State<F_SettingsPage> {
   }
 
   Widget _buildContent(BuildContext context) {
-          return SingleChildScrollView(
-            child: Center(
+    return SingleChildScrollView(
+      child: Center(
 
-              child:
-              Column(
-                children: <Widget>[
-                  Container(
-                    child: Padding(
-                      padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                      child: Column(
+        child:
+        Column(
+          children: <Widget>[
+            Container(
+              child: Padding(
+                padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                child: Column(
 
-                        children: <Widget>[
-                          SizedBox(height: 5.0),
+                  children: <Widget>[
+                    SizedBox(height: 5.0),
 
 //                    Divider(
 //                      color: Colors.black,
 //                    ),
-                          _reportAnIssue(),
+                    _reportAnIssue(),
 //                    Divider(
 //                      color: Colors.black,
 //                    ),
-                          _howToUse(),
+                    _howToUse(),
 //                    Divider(
 //                      color: Colors.black,
 //                    ),
-                          _privacyPolicy(),
+                    _privacyPolicy(),
 //                    Divider(
 //                      color: Colors.black,
 //                    ),
-                          _termsAndConditions(),
+                    _termsAndConditions(),
 //                    Divider(
 //                      color: Colors.black,
 //                    ),
 
 
-                        ],
-                      ),
-                    ),
-                  ),
-                  Container(
-                    child: Padding(
-                      padding: EdgeInsets.fromLTRB(30, 20, 30, 20),
-                      child: Column(
-
-                        children: <Widget>[
-
-                          RaisedButton(
-                            onPressed: () => _confirmSignOut(context),
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(80.0)),
-                            padding: const EdgeInsets.all(0.0),
-                            child: Ink(
-                              decoration: const BoxDecoration(
-                                color: Color(0xFF1F4B6E) ,
-                                borderRadius: BorderRadius.all(Radius.circular(10)),
-                              ),
-                              child: Container(
-                                constraints: const BoxConstraints(minWidth: 88.0,minHeight: 50.0),
-                                // min sizes for Material buttons
-                                alignment: Alignment.center,
-                                child: Text(
-                                  'Sign Out',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    letterSpacing: 1.5,
-                                    fontSize: 18.0,
-                                    fontWeight: FontWeight.w600,
-                                    fontFamily: 'OpenSans',
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(height: 10,),
-                          Text(
-                            'Version 1.0.0',
-                            style: TextStyle(
-                              color: Colors.black45,
-                              fontFamily: 'OpenSans',
-                              fontSize: 15.0,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-
-
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
-          );
+            Container(
+              child: Padding(
+                padding: EdgeInsets.fromLTRB(30, 20, 30, 20),
+                child: Column(
+
+                  children: <Widget>[
+
+                    RaisedButton(
+                      onPressed: () => _confirmSignOut(context),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(80.0)),
+                      padding: const EdgeInsets.all(0.0),
+                      child: Ink(
+                        decoration: const BoxDecoration(
+                          color: Color(0xFF1F4B6E) ,
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                        ),
+                        child: Container(
+                          constraints: const BoxConstraints(minWidth: 88.0,minHeight: 50.0),
+                          // min sizes for Material buttons
+                          alignment: Alignment.center,
+                          child: Text(
+                            'Sign Out',
+                            style: TextStyle(
+                              color: Colors.white,
+                              letterSpacing: 1.5,
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.w600,
+                              fontFamily: 'OpenSans',
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 10,),
+                    Text(
+                      'Version 1.0.0',
+                      style: TextStyle(
+                        color: Colors.black45,
+                        fontFamily: 'OpenSans',
+                        fontSize: 15.0,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+
+
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
 
   }
 }

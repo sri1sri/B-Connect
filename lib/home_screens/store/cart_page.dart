@@ -68,17 +68,17 @@ class _F_CartPageState extends State<F_CartPage> {
             Navigator.pop(context, true);
           },
           rightActionBar: Container(
-//              color: Colors.white,
-              child: FlatButton(
-            onPressed: () {
-              print('clearing cart');
-            },
-            child: Text(
-              "Clear",
-              style: subTitleStyle,
+            padding: EdgeInsets.only(top: 10),
+            child: InkWell(
+                child: Text('Clear',
+                  style: subTitleStyle,
+                ),
+                onTap: () {
+                  print('pressed clear in cart');
+
+                }
             ),
-            //shape: CircleBorder(side: BorderSide(color: Colors.transparent)),
-          )),
+          ),
           rightAction: () {
             print('right action bar is pressed in appbar');
           },

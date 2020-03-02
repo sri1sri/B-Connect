@@ -11,7 +11,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_launch/flutter_launch.dart';
-import 'package:flutter_picker/flutter_picker.dart';
+//import 'package:flutter_picker/flutter_picker.dart';
 
 
 void customLaunch(command) async {
@@ -80,7 +80,7 @@ class _F_EmployeeProfilePageState extends State<F_EmployeeProfilePage> {
                 print('right action bar is pressed in appbar');
               },
               primaryText: null,
-              secondaryText: 'Manage Employees',
+              secondaryText: 'Employee Profile',
               tabBarWidget: null,
             ),
           ),

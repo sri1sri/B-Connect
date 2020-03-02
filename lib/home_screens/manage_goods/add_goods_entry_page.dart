@@ -205,7 +205,7 @@ class _F_AddGoodsEntryPageState extends State<F_AddGoodsEntryPage> {
                         ),
                         labelText: "Enter MRR No.",
                         border: new OutlineInputBorder(
-                          borderRadius: new BorderRadius.circular(5.0),
+                          borderRadius: new BorderRadius.circular(15.0),
                           borderSide: new BorderSide(
                           ),
                         ),

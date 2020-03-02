@@ -12,7 +12,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:flutter_launch/flutter_launch.dart';
+//import 'package:flutter_launch/flutter_launch.dart';
 
 
 
@@ -46,7 +46,7 @@ class ProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: F_ProfilePage(
-        database: database),
+          database: database),
     );
   }
 }
@@ -84,24 +84,26 @@ class _F_ProfilePageState extends State<F_ProfilePage> {
                 Navigator.pop(context,true);
               },
               rightActionBar: Container(
+                padding: EdgeInsets.only(top: 10),
                 child: InkWell(
-                  child: Icon(Icons.more_vert,
-                    color: Colors.black,
-                  ),
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => SettingsPage() ),
-                    );
-                  }
+                    child: Icon(Icons.more_vert,
+                      color: backgroundColor,
+                      size: 30,
+                    ),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => SettingsPage() ),
+                      );
+                    }
                 ),
               ),
               rightAction: (){
                 print('right action bar is pressed in appbar');
               },
               primaryText: 'Hello!',
-              secondaryText: 'Hard coded value',
+              secondaryText: 'Your Profile',
               tabBarWidget: null,
             ),
           ),
@@ -123,153 +125,167 @@ class _F_ProfilePageState extends State<F_ProfilePage> {
             child: Center(
               child:
               Padding(
-                padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
                 child: Column(
                   children: <Widget>[
-                    Container(
-                        height: 400,
-                        width: 440,
-                        //color: Colors.red,
-                        //padding: EdgeInsets.symmetric(horizontal: -60.0),
-                        margin: const EdgeInsets.only(left: .2),
-                        child: Column(children: <Widget>[
-                          Stack(children: [
-                            Container(
-                              height: 400.0,
-                            ),
-                            Positioned(
-                                left: 10.0,
-                                right: 10.0,
-                                top: 120.0,
-                                bottom: 20.0,
-                                child: Container(
-                                    padding: EdgeInsets.only(
-                                        left: 10.0,
-                                        right: 10.0,
-                                        top: 10.0,
-                                        bottom: 10.0),
-                                    height: 20.0,
-                                    width: 280.0,
-                                    decoration: BoxDecoration(
-                                        boxShadow: [
-                                          new BoxShadow(
-                                            color: Colors.black54,
-                                            blurRadius: 10.0,
-                                          ),
-                                        ],
-                                        borderRadius: BorderRadius.circular(10.0),
-                                        color: Colors.white),
-                                    child: Column(
-                                      // crossAxisAlignment: CrossAxisAlignment.center,
-                                        children: <Widget>[
-                                          SizedBox(
-                                            height: 70,
-                                          ),
-                                          Text(
-                                            '${employee.employeeName}',
-                                            style: titleStyle,
-                                          ),
-                                          SizedBox(
-                                            height: 5,
-                                          ),
-                                          Text(
-                                            '${employee.employeeContactNumber}',
-                                            style: descriptionStyleDark,
-                                          ),
-                                          SizedBox(
-                                            height: 20,
-                                          ),
-                                          Row(
-                                            mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                            children: <Widget>[
-                                              Column(
-                                                mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                                children: <Widget>[
-                                                  Text(
-                                                    "Role",
-                                                    style: subTitleStyle,
-                                                  ),
-                                                  SizedBox(
-                                                    height: 5,
-                                                  ),
-                                                  Text(
-                                                      '${employee.employeeRole}',
-                                                      style:
-                                                      descriptionStyleDark),
-                                                ],
-                                              ),
-                                              SizedBox(
-                                                width: 30,
-                                              ),
-                                              Column(
-                                                mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                                children: <Widget>[
-                                                  Text(
-                                                    '|',
-                                                    style: TextStyle(
-                                                      color: Colors.black54,
-                                                      fontFamily: 'OpenSans',
-                                                      fontSize: 30.0,
-                                                      fontWeight: FontWeight.w600,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                              SizedBox(
-                                                width: 30,
-                                              ),
-                                              Column(
-                                                mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                                children: <Widget>[
-                                                  Text(
-                                                    "Project",
-                                                    style: subTitleStyle,
-                                                  ),
-                                                  SizedBox(
-                                                    height: 5,
-                                                  ),
-                                                  Text("Bhavani Project",
-                                                      style:
-                                                      descriptionStyleDark),
-                                                ],
-                                              ),
-                                              SizedBox(
-                                                height: 10.0,
+                    Column(
+                      children: <Widget>[
+                        Container(
+                            height: 400,
+                            width: 440,
+                            //color: Colors.red,
+                            //padding: EdgeInsets.symmetric(horizontal: -60.0),
+//                            margin: const EdgeInsets.only(left: .2),
+                            child: Column(children: <Widget>[
+                              Stack(children: [
+                                Container(
+                                  height: 400.0,
+                                ),
+                                Positioned(
+                                    left: 0.0,
+                                    right: 0.0,
+                                    top: 120.0,
+                                    bottom: 20.0,
+                                    child: Container(
+                                        padding: EdgeInsets.only(
+                                            left: 0.0,
+                                            right: 0.0,
+                                            top: 10.0,
+                                            bottom: 10.0),
+                                        height: 20.0,
+                                        width: 280.0,
+                                        decoration: BoxDecoration(
+                                            boxShadow: [
+                                              new BoxShadow(
+                                                color: Colors.black54,
+                                                blurRadius: 10.0,
                                               ),
                                             ],
-                                          ),
-                                          SizedBox(
-                                            height: 5.0,
-                                          ),
+                                            borderRadius: BorderRadius.circular(10.0),
+                                            color: Colors.white),
+                                        child: Column(
+                                          // crossAxisAlignment: CrossAxisAlignment.center,
+                                            children: <Widget>[
+                                              SizedBox(
+                                                height: 70,
+                                              ),
+                                              Text(
+                                                '${employee.employeeName}',
+                                                style: titleStyle,
+                                              ),
+                                              SizedBox(
+                                                height: 5,
+                                              ),
+                                              Text(
+                                                '${employee.employeeContactNumber}',
+                                                style: descriptionStyleDark,
+                                              ),
+                                              SizedBox(
+                                                height: 20,
+                                              ),
+                                              Row(
+                                                mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                                children: <Widget>[
+                                                  Column(
+                                                    mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                    children: <Widget>[
+                                                      Text(
+                                                        "Role",
+                                                        style: subTitleStyle,
+                                                      ),
+                                                      SizedBox(
+                                                        height: 5,
+                                                      ),
+                                                      Text(
+                                                          '${employee.employeeRole}',
+                                                          style:
+                                                          descriptionStyleDark),
+                                                    ],
+                                                  ),
+                                                  SizedBox(
+                                                    width: 30,
+                                                  ),
+                                                  Column(
+                                                    mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                    children: <Widget>[
+                                                      Text(
+                                                        '|',
+                                                        style: TextStyle(
+                                                          color: Colors.black54,
+                                                          fontFamily: 'OpenSans',
+                                                          fontSize: 30.0,
+                                                          fontWeight: FontWeight.w600,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  SizedBox(
+                                                    width: 30,
+                                                  ),
+                                                  Column(
+                                                    mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                    children: <Widget>[
+                                                      Text(
+                                                        "Project",
+                                                        style: subTitleStyle,
+                                                      ),
+                                                      SizedBox(
+                                                        height: 5,
+                                                      ),
+                                                      Text("Bhavani",
+                                                          style:
+                                                          descriptionStyleDark),
+                                                    ],
+                                                  ),
+                                                  SizedBox(
+                                                    height: 10.0,
+                                                  ),
+                                                ],
+                                              ),
+                                              SizedBox(
+                                                height: 5.0,
+                                              ),
 
 //
-                                        ]))),
-                            Positioned(
-                                left: 130.0,
-                                right: 130.0,
-                                top: 30.0,
-                                bottom: 230.0,
-                                child: Container(
-                                    height: 50.0,
-                                    width: 50.0,
-                                    decoration: BoxDecoration(
-                                        borderRadius:
-                                        BorderRadius.circular(100.0),
-                                        image: DecorationImage(
-                                            image: AssetImage(
-                                                "images/profile_image.jpg"),
-                                            fit: BoxFit.fill)))),
-                          ]),
-                        ])),
+                                            ]))),
+                                Positioned(
+                                  left: 120.0,
+                                  right: 120.0,
+                                  top: 30.0,
+                                  bottom: 230.0,
+                                  child: CircleAvatar(
+                                    radius: 30.0,
+                                    backgroundImage:
+                                    AssetImage("images/profile_image.jpg"),
+                                    backgroundColor: Colors.transparent,
+                                  ),
+
+
+
+//                                    Container(
+//                                        height: 50.0,
+//                                        width: 50.0,
+//                                        decoration: BoxDecoration(
+//                                            borderRadius:
+//                                            BorderRadius.circular(100.0),
+//                                            image: DecorationImage(
+//                                                image: AssetImage(
+//                                                    "images/profile_image.jpg"),
+//                                                fit: BoxFit.fill)))
+                                ),
+                              ]),
+                            ])),
+                      ],
+                    ),
                     Column(
                       children: <Widget>[
                         Container(
                           padding: EdgeInsets.only(
-                              left: 10.0, right: 10.0, top: 10.0, bottom: 10.0),
+                              left: 0.0, right: 0.0, top: 10.0, bottom: 10.0),
                           height: 260.0,
                           width: 375.0,
                           decoration: BoxDecoration(
