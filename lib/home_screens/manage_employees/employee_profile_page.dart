@@ -10,7 +10,6 @@ import 'package:bhavani_connect/firebase/database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:flutter_launch/flutter_launch.dart';
 //import 'package:flutter_picker/flutter_picker.dart';
 
 
@@ -80,7 +79,7 @@ class _F_EmployeeProfilePageState extends State<F_EmployeeProfilePage> {
                 print('right action bar is pressed in appbar');
               },
               primaryText: null,
-              secondaryText: 'Employee Profile',
+              secondaryText: 'Manage Employees',
               tabBarWidget: null,
             ),
           ),
@@ -263,7 +262,7 @@ class _F_EmployeeProfilePageState extends State<F_EmployeeProfilePage> {
                                                   MaterialButton(
                                                     minWidth: 20,
                                                     onPressed: () {
-                                                      FlutterLaunch.launchWathsApp(phone: "${employee.employeeContactNumber}", message: "Hello ${employee.employeeName}");
+                                                      //FlutterLaunch.launchWathsApp(phone: "${employee.employeeContactNumber}", message: "Hello ${employee.employeeName}");
                                                     },
                                                     child: Column(
                                                       mainAxisAlignment:
