@@ -35,24 +35,7 @@ class F_DisplayStock extends StatefulWidget {
 }
 
 class _F_DisplayStockState extends State<F_DisplayStock> {
-  var features = [
-    "Goods Approvals",
-    "Add stock details",
-    "Store",
-    "Inventory",
-//    "Notifications",
-    "Attendance",
-    "Employees"
-  ];
-  List<IconData> F_icons = [
-    Icons.touch_app,
-    Icons.note_add,
-    Icons.store,
-    Icons.dashboard,
-//    Icons.notifications,
-    Icons.pan_tool,
-    Icons.account_circle
-  ];
+
   double _crossAxisSpacing = 8, _mainAxisSpacing = 10, _aspectRatio = 5;
   int _crossAxisCount = 1;
   @override
@@ -80,138 +63,11 @@ class _F_DisplayStockState extends State<F_DisplayStock> {
                 print('right action bar is pressed in appbar');
               },
               primaryText: null,
-              secondaryText: 'Add Details',
+              secondaryText: _title(),
               tabBarWidget: null,
             ),
           ),
-
-//          new AppBar(
-//            backgroundColor: Color(0xFF1F4B6E),
-//            title: Center(
-//                child: Text(
-//              widget.title,
-//              style: subTitleStyleLight,
-//            )),
-//            leading: IconButton(
-//              icon: Icon(Icons.arrow_back),
-//              onPressed: () => Navigator.pop(context, false),
-//            ),
-//            centerTitle: true,
-//            actions: <Widget>[
-//              FlatButton(
-//                child: Text(
-//                  '',
-//                  style: TextStyle(
-//                    fontSize: 18,
-//                    color: Colors.white,
-//                  ),
-//                ),
-//                onPressed: () => print(''),
-//              )
-//            ],
-//          ),
-          body:  Padding(
-            padding: const EdgeInsets.only(
-                top: 10.0, bottom: 90.0, left: 10.0, right: 10.0),
-            child: new GridView.builder(
-              itemCount: features.length,
-              gridDelegate:
-              new SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: _crossAxisCount,
-                crossAxisSpacing: _crossAxisSpacing,
-                mainAxisSpacing: _mainAxisSpacing,
-                childAspectRatio: _aspectRatio,
-              ),
-              itemBuilder: (BuildContext context, int index) {
-                return new GestureDetector(
-                  child: new FlatButton(
-                    color: Colors.white,
-                    onPressed: () => print('Company'),
-                    padding: EdgeInsets.all(15.0),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(0.0),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        Column(
-                          children: <Widget>[
-                            new Icon(
-                              F_icons[index],
-                              size: 40,
-                              color: backgroundColor,
-                            ),
-
-                          ],
-                        ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            new Text(
-                              features[index],
-                              style: subTitleStyle,
-                            ),
-                          ],
-                        ),
-                        Column(
-                          children: <Widget>[
-                            Icon(
-                              Icons.add,
-                              color: Colors.black54,
-                              size: 40,
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                  onTap: () {
-                    switch (features[index]) {
-                      case 'Employees':
-                        {
-
-                        }
-                        break;
-
-                      case 'Goods Approvals':
-                        {
-
-                        }
-                        break;
-                      case 'Store':
-                        {
-                          //GoToPage(context, StorePage(database: widget.database,employeeRole: employee.role,));
-                        }
-                        break;
-
-                      case 'Inventory':
-                        {
-                          //GoToPage(context, InventoryPage(),);
-                        }
-                        break;
-
-                      case 'Attendance':{
-                        //GoToPage(context, AttendancePage(),);
-                      }
-                      break;
-
-                      case 'Add stock details':
-                        {
-                          // GoToPage(context, AddStock(database: widget.database,));
-                        }
-                        break;
-
-
-                      default:
-                        {}
-                        break;
-                    }
-                  },
-                );
-              },
-            ),
-          ),
+          body: _buildContent(context),
           floatingActionButton: FloatingActionButton(
             elevation: 90,
             backgroundColor: backgroundColor,
@@ -234,177 +90,102 @@ class _F_DisplayStockState extends State<F_DisplayStock> {
     );
   }
 
-//  Widget buildCompanyCard(CommonVaribles commonVariables) {
-//    GridView.builder(
-//      itemCount: commonVariables.companies.length,
-//      gridDelegate:
-//      new SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
-//      itemBuilder: (BuildContext context, int index) {
-//        return new GestureDetector(
-//          child: new Card(
-//            elevation: 5.0,
-//            child: new Container(
-//              alignment: Alignment.center,
-//              margin: new EdgeInsets.only(
-//                  top: 25.0, bottom: 10.0, left: 10.0, right: 10.0),
-//              child: new Column(
-//                children: <Widget>[
-//              Container(
-//              width: double.infinity,
-//                child: FlatButton(
-//                  onPressed: () => print('Company'),
-//                  padding: EdgeInsets.all(15.0),
-//                  shape: RoundedRectangleBorder(
-//                    borderRadius: BorderRadius.circular(0.0),
-//                  ),
-//                  child: Row(
-//                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                    crossAxisAlignment: CrossAxisAlignment.center,
-//                    children: <Widget>[
-//                      Column(
-//                        children: <Widget>[
-//                          new Icon(
-//                            F_icons[index],
-//                            size: 50,
-//                            color: backgroundColor,
-//                          ),
-//
-//                        ],
-//                      ),
-//                      Column(
-//                        children: <Widget>[
-//                          new Text(
-//                            features[index],
-//                            style: descriptionStyle,
-//                          ),
-//                        ],
-//                      ),
-//                      Column(
-//                        children: <Widget>[
-//                          Icon(
-//                            Icons.add,
-//                            color: Colors.black54,
-//                            size: 30,
-//                          ),
-//                        ],
-//                      ),
-//                    ],
-//                  ),
-//                ),
-//              ),
-//
-//                ],
-//              ),
-//            ),
-//          ),
-//          onTap: () {
-//          },
-//        );
-//      },
-//    );
-//  }
   @override
-  Widget _buildContent(BuildContext context,int index) {
+  Widget _buildContent(BuildContext context) {
     return StreamBuilder<CommonVaribles>(
         stream: widget.database.readCommonVariables(),
         builder: (context, snapshot) {
           final commonVariables = snapshot.data;
-
-          return Scaffold(
-            body: Padding(
-              padding: const EdgeInsets.only(
-                  top: 250.0, bottom: 90.0, left: 10.0, right: 10.0),
-
-              child: FlatButton(
-                onPressed: () => print('Company'),
-                padding: EdgeInsets.all(15.0),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(0.0),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Column(
-                      children: <Widget>[
-                        new Icon(
-                          F_icons[index],
-                          size: 50,
-                          color: backgroundColor,
-                        ),
-
-                      ],
-                    ),
-                    Column(
-                      children: <Widget>[
-                        new Text(
-                          features[index],
-                          style: descriptionStyle,
-                        ),
-                      ],
-                    ),
-                    Column(
-                      children: <Widget>[
-                        Icon(
-                          Icons.add,
-                          color: Colors.black54,
-                          size: 30,
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+          return Padding(
+            padding: const EdgeInsets.only(
+                top: 10.0, bottom: 90.0, left: 10.0, right: 10.0),
+            child: new GridView.builder(
+              itemCount: _itemCount(commonVariables),
+              gridDelegate:
+              new SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: _crossAxisCount,
+                crossAxisSpacing: _crossAxisSpacing,
+                mainAxisSpacing: _mainAxisSpacing,
+                childAspectRatio: _aspectRatio,
               ),
+              itemBuilder: (BuildContext context, int index) {
+                return new GestureDetector(
+                  child: new FlatButton(
+                    color: Colors.white,
+                    onPressed: () => print('Company'),
+                    padding: EdgeInsets.all(15.0),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(0.0),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            new Text(
+                              _displayItems(commonVariables)[index],
+                              style: subTitleStyle,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              },
             ),
-
           );
         }
     );
   }
 
-//  Widget _companyCard(int index) {
-//    return Container(
-//      width: double.infinity,
-//      child: FlatButton(
-//        onPressed: () => print('Company'),
-//        padding: EdgeInsets.all(15.0),
-//        shape: RoundedRectangleBorder(
-//          borderRadius: BorderRadius.circular(0.0),
-//        ),
-//        child: Row(
-//          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//          crossAxisAlignment: CrossAxisAlignment.center,
-//          children: <Widget>[
-//            Column(
-//              children: <Widget>[
-//                new Icon(
-//                  F_icons[index],
-//                  size: 50,
-//                  color: backgroundColor,
-//                ),
-//
-//              ],
-//            ),
-//            Column(
-//              children: <Widget>[
-//                new Text(
-//                  features[index],
-//                  style: descriptionStyle,
-//                ),
-//              ],
-//            ),
-//            Column(
-//              children: <Widget>[
-//                Icon(
-//                  Icons.add,
-//                  color: Colors.black54,
-//                  size: 30,
-//                ),
-//              ],
-//            ),
-//          ],
-//        ),
-//      ),
-//    );
-//  }
+  int _itemCount(CommonVaribles data){
+    switch (widget.title){
+      case 'Companies':
+        return data.companies.length;
+        break;
+
+      case 'Categories':
+        return data.categories.length;
+        break;
+
+      case 'Items':
+        return data.itemNames.length;
+        break;
+    }
+  }
+
+    _displayItems(CommonVaribles data){
+    switch (widget.title){
+      case 'Companies':
+        return data.companies;
+        break;
+
+      case 'Categories':
+        return data.categories;
+        break;
+
+      case 'Items':
+        return data.itemNames;
+        break;
+    }
+  }
+
+  String _title(){
+    switch (widget.title){
+      case 'Companies':
+        return 'Company details';
+        break;
+
+      case 'Categories':
+        return 'Category details';
+        break;
+
+      case 'Items':
+        return 'Item details';
+        break;
+    }
+  }
 }

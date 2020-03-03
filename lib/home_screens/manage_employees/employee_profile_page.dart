@@ -127,7 +127,7 @@ class _F_EmployeeProfilePageState extends State<F_EmployeeProfilePage> {
             builder: (context, snapshots) {
 
               final commonVariables = snapshots.data;
-              print('roles=>${commonVariables.employeeRoles}');
+             // print('roles=>${commonVariables.employeeRoles}');
 
               return SingleChildScrollView(
                 child: Center(

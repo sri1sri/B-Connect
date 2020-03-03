@@ -120,7 +120,7 @@ class _F_GoodsApprovalsPageState extends State<F_GoodsApprovalsPage> {
                                 context,
                                 GoodsDetailsPage(
                                   database: widget.database,
-                                  goodsID: data.itemEntryID,
+                                  goodsID: data.goodsEntryID,
                                   employee: widget.employee,
                                 ), data),
                           ],

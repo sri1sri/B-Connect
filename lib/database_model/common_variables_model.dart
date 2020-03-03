@@ -44,6 +44,7 @@ class CommonVaribles{
       itemNames != null ? 'item_names': 'empty': FieldValue.arrayUnion([itemNames]),
       categories != null ? 'categories': 'empty': FieldValue.arrayUnion([categories]),
       companies != null ? 'companies': 'empty': FieldValue.arrayUnion([companies]),
+      'empty' : null,
     };
   }
 }

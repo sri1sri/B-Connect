@@ -104,27 +104,6 @@ class _F_ManageEmployeesPageState extends State<F_ManageEmployeesPage> {
               tabBarWidget: null,
             ),
           ),
-
-//          new AppBar(
-//            backgroundColor: Color(0xFF1F4B6E),
-//            title: Center(child:Text('Manage Employees',style: subTitleStyleLight,)),
-//            leading: IconButton(icon:Icon(Icons.arrow_back),
-//              onPressed:() => Navigator.pop(context, false),
-//            ),
-//
-//            centerTitle: true,
-//            actions: <Widget>[
-//              FlatButton(
-//                child: Text('',
-//                  style: TextStyle(
-//                    fontSize: 18,
-//                    color: Colors.white,
-//                  ),
-//                ),
-//                onPressed: ()=> print(''),
-//              )
-//            ],
-//          ),
           body: Container(
             color: Colors.white,
     child: Column(

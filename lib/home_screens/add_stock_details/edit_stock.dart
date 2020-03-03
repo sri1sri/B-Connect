@@ -51,7 +51,6 @@ class _F_EditStockState extends State<F_EditStock> {
   Future<void> _submit() async{
     if(_validateAndSaveForm()) {
       try{
-
         switch (widget.title){
           case 'Companies':
             final addCompany = CommonVaribles(companies: _name);

@@ -16,5 +16,7 @@ class APIPath {
   static String addCart(String CartID) => 'cart/$CartID';
   static String viewCart() => 'cart/';
 
+  static String ordersEntry(String orderID) => 'orders/$orderID';
+  static String viewOrders() => 'orders/';
 
 }

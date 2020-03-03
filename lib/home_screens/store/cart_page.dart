@@ -1,8 +1,11 @@
+import 'package:bhavani_connect/common_variables/app_functions.dart';
 import 'package:bhavani_connect/common_widgets/custom_appbar_widget/custom_app_bar.dart';
 import 'package:bhavani_connect/common_widgets/list_item_builder/list_items_builder.dart';
 import 'package:bhavani_connect/database_model/cart_model.dart';
 import 'package:bhavani_connect/database_model/items_entry_model.dart';
+import 'package:bhavani_connect/database_model/order_details_model.dart';
 import 'package:bhavani_connect/firebase/database.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:bhavani_connect/common_variables/app_colors.dart';
 import 'package:bhavani_connect/common_variables/app_fonts.dart';
@@ -35,6 +38,7 @@ class F_CartPage extends StatefulWidget {
 
 class _F_CartPageState extends State<F_CartPage> {
   int _n = 0;
+  var itemIDs = [];
   @override
   Widget build(BuildContext context) {
     return offlineWidget(context);
@@ -75,7 +79,6 @@ class _F_CartPageState extends State<F_CartPage> {
                 ),
                 onTap: () {
                   print('pressed clear in cart');
-
                 }
             ),
           ),
@@ -91,7 +94,9 @@ class _F_CartPageState extends State<F_CartPage> {
       bottomNavigationBar: BottomAppBar(
           child: FlatButton.icon(
               color: activeButtonTextColor,
-              onPressed: () => {print("Place Order")},
+              onPressed: () => {
+                _submitOrder(),
+              },
               icon: Icon(
                 Icons.shopping_cart,
                 size: 30,
@@ -113,7 +118,7 @@ class _F_CartPageState extends State<F_CartPage> {
                 stream: widget.database.viewItem(cartData.itemID),
                 builder: (context, snapshot) {
                   final itemData = snapshot.data;
-
+                  itemIDs.add(itemData.itemID);
                       return Container(
                   child: SingleChildScrollView(
                     padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
@@ -285,5 +290,24 @@ class _F_CartPageState extends State<F_CartPage> {
         ),
       ),
     );
+  }
+
+  Future<void> _submitOrder() async {
+    final _submitOrder = OrderDetails(
+      itemID: itemIDs,
+      siteManagerID: EMPLOYEE_ID,
+      supervisorID: 'Not assigned',
+      managerID: 'Not assigned',
+      storeManagerID: 'Not assigned',
+      siteManagerOrderedTimestamp: Timestamp.fromDate(DateTime.now()),
+      storeMangerDeliveredTimestamp: Timestamp.fromDate(DateTime.parse('2000-01-01 00:00:00.000')),
+      managerApprovalTimestamp: Timestamp.fromDate(DateTime.parse('2000-01-01 00:00:00.000')),
+      siteManagerReceivedTimestamp: Timestamp.fromDate(DateTime.parse('2000-01-01 00:00:00.000')),
+      status: 0,
+      empty: null,
+    );
+
+    itemIDs == null ? null : await widget.database.ordersEntry(_submitOrder);
+  //  itemIDs.clear();
   }
 }

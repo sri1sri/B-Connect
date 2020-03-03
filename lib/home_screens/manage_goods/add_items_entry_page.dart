@@ -5,6 +5,7 @@ import 'package:bhavani_connect/common_widgets/button_widget/to_do_button.dart';
 import 'package:bhavani_connect/common_widgets/custom_appbar_widget/custom_app_bar.dart';
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
 import 'package:bhavani_connect/common_widgets/platform_alert/platform_exception_alert_dialog.dart';
+import 'package:bhavani_connect/database_model/goods_entry_model.dart';
 import 'package:bhavani_connect/database_model/items_entry_model.dart';
 import 'package:bhavani_connect/firebase/database.dart';
 //import 'package:configurable_expansion_tile/configurable_expansion_tile.dart';
@@ -42,6 +43,7 @@ class _F_ItemsEntryPageState extends State<F_ItemsEntryPage> {
   String _categoryName;
   String _itemName;
   int _quantity = 0;
+  String _measure;
   String _description = 'No description entered.';
 
   @override
@@ -82,31 +84,6 @@ class _F_ItemsEntryPageState extends State<F_ItemsEntryPage> {
               tabBarWidget: null,
             ),
           ),
-
-//          new AppBar(
-//            backgroundColor: Color(0xFF1F4B6E),
-//            title: Center(
-//                child: Text(
-//                  'Add items',
-//                  style: subTitleStyleLight,
-//                )),
-//            leading: IconButton(
-//              icon: Icon(Icons.arrow_back),
-//              onPressed: () => Navigator.pop(context, false),
-//            ),
-//            actions: <Widget>[
-//              FlatButton(
-//                child: Text('Clear',
-//                  style: TextStyle(
-//                    fontSize: 18,
-//                    color: Colors.white,
-//                  ),
-//                ),
-//                onPressed: () => {print("Clear Fields")},
-//              )
-//            ],
-//            centerTitle: true,
-//          ),
           body: _buildContent(context),
           bottomNavigationBar: BottomAppBar(
             child:
@@ -216,6 +193,7 @@ class _F_ItemsEntryPageState extends State<F_ItemsEntryPage> {
           fontFamily: "Quicksand",
         ),
       ),
+
 //      Row(
 //        children: <Widget>[
 //          Column(
@@ -340,6 +318,27 @@ class _F_ItemsEntryPageState extends State<F_ItemsEntryPage> {
         ),
       ),
       SizedBox(height: 20,),
+
+      TextFormField(
+        decoration: new InputDecoration(
+          labelText: "Measure",
+          fillColor: Colors.white,
+          border: new OutlineInputBorder(
+            borderRadius: new BorderRadius.circular(15.0),
+            borderSide: new BorderSide(
+            ),
+          ),
+          //fillColor: Colors.green
+        ),
+        initialValue: _measure,
+        onSaved: (value) => _measure = value,
+        validator: (value) => value.isNotEmpty ? null : 'Company name cant\'t be empty.',
+        keyboardType: TextInputType.text,
+        style: new TextStyle(
+          fontFamily: "Quicksand",
+        ),
+      ),
+      SizedBox(height: 20,),
       TextFormField(
         decoration: new InputDecoration(
           labelText: "Description",
@@ -376,8 +375,11 @@ class _F_ItemsEntryPageState extends State<F_ItemsEntryPage> {
     if(_validateAndSaveForm()) {
       try{
 
-        final itemEntry = ItemEntry(itemName: _itemName, companyName: _companyName, categoryName: _categoryName, quantity: _quantity, goodsID: widget.goodsID);
+        final itemEntry = ItemEntry(itemName: _itemName, companyName: _companyName, categoryName: _categoryName, quantity: _quantity, goodsID: widget.goodsID, measure: _measure);
         await widget.database.setItemEntry(itemEntry);
+
+        final _itemEntry = GoodsEntry(itemsAdded: true);
+        widget.database.updateGoodsEntry(_itemEntry, widget.goodsID);
 
         Navigator.of(context).pop();
       }on PlatformException catch (e){

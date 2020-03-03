@@ -319,14 +319,6 @@ class _F_GoodsDetailsPageState extends State<F_GoodsDetailsPage> {
                         _ItemEntry(goods),
                       ],
                     ),
-                    Column(
-                      children: <Widget>[
-Text('open items'),
-                        //sample data
-                       // _OrderedItemsCard('f', 'r', 'r', 'e'),
-                       //_goodsItemsDetails(context),
-                      ],
-                    ),
                   ],
                 ),
               ),
@@ -337,18 +329,18 @@ Text('open items'),
     );
   }
 
-  Widget _goodsItemsDetails(BuildContext context) {
-    return StreamBuilder<List<ItemEntry>>(
-      stream: widget.database.viewItemsList(),
-      builder: (context, snapshot) {
-        print('snapshot=${snapshot.data.length}');
-        return ListItemsBuilder<ItemEntry>(
-          snapshot: snapshot,
-          itemBuilder: (context, itemsData) => _OrderedItemsCard('f', 'r', 'r', 'e'),
-        );
-      },
-    );
-  }
+//  Widget _goodsItemsDetails(BuildContext context) {
+//    return StreamBuilder<List<ItemEntry>>(
+//      stream: widget.database.viewItemsList(),
+//      builder: (context, snapshot) {
+//        print('snapshot=${snapshot.data.length}');
+//        return ListItemsBuilder<ItemEntry>(
+//          snapshot: snapshot,
+//          itemBuilder: (context, itemsData) => _OrderedItemsCard('f', 'r', 'r', 'e'),
+//        );
+//      },
+//    );
+//  }
 
   _ItemEntry(GoodsEntry data) {
     return InkWell(
@@ -442,7 +434,7 @@ Text('open items'),
         ),
       ),
       onTap: () {
-        GoToPage(context, ItemDetailsPage());
+        GoToPage(context, ItemDetailsPage(database: widget.database, goodsID: data.goodsEntryID,employee: widget.employee,));
       },
     );
   }

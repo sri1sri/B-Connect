@@ -1,7 +1,9 @@
 
 import 'package:bhavani_connect/common_variables/app_fonts.dart';
 import 'package:bhavani_connect/common_variables/app_functions.dart';
+import 'package:bhavani_connect/common_widgets/list_item_builder/list_items_builder.dart';
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
+import 'package:bhavani_connect/database_model/order_details_model.dart';
 import 'package:bhavani_connect/firebase/database.dart';
 import 'package:bhavani_connect/home_screens/order_details.dart';
 import 'package:flutter/cupertino.dart';
@@ -49,28 +51,35 @@ class _F_OrdersPageState extends State<F_OrdersPage> {
   }
 
   Widget _buildContent(BuildContext context) {
-    return new SingleChildScrollView(
-      padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: <Widget>[
-          _OrderCard("ABC company", "Wires", "Electricals", "100 mts", context,
-              OrderDetailsPage()),
-          _OrderCard("DEF company", "Sand", "Raw Materials", "1000 kgs",
-              context, OrderDetailsPage()),
-          _OrderCard("GHI company", "Wood", "Goods", "50 logs", context,
-              OrderDetailsPage()),
-          SizedBox(
-            height: 20,
-          ),
-        ],
-      ),
-    );
+    return _OrderCard();
+
+//      new SingleChildScrollView(
+//      padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+//      child: Column(
+//        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//        children: <Widget>[
+//          _OrderCard("ABC company", "Wires", "Electricals", "100 mts", context,
+//              OrderDetailsPage()),
+//          _OrderCard("DEF company", "Sand", "Raw Materials", "1000 kgs",
+//              context, OrderDetailsPage()),
+//          _OrderCard("GHI company", "Wood", "Goods", "50 logs", context,
+//              OrderDetailsPage()),
+//          SizedBox(
+//            height: 20,
+//          ),
+//        ],
+//      ),
+//    );
   }
 
-  Widget _OrderCard(String companyName, String itemName, String category,
-      String quantity, BuildContext context, Widget page) {
-    return InkWell(
+  Widget _OrderCard() {
+
+    return StreamBuilder<List<OrderDetails>>(
+    stream: widget.database.readOrders(),
+    builder: (context, snapshots) {
+    return ListItemsBuilder<OrderDetails>(
+    snapshot: snapshots,
+    itemBuilder: (context, data) => InkWell(
       child: Container(
         child: Card(
           shape: RoundedRectangleBorder(
@@ -187,6 +196,9 @@ class _F_OrdersPageState extends State<F_OrdersPage> {
       onTap: () {
         GoToPage(context, page);
       },
+    ),
+    );
+    },
     );
   }
 

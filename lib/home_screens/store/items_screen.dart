@@ -64,7 +64,7 @@ class _F_ItemsPageState extends State<F_ItemsPage> {
 
   Widget _buildContent(BuildContext context) {
     return StreamBuilder<List<ItemEntry>>(
-      stream: widget.database.viewItemsList(),
+      stream: widget.database.viewItemsList(null),
       builder: (context, snapshot) {
         return ListItemsBuilder<ItemEntry>(
           snapshot: snapshot,

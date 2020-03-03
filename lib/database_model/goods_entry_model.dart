@@ -4,7 +4,7 @@ import 'package:meta/meta.dart';
 
 class GoodsEntry {
   GoodsEntry({
-    @required this.itemEntryID,
+    @required this.goodsEntryID,
 
     @required this.vehicelImagePath,
     @required this.mrrImagePath,
@@ -31,7 +31,7 @@ class GoodsEntry {
 
   });
 
-  final String itemEntryID;
+  final String goodsEntryID;
 
   final String vehicelImagePath;
   final String mrrImagePath;
@@ -60,7 +60,7 @@ class GoodsEntry {
     if (data == null) {
       return null;
     }
-    final String itemEntryID = documentId;
+    final String goodsEntryID = documentId;
 
     final String vehicelImagePath = data['vehicel_image_path'];
     final String mrrImagePath = data['mrr_image_path'];
@@ -92,7 +92,7 @@ class GoodsEntry {
     final Null empty = data['empty'];
 
     return GoodsEntry(
-      itemEntryID: itemEntryID,
+      goodsEntryID: goodsEntryID,
       vehicelImagePath: vehicelImagePath,
       mrrImagePath: mrrImagePath,
       securityID: securityID,

@@ -131,7 +131,7 @@ class _F_DashboardState extends State<F_Dashboard> {
                 GoToPage(context, NotificationPage());
               },
               secondaryText: 'Welcome to B-Connect',
-              primaryText: 'Hello ${employee.username},',
+              primaryText: 'Hello ${employee.username}(${employee.role}),',
             ),
 
             //customAppBar1(Container(color: Colors.green,),Container(color:  Colors.red,), 'hghg', 'hgygi',  (){print('tftft');}, (){print('tftft');}),

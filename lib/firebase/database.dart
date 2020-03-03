@@ -7,6 +7,7 @@ import 'package:bhavani_connect/database_model/employee_list_model.dart';
 import 'package:bhavani_connect/database_model/goods_entry_model.dart';
 import 'package:bhavani_connect/database_model/items_entry_model.dart';
 import 'package:bhavani_connect/database_model/notification_model.dart';
+import 'package:bhavani_connect/database_model/order_details_model.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
@@ -23,7 +24,7 @@ abstract class Database{
   Stream<List<GoodsEntry>> readGoodsEntries();
   Future<void> setItemEntry(ItemEntry itemEntry);
   Stream<GoodsEntry> readGoodsDetails(String goodsID);
-  Stream<List<ItemEntry>> viewItemsList();
+  Stream<List<ItemEntry>> viewItemsList(String goodsID);
   Stream<EmployeeDetails> readEmployeeDetails();
   Future<void> updateGoodsEntry(GoodsEntry itemEntry, String itemID);
   Future<void> updateNotification(NotificationModel notificationEntry, String notificationID);
@@ -35,7 +36,8 @@ abstract class Database{
   Stream<ItemEntry> viewItem(String itemID);
   Future<void> deleteCartItem(String cartID);
   Stream<List<Cart>> addCartItemStatus(String itemID);
-
+  Future<void> ordersEntry(OrderDetails orderDetails);
+  Stream<List<OrderDetails>> readOrders();
 
 }
 
@@ -101,9 +103,10 @@ class FirestoreDatabase implements Database {
 
 
   @override
-  Stream<List<ItemEntry>> viewItemsList() => _service.collectionStream(
+  Stream<List<ItemEntry>> viewItemsList(String goodsID) =>  _service.collectionStream(
     path: APIPath.viewItemsList(),
     builder: (data, documentId) => ItemEntry.fromMap(data, documentId),
+    queryBuilder: goodsID != null ? (query) => query.where('goods_id', isEqualTo: goodsID) : (query) => query.where('quantity', isGreaterThan: -1),
   );
 
   @override
@@ -165,5 +168,18 @@ class FirestoreDatabase implements Database {
     path: APIPath.viewCart(),
     builder: (data, documentId) => Cart.fromMap(data, documentId),
     queryBuilder: (query) => query.where('item_id', isEqualTo: itemID),
+  );
+
+  @override
+  Future<void> ordersEntry(OrderDetails orderDetails) async => await _service.setData(
+    path: APIPath.ordersEntry(DateTime.now().toString()),
+    data: orderDetails.toMap(),
+  );
+
+  @override
+  Stream<List<OrderDetails>> readOrders() => _service.collectionStream(
+    path: APIPath.viewOrders(),
+    builder: (data, documentId) => OrderDetails.fromMap(data, documentId),
+    queryBuilder: (query) => query.where('site_manager_id', isEqualTo: EMPLOYEE_ID),
   );
 }
