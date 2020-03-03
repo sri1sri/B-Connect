@@ -22,7 +22,7 @@ class CustomOfflineWidget extends StatelessWidget {
           ) {
         if (connectivity == ConnectivityResult.none) {
           return Scaffold(
-            backgroundColor: Colors.greenAccent,
+            backgroundColor: Colors.white,
             body: OfflinePage(text: 'No internet connection'),
           );
         }

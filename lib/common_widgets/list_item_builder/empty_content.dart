@@ -6,7 +6,7 @@ class EmptyContent extends StatelessWidget {
   final String title;
   final String message;
 
-  const EmptyContent({Key key, this.title = 'Emptyyyyy!!!', this.message ='You didnt receive any bills today.'}) : super(key: key);
+  const EmptyContent({Key key, this.title = 'Emptyyyyy!!!', this.message ='You didnt receive any Gate Approvals today.'}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

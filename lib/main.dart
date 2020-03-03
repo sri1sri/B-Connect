@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'B-Connect',
         theme: ThemeData(
-          primarySwatch: Colors.blue,
+          primarySwatch: Colors.blueGrey,
         ),
         debugShowCheckedModeBanner: false,
         home: LandingPage(),
@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
       ),
     );
   }
-}
+}//this is main page
 
 
 

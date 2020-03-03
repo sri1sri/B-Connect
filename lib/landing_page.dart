@@ -2,6 +2,8 @@ import 'package:bhavani_connect/authentication_screen/login_screens/login_page.d
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'authentication_screen/splash_screens/onboarding_screen.dart';
+import 'common_variables/app_functions.dart';
 import 'firebase/auth.dart';
 import 'firebase/database.dart';
 import 'home_screens/home_page.dart';
@@ -17,14 +19,15 @@ class LandingPage extends StatelessWidget {
         if (snapshot.connectionState == ConnectionState.active) {
           User user = snapshot.data;
           if (user == null) {
-            return LoginPage.create(context);
+            return OnboardingScreen(context: context);
           }
           return Provider<User>.value(
             value: user,
             child: Provider<Database>(
-                create: (_) => FirestoreDatabase(uid: user.uid),
+                create: (_) => FirestoreDatabase(uid: EMPLOYEE_ID = user.uid),
                 child: HomePage()),
           );
+
         } else {
           return Scaffold(
             body: Center(

@@ -1,6 +1,7 @@
 import 'package:bhavani_connect/authentication_screen/login_screens/login_page_manager.dart';
 import 'package:bhavani_connect/authentication_screen/login_screens/phone_number_page.dart';
 import 'package:bhavani_connect/common_variables/app_colors.dart';
+import 'package:bhavani_connect/common_variables/app_functions.dart';
 import 'package:bhavani_connect/common_widgets/button_widget/to_do_button.dart';
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
 import 'package:bhavani_connect/firebase/auth.dart';
@@ -67,6 +68,8 @@ class LoginPage extends StatelessWidget {
               SizedBox(height: 50),
               new Image.asset(
                   'images/1.JPG', width: 300, height: 150),
+//              new Image.asset(
+//                  'images/1.JPG', width: 300, height: 150),
             ],
           ),
           Column(children: <Widget>[
@@ -80,7 +83,7 @@ class LoginPage extends StatelessWidget {
                 text: 'Login with phone number',
                 textColor: activeButtonTextColor,
                 backgroundColor: activeButtonBackgroundColor,
-                onPressed: () => _goToPage(context, PhoneNumberPage()),
+                onPressed: () => GoToPage(context, PhoneNumberPage()),
               ),
               SizedBox(height: 10.0),
               ToDoButton(
@@ -88,20 +91,11 @@ class LoginPage extends StatelessWidget {
                 text: 'Don\'t have an Account? Sign Up',
                 textColor: inActiveButtonTextColor,
                 backgroundColor: inActiveButtonBackgroundColor,
-                onPressed: () => _goToPage(context, ManageEmployeesPage()),
+                onPressed: () => GoToPage(context, PhoneNumberPage()),
               ),
             ],
           ),
         ],
-      ),
-    );
-  }
-
-  void _goToPage(BuildContext context, Widget page) {
-    Navigator.of(context).push(
-      MaterialPageRoute<void>(
-        fullscreenDialog: true,
-        builder: (context) => page,
       ),
     );
   }

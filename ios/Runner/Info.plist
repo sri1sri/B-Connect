@@ -50,7 +50,11 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>UIViewControllerBasedStatusBarAppearance</key>
-	<false/>
+	<key>NSCameraUsageDescription</key>
+	<string>B-connect need to access camera.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>B-connect need to access photos.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>B-connect need to access microphone.</string>
 </dict>
 </plist>

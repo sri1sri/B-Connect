@@ -1,11 +1,14 @@
 import 'package:bhavani_connect/authentication_screen/registrtion_screens/sign_up_page.dart';
+import 'package:bhavani_connect/common_variables/app_functions.dart';
 import 'package:bhavani_connect/common_widgets/button_widget/to_do_button.dart';
+import 'package:bhavani_connect/common_widgets/loading_page.dart';
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
 import 'package:bhavani_connect/common_variables/app_fonts.dart';
 import 'package:bhavani_connect/common_variables/app_colors.dart';
 import 'package:bhavani_connect/common_widgets/platform_alert/platform_exception_alert_dialog.dart';
 import 'package:bhavani_connect/firebase/auth.dart';
 import 'package:bhavani_connect/home_screens/home_page.dart';
+import 'package:bhavani_connect/landing_page.dart';
 import 'package:bhavani_connect/models/otp_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -76,94 +79,97 @@ class _F_OTPPageState extends State<F_OTPPage> {
 
   @override
   Widget _buildContent(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: <Widget>[
-        Column(
-          children: <Widget>[
+    return TransparentLoading(
+      loading: widget.model.isLoading,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: <Widget>[
+          Column(
+            children: <Widget>[
 
-          ],
-        ),
-        Column(
-          children: <Widget>[
-            Text(
-              'Verify Mobile Number',
-              style: titleStyle,
-              textAlign: TextAlign.center,
-            ),
-            SizedBox(height: 10,),
-            Text(
-              'Enter OTP sent to +91 ${widget.phoneNo}.',
-              style: descriptionStyle,
-              textAlign: TextAlign.center,
-            ),
-          ],
-        ),
-        Column(
-          children: <Widget>[
+            ],
+          ),
+          Column(
+            children: <Widget>[
+              Text(
+                'Verify Mobile Number',
+                style: titleStyle,
+                textAlign: TextAlign.center,
+              ),
+              SizedBox(height: 10,),
+              Text(
+                'Enter OTP sent to +91 ${widget.phoneNo}.',
+                style: descriptionStyle,
+                textAlign: TextAlign.center,
+              ),
+            ],
+          ),
+          Column(
+            children: <Widget>[
 
-          ],
-        ),
+            ],
+          ),
 
-        Column(
-          children: <Widget>[
+          Column(
+            children: <Widget>[
 
-            new TextFormField(
-              keyboardType: TextInputType.number,
-              controller: _otpController,
-              textInputAction: TextInputAction.done,
-              obscureText: false,
-              focusNode: _otpFocusNode,
-              onEditingComplete:() =>_submit(),
-              onChanged: model.updateOtp,
-              decoration: new InputDecoration(
-                prefixIcon: Icon(
-                  Icons.lock,
-                  color: backgroundColor,
-                ),
-                labelText: "Enter OTP",
-                border: new OutlineInputBorder(
-                  borderRadius: new BorderRadius.circular(5.0),
-                  borderSide: new BorderSide(
+              new TextFormField(
+                keyboardType: TextInputType.number,
+                controller: _otpController,
+                textInputAction: TextInputAction.done,
+                obscureText: false,
+                focusNode: _otpFocusNode,
+                onEditingComplete:() =>_submit(),
+                onChanged: model.updateOtp,
+                decoration: new InputDecoration(
+                  prefixIcon: Icon(
+                    Icons.lock,
+                    color: backgroundColor,
+                  ),
+                  labelText: "Enter OTP",
+                  border: new OutlineInputBorder(
+                    borderRadius: new BorderRadius.circular(5.0),
+                    borderSide: new BorderSide(
+                    ),
                   ),
                 ),
+
+                validator: (val) {
+                  if(val.length==0) {
+                    return "One Time Password cannot be empty";
+                  }else{
+                    return null;
+                  }
+                },
+                style: new TextStyle(
+                  fontFamily: "Poppins",
+                ),
               ),
 
-              validator: (val) {
-                if(val.length==0) {
-                  return "One Time Password cannot be empty";
-                }else{
-                  return null;
-                }
-              },
-              style: new TextStyle(
-                fontFamily: "Poppins",
+              SizedBox(height: 20.0),
+
+              ToDoButton(
+                assetName: 'images/googe-logo.png',
+                text: 'Verify',
+                textColor: Colors.white,
+                backgroundColor: activeButtonBackgroundColor,
+                onPressed: model.canSubmit ? () => _submit() : null,
               ),
-            ),
 
-            SizedBox(height: 20.0),
-
-            ToDoButton(
-              assetName: 'images/googe-logo.png',
-              text: 'Verify',
-              textColor: Colors.white,
-              backgroundColor: activeButtonBackgroundColor,
-              onPressed: model.canSubmit ? () => _submit() : null,
-            ),
-
-            SizedBox(height: 10.0),
-            ToDoButton(
-              assetName: 'images/googe-logo.png',
-              text: 'Edit phone number',
-              textColor: Colors.black,
-              backgroundColor: Colors.white,
-              onPressed: (){
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        ),
-      ],
+              SizedBox(height: 10.0),
+              ToDoButton(
+                assetName: 'images/googe-logo.png',
+                text: 'Edit phone number',
+                textColor: Colors.black,
+                backgroundColor: Colors.white,
+                onPressed: (){
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 
@@ -173,16 +179,10 @@ class _F_OTPPageState extends State<F_OTPPage> {
       print('otp${widget.newUser}');
       if(widget.newUser){
         await model.submit();
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => SignUpPage(phoneNo: widget.phoneNo,)),
-        );
+        GoToPage(context, SignUpPage(phoneNo: widget.phoneNo));
       }else{
         await model.submit();
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => HomePage()),
-        );
+        GoToPage(context, LandingPage());
       }
     } on PlatformException catch (e) {
       PlatformExceptionAlertDialog(
