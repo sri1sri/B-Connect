@@ -375,7 +375,7 @@ class _F_ItemsEntryPageState extends State<F_ItemsEntryPage> {
     if(_validateAndSaveForm()) {
       try{
 
-        final itemEntry = ItemEntry(itemName: _itemName, companyName: _companyName, categoryName: _categoryName, quantity: _quantity, goodsID: widget.goodsID, measure: _measure);
+        final itemEntry = ItemEntry(itemName: _itemName, companyName: _companyName, categoryName: _categoryName, quantity: _quantity, goodsID: widget.goodsID, measure: _measure, item_id: DateTime.now().toString());
         await widget.database.setItemEntry(itemEntry);
 
         final _itemEntry = GoodsEntry(itemsAdded: true);

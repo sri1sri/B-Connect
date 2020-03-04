@@ -2,6 +2,7 @@ import 'package:bhavani_connect/common_variables/app_colors.dart';
 import 'package:bhavani_connect/common_variables/app_functions.dart';
 import 'package:bhavani_connect/common_widgets/custom_appbar_widget/custom_app_bar.dart';
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
+import 'package:bhavani_connect/database_model/employee_details_model.dart';
 import 'package:bhavani_connect/firebase/database.dart';
 import 'package:bhavani_connect/home_screens/store/cart_page.dart';
 import 'package:flutter/material.dart';
@@ -11,22 +12,22 @@ import 'no_access_screen.dart';
 import 'orders_screen.dart';
 
 class StorePage extends StatelessWidget {
-  StorePage({@required this.database, @required this.employeeRole});
+  StorePage({@required this.database, @required this.employee});
   Database database;
-  String employeeRole;
+  EmployeeDetails employee;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: F_StorePage(database: database, employeeRole: employeeRole,),
+      child: F_StorePage(database: database, employee: employee,),
     );
   }
 }
 
 class F_StorePage extends StatefulWidget {
-  F_StorePage({@required this.database, @required this.employeeRole});
+  F_StorePage({@required this.database, @required this.employee});
   Database database;
-  String employeeRole;
+  EmployeeDetails employee;
 
   @override
   _F_StorePageState createState() => _F_StorePageState();
@@ -83,7 +84,7 @@ class _F_StorePageState extends State<F_StorePage> {
                 Navigator.pop(context, true);
               },
               rightActionBar: Container(
-                  child: widget.employeeRole != 'Site Manager' ? Container() : IconButton(
+                  child: widget.employee.role != 'Site Manager' ? Container() : IconButton(
                     icon: Icon(
                       Icons.shopping_cart,
                       size: 40,
@@ -117,12 +118,12 @@ class _F_StorePageState extends State<F_StorePage> {
               if (choice.name == 'Items') {
                 return new Padding(
                   padding: const EdgeInsets.all(16.0),
-                  child: widget.employeeRole != 'Security' ? new ItemsPage(choice: choice, database: widget.database,employeeRole: widget.employeeRole,) : NoAccessPage(),
+                  child: widget.employee.role != 'Security' ? new ItemsPage(choice: choice, database: widget.database,employee: widget.employee,) : NoAccessPage(),
                 );
               } else {
                 return new Padding(
                   padding: const EdgeInsets.all(16.0),
-                  child: widget.employeeRole != 'Security' ? new OrdersPage(choice: choice, database: widget.database,employeeRole: widget.employeeRole,) : NoAccessPage(),
+                  child: widget.employee.role != 'Security' ? new OrdersPage(choice: choice, database: widget.database,employee: widget.employee,) : NoAccessPage(),
                 );
               }
             }).toList(),

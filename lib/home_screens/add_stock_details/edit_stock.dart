@@ -142,8 +142,8 @@ class _F_EditStockState extends State<F_EditStock> {
                 child: AnimatedButton(
                   onTap: _submit,
                   animationDuration: const Duration(milliseconds: 1000),
-                  initialText: "Add Company",
-                  finalText: "Company Added",
+                  initialText: "Add details",
+                  finalText: "Details added",
                   iconData: Icons.check,
                   iconSize: 32.0,
                   buttonStyle: ButtonStyle(

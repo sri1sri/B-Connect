@@ -5,6 +5,7 @@ import 'package:bhavani_connect/common_widgets/button_widget/add_to_cart_button.
 import 'package:bhavani_connect/common_widgets/list_item_builder/list_items_builder.dart';
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
 import 'package:bhavani_connect/database_model/cart_model.dart';
+import 'package:bhavani_connect/database_model/employee_details_model.dart';
 import 'package:bhavani_connect/database_model/items_entry_model.dart';
 import 'package:bhavani_connect/firebase/database.dart';
 import 'package:bhavani_connect/home_screens/store/no_access_screen.dart';
@@ -19,27 +20,27 @@ class ItemsPage extends StatelessWidget {
       {Key key,
       this.choice,
       @required this.database,
-      @required this.employeeRole})
+      @required this.employee})
       : super(key: key);
   final Category choice;
   final Database database;
-  final String employeeRole;
+  final EmployeeDetails employee;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       child: F_ItemsPage(
         database: database,
-        employeeRole: employeeRole,
+        employee: employee,
       ),
     );
   }
 }
 
 class F_ItemsPage extends StatefulWidget {
-  F_ItemsPage({@required this.database, @required this.employeeRole});
+  F_ItemsPage({@required this.database, @required this.employee});
   Database database;
-  String employeeRole;
+  EmployeeDetails employee;
 
   @override
   _F_ItemsPageState createState() => _F_ItemsPageState();
@@ -176,9 +177,10 @@ class _F_ItemsPageState extends State<F_ItemsPage> {
                   SizedBox(
                     height: 20,
                   ),
-                  widget.employeeRole != 'Site Manager'
+
+                  widget.employee.role != 'Site Manager'
                       ? Container()
-                      : Container(
+                      : data.quantity == 0 ? Container() : Container(
                           child: AnimatedButton(
                             onTap: () {
                               final _cartEntry = Cart(
@@ -186,14 +188,15 @@ class _F_ItemsPageState extends State<F_ItemsPage> {
                                   employeeID: EMPLOYEE_ID,
                                   purchaseStatus: false,
                                   addedDate:
-                                      Timestamp.fromDate(DateTime.now()));
+                                      Timestamp.fromDate(DateTime.now()),
+                              quantity: 1);
                               widget.database.setcartItems(
                                   _cartEntry, DateTime.now().toString());
                             },
                             animationDuration:
                                 const Duration(milliseconds: 1000),
-                            initialText: length == 0 ? 'Add to cart' : "added to Cart",
-                            finalText: "Added",
+                            initialText: length == 0 ? 'Add to cart' : "Added to Cart",
+                            finalText: "Added to Cart",
                             iconData: Icons.check,
                             iconSize: 32.0,
                             buttonStyle: ButtonStyle(
