@@ -82,7 +82,7 @@ class _F_DashboardState extends State<F_Dashboard> {
     return StreamBuilder<EmployeeDetails>(
       stream: widget.database.readEmployeeDetails(),
       builder: (context, snapshot) {
-        final employee = snapshot.data;
+        final  employee = snapshot.data;
 
         return Scaffold(
           backgroundColor: Colors.white,
@@ -349,7 +349,7 @@ class _F_DashboardState extends State<F_Dashboard> {
                           break;
                         case 'Store':
                           {
-                            GoToPage(context, StorePage(database: widget.database,employeeRole: employee.role,));
+                            GoToPage(context, StorePage(database: widget.database,employee: employee,));
                           }
                           break;
 

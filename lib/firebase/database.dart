@@ -37,7 +37,12 @@ abstract class Database{
   Future<void> deleteCartItem(String cartID);
   Stream<List<Cart>> addCartItemStatus(String itemID);
   Future<void> ordersEntry(OrderDetails orderDetails);
-  Stream<List<OrderDetails>> readOrders();
+  Stream<List<OrderDetails>> readOrders(String queryKey);
+  Stream<List<ItemEntry>> viewMultipleItem(itemsID);
+  Stream<OrderDetails> readSingleOrder(String orderID);
+  Future<void> updateOrderDetails(OrderDetails orderDetails, String itemID);
+  Future<void> updateCartDetails(Cart cartDetails, String cartID);
+
 
 }
 
@@ -91,7 +96,7 @@ class FirestoreDatabase implements Database {
 
   @override
   Future<void> setItemEntry(ItemEntry itemEntry) async => await _service.setData(
-    path: APIPath.addItem(DateTime.now().toString()),
+    path: APIPath.addItem(itemEntry.item_id),
     data: itemEntry.toMap(),
   );
 
@@ -149,7 +154,7 @@ class FirestoreDatabase implements Database {
   Stream<List<Cart>> viewCartItems() => _service.collectionStream(
     path: APIPath.viewCart(),
     builder: (data, documentId) => Cart.fromMap(data, documentId),
-    queryBuilder: (query) => query.where('employee_id', isEqualTo: EMPLOYEE_ID),
+    queryBuilder: (query) => query.where('employee_id', isEqualTo: EMPLOYEE_ID).where('purchased_status', isEqualTo: false),
   );
 
   @override
@@ -177,9 +182,34 @@ class FirestoreDatabase implements Database {
   );
 
   @override
-  Stream<List<OrderDetails>> readOrders() => _service.collectionStream(
+  Stream<List<OrderDetails>> readOrders(String queryKey) => _service.collectionStream(
     path: APIPath.viewOrders(),
     builder: (data, documentId) => OrderDetails.fromMap(data, documentId),
-    queryBuilder: (query) => query.where('site_manager_id', isEqualTo: EMPLOYEE_ID),
+    queryBuilder: (query) => query.where(queryKey, isEqualTo: EMPLOYEE_ID),
+  );
+
+  @override
+  Stream<List<ItemEntry>> viewMultipleItem(itemsID) => _service.collectionStream(
+    path: APIPath.viewItemsList(),
+    builder: (data, documentId) => ItemEntry.fromMap(data, documentId),
+    queryBuilder: (query) => query.where('item_id', whereIn: itemsID),
+  );
+
+  @override
+  Stream<OrderDetails> readSingleOrder(String orderID) => _service.documentStream(
+    path: APIPath.ordersEntry(orderID),
+    builder: (data, documentId) => OrderDetails.fromMap(data, documentId),
+  );
+
+  @override
+  Future<void> updateOrderDetails(OrderDetails orderDetails, String itemID) async => await _service.updateData(
+    path: APIPath.ordersEntry(itemID),
+    data: orderDetails.toMap(),
+  );
+
+  @override
+  Future<void> updateCartDetails(Cart cartDetails, String cartID) async => await _service.updateData(
+    path: APIPath.addCart(cartID),
+    data: cartDetails.toMap(),
   );
 }

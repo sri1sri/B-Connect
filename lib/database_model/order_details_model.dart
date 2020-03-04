@@ -7,6 +7,7 @@ class OrderDetails {
     @required this.orderID,
 
     @required this.itemID,
+    @required this.itemQuantity,
 
     @required this.siteManagerID,
     @required this.managerID,
@@ -27,6 +28,7 @@ class OrderDetails {
   final String orderID;
 
   final itemID;
+  final itemQuantity;
 
   final String siteManagerID;
   final String supervisorID;
@@ -49,6 +51,7 @@ class OrderDetails {
     final String orderID = documentId;
 
     final itemID = data['item_id'];
+    final itemQuantity = data['item_quantity'];
 
     final String siteManagerID = data['site_manager_id'];
     final String supervisorID = data['supervisor_id'];
@@ -81,6 +84,7 @@ class OrderDetails {
       siteManagerReceivedTimestamp: siteManagerReceivedTimestamp,
       status: status,
       empty: empty,
+        itemQuantity:itemQuantity,
     );
   }
 
@@ -96,6 +100,7 @@ class OrderDetails {
       managerApprovalTimestamp != null ? 'manager_approval_timestamp': 'empty': managerApprovalTimestamp,
       siteManagerReceivedTimestamp != null ? 'site_manager_received_timestamp': 'empty': siteManagerReceivedTimestamp,
       status != null ? 'status': 'empty': status,
+      itemQuantity != null ? 'item_quantity' : 'empty' : itemQuantity,
       'empty':null,
     };
   }

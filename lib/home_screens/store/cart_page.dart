@@ -37,8 +37,9 @@ class F_CartPage extends StatefulWidget {
 }
 
 class _F_CartPageState extends State<F_CartPage> {
-  int _n = 0;
   var itemIDs = [];
+  var cartIDs = [];
+  var itemQuantity =[];
   @override
   Widget build(BuildContext context) {
     return offlineWidget(context);
@@ -106,17 +107,30 @@ class _F_CartPageState extends State<F_CartPage> {
     );
   }
 
+//  _updateItemQuantity(){
+//    itemQuantity.add(cartData.quantity)
+//  }
+
   Widget _cartContent(BuildContext context) {
     return StreamBuilder<List<Cart>>(
       stream: widget.database.viewCartItems(),
-      builder: (context, snapshot) {
+      builder: (context, cartSnapshot) {
         return ListItemsBuilder<Cart>(
-          snapshot: snapshot,
+          snapshot: cartSnapshot,
           itemBuilder: (context, cartData) =>
 
               StreamBuilder<ItemEntry>(
                 stream: widget.database.viewItem(cartData.itemID),
                 builder: (context, snapshot) {
+//                  for(var i = 0 ; i > cartSnapshot.data.length; i++){
+//                    itemQuantity.insert(i, cartData.quantity);
+//                    print('item qyantity == ${itemQuantity}');
+//                  }
+
+                  cartIDs.add(cartData.cartID);
+                  itemQuantity.add(cartData.quantity);
+print(itemQuantity);
+
                   final itemData = snapshot.data;
                   itemIDs.add(itemData.itemID);
                       return Container(
@@ -128,7 +142,7 @@ class _F_CartPageState extends State<F_CartPage> {
                         SizedBox(
                           height: 10,
                         ),
-                        _ItemCard( itemData, cartData),
+                        _ItemCard( itemData, cartData, cartSnapshot.data.length),
                         SizedBox(
                           height: 20,
                         ),
@@ -143,28 +157,7 @@ class _F_CartPageState extends State<F_CartPage> {
     );
   }
 
-  void add() {
-    setState(() {
-      _n++;
-    });
-  }
-
-  void minus() {
-    setState(() {
-      if (_n != 0) _n--;
-    });
-  }
-
-  void _goToPage(BuildContext context, Widget page) {
-    Navigator.of(context).push(
-      MaterialPageRoute<void>(
-        fullscreenDialog: true,
-        builder: (context) => page,
-      ),
-    );
-  }
-
-  _ItemCard(ItemEntry itemData, Cart cartData) {
+  _ItemCard(ItemEntry itemData, Cart cartData, int cartDataLength) {
     return Container(
       child: Card(
         shape: RoundedRectangleBorder(
@@ -246,7 +239,17 @@ class _F_CartPageState extends State<F_CartPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     new FloatingActionButton(
-                      onPressed: add,
+                      onPressed: (){
+                        //add();
+                        if(cartData.quantity >= 1){
+                          final _cartEntry = Cart(
+                              quantity: cartData.quantity + 1);
+                          widget.database.updateCartDetails(
+                              _cartEntry, cartData.cartID);
+                          //itemQuantity.insert(, (cartData.quantity + 1));
+
+                        }
+                      },
                       child: new Icon(
                         Icons.add,
                         color: Colors.white,
@@ -256,12 +259,23 @@ class _F_CartPageState extends State<F_CartPage> {
                     SizedBox(
                       width: 15,
                     ),
-                    new Text('$_n', style: new TextStyle(fontSize: 30.0)),
+                    new Text(cartData.quantity.toString(), style: new TextStyle(fontSize: 30.0)),
                     SizedBox(
                       width: 15,
                     ),
                     new FloatingActionButton(
-                      onPressed: minus,
+                      onPressed: (){
+                       // minus();
+                       if(cartData.quantity > 1){
+                         final _cartEntry = Cart(
+                             quantity: cartData.quantity - 1);
+                         widget.database.updateCartDetails(
+                             _cartEntry, cartData.cartID);
+                        // itemQuantity.insert(i, (cartData.quantity - 1));
+
+                       }
+
+                      },
                       child: new Icon(
                         const IconData(0xe15b, fontFamily: 'MaterialIcons'),
                         color: backgroundColor,
@@ -273,12 +287,11 @@ class _F_CartPageState extends State<F_CartPage> {
                 SizedBox(height: 10.0),
                 ToDoButton(
                   assetName: 'images/google-lodgo.png',
-                  text: 'Remove Itemm',
+                  text: 'Remove Item',
                   textColor: activeButtonTextColor,
                   backgroundColor: removeButtonBackgroundColor,
                   onPressed: () => {
                     widget.database.deleteCartItem(cartData.cartID),
-                    print(cartData.cartID),
                   },
                 ),
               ],
@@ -293,6 +306,10 @@ class _F_CartPageState extends State<F_CartPage> {
   }
 
   Future<void> _submitOrder() async {
+    itemIDs = itemIDs.toSet().toList();
+    cartIDs = cartIDs.toSet().toList();
+
+
     final _submitOrder = OrderDetails(
       itemID: itemIDs,
       siteManagerID: EMPLOYEE_ID,
@@ -304,10 +321,19 @@ class _F_CartPageState extends State<F_CartPage> {
       managerApprovalTimestamp: Timestamp.fromDate(DateTime.parse('2000-01-01 00:00:00.000')),
       siteManagerReceivedTimestamp: Timestamp.fromDate(DateTime.parse('2000-01-01 00:00:00.000')),
       status: 0,
+      itemQuantity: itemQuantity.sublist((itemQuantity.length - 2), itemQuantity.length),
       empty: null,
     );
 
     itemIDs == null ? null : await widget.database.ordersEntry(_submitOrder);
-  //  itemIDs.clear();
+
+    for(var i = 0; i < cartIDs.length; i++){
+      cartIDs = cartIDs.toSet().toList();
+
+      cartIDs == null ? null : await widget.database.deleteCartItem(cartIDs[i]);
+  }
+    itemIDs.clear();
+    cartIDs.clear();
+    itemQuantity.clear();
   }
 }

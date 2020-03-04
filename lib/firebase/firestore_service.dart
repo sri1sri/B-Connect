@@ -29,12 +29,6 @@ class FirestoreService {
     await reference.delete();
   }
 
-  Future<void> deleteDataCollection({@required String path}) async {
-    final reference = Firestore.instance.document(path);
-    print('delete: $path');
-    await reference.delete();
-  }
-
   Stream<List<T>> collectionStream<T>({
     @required String path,
     @required T builder(Map<String, dynamic> data, String documentID),
@@ -45,6 +39,7 @@ class FirestoreService {
     if (queryBuilder != null) {
       query = queryBuilder(query);
     }
+    print('query : ${query}');
     final Stream<QuerySnapshot> snapshots = query.snapshots();
     return snapshots.map((snapshot) {
       final result = snapshot.documents

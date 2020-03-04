@@ -1,33 +1,44 @@
-
 import 'package:bhavani_connect/common_variables/app_fonts.dart';
 import 'package:bhavani_connect/common_variables/app_functions.dart';
 import 'package:bhavani_connect/common_widgets/list_item_builder/list_items_builder.dart';
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
+import 'package:bhavani_connect/database_model/employee_details_model.dart';
+import 'package:bhavani_connect/database_model/items_entry_model.dart';
 import 'package:bhavani_connect/database_model/order_details_model.dart';
 import 'package:bhavani_connect/firebase/database.dart';
 import 'package:bhavani_connect/home_screens/order_details.dart';
+import 'package:bhavani_connect/home_screens/store/ordered_items_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:percent_indicator/linear_percent_indicator.dart';
 
 import 'categories_tab.dart';
 
 class OrdersPage extends StatelessWidget {
-  const OrdersPage({Key key, this.choice, @required this.database, @required this.employeeRole}) : super(key: key);
+  const OrdersPage(
+      {Key key,
+      this.choice,
+      @required this.database,
+      @required this.employee})
+      : super(key: key);
   final Category choice;
   final Database database;
-  final String employeeRole;
+  final EmployeeDetails employee;
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: F_OrdersPage(database: database,employeeRole: employeeRole,),
+      child: F_OrdersPage(
+        database: database,
+        employee: employee,
+      ),
     );
   }
 }
 
 class F_OrdersPage extends StatefulWidget {
-  F_OrdersPage({ @required this.database, @required this.employeeRole});
+  F_OrdersPage({@required this.database, @required this.employee});
   Database database;
-  String employeeRole;
+  EmployeeDetails employee;
 
   @override
   _F_OrdersPageState createState() => _F_OrdersPageState();
@@ -52,233 +63,185 @@ class _F_OrdersPageState extends State<F_OrdersPage> {
 
   Widget _buildContent(BuildContext context) {
     return _OrderCard();
+  }
 
-//      new SingleChildScrollView(
-//      padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-//      child: Column(
-//        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//        children: <Widget>[
-//          _OrderCard("ABC company", "Wires", "Electricals", "100 mts", context,
-//              OrderDetailsPage()),
-//          _OrderCard("DEF company", "Sand", "Raw Materials", "1000 kgs",
-//              context, OrderDetailsPage()),
-//          _OrderCard("GHI company", "Wood", "Goods", "50 logs", context,
-//              OrderDetailsPage()),
-//          SizedBox(
-//            height: 20,
-//          ),
-//        ],
-//      ),
-//    );
+  String queryKey(){
+    print(widget.employee.role);
+    switch(widget.employee.role){
+      case 'Site Manager':
+        return 'site_manager_id';
+    break;
+      case 'Store Manager':
+        return 'store_manager_id';
+        break;
+      case 'Supervisor':
+        return 'supervisor_id';
+        break;
+      case 'Manager':
+        return 'manager_id';
+        break;
+    }
   }
 
   Widget _OrderCard() {
-
     return StreamBuilder<List<OrderDetails>>(
-    stream: widget.database.readOrders(),
-    builder: (context, snapshots) {
-    return ListItemsBuilder<OrderDetails>(
-    snapshot: snapshots,
-    itemBuilder: (context, data) => InkWell(
-      child: Container(
-        child: Card(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10.0),
+      stream: widget.database.readOrders(queryKey()),
+      builder: (context, orderSnapshots) {
+        return ListItemsBuilder<OrderDetails>(
+          snapshot: orderSnapshots,
+          itemBuilder: (context, orderData) =>  InkWell(
+            child: Container(
+              child: Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                color: Colors.white,
+                elevation: 10,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    SizedBox(
+                      height: 10,
+                    ),
+//                              _OrderedItemsCard(itemData.companyName, "Wires",
+//                                  "Electricals", "100 mts"),
+                    SizedBox(height: 10),
+                    Text(
+                      "Order Status",
+                      style: descriptionStyle,
+                    ),
+                    SizedBox(height: 10),
+                    Text(
+                      "#${orderData.orderID}",
+                      style: descriptionStyle,
+                    ),
+
+
+                    SizedBox(height: 10),
+
+                    Text(
+                      getDateTime(orderData.siteManagerOrderedTimestamp.seconds),
+                      style: descriptionStyle,
+                    ),
+                    SizedBox(height: 10),
+
+                    _trackGoodsStatus(orderData.status),
+                    SizedBox(height: 10,),
+                    Container(
+                      width: MediaQuery.of(context).size.width ,
+                      child: Row(
+                        children: <Widget>[
+                          SizedBox(width: 10,),
+                          Text("Ordered",style: statusTracker,),
+                          SizedBox(width: 15,),
+                          Text("Approved",style: statusTracker,),
+                          SizedBox(width: 10,),
+                          Text("Delivered",style: statusTracker,),
+                          SizedBox(width: 10,),
+
+                          Text("Received",style: statusTracker,),
+
+                        ],
+                      ),
+                    ),
+
+
+                    SizedBox(height: 20),
+                    Text(
+                      "Tap for Order Details",
+                      style: descriptionStyleDarkBlur,
+                    ),
+                    SizedBox(height: 20,),
+                  ],
+                ),
+              ),
+            ),
+            onTap: () {
+              print('itemQuantity == ${orderData.itemQuantity}');
+              GoToPage(context, OrderedItemsPage(database: widget.database, itemsID: orderData.itemID, orderID: orderData.orderID, employee: widget.employee,itemsQuantity: orderData.itemQuantity,));
+            },
           ),
-          color: Colors.white,
-          elevation: 10,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              SizedBox(
-                height: 10,
-              ),
-              _OrderedItemsCard("ABC company", "Wires", "Electricals", "100 mts"),
-              _OrderedItemsCard(
-                  "DEF company", "Sand", "Raw Materials", "1000 kgs"),
-              SizedBox(
-                height: 10,
-              ),
-              Text(
-                "Order Status",
-                style: descriptionStyle,
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Row(
-                children: <Widget>[
-                  SizedBox(
-                    width: 40,
-                  ),
-                  CircleAvatar(
-                    backgroundColor: Colors.grey,
-                    radius: 6,
-                  ),
-                  Text(
-                    " ------------ ",
-                    style: descriptionStyle,
-                  ),
-                  CircleAvatar(
-                    backgroundColor: Colors.yellow,
-                    radius: 6,
-                  ),
-                  Text(
-                    " ------------ ",
-                    style: descriptionStyle,
-                  ),
-                  CircleAvatar(
-                    backgroundColor: Colors.green,
-                    radius: 6,
-                  ),
-                  Text(
-                    " ------------ ",
-                    style: descriptionStyle,
-                  ),
-                  CircleAvatar(
-                    backgroundColor: Colors.red,
-                    radius: 6,
-                  ),
-                  SizedBox(
-                    width: 40,
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Row(
-                children: <Widget>[
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Text(
-                    "Supervisor",
-                    style: statusTracker,
-                  ),
-                  SizedBox(
-                    width: 25,
-                  ),
-                  Text(
-                    "Manager",
-                    style: statusTracker,
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Text(
-                    "Store Manager",
-                    style: statusTracker,
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Text(
-                    "Accountant",
-                    style: statusTracker,
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Text(
-                "Tap for Order Details",
-                style: descriptionStyleDarkBlur,
-              ),
-              SizedBox(
-                height: 20,
-              ),
-            ],
-          ),
-        ),
-      ),
-      onTap: () {
-        GoToPage(context, page);
+        );
       },
-    ),
-    );
-    },
     );
   }
 
+  Widget _trackGoodsStatus(int approvalLevel){
+    switch (approvalLevel) {
+      case 0:
+        return statusTrackerWidget( Colors.green, Colors.orangeAccent,
+            Colors.grey, Colors.grey);
+        break;
 
-  _OrderedItemsCard(
-      String companyName, String itemName, String category, String quantity) {
+      case 1:
+        return statusTrackerWidget( Colors.green, Colors.green,
+            Colors.orangeAccent, Colors.grey);
+        break;
+
+      case 2:
+        return statusTrackerWidget( Colors.green, Colors.green,
+            Colors.green, Colors.orangeAccent);
+        break;
+
+      case 3:
+        return statusTrackerWidget( Colors.green, Colors.green,
+            Colors.green, Colors.green);
+        break;
+
+    }
+  }
+
+
+  Widget statusTrackerWidget(Color levelOne, Color levelTwo, Color levelThree, Color levelFour){
     return Container(
-      child: Card(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            SizedBox(
-              height: 20,
+      width: MediaQuery.of(context).size.width ,
+      child: Row(
+        children: <Widget>[
+          SizedBox(width: 25,),
+          CircleAvatar(backgroundColor: levelOne,radius: 6,),
+          Padding(
+            padding: EdgeInsets.all(0.0),
+            child: new LinearPercentIndicator(
+              width: 80,
+              animation: true,
+              lineHeight: 4.0,
+              animationDuration: 3000,
+              percent: 1,
+              linearStrokeCap: LinearStrokeCap.roundAll,
+              progressColor: levelTwo,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Column(children: <Widget>[
-                  Text(
-                    "Company Name",
-                    style: descriptionStyle,
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    companyName,
-                    style: descriptionStyleDark,
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    "Item names",
-                    style: descriptionStyle,
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    itemName,
-                    style: descriptionStyleDark,
-                  ),
-                ]),
-                Column(children: <Widget>[
-                  Text(
-                    "Category",
-                    style: descriptionStyle,
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    category,
-                    style: descriptionStyleDark,
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    "Quantity",
-                    style: descriptionStyle,
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    quantity,
-                    style: descriptionStyleDark,
-                  ),
-                ]),
-              ],
+          ),
+          CircleAvatar(backgroundColor: levelTwo,radius: 6,),
+          Padding(
+            padding: EdgeInsets.all(0.0),
+            child: new LinearPercentIndicator(
+              width: 80,
+              animation: true,
+              lineHeight: 4.0,
+              animationDuration: 3000,
+              percent: 1,
+              linearStrokeCap: LinearStrokeCap.roundAll,
+              progressColor: levelThree,
             ),
-            SizedBox(
-              height: 20,
+          ),
+          CircleAvatar(backgroundColor: levelThree,radius: 6,),
+          Padding(
+            padding: EdgeInsets.all(0.0),
+            child: new LinearPercentIndicator(
+              width: 80,
+              animation: true,
+              lineHeight: 4.0,
+              animationDuration: 3000,
+              percent: 1,
+              linearStrokeCap: LinearStrokeCap.roundAll,
+              progressColor: levelFour,
             ),
-          ],
-        ),
+          ),
+          CircleAvatar(backgroundColor: levelFour,radius: 6,),
+          SizedBox(width: 25,),
+        ],
       ),
     );
   }
-}
 
+}

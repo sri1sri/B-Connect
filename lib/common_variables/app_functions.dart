@@ -33,3 +33,17 @@ String getTime(int timestamp) {
   var date = new DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
   return format.format(date);
 }
+
+//void uniqifyList(List<Dynamic> list) {
+//  for (int i = 0; i < list.length; i++) {
+//    Dynamic o = list[i];
+//    int index;
+//    // Remove duplicates
+//    do {
+//      index = list.indexOf(o, i+1);
+//      if (index != -1) {
+//        list.removeRange(index, 1);
+//      }
+//    } while (index != -1);
+//  }
+//}
