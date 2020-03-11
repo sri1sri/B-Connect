@@ -8,7 +8,7 @@ class EmployeesList {
   EmployeesList({
     @required this.employeeID,
     @required this.employeeName,
-    @required this.employeeRole,
+   @required this.employeeRole,
     @required this.employeeLatitude,
     @required this.employeeLongitude,
     @required this.employeeJoinDate,
