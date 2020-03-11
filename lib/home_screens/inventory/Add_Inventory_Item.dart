@@ -14,29 +14,24 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class ItemsEntryPage extends StatelessWidget {
-  ItemsEntryPage({@required this.database, @required this.goodsID});
-  Database database;
-  String goodsID;
+class InventoryItemsEntryPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: F_ItemsEntryPage(database: database,goodsID: goodsID,),
+      child: F_InventoryItemsEntryPage(),
     );
   }
 }
 
-class F_ItemsEntryPage extends StatefulWidget {
-  F_ItemsEntryPage({@required this.database, @required this.goodsID});
-  String goodsID;
-  Database database;
+class F_InventoryItemsEntryPage extends StatefulWidget {
+  F_InventoryItemsEntryPage();
 
   @override
-  _F_ItemsEntryPageState createState() => _F_ItemsEntryPageState();
+  _F_InventoryItemsEntryPageState createState() => _F_InventoryItemsEntryPageState();
 }
 
-class _F_ItemsEntryPageState extends State<F_ItemsEntryPage> {
+class _F_InventoryItemsEntryPageState extends State<F_InventoryItemsEntryPage> {
 
   final _formKey = GlobalKey<FormState>();
   String _companyName;
@@ -84,7 +79,11 @@ class _F_ItemsEntryPageState extends State<F_ItemsEntryPage> {
               tabBarWidget: null,
             ),
           ),
-          body: SingleChildScrollView(child: _buildContent(context)),
+          body: Container(
+            color: Colors.white,
+            child: SingleChildScrollView(
+                child: _buildContent(context)),
+          ),
           bottomNavigationBar: BottomAppBar(
             child:
             FlatButton.icon(
@@ -97,13 +96,6 @@ class _F_ItemsEntryPageState extends State<F_ItemsEntryPage> {
                 ),
                 label: Text('Save', style: titleStyle)),
 
-//              ToDoButton(
-//                assetName: 'images/googe-logo.png',
-//                text: 'Save',
-//                textColor: Colors.white,
-//                backgroundColor: activeButtonBackgroundColor,
-//                onPressed: () {_submit();},
-//              ),
 
           ),
         ),
@@ -123,7 +115,7 @@ class _F_ItemsEntryPageState extends State<F_ItemsEntryPage> {
       child: Padding(
         padding: const EdgeInsets.all(15.0),
         child: Column(
-          
+
           //mainAxisAlignment: MainAxisAlignment.spaceBetween,
           //crossAxisAlignment: CrossAxisAlignment.center|,
           children: _buildFormChildren(),
@@ -195,109 +187,6 @@ class _F_ItemsEntryPageState extends State<F_ItemsEntryPage> {
         ),
       ),
 
-//      Row(
-//        children: <Widget>[
-//          Column(
-//            children: <Widget>[
-//              TextFormField(
-//                decoration: new InputDecoration(
-//                  labelText: "Company name",
-//                  fillColor: Colors.white,
-//                  border: new OutlineInputBorder(
-//                    borderRadius: new BorderRadius.circular(15.0),
-//                    borderSide: new BorderSide(
-//                    ),
-//                  ),
-//                  //fillColor: Colors.green
-//                ),
-//                initialValue: _companyName,
-//                onSaved: (value) => _companyName = value,
-//                validator: (value) => value.isNotEmpty ? null : 'Company name cant\'t be empty.',
-//                keyboardType: TextInputType.text,
-//                style: new TextStyle(
-//                  fontFamily: "Poppins",
-//                ),
-//              ),
-//
-//            ],
-//          ),
-//        ],
-//      ),
-//      Row(
-//        children: <Widget>[
-//          Column(
-//            children: <Widget>[
-//              TextFormField(
-//                decoration: new InputDecoration(
-//                  labelText: "Category Name",
-//                  fillColor: Colors.white,
-//                  border: new OutlineInputBorder(
-//                    borderRadius: new BorderRadius.circular(15.0),
-//                    borderSide: new BorderSide(
-//                    ),
-//                  ),
-//                  //fillColor: Colors.green
-//                ),
-//                initialValue:  _categoryName,
-//                onSaved: (value) =>  _categoryName = value,
-//                validator: (value) => value.isNotEmpty ? null : 'Category Name cant\'t be empty.',
-//                keyboardType: TextInputType.text,
-//                style: new TextStyle(
-//                  fontFamily: "Poppins",
-//                ),
-//              ),
-//
-//            ],
-//          ),
-//        ],
-//      ),
-//      Row(
-//        children: <Widget>[
-//          Column(
-//            children: <Widget>[
-//              TextFormField(
-//                decoration: new InputDecoration(
-//                  labelText: "Item Name",
-//                  fillColor: Colors.white,
-//                  border: new OutlineInputBorder(
-//                    borderRadius: new BorderRadius.circular(15.0),
-//                    borderSide: new BorderSide(
-//                    ),
-//                  ),
-//                  //fillColor: Colors.green
-//                ),
-//                initialValue:  _itemName,
-//                onSaved: (value) =>  _itemName = value,
-//                validator: (value) => value.isNotEmpty ? null : 'Item Name cant\'t be empty.',
-//                keyboardType: TextInputType.text,
-//                style: new TextStyle(
-//                  fontFamily: "Poppins",
-//                ),
-//              ),
-//
-//            ],
-//          ),
-//        ],
-//      ),
-//      TextFormField(
-//        decoration: new InputDecoration(
-//          labelText: "Quantity",
-//          fillColor: Colors.white,
-//          border: new OutlineInputBorder(
-//            borderRadius: new BorderRadius.circular(15.0),
-//            borderSide: new BorderSide(
-//            ),
-//          ),
-//          //fillColor: Colors.green
-//        ),
-//        initialValue:  _quantity.toString(),
-//        onSaved: (value) =>  _quantity = int.tryParse(value),
-//        validator: (value) => value.isNotEmpty ? null : 'Quantity cant\'t be empty.',
-//        keyboardType: TextInputType.number,
-//        style: new TextStyle(
-//          fontFamily: "Quicksand",
-//        ),
-//      ),
       SizedBox(height: 20,),
       TextFormField(
         decoration: new InputDecoration(
@@ -322,7 +211,7 @@ class _F_ItemsEntryPageState extends State<F_ItemsEntryPage> {
 
       TextFormField(
         decoration: new InputDecoration(
-          labelText: "Measure",
+          labelText: "Price",
           fillColor: Colors.white,
           border: new OutlineInputBorder(
             borderRadius: new BorderRadius.circular(15.0),
@@ -333,8 +222,8 @@ class _F_ItemsEntryPageState extends State<F_ItemsEntryPage> {
         ),
         initialValue: _measure,
         onSaved: (value) => _measure = value,
-        validator: (value) => value.isNotEmpty ? null : 'Company name cant\'t be empty.',
-        keyboardType: TextInputType.text,
+        validator: (value) => value.isNotEmpty ? null : 'Price cant\'t be empty.',
+        keyboardType: TextInputType.number,
         style: new TextStyle(
           fontFamily: "Quicksand",
         ),
@@ -376,11 +265,11 @@ class _F_ItemsEntryPageState extends State<F_ItemsEntryPage> {
     if(_validateAndSaveForm()) {
       try{
 
-        final itemEntry = ItemEntry(itemName: _itemName, companyName: _companyName, categoryName: _categoryName, quantity: _quantity, goodsID: widget.goodsID, measure: _measure, item_id: DateTime.now().toString());
+        /*final itemEntry = ItemEntry(itemName: _itemName, companyName: _companyName, categoryName: _categoryName, quantity: _quantity, goodsID: widget.goodsID, measure: _measure, item_id: DateTime.now().toString());
         await widget.database.setItemEntry(itemEntry);
 
         final _itemEntry = GoodsEntry(itemsAdded: true);
-        widget.database.updateGoodsEntry(_itemEntry, widget.goodsID);
+        widget.database.updateGoodsEntry(_itemEntry, widget.goodsID);*/
 
         Navigator.of(context).pop();
       }on PlatformException catch (e){

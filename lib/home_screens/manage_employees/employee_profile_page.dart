@@ -176,14 +176,16 @@ class _F_EmployeeProfilePageState extends State<F_EmployeeProfilePage> {
                                                 height: 70,
                                               ),
                                               Text(
-                                                '${employee.employeeName}',
+                                                (employee == null ? "" : employee.employeeName),
+                                               // '${employee.employeeName}',
                                                 style: titleStyle,
                                               ),
                                               SizedBox(
                                                 height: 5,
                                               ),
                                               Text(
-                                                '${employee.employeeContactNumber}',
+                                                (employee == null ? "" : employee.employeeContactNumber),
+                                                //'${employee.employeeContactNumber}',
                                                 style: descriptionStyleDark,
                                               ),
                                               SizedBox(
@@ -205,7 +207,8 @@ class _F_EmployeeProfilePageState extends State<F_EmployeeProfilePage> {
                                                         height: 5,
                                                       ),
                                                       Text(
-                                                          '${employee.employeeRole}',
+                                                          (employee == null ? "" : employee.employeeRole),
+                                                         // '${employee.employeeRole}',
                                                           style:
                                                               descriptionStyleDark),
                                                     ],
@@ -371,7 +374,8 @@ class _F_EmployeeProfilePageState extends State<F_EmployeeProfilePage> {
                                       height: 5,
                                     ),
                                     Text(
-                                      '${employee.employeeGender}',
+                                      (employee == null ? "" : employee.employeeGender),
+                                      //'${employee.employeeGender}',
                                       style: subTitleStyle,
                                     ),
                                     SizedBox(

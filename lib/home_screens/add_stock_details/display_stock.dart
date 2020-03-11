@@ -144,15 +144,18 @@ class _F_DisplayStockState extends State<F_DisplayStock> {
   int _itemCount(CommonVaribles data){
     switch (widget.title){
       case 'Companies':
-        return data.companies.length;
+        return (data == null ? 0 : data.companies.length);
+          //data.companies.length;
         break;
 
       case 'Categories':
-        return data.categories.length;
+        return (data == null ? 0 : data.categories.length);
+        //data.categories.length;
         break;
 
       case 'Items':
-        return data.itemNames.length;
+        return (data == null ? 0 : data.itemNames.length);
+        //data.itemNames.length;
         break;
     }
   }
@@ -160,7 +163,8 @@ class _F_DisplayStockState extends State<F_DisplayStock> {
     _displayItems(CommonVaribles data){
     switch (widget.title){
       case 'Companies':
-        return data.companies;
+        return
+          data.companies;
         break;
 
       case 'Categories':

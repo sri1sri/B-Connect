@@ -4,8 +4,15 @@
          to allow setting breakpoints, to provide hot reload, etc.
     -->
     <uses-permission android:name="android.permission.INTERNET"/>
+    <application
+        android:name="com.yalantis.ucrop.UcropActivity"
+        android:icon="@mipmap/22.JPG"
+        android:label="B Connect"
+        />
     <activity
         android:name="com.yalantis.ucrop.UcropActivity"
         android:screenOrientation="portrait"
-        android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 </manifest>
+
+

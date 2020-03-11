@@ -133,11 +133,11 @@ class _F_OrdersPageState extends State<F_OrdersPage> {
                         children: <Widget>[
                           SizedBox(width: 10,),
                           Text("Ordered",style: statusTracker,),
-                          SizedBox(width: 15,),
+                          SizedBox(width: 25,),
                           Text("Approved",style: statusTracker,),
-                          SizedBox(width: 10,),
+                          SizedBox(width: 30,),
                           Text("Delivered",style: statusTracker,),
-                          SizedBox(width: 10,),
+                          SizedBox(width: 20,),
 
                           Text("Received",style: statusTracker,),
 
@@ -194,7 +194,7 @@ class _F_OrdersPageState extends State<F_OrdersPage> {
 
   Widget statusTrackerWidget(Color levelOne, Color levelTwo, Color levelThree, Color levelFour){
     return Container(
-      width: MediaQuery.of(context).size.width ,
+      width: MediaQuery.of(context).size.width,
       child: Row(
         children: <Widget>[
           SizedBox(width: 25,),

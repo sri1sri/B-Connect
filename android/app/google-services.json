@@ -8,18 +8,18 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:747564512681:android:9d01d1e602db75e1f140b8",
+        "mobilesdk_app_id": "1:747564512681:android:81b3bf7a84f1602af140b8",
         "android_client_info": {
           "package_name": "com.bhavaniconnect.bhavani_connect"
         }
       },
       "oauth_client": [
         {
-          "client_id": "747564512681-99jscsipcnf2vtgbbc83rg1jf1kqt8kj.apps.googleusercontent.com",
+          "client_id": "747564512681-qbtvuq0ppdmniqje1pvrthnph5eib0ii.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.bhavaniconnect.bhavani_connect",
-            "certificate_hash": "6daf3330f67c02ac0fafb7f89a69d8db760aa3a5"
+            "certificate_hash": "f5fee4d035029e63dd033fdb8e147be38a7a2f88"
           }
         },
         {

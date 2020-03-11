@@ -375,7 +375,7 @@ class _F_OrderedItemsPageState extends State<F_OrderedItemsPage> {
             child: Column(children: <Widget>[
               Column(children: <Widget>[
                 _trackOrderStatus(orderDetails),
-                _approvalButtonVisibility(orderDetails.status),
+                _approvalButtonVisibility(orderDetails.status == null ? 0 : orderDetails.status),
               ]),
             ]),
           ),

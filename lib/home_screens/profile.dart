@@ -170,14 +170,19 @@ class _F_ProfilePageState extends State<F_ProfilePage> {
                                                 height: 70,
                                               ),
                                               Text(
-                                                '${employee.employeeName}',
+
+                                                 (employee == null ? "" : employee.employeeName),
+
+
+//                                                '${employee.employeeName}',
                                                 style: titleStyle,
                                               ),
                                               SizedBox(
                                                 height: 5,
                                               ),
                                               Text(
-                                                '${employee.employeeContactNumber}',
+                                                (employee == null ? "" : employee.employeeContactNumber),
+//                                                '${employee.employeeContactNumber}',
                                                 style: descriptionStyleDark,
                                               ),
                                               SizedBox(
@@ -199,7 +204,7 @@ class _F_ProfilePageState extends State<F_ProfilePage> {
                                                         height: 5,
                                                       ),
                                                       Text(
-                                                          '${employee.employeeRole}',
+                                                          (employee == null ? "" : employee.employeeRole),
                                                           style:
                                                           descriptionStyleDark),
                                                     ],

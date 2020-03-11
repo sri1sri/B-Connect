@@ -209,7 +209,8 @@ class _F_GoodsApprovalsPageState extends State<F_GoodsApprovalsPage> {
                                     topRight: const Radius.circular(10.0)),
                                 image: DecorationImage(
                                     image: NetworkImage(data.mrrImagePath),
-                                    fit: BoxFit.cover))),
+                                    fit: BoxFit.cover)),
+                        ),
                         SizedBox(
                           height: 20,
                         ),

@@ -117,12 +117,12 @@ class _F_StorePageState extends State<F_StorePage> {
             children: categories.map((Category choice) {
               if (choice.name == 'Items') {
                 return new Padding(
-                  padding: const EdgeInsets.all(16.0),
+                  padding: const EdgeInsets.all(10.0),
                   child: widget.employee.role != 'Security' ? new ItemsPage(choice: choice, database: widget.database,employee: widget.employee,) : NoAccessPage(),
                 );
               } else {
                 return new Padding(
-                  padding: const EdgeInsets.all(16.0),
+                  padding: const EdgeInsets.all(10.0),
                   child: widget.employee.role != 'Security' ? new OrdersPage(choice: choice, database: widget.database,employee: widget.employee,) : NoAccessPage(),
                 );
               }

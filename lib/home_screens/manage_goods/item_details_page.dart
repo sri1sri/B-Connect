@@ -97,7 +97,10 @@ class _F_ItemDetailsPageState extends State<F_ItemDetailsPage> {
           tabBarWidget: null,
         ),
       ),
-      body: _goodsItemsDetails(context),
+      body: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: _goodsItemsDetails(context),
+      ),
     floatingActionButton: widget.employee.role == 'Supervisor' ? Container(): FloatingActionButton(
       elevation: 90,
       backgroundColor: backgroundColor,
@@ -132,7 +135,7 @@ class _F_ItemDetailsPageState extends State<F_ItemDetailsPage> {
 
   Widget _OrderedItemsCard(ItemEntry data) {
     return Container(
-      height: 200,
+      height: 170,
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10.0),

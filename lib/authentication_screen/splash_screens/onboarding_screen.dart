@@ -77,7 +77,7 @@ class _F_OnboardingScreenState extends State<F_OnboardingScreen> {
             color: Colors.white,
           ),
           child: Padding(
-            padding: EdgeInsets.symmetric(vertical: 0.0), // changed padding from 25 to 0
+            padding: EdgeInsets.symmetric(vertical: 20.0), // changed padding from 25 to 0
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
@@ -121,12 +121,12 @@ class _F_OnboardingScreenState extends State<F_OnboardingScreen> {
                             SizedBox(
                                 height:50),
                             Text(
-                              'Co-operative \nhousing societies',
+                              'Smart Constructions',
                               style: titleStyle,
                             ),
                             SizedBox(height: 15.0),
                             Text(
-                              'Introduce smart, secure, convenient living to your community.',
+                              'Introducing smart, secure and advanced techniques into construction for better living.',
                               style: descriptionStyle,
                             ),
                           ],
@@ -150,12 +150,12 @@ class _F_OnboardingScreenState extends State<F_OnboardingScreen> {
                             SizedBox(
                                 height:50),
                             Text(
-                              'Developers',
+                              'At your fingertips',
                               style: titleStyle,
                             ),
                             SizedBox(height: 15.0),
                             Text(
-                              'Enhance the appeal of your project without adding to your overheads.',
+                              'Monitor and Manage all construction activities at your fingertips',
                               style: descriptionStyle,
                             ),
                           ],
@@ -181,12 +181,12 @@ class _F_OnboardingScreenState extends State<F_OnboardingScreen> {
                             SizedBox(
                                 height:50),
                             Text(
-                              'Security companies',
+                              'Secured Environment',
                               style: titleStyle,
                             ),
                             SizedBox(height: 2.0),
                             Text(
-                              'Equip yourself to deliver beyond the expectations of your clients.',
+                              'your safety is utmost important so feel safe with our advanced security',
                               style: descriptionStyle,
                             ),
                           ],

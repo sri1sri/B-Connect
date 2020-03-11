@@ -39,12 +39,18 @@ dependencies:
   percent_indicator: ^2.1.1+1
   flutter_animation_progress_bar: ^1.0.0
   flappy_search_bar: ^1.4.1
+  flutter_launcher_icons: 0.7.4
+  shimmer: ^1.1.0
 
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "images/22.JPG"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -81,6 +87,13 @@ flutter:
     - images/splash3.jpg
     - images/no_internet.png
     - images/done.png
+    - images/Addstock.jpg
+    - images/Approval.jpg
+    - images/Attendance.jpg
+    - images/construction.png
+    - images/inventory.png
+    - images/ManageEmployees.jpg
+    - images/store.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

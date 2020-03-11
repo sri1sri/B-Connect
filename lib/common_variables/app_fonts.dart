@@ -55,3 +55,13 @@ var descriptionStyleDarkBlur = TextStyle(
     fontFamily: 'Quicksand',
     fontWeight: FontWeight.w800,
     fontSize: 12.0);
+var highlight = TextStyle(
+    color: Colors.black.withOpacity(.7),
+    fontFamily: 'Quicksand',
+    fontWeight: FontWeight.w800,
+    fontSize: 30.0);
+var highlightDescription = TextStyle(
+    color: Colors.black.withOpacity(.7),
+    fontFamily: 'Quicksand',
+    fontWeight: FontWeight.w800,
+    fontSize: 25.0);

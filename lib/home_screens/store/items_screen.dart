@@ -81,7 +81,9 @@ class _F_ItemsPageState extends State<F_ItemsPage> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: <Widget>[
-                            _ItemCard(itemData, snapshot.data.length),
+                            _ItemCard(itemData, (snapshot.data == null ? 0 : snapshot.data.length)
+                               // snapshot.data.length
+                            ),
                             SizedBox(
                               height: 20,
                             ),

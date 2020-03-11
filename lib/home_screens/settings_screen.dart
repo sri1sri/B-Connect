@@ -11,6 +11,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import 'Settings_Options/how_to_use.dart';
+import 'Settings_Options/privacy_policy.dart';
+import 'Settings_Options/terms_conditions.dart';
 //import 'package:flutter_launch/flutter_launch.dart';
 
 
@@ -56,25 +60,25 @@ class F_SettingsPage extends StatefulWidget {
 class _F_SettingsPageState extends State<F_SettingsPage> {
   @override
   Widget build(BuildContext context) {
-    return offlineWidget(context);
+    return offlineWidget( context );
   }
 
   Widget offlineWidget(BuildContext context) {
     return CustomOfflineWidget(
       onlineChild: Padding(
-        padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+        padding: const EdgeInsets.fromLTRB( 0,0,0,0 ),
         child: Scaffold(
           backgroundColor: Colors.white,
 
           appBar:
           PreferredSize(
-            preferredSize: Size.fromHeight(119),
+            preferredSize: Size.fromHeight( 119 ),
             //preferredSize : Size(double.infinity, 100),
             child: CustomAppBar(
-              leftActionBar:  Icon(Icons.arrow_back,
+              leftActionBar: Icon( Icons.arrow_back,
                 color: Colors.black, ),
-              leftAction: (){
-                Navigator.pop(context,true);
+              leftAction: () {
+                Navigator.pop( context,true );
               },
               rightActionBar: null,
 //              Container(
@@ -91,8 +95,8 @@ class _F_SettingsPageState extends State<F_SettingsPage> {
 //                    }
 //                ),
 //              ),
-              rightAction: (){
-                print('right action bar is pressed in appbar');
+              rightAction: () {
+                print( 'right action bar is pressed in appbar' );
               },
               primaryText: null,
               secondaryText: 'Settings',
@@ -115,12 +119,11 @@ class _F_SettingsPageState extends State<F_SettingsPage> {
 //
 //          ),
 
-          body: _buildContent(context),
+          body: _buildContent( context ),
         ),
       ),
 
     );
-
   }
 
   Widget _buildContent(BuildContext context) {
@@ -132,28 +135,28 @@ class _F_SettingsPageState extends State<F_SettingsPage> {
           children: <Widget>[
             Container(
               child: Padding(
-                padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                padding: EdgeInsets.fromLTRB( 10,0,10,0 ),
                 child: Column(
 
                   children: <Widget>[
-                    SizedBox(height: 5.0),
+                    SizedBox( height: 5.0 ),
 
 //                    Divider(
 //                      color: Colors.black,
 //                    ),
-                    _reportAnIssue(),
+                    _reportAnIssue( ),
 //                    Divider(
 //                      color: Colors.black,
 //                    ),
-                    _howToUse(),
+                    _howToUse( ),
 //                    Divider(
 //                      color: Colors.black,
 //                    ),
-                    _privacyPolicy(),
+                    _privacyPolicy( ),
 //                    Divider(
 //                      color: Colors.black,
 //                    ),
-                    _termsAndConditions(),
+                    _termsAndConditions( ),
 //                    Divider(
 //                      color: Colors.black,
 //                    ),
@@ -165,22 +168,25 @@ class _F_SettingsPageState extends State<F_SettingsPage> {
             ),
             Container(
               child: Padding(
-                padding: EdgeInsets.fromLTRB(30, 20, 30, 20),
+                padding: EdgeInsets.fromLTRB( 30,20,30,20 ),
                 child: Column(
 
                   children: <Widget>[
 
                     RaisedButton(
-                      onPressed: () => _confirmSignOut(context),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(80.0)),
-                      padding: const EdgeInsets.all(0.0),
+                      onPressed: () => _confirmSignOut( context ),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular( 80.0 ) ),
+                      padding: const EdgeInsets.all( 0.0 ),
                       child: Ink(
                         decoration: const BoxDecoration(
-                          color: Color(0xFF1F4B6E) ,
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                          color: Color( 0xFF1F4B6E ),
+                          borderRadius: BorderRadius.all( Radius.circular(
+                              10 ) ),
                         ),
                         child: Container(
-                          constraints: const BoxConstraints(minWidth: 88.0,minHeight: 50.0),
+                          constraints: const BoxConstraints( minWidth: 88.0,
+                              minHeight: 50.0 ),
                           // min sizes for Material buttons
                           alignment: Alignment.center,
                           child: Text(
@@ -196,7 +202,7 @@ class _F_SettingsPageState extends State<F_SettingsPage> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 10,),
+                    SizedBox( height: 10, ),
                     Text(
                       'Version 1.0.0',
                       style: TextStyle(
@@ -216,9 +222,7 @@ class _F_SettingsPageState extends State<F_SettingsPage> {
         ),
       ),
     );
-
   }
-}
 
 
 //Widget _signOutBtn() {
@@ -249,197 +253,218 @@ class _F_SettingsPageState extends State<F_SettingsPage> {
 //    ),
 //  );
 //}
-Widget _reportAnIssue() {
-  return Container(
-    width: double.infinity,
-    child: FlatButton(
-      onPressed: () => print('Report an Issue Button Pressed'),
-      padding: EdgeInsets.all(15.0),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(0.0),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          Column(
-            children: <Widget>[
-              Text('Report an Issue',
-                style: TextStyle(
-                  color: Colors.black87,
-                  letterSpacing: 1.5,
-                  fontSize: 18.0,
-                  fontWeight: FontWeight.w600,
-                  //fontWeight: FontWeight.bold,
-                  fontFamily: 'OpenSans',
+  Widget _reportAnIssue() {
+    return Container(
+      width: double.infinity,
+      child: FlatButton(
+        onPressed: () => print( 'Report an Issue Button Pressed' ),
+        padding: EdgeInsets.all( 15.0 ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular( 0.0 ),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Column(
+              children: <Widget>[
+                Text( 'Report an Issue',
+                  style: TextStyle(
+                    color: Colors.black87,
+                    letterSpacing: 1.5,
+                    fontSize: 18.0,
+                    fontWeight: FontWeight.w600,
+                    //fontWeight: FontWeight.bold,
+                    fontFamily: 'OpenSans',
+                  ),
                 ),
-              ),
-            ],
+              ],
 
-          ),
-          Column(
-            children: <Widget>[
-              Icon(
-                Icons.arrow_forward_ios,
-                color: Colors.black54,
-                size: 30,
-              ),
+            ),
+            Column(
+              children: <Widget>[
+                Icon(
+                  Icons.arrow_forward_ios,
+                  color: Colors.black54,
+                  size: 30,
+                ),
 //,
-            ],
+              ],
 
-          ),
+            ),
 
-        ],
+          ],
 
+        ),
       ),
-    ),
 
-  );
-}
-Widget _privacyPolicy() {
-  return Container(
-    width: double.infinity,
-    child: FlatButton(
-      onPressed: () => print('Privacy Policy Button Pressed'),
-      padding: EdgeInsets.all(15.0),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(0.0),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          Column(
-            children: <Widget>[
-              Text('Privacy Policy',
-                style: TextStyle(
-                  color: Colors.black87,
-                  letterSpacing: 1.5,
-                  fontSize: 18.0,
-                  fontWeight: FontWeight.w600,
-                  //fontWeight: FontWeight.bold,
-                  fontFamily: 'OpenSans',
+    );
+  }
+
+  Widget _privacyPolicy() {
+    return Container(
+      width: double.infinity,
+      child: FlatButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => PrivacyPolicy( ) ),
+          );
+        },
+        padding: EdgeInsets.all( 15.0 ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular( 0.0 ),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Column(
+              children: <Widget>[
+                Text( 'Privacy Policy',
+                  style: TextStyle(
+                    color: Colors.black87,
+                    letterSpacing: 1.5,
+                    fontSize: 18.0,
+                    fontWeight: FontWeight.w600,
+                    //fontWeight: FontWeight.bold,
+                    fontFamily: 'OpenSans',
+                  ),
                 ),
-              ),
-            ],
+              ],
 
-          ),
-          Column(
-            children: <Widget>[
-              Icon(
-                Icons.arrow_forward_ios,
-                color: Colors.black54,
-                size: 30,
-              ),
+            ),
+            Column(
+              children: <Widget>[
+                Icon(
+                  Icons.arrow_forward_ios,
+                  color: Colors.black54,
+                  size: 30,
+                ),
 //,
-            ],
+              ],
 
-          ),
+            ),
 
-        ],
+          ],
 
+        ),
       ),
-    ),
 
-  );
-}
+    );
+  }
 
-Widget _howToUse() {
-  return Container(
-    width: double.infinity,
-    child: FlatButton(
+  Widget _howToUse() {
+    return Container(
+      width: double.infinity,
+      child: FlatButton(
 
-      onPressed: () => print('How to Use Button Pressed'),
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => HowToUse( ) ),
+          );
+        },
 
-      padding: EdgeInsets.all(15.0),
+        padding: EdgeInsets.all( 15.0 ),
 
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(0.0),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          Column(
-            children: <Widget>[
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular( 0.0 ),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Column(
+              children: <Widget>[
 
-              Text('How To Use',
-                style: TextStyle(
-                  color: Colors.black87,
-                  letterSpacing: 1.5,
-                  fontSize: 18.0,
-                  fontWeight: FontWeight.w600,
-                  //fontWeight: FontWeight.bold,
-                  fontFamily: 'OpenSans',
+                Text( 'How To Use',
+                  style: TextStyle(
+                    color: Colors.black87,
+                    letterSpacing: 1.5,
+                    fontSize: 18.0,
+                    fontWeight: FontWeight.w600,
+                    //fontWeight: FontWeight.bold,
+                    fontFamily: 'OpenSans',
+                  ),
                 ),
-              ),
-            ],
+              ],
 
-          ),
-          Column(
-            children: <Widget>[
-              Icon(
-                Icons.arrow_forward_ios,
-                color: Colors.black54,
-                size: 30,
-              ),
+            ),
+            Column(
+              children: <Widget>[
+                Icon(
+                  Icons.arrow_forward_ios,
+                  color: Colors.black54,
+                  size: 30,
+                ),
 //,
-            ],
+              ],
 
-          ),
+            ),
 
-        ],
+          ],
 
+        ),
       ),
-    ),
 
-  );
-}
-Widget _termsAndConditions() {
-  return Container(
-    width: double.infinity,
-    child: FlatButton(
-      onPressed: () => print('Terms & Conditions Button Pressed'),
-      padding: EdgeInsets.all(15.0),
+    );
+  }
 
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(0.0),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          Column(
-            children: <Widget>[
+  Widget _termsAndConditions() {
+    return Container(
+      width: double.infinity,
+      child: FlatButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => TermsAndServices( ) ),
+          );
+        },
+        padding: EdgeInsets.all( 15.0 ),
 
-              Text('Terms & Conditions',
-                style: TextStyle(
-                  color: Colors.black87,
-                  letterSpacing: 1.5,
-                  fontSize: 18.0,
-                  fontWeight: FontWeight.w600,
-                  //fontWeight: FontWeight.bold,
-                  fontFamily: 'OpenSans',
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular( 0.0 ),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Column(
+              children: <Widget>[
+
+                Text( 'Terms & Conditions',
+                  style: TextStyle(
+                    color: Colors.black87,
+                    letterSpacing: 1.5,
+                    fontSize: 18.0,
+                    fontWeight: FontWeight.w600,
+                    //fontWeight: FontWeight.bold,
+                    fontFamily: 'OpenSans',
+                  ),
                 ),
-              ),
-            ],
+              ],
 
-          ),
-          Column(
-            children: <Widget>[
-              Icon(
-                Icons.arrow_forward_ios,
-                color: Colors.black54,
-                size: 30,
-              ),
-            ],
+            ),
+            Column(
+              children: <Widget>[
+                Icon(
+                  Icons.arrow_forward_ios,
+                  color: Colors.black54,
+                  size: 30,
+                ),
+              ],
 
-          ),
+            ),
 
-        ],
+          ],
 
+        ),
       ),
-    ),
 
-  );
+    );
+  }
 }

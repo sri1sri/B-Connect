@@ -269,8 +269,9 @@ class _F_GoodsDetailsPageState extends State<F_GoodsDetailsPage> {
       stream: widget.database.readGoodsDetails(widget.goodsID),
       builder: (context, snapshot) {
         final goods = snapshot.data;
+        print( 'HELLO:'+widget.goodsID+" Good :"+goods.toString() );
 
-        return SingleChildScrollView(
+        return Container(
           child: Column(
             children: <Widget>[
               Container(
@@ -313,7 +314,8 @@ class _F_GoodsDetailsPageState extends State<F_GoodsDetailsPage> {
                   ),
                   Center(
                       child: Text(
-                    'MRR No. - ${data.MRRNumber.toString()}',
+                        "MRR No. -" + (data == null ? "" : data.MRRNumber.toString()),
+                    //'MRR No. - ${data.MRRNumber.toString()}',
                     style: subTitleStyle,
                   )),
                   SizedBox(
@@ -338,7 +340,7 @@ class _F_GoodsDetailsPageState extends State<F_GoodsDetailsPage> {
                                     topLeft: const Radius.circular(10.0),
                                     topRight: const Radius.circular(10.0)),
                                 image: DecorationImage(
-                                    image: NetworkImage(data.vehicelImagePath),
+                                    image: NetworkImage((data == null ? "" : data.vehicelImagePath)),
                                     fit: BoxFit.cover))),
                         SizedBox(
                           height: 20,
@@ -360,7 +362,7 @@ class _F_GoodsDetailsPageState extends State<F_GoodsDetailsPage> {
                                     topLeft: const Radius.circular(10.0),
                                     topRight: const Radius.circular(10.0)),
                                 image: DecorationImage(
-                                    image: NetworkImage(data.mrrImagePath),
+                                    image: NetworkImage((data == null ? "" : data.mrrImagePath)),
                                     fit: BoxFit.cover))),
                         SizedBox(
                           height: 20,
@@ -398,7 +400,7 @@ class _F_GoodsDetailsPageState extends State<F_GoodsDetailsPage> {
   }
 
   Widget _trackGoodsStatus(GoodsEntry data) {
-    switch (data.approvalLevel) {
+    switch ((data == null ? 0 : data.approvalLevel)) {
       case 0:
         return _statusTracker(data, Colors.orangeAccent, Colors.grey,
             Colors.grey, Colors.grey, Colors.grey);
@@ -428,7 +430,8 @@ class _F_GoodsDetailsPageState extends State<F_GoodsDetailsPage> {
 
   Widget _statusTracker(GoodsEntry data, Color levelOne, Color levelTwo,
       Color levelThree, Color levelFour, Color levelFive) {
-    print('time => ${data.storeMangerItemReceivedTimestamp.seconds}');
+   print('time => ${data.storeMangerItemReceivedTimestamp.seconds}');
+
     return Row(
       children: <Widget>[
         SizedBox(
