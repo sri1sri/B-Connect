@@ -157,6 +157,11 @@ class _F_DisplayStockState extends State<F_DisplayStock> {
         return (data == null ? 0 : data.itemNames.length);
         //data.itemNames.length;
         break;
+
+      case 'Measures':
+        return (data == null ? 0 : data.measures.length);
+        //data.itemNames.length;
+        break;
     }
   }
 
@@ -174,6 +179,10 @@ class _F_DisplayStockState extends State<F_DisplayStock> {
       case 'Items':
         return data.itemNames;
         break;
+
+      case 'Measures':
+        return data.measures;
+        break;
     }
   }
 
@@ -189,6 +198,10 @@ class _F_DisplayStockState extends State<F_DisplayStock> {
 
       case 'Items':
         return 'Item details';
+        break;
+
+      case 'Measures':
+        return 'Measures details';
         break;
     }
   }

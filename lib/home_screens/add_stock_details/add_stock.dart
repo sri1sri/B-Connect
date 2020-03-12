@@ -103,6 +103,7 @@ class _F_AddStockState extends State<F_AddStock> {
               _stockOptions( 'Companies',Icons.home ),
               _stockOptions( 'Categories' ,Icons.category),
               _stockOptions( 'Items' ,Icons.add_shopping_cart),
+              _stockOptions( 'Measures' ,Icons.insert_chart),
 //              _options(''),
             ],
           ),

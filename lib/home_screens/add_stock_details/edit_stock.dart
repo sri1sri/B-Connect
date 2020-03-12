@@ -66,6 +66,11 @@ class _F_EditStockState extends State<F_EditStock> {
             final addCompany = CommonVaribles(itemNames: _name);
             await widget.database.updateCommonVariables(addCompany);
             break;
+
+          case 'Measures':
+            final addCompany = CommonVaribles(measures: _name);
+            await widget.database.updateCommonVariables(addCompany);
+            break;
         }
 
       Navigator.of(context).pop();

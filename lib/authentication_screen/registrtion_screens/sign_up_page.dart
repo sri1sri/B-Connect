@@ -199,5 +199,3 @@ class _F_SignUpPageState extends State<F_SignUpPage> {
     }
   }
 }
-
-

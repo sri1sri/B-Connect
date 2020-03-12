@@ -43,6 +43,8 @@ dependencies:
   shimmer: ^1.1.0
   grouped_buttons: ^1.0.4
   flutter_datetime_picker: ^1.2.5
+  dropdown_formfield: ^0.1.1
+  dropdownfield: ^1.0.3
 
 dev_dependencies:
   flutter_test:

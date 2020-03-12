@@ -3,23 +3,16 @@ import 'package:bhavani_connect/common_variables/app_fonts.dart';
 import 'package:bhavani_connect/common_variables/app_functions.dart';
 import 'package:bhavani_connect/common_widgets/button_widget/add_to_cart_button.dart';
 import 'package:bhavani_connect/common_widgets/custom_appbar_widget/custom_app_bar.dart';
-import 'package:bhavani_connect/common_widgets/list_item_builder/list_goods_items_builder.dart';
-import 'package:bhavani_connect/common_widgets/list_item_builder/list_items_builder.dart';
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
 import 'package:bhavani_connect/database_model/employee_details_model.dart';
 import 'package:bhavani_connect/database_model/goods_entry_model.dart';
 import 'package:bhavani_connect/database_model/items_entry_model.dart';
 import 'package:bhavani_connect/firebase/database.dart';
-import 'package:bhavani_connect/home_screens/camera_screens/Camera_page.dart';
-import 'package:bhavani_connect/home_screens/manage_goods/add_goods_entry_page.dart';
-import 'package:bhavani_connect/home_screens/manage_goods/add_items_entry_page.dart';
+import 'package:bhavani_connect/home_screens/manage_goods/add_items_dropdown.dart';
 import 'package:bhavani_connect/home_screens/manage_goods/item_details_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:percent_indicator/linear_percent_indicator.dart';
-import 'package:flutter_animation_progress_bar/flutter_animation_progress_bar.dart';
 
 class GoodsDetailsPage extends StatelessWidget {
   GoodsDetailsPage(
@@ -89,7 +82,7 @@ class _F_GoodsDetailsPageState extends State<F_GoodsDetailsPage> {
             ),
           ),
           body: _buildContent(context),
-          floatingActionButton: widget.employee.role == 'Supervisor'
+          floatingActionButton: widget.employee.role != 'Supervisor'
               ? Container()
               : FloatingActionButton(
                   elevation: 90,
@@ -98,7 +91,7 @@ class _F_GoodsDetailsPageState extends State<F_GoodsDetailsPage> {
                   onPressed: () {
                     GoToPage(
                       context,
-                      ItemsEntryPage(
+                      ItemsEntry(
                         database: widget.database,
                         goodsID: widget.goodsID,
                       ),

@@ -9,6 +9,7 @@ class CommonVaribles{
     @required this.itemNames,
     @required this.categories,
     @required this.companies,
+    @required this.measures,
     @required this.empty,
   });
 
@@ -16,6 +17,7 @@ class CommonVaribles{
   final itemNames;
   final categories;
   final companies;
+  final measures;
 
   final Null empty;
 
@@ -27,6 +29,8 @@ class CommonVaribles{
     final itemNames = data['item_names'];
     final categories = data['categories'];
     final companies = data['companies'];
+    final measures = data['measures'];
+
     final Null empty = data['empty'];
 
     return CommonVaribles(
@@ -34,6 +38,7 @@ class CommonVaribles{
       itemNames: itemNames,
       categories: categories,
       companies: companies,
+      measures: measures,
       empty: empty,
     );
   }
@@ -44,6 +49,7 @@ class CommonVaribles{
       itemNames != null ? 'item_names': 'empty': FieldValue.arrayUnion([itemNames]),
       categories != null ? 'categories': 'empty': FieldValue.arrayUnion([categories]),
       companies != null ? 'companies': 'empty': FieldValue.arrayUnion([companies]),
+      measures != null ? 'measures': 'empty': FieldValue.arrayUnion([measures]),
       'empty' : null,
     };
   }
