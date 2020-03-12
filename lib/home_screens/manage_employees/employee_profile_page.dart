@@ -9,6 +9,7 @@ import 'package:bhavani_connect/database_model/employee_list_model.dart';
 import 'package:bhavani_connect/firebase/database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:grouped_buttons/grouped_buttons.dart';
 import 'package:url_launcher/url_launcher.dart';
 //import 'package:flutter_picker/flutter_picker.dart';
 
@@ -468,95 +469,207 @@ class _F_EmployeeProfilePageState extends State<F_EmployeeProfilePage> {
   }
 
   void editUserRole(BuildContext context) {
+    int selected;
 
+    void initState() {
+      super.initState();
+      selected = 0;
+    }
 
+    void onChanged(int v){
+      setState(() {
+        selected=v;
+      });
+    }
 
+//    Widget radiobuttons(BuildContext context){
+//      RadioListTile(value: 0,
+//          title: new Text('Manager'),
+//          activeColor: Colors.blue,
+//          groupValue: selected,
+//          onChanged: (int v){onChanged(v);});
+//      RadioListTile(value: 1,
+//          title: new Text('Manager'),
+//          activeColor: Colors.blue,
+//          groupValue: selected,
+//          onChanged: (int v){onChanged(v);});
+//      RadioListTile(value: 2,
+//          title: new Text('Manager'),
+//          activeColor: Colors.blue,
+//          groupValue: selected,
+//          onChanged: (int v){onChanged(v);});
+//      RadioListTile(value: 3,
+//          title: new Text('Manager'),
+//          activeColor: Colors.blue,
+//          groupValue: selected,
+//          onChanged: (int v){onChanged(v);});
+//      RadioListTile(value: 4,
+//          title: new Text('Manager'),
+//          activeColor: Colors.blue,
+//          groupValue: selected,
+//          onChanged: (int v){onChanged(v);});
+//      RadioListTile(value: 5,
+//          title: new Text('Manager'),
+//          activeColor: Colors.blue,
+//          groupValue: selected,
+//          onChanged: (int v){onChanged(v);});
+//    }
 
-
-
-
-
-
-
-
+//List<Widget> radioButtons(){
+//  List<Widget> list = new List<Widget>();
 //
-//    Dialog fancyDialog = Dialog(
-//      shape: RoundedRectangleBorder(
-//        borderRadius: BorderRadius.circular(12.0),
-//      ),
-//      child: Container(
-//        decoration: BoxDecoration(
-//          borderRadius: BorderRadius.circular(20.0),
-//        ),
-//        height: 300.0,
-//        width: 300.0,
-//        child: Stack(
-//          children: <Widget>[
-//            Container(
-//              width: double.infinity,
-//              height: 300,
-//              decoration: BoxDecoration(
-//                color: Colors.grey[100],
-//                borderRadius: BorderRadius.circular(12.0),
-//              ),
-//            ),
-//            Container(
-//              width: double.infinity,
-//              height: 50,
-//              alignment: Alignment.bottomCenter,
-//              decoration: BoxDecoration(
-//                color: backgroundColor,
-//                borderRadius: BorderRadius.only(
-//                  topLeft: Radius.circular(12),
-//                  topRight: Radius.circular(12),
-//                ),
-//              ),
-//              child: Align(
-//                  alignment: Alignment.center,
-//                  child: Text(
-//                    'User Role',
-//                    style: subTitleStyleLight,
-//                  )),
-//            ),
-//            Align(
-//              alignment: Alignment.bottomCenter,
-//              child: InkWell(
-//                onTap: () {
-//                  Navigator.pop(context);
-//                },
-//                child: Container(
-//                  width: double.infinity,
-//                  height: 50,
-//                  child: Align(
-//                      alignment: Alignment.center,
-//                      child: Text('Submit', style: titleStyle)),
-//                ),
-//              ),
-//            ),
-//            Align(
-//              // These values are based on trial & error method
-//              alignment: Alignment(1.05, -1.05),
-//              child: InkWell(
-//                onTap: () {
-//                  Navigator.pop(context);
-//                },
-//                child: Container(
-//                  decoration: BoxDecoration(
-//                    color: Colors.grey[200],
-//                    borderRadius: BorderRadius.circular(12),
-//                  ),
-//                  child: Icon(
-//                    Icons.close,
-//                    color: Colors.black,
-//                  ),
-//                ),
-//              ),
-//            ),
-//          ],
-//        ),
-//      ),
-//    );
-//    showDialog(context: context, builder: (BuildContext context) => fancyDialog);
+//
+//  list.add(new RadioListTile(value: 0,
+//      title: new Text('Manager'),
+//      activeColor: Colors.blue,
+//      groupValue: selected,
+//      onChanged: (int v){onChanged(v);})
+//  );
+//  list.add(new RadioListTile(value: 1,
+//      title: new Text('Manager'),
+//      activeColor: Colors.blue,
+//      groupValue: selected,
+//      onChanged: (int v){onChanged(v);})
+//  );
+//  list.add(new RadioListTile(value: 3,
+//      title: new Text('Manager'),
+//      activeColor: Colors.blue,
+//      groupValue: selected,
+//      onChanged: (int v){onChanged(v);})
+//  );
+//  list.add(new RadioListTile(value: 4,
+//      title: new Text('Manager'),
+//      activeColor: Colors.blue,
+//      groupValue: selected,
+//      onChanged: (int v){onChanged(v);})
+//  );
+//  list.add(new RadioListTile(value: 5,
+//      title: new Text('Manager'),
+//      activeColor: Colors.blue,
+//      groupValue: selected,
+//      onChanged: (int v){onChanged(v);})
+//  );
+//  list.add(new RadioListTile(value: 6,
+//      title: new Text('Manager'),
+//      activeColor: Colors.blue,
+//      groupValue: selected,
+//      onChanged: (int v){onChanged(v);})
+//  );
+//
+//  return list;
+//}
+
+
+
+
+
+
+
+
+
+
+    Dialog fancyDialog = Dialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12.0),
+      ),
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20.0),
+        ),
+        height: 300.0,
+        width: 300.0,
+        child: Stack(
+          children: <Widget>[
+            Container(
+              width: double.infinity,
+              height: 300,
+              decoration: BoxDecoration(
+                color: Colors.grey[100],
+                borderRadius: BorderRadius.circular(12.0),
+              ),
+            ),
+            Container(
+              width: double.infinity,
+              height: 50,
+              alignment: Alignment.bottomCenter,
+              decoration: BoxDecoration(
+                color: backgroundColor,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(12),
+                  topRight: Radius.circular(12),
+                ),
+              ),
+              child: Align(
+                  alignment: Alignment.center,
+                  child: Text(
+                    'User Role',
+                    style: subTitleStyleLight,
+                  )),
+            ),
+            Container(
+              child: Padding(
+                padding: const EdgeInsets.all(50.0),
+                child: Container(
+                  child: Center(
+                    child: SingleChildScrollView(
+                      child: Column(
+                          children: <Widget>[
+                      RadioButtonGroup(
+                      labels: <String>[
+                          "Accountant",
+                          "Manager",
+                          "Supervisor",
+                          "Security guard",
+                          "Coolie",
+                          ],
+                          onSelected: (String selected) => print(selected)
+                  ),
+                          ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: InkWell(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: Container(
+                  width: double.infinity,
+                  height: 50,
+                  child: Align(
+                      alignment: Alignment.center,
+                      child: Text('Submit', style: titleStyle)),
+                ),
+              ),
+            ),
+            Align(
+              // These values are based on trial & error method
+              alignment: Alignment(1.05, -1.05),
+              child: InkWell(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.grey[200],
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Icon(
+                    Icons.close,
+                    color: Colors.black,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+    showDialog(context: context, builder: (BuildContext context) => fancyDialog);
 
 
 

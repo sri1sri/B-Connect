@@ -16,6 +16,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:provider/provider.dart';
 
 class SignUpPage extends StatelessWidget {
@@ -141,6 +142,20 @@ class _F_SignUpPageState extends State<F_SignUpPage> {
               ),
 
               SizedBox(height: 20.0),
+
+              FlatButton(
+                  onPressed: () {
+                    DatePicker.showDatePicker(context,
+                        showTitleActions: true,
+                        minTime: DateTime(2000, 1, 1),
+                        maxTime: DateTime(2022, 12, 31),
+                    onChanged: (date) {print('change $date');},
+                    onConfirm: (date) {print('confirm $date');},
+                    currentTime: DateTime.now(), locale: LocaleType.en);},
+                  child: Text('Show DateTime Picker',)
+              ),
+
+
               ToDoButton(
                 assetName: 'images/googl-logo.png',
                 text: 'Register',

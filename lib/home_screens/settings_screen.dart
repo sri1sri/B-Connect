@@ -23,7 +23,7 @@ Future<void> _signOut(BuildContext context) async {
   try {
     final auth = Provider.of<AuthBase>(context, listen: false);
     await auth.signOut();
-    //Navigator.of(context).pop();
+    Navigator.of(context).pop();
   } catch (e) {
     print(e.toString());
   }

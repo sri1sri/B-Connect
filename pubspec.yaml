@@ -41,7 +41,8 @@ dependencies:
   flappy_search_bar: ^1.4.1
   flutter_launcher_icons: 0.7.4
   shimmer: ^1.1.0
-
+  grouped_buttons: ^1.0.4
+  flutter_datetime_picker: ^1.2.5
 
 dev_dependencies:
   flutter_test:

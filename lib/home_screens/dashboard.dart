@@ -134,7 +134,7 @@ class _F_DashboardState extends State<F_Dashboard> {
               secondaryText: 'Welcome to B-Connect',
               //primaryText: 'Hello ${employee.username}(${employee.role}),',
               primaryText:
-                  "Hello " + (employee == null ? "" : employee.username) + " ("+(employee == null ? "" : employee.role)+")",
+                  "Hello " + (employee == null ? "hgygy" : employee.username) + " ("+(employee == null ? "" : employee.role)+")",
             ),
 
             //customAppBar1(Container(color: Colors.green,),Container(color:  Colors.red,), 'hghg', 'hgygi',  (){print('tftft');}, (){print('tftft');}),
