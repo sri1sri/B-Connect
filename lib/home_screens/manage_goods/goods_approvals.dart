@@ -12,6 +12,9 @@ import 'package:bhavani_connect/home_screens/manage_goods/goods_details_page.dar
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
+import 'package:shimmer/shimmer.dart';
+import 'package:simple_animations/simple_animations/controlled_animation.dart';
+import 'package:simple_animations/simple_animations/multi_track_tween.dart';
 
 class GoodsApprovalsPage extends StatelessWidget {
   GoodsApprovalsPage({@required this.database, @required this.employee});
@@ -39,6 +42,13 @@ class F_GoodsApprovalsPage extends StatefulWidget {
 }
 
 class _F_GoodsApprovalsPageState extends State<F_GoodsApprovalsPage> {
+
+  final tween = MultiTrackTween([
+    Track("color1").add(Duration(seconds: 3),
+        ColorTween(begin: Colors.grey.shade400, end: Colors.grey.shade300)),
+    Track("color2").add(Duration(seconds: 3),
+        ColorTween(begin: Colors.grey.shade400, end: Colors.grey.shade300))
+  ]);
 
   Widget addGoods(){
     if(widget.employee.role == 'Security'){
@@ -173,20 +183,34 @@ class _F_GoodsApprovalsPageState extends State<F_GoodsApprovalsPage> {
                     SizedBox(
                       height: 10,
                     ),
+
+
+
                     Container(
-                      height: 100.0,
-                      width: 100.0,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                          topLeft: const Radius.circular(10.0),
-                          topRight: const Radius.circular(10.0),
-                        ),
-                        image: DecorationImage(
-                          image: NetworkImage(data.vehicelImagePath),
-                          fit: BoxFit.cover,
-                        ),
+                      height: 100,
+                      width: 100,
+                      child: ControlledAnimation(
+                        playback: Playback.MIRROR,
+                        tween: tween,
+                        duration: tween.duration,
+                        builder: (context, animation) {
+                          return Container(
+                            decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                    begin: Alignment.topCenter,
+                                    end: Alignment.bottomCenter,
+                                    colors: [animation["color1"], animation["color2"]]),
+                                image: DecorationImage(
+                                    image: NetworkImage(data.vehicelImagePath),
+                                    fit: BoxFit.cover)
+
+                            ),
+                          );
+                        },
                       ),
                     ),
+
+
                     SizedBox(
                       height: 20,
                     ),
@@ -200,17 +224,43 @@ class _F_GoodsApprovalsPageState extends State<F_GoodsApprovalsPage> {
                         SizedBox(
                           height: 10,
                         ),
-                        Container(
-                            height: 100.0,
-                            width: 100.0,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                    topLeft: const Radius.circular(10.0),
-                                    topRight: const Radius.circular(10.0)),
-                                image: DecorationImage(
-                                    image: NetworkImage(data.mrrImagePath),
-                                    fit: BoxFit.cover)),
-                        ),
+
+          Container(
+            height: 100,
+            width: 100,
+            child: ControlledAnimation(
+              playback: Playback.MIRROR,
+              tween: tween,
+              duration: tween.duration,
+              builder: (context, animation) {
+                return Container(
+                  decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [animation["color1"], animation["color2"]]),
+                      image: DecorationImage(
+                          image: NetworkImage(data.mrrImagePath),
+                          fit: BoxFit.cover)
+
+                  ),
+                );
+              },
+            ),
+          ),
+
+
+//                        Container(
+//                            height: 100.0,
+//                            width: 100.0,
+//                            decoration: BoxDecoration(
+//                                borderRadius: BorderRadius.only(
+//                                    topLeft: const Radius.circular(0.0),
+//                                    topRight: const Radius.circular(0.0)),
+//                                image: DecorationImage(
+//                                    image: NetworkImage(data.mrrImagePath),
+//                                    fit: BoxFit.cover)),
+//                        ),
                         SizedBox(
                           height: 20,
                         ),
@@ -356,4 +406,5 @@ class _F_GoodsApprovalsPageState extends State<F_GoodsApprovalsPage> {
       ),
     );
   }
+
 }

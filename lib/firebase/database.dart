@@ -42,6 +42,7 @@ abstract class Database{
   Stream<OrderDetails> readSingleOrder(String orderID);
   Future<void> updateOrderDetails(OrderDetails orderDetails, String itemID);
   Future<void> updateCartDetails(Cart cartDetails, String cartID);
+  Future<void> updateEmployeeDetails(EmployeeDetails employeeDetails, String employeeUID);
 
 
 }
@@ -211,5 +212,11 @@ class FirestoreDatabase implements Database {
   Future<void> updateCartDetails(Cart cartDetails, String cartID) async => await _service.updateData(
     path: APIPath.addCart(cartID),
     data: cartDetails.toMap(),
+  );
+
+  @override
+  Future<void> updateEmployeeDetails(EmployeeDetails employeeDetails, String employeeUID) async => await _service.updateData(
+    path: APIPath.employeeDetails(employeeUID),
+    data: employeeDetails.toMap(),
   );
 }

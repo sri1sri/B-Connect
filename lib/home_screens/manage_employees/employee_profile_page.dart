@@ -7,6 +7,7 @@ import 'package:bhavani_connect/database_model/common_variables_model.dart';
 import 'package:bhavani_connect/database_model/employee_details_model.dart';
 import 'package:bhavani_connect/database_model/employee_list_model.dart';
 import 'package:bhavani_connect/firebase/database.dart';
+import 'package:bhavani_connect/firebase/firebase_common_variables.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:grouped_buttons/grouped_buttons.dart';
@@ -45,6 +46,7 @@ class F_EmployeeProfilePage extends StatefulWidget {
   Database database;
   String employeeID;
   EmployeeDetails employee;
+  String selectedRole = 'Not assigned';
 
   @override
   _F_EmployeeProfilePageState createState() => _F_EmployeeProfilePageState();
@@ -622,7 +624,7 @@ class _F_EmployeeProfilePageState extends State<F_EmployeeProfilePage> {
                           "Security guard",
                           "Coolie",
                           ],
-                          onSelected: (String selected) => print(selected)
+                          onSelected: (String selectedRole) => widget.selectedRole = selectedRole
                   ),
                           ],
                       ),
@@ -636,6 +638,12 @@ class _F_EmployeeProfilePageState extends State<F_EmployeeProfilePage> {
               child: InkWell(
                 onTap: () {
                   Navigator.pop(context);
+
+                  final employeeDetails = EmployeeDetails(
+                      role: widget.selectedRole);
+                  widget.database.updateEmployeeDetails(
+                      employeeDetails, widget.employeeID);
+
                 },
                 child: Container(
                   width: double.infinity,
@@ -670,12 +678,5 @@ class _F_EmployeeProfilePageState extends State<F_EmployeeProfilePage> {
       ),
     );
     showDialog(context: context, builder: (BuildContext context) => fancyDialog);
-
-
-
-
-
-
-
   }
 }

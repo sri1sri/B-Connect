@@ -12,8 +12,6 @@ import 'package:bhavani_connect/home_screens/attendance/attendance_page.dart';
 import 'package:bhavani_connect/home_screens/inventory/iventory_home_page.dart';
 import 'package:bhavani_connect/home_screens/manage_goods/goods_approvals.dart';
 import 'package:bhavani_connect/home_screens/notification_screen.dart';
-import 'package:bhavani_connect/home_screens/notifications_screens/notification_page.dart';
-import 'package:bhavani_connect/home_screens/store/orders_screen.dart';
 import 'package:bhavani_connect/home_screens/store/store_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -50,15 +48,14 @@ class _F_DashboardState extends State<F_Dashboard> {
     "Add stock",
     "Store",
     "Inventory",
-//    "Notifications",
     "Attendance",
     "Employees"
   ];
   List<String> F_image = [
     "images/Approval.jpg",
-    "images/Addstock.jpg",
-    "images/store.jpg",
     "images/inventory.png",
+    "images/store.jpg",
+    "images/Addstock.jpg",
     "images/Attendance.jpg",
     "images/ManageEmployees.jpg"
 
@@ -90,7 +87,6 @@ class _F_DashboardState extends State<F_Dashboard> {
 
         return Scaffold(
           backgroundColor: Colors.white,
-
           appBar: PreferredSize(
             preferredSize: Size.fromHeight(160),
             //preferredSize : Size(double.infinity, 100),
@@ -287,7 +283,21 @@ class _F_DashboardState extends State<F_Dashboard> {
 //              },
 //            ),
 //          ),
-          bottomSheet: Container(
+          bottomSheet: employee.role == 'Not assigned' ? Center(
+            child: Column(
+              children: <Widget>[
+                Image(
+                  image: AssetImage(
+                    'images/no_internet.png',
+                  ),
+                  height: 300.0,
+                  width: 300.0,
+                ),
+                SizedBox(height: 30.0,),
+                Text('You are not assigned to any role. Ask your manager to assign a role.', style: titleStyle,)
+              ],
+            ),
+          ) : Container(
             color: Colors.white,
             child: Padding(
               padding: const EdgeInsets.only(
