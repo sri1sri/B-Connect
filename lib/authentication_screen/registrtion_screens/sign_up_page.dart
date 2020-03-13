@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bhavani_connect/common_variables/app_colors.dart';
 import 'package:bhavani_connect/common_variables/app_fonts.dart';
 import 'package:bhavani_connect/common_variables/app_functions.dart';
@@ -16,7 +18,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class SignUpPage extends StatelessWidget {
@@ -52,6 +55,30 @@ class F_SignUpPage extends StatefulWidget {
 
 class _F_SignUpPageState extends State<F_SignUpPage> {
 
+  File _profilePic;
+  bool isProfilePic = false;
+  //Date Picker
+  DateTime selectedDate = DateTime.now();
+  var customFormat = DateFormat("dd MMMM yyyy 'at' HH:mm:ss 'UTC+5:30'");
+  var customFormat2 = DateFormat("dd MMMM yyyy");
+
+  Future<Null> showPicker(BuildContext context) async {
+    final DateTime picked = await showDatePicker(
+        context: context,
+        initialDate: DateTime(2010),
+        firstDate: DateTime(1930),
+        lastDate: DateTime(2010),
+    );
+    if (picked != null && picked != selectedDate){
+      setState(() {
+        print(customFormat.format(picked));
+        selectedDate = picked;
+      });
+    }
+  }
+
+
+
   final TextEditingController _usernameController = TextEditingController();
   final FocusNode _usernameFocusNode = FocusNode();
 
@@ -81,92 +108,152 @@ class _F_SignUpPageState extends State<F_SignUpPage> {
     );
   }
 
-  Widget _buildContent(BuildContext context) {
+  Future<void> _captureImage() async{
+    File profileImage = await ImagePicker.pickImage(source: ImageSource.gallery);
+setState(() {
+  _profilePic = profileImage;
+  print(_profilePic);
 
+});
+  }
+
+  Widget _buildContent(BuildContext context) {
     return TransparentLoading(
       loading: widget.model.isLoading,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          Column(
-            children: <Widget>[],
-          ),
-          Column(
-            children: <Widget>[
-              Text(
-                'Create your own \naccount today',
-                style: titleStyle,
-                textAlign: TextAlign.center,
-              ),
-              SizedBox(height: 10,),
-              Text(
-                'To create an Account or SignIn use your phone number.',
-                style: descriptionStyle,
-                textAlign: TextAlign.center,
-              ),
-            ],
-          ),
+      child: Container(
+        color: Colors.white,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Column(
+              children: <Widget>[],
+            ),
+            Column(
+              children: <Widget>[
+                Text(
+                  'Create your own \naccount today',
+                  style: titleStyle,
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(height: 10,),
+                Text(
+                  'To create an Account enter your name and date of birth.',
+                  style: descriptionStyle,
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
 
-          Column(
-            children: <Widget>[
+            Column(
+              children: <Widget>[
 
-              new TextFormField(
-                controller: _usernameController,
-                textInputAction: TextInputAction.done,
-                obscureText: false,
-                focusNode: _usernameFocusNode,
-                onEditingComplete: () => _submit(),
-                onChanged: model.updateUsername,
-                decoration: new InputDecoration(
-                  prefixIcon: Icon(
-                    Icons.account_circle,
-                    color: backgroundColor,
+               GestureDetector(
+                  onTap: _captureImage,
+                  child: Container(
+                    width: 120,
+                    height: 120,
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        image: DecorationImage(
+                          image: _profilePic == null
+                              ? Text('Add Photo',style: descriptionStyle,)
+                              : FileImage(_profilePic),  // here add your image file path
+                          fit: BoxFit.fill,
+                        )),
+                  )),
+
+                SizedBox(height: 20.0),
+
+                new TextFormField(
+                  controller: _usernameController,
+                  textInputAction: TextInputAction.done,
+                  obscureText: false,
+                  focusNode: _usernameFocusNode,
+                  onEditingComplete: () => _submit(),
+                  onChanged: model.updateUsername,
+                  decoration: new InputDecoration(
+                    prefixIcon: Icon(
+                      Icons.account_circle,
+                      color: backgroundColor,
+                    ),
+                    labelText: "Enter your name",
+                    border: new OutlineInputBorder(
+                      borderRadius: new BorderRadius.circular(5.0),
+                      borderSide: new BorderSide(),
+                    ),
                   ),
-                  labelText: "Enter your name",
-                  border: new OutlineInputBorder(
-                    borderRadius: new BorderRadius.circular(5.0),
-                    borderSide: new BorderSide(),
+                  validator: (val) {
+                    if(val.length==0) {
+                      return "Username cannot be empty";
+                    }else{
+                      return null;
+                    }
+                  },
+                  keyboardType: TextInputType.text,
+                  style: new TextStyle(
+                    fontFamily: "Poppins",
                   ),
                 ),
-                validator: (val) {
-                  if(val.length==0) {
-                    return "Username cannot be empty";
-                  }else{
-                    return null;
-                  }
-                },
-                keyboardType: TextInputType.text,
-                style: new TextStyle(
-                  fontFamily: "Poppins",
+
+                SizedBox(height: 10.0),
+
+                Padding(
+                  padding: EdgeInsets.only(top: 0,bottom: 10),
+                  child: Container(
+
+                    child: RaisedButton(
+
+                      color: Colors.white,
+                      child: Container(
+                        height: 60,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Container(
+                              child: Row(
+                                children: <Widget>[
+                                  Icon(
+                                    Icons.date_range,
+                                    size: 18.0,
+                                    color: backgroundColor,
+                                  ),
+                                  SizedBox(width: 10,),
+                                  Text(
+                                      '${customFormat2.format(selectedDate)}',
+                                      style: subTitleStyle
+                                  ),
+                                ],
+                              ),
+                            ),
+
+                            Text(
+                              'Change',
+                              style: subTitleStyle
+                            ),
+                          ],
+                        ),
+                      ),
+                      onPressed: () => showPicker(context),
+
+                    ),
+
+                  ),
+
                 ),
-              ),
-
-              SizedBox(height: 20.0),
-
-              FlatButton(
-                  onPressed: () {
-                    DatePicker.showDatePicker(context,
-                        showTitleActions: true,
-                        minTime: DateTime(2000, 1, 1),
-                        maxTime: DateTime(2022, 12, 31),
-                    onChanged: (date) {print('change $date');},
-                    onConfirm: (date) {print('confirm $date');},
-                    currentTime: DateTime.now(), locale: LocaleType.en);},
-                  child: Text('Show DateTime Picker',)
-              ),
 
 
-              ToDoButton(
-                assetName: 'images/googl-logo.png',
-                text: 'Register',
-                textColor: Colors.white,
-                backgroundColor: activeButtonBackgroundColor,
-                onPressed: model.canSubmit ? () => _submit() : null,
-              ),
-              SizedBox(height: 100.0),
-            ],
-          ),
-        ],
+                ToDoButton(
+                  assetName: 'images/googl-logo.png',
+                  text: 'Register',
+                  textColor: Colors.white,
+                  backgroundColor: activeButtonBackgroundColor,
+                  onPressed: model.canSubmit ? () => _submit() : null,
+                ),
+                SizedBox(height: 100.0),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -183,7 +270,7 @@ class _F_SignUpPageState extends State<F_SignUpPage> {
         joinedDate: Timestamp.fromDate(DateTime.now()),
         latitude: '',
         longitude: '',
-        role: 'not assigned',
+        role: 'Not assigned',
       );
 
       FirestoreService.instance.setData(
