@@ -15,6 +15,8 @@ class EmployeesList {
     @required this.employeeGender,
     @required this.employeeDateOfBirth,
     @required this.employeeContactNumber,
+    @required this.employeeImagePath,
+
   });
 
   final String employeeID;
@@ -26,6 +28,7 @@ class EmployeesList {
   final String employeeGender;
   final Timestamp employeeDateOfBirth;
   final String employeeContactNumber;
+  final String employeeImagePath;
 
 
   factory EmployeesList.fromMap(Map<String, dynamic> data, String documentId) {
@@ -42,6 +45,8 @@ class EmployeesList {
     final String employeeGender = data['employee_gender'];
     final Timestamp employeeDateOfBirth = data['employee_date_of_birth'];
     final String employeeContactNumber = data['employee_contact_number'];
+    final String employeeImagePath = data['employee_image_path'];
+
 
     return EmployeesList(
       employeeID: employeeID,
@@ -53,7 +58,7 @@ class EmployeesList {
       employeeDateOfBirth: employeeDateOfBirth,
       employeeContactNumber: employeeContactNumber,
       employeeGender: employeeGender,
-
+      employeeImagePath: employeeImagePath,
     );
   }
 }

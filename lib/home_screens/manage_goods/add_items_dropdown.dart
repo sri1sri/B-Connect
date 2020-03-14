@@ -69,6 +69,16 @@ class _F_ItemsEntryState extends State<F_ItemsEntry> {
 
   var dropDownValues = [];
 
+  bool _isCompanyNameManual = false;
+  bool _isCategoryNameManual = false;
+  bool _isItemNameManual = false;
+  bool _isMeasureNameManual = false;
+
+  String _manualCompanyBtnTitle = 'Add manually';
+  String _manualItemBtnTitle = 'Add manually';
+  String _manualCategoryBtnTitle = 'Add manually';
+  String _manualMeasureBtnTitle = 'Add manually';
+
   @override
   Widget build(BuildContext context) {
     return CustomOfflineWidget(
@@ -93,11 +103,19 @@ class _F_ItemsEntryState extends State<F_ItemsEntry> {
                 padding: EdgeInsets.only(top: 10),
                 child: InkWell(
                     child: Text(
-                      'Clear',
+                      'Clear all',
                       style: subTitleStyle,
                     ),
                     onTap: () {
-                      print('pressed clear in Add items');
+                      setState(() {
+                        _companyName = null;
+                        _itemName = null;
+                        _categoryName = null;
+                        _quantity = 0;
+                        _measure = null;
+                        _description = 'No description entered';
+
+                      });
                     }),
               ),
               rightAction: () {
@@ -167,11 +185,13 @@ class _F_ItemsEntryState extends State<F_ItemsEntry> {
     }
   }
 
+
   List<Widget> _buildFormChildren(CommonVaribles data) {
     return [
-      DropDownFormField(
-        titleText: 'Company name',
-        hintText: 'Please choose Company',
+
+      _isCompanyNameManual != true ? DropDownFormField(
+        titleText: 'Company',
+        hintText: 'Please choose company',
         value: _companyName,
         onSaved: (value) {
           setState(() {
@@ -183,80 +203,56 @@ class _F_ItemsEntryState extends State<F_ItemsEntry> {
             _companyName = value;
           });
         },
-
         dataSource: displayDropDownValues(data.companies),
         textField: 'display',
         valueField: 'value',
         validator: (value) =>
-            value.isNotEmpty ? null : 'Company name cant\'t be empty.',
+        value.isNotEmpty ? null : 'company name cant\'t be empty.',
+      ) : TextFormField(
+        decoration: new InputDecoration(
+          labelText: 'Company',
+          fillColor: Colors.white,
+          border: new OutlineInputBorder(
+            borderRadius: new BorderRadius.circular(5.0),
+            borderSide: new BorderSide(
+            ),
+          ),
+        ),
+        initialValue: _companyName,
+        onSaved: (value) => _companyName = value,
+        validator: (value) => value.isNotEmpty ? null : 'Company cant\'t be empty.',
+        keyboardType: TextInputType.text,
+        style: new TextStyle(
+          fontFamily: "Quicksand",
+        ),
       ),
-//      TextFormField(
-//        decoration: new InputDecoration(
-//          labelText: "Company name",
-//          fillColor: Colors.white,
-//          border: new OutlineInputBorder(
-//            borderRadius: new BorderRadius.circular(15.0),
-//            borderSide: new BorderSide(
-//            ),
-//          ),
-//          //fillColor: Colors.green
-//        ),
-//        initialValue: _companyName,
-//        onSaved: (value) => _companyName = value,
-//        validator: (value) => value.isNotEmpty ? null : 'Company name cant\'t be empty.',
-//        keyboardType: TextInputType.text,
-//        style: new TextStyle(
-//          fontFamily: "Quicksand",
-//        ),
-//      ),
-      SizedBox(
-        height: 20,
-      ),
-      DropDownFormField(
-        titleText: 'Category Name',
-        hintText: 'Please choose Category',
-        value: _categoryName,
-        onSaved: (value) {
+
+      RaisedButton(
+        onPressed: (){
           setState(() {
-            _categoryName = value;
+            if(_isCompanyNameManual){
+              _isCompanyNameManual = false;
+              _manualCompanyBtnTitle =  'Add manually';
+            }else{
+              _isCompanyNameManual = true;
+              _manualCompanyBtnTitle =  'Select from list';
+            }
           });
         },
-        onChanged: (value) {
-          setState(() {
-            _categoryName = value;
-          });
-        },
-        dataSource: displayDropDownValues(data.categories),
-        textField: 'display',
-        valueField: 'value',
-        validator: (value) =>
-            value.isNotEmpty ? null : 'Category name cant\'t be empty.',
+        child: Text(
+            _manualCompanyBtnTitle,
+            style: TextStyle(fontSize: 20)
+        ),
       ),
-//      TextFormField(
-//        decoration: new InputDecoration(
-//          labelText: "Category Name",
-//          fillColor: Colors.white,
-//          border: new OutlineInputBorder(
-//            borderRadius: new BorderRadius.circular(15.0),
-//            borderSide: new BorderSide(
-//            ),
-//          ),
-//          //fillColor: Colors.green
-//        ),
-//        initialValue:  _categoryName,
-//        onSaved: (value) =>  _categoryName = value,
-//        validator: (value) => value.isNotEmpty ? null : 'Category Name cant\'t be empty.',
-//        keyboardType: TextInputType.text,
-//        style: new TextStyle(
-//          fontFamily: "Quicksand",
-//        ),
-//      ),
       SizedBox(
-        height: 20,
+        height: 25,
       ),
-      DropDownFormField(
-        titleText: 'Item Name',
-        hintText: 'Please choose Item',
+
+
+
+      _isItemNameManual != true ? DropDownFormField(
+        titleText: 'Item',
+        hintText: 'Please choose item',
         value: _itemName,
         onSaved: (value) {
           setState(() {
@@ -272,165 +268,117 @@ class _F_ItemsEntryState extends State<F_ItemsEntry> {
         textField: 'display',
         valueField: 'value',
         validator: (value) =>
-            value.isNotEmpty ? null : 'Item name cant\'t be empty.',
+        value.isNotEmpty ? null : 'item name cant\'t be empty.',
+      ) : TextFormField(
+        decoration: new InputDecoration(
+          labelText: 'Item',
+          fillColor: Colors.white,
+          border: new OutlineInputBorder(
+            borderRadius: new BorderRadius.circular(5.0),
+            borderSide: new BorderSide(
+            ),
+          ),
+        ),
+        initialValue: _itemName,
+        onSaved: (value) => _itemName = value,
+        validator: (value) => value.isNotEmpty ? null : 'Item cant\'t be empty.',
+        keyboardType: TextInputType.text,
+        style: new TextStyle(
+          fontFamily: "Quicksand",
+        ),
       ),
-//      TextFormField(
-//        decoration: new InputDecoration(
-//          labelText: "Item Name",
-//          fillColor: Colors.white,
-//          border: new OutlineInputBorder(
-//            borderRadius: new BorderRadius.circular(15.0),
-//            borderSide: new BorderSide(
-//            ),
-//          ),
-//          //fillColor: Colors.green
-//        ),
-//        initialValue:  _itemName,
-//        onSaved: (value) =>  _itemName = value,
-//        validator: (value) => value.isNotEmpty ? null : 'Item Name cant\'t be empty.',
-//        keyboardType: TextInputType.text,
-//        style: new TextStyle(
-//          fontFamily: "Quicksand",
-//        ),
-//      ),
 
-//      Row(
-//        children: <Widget>[
-//          Column(
-//            children: <Widget>[
-//              TextFormField(
-//                decoration: new InputDecoration(
-//                  labelText: "Company name",
-//                  fillColor: Colors.white,
-//                  border: new OutlineInputBorder(
-//                    borderRadius: new BorderRadius.circular(15.0),
-//                    borderSide: new BorderSide(
-//                    ),
-//                  ),
-//                  //fillColor: Colors.green
-//                ),
-//                initialValue: _companyName,
-//                onSaved: (value) => _companyName = value,
-//                validator: (value) => value.isNotEmpty ? null : 'Company name cant\'t be empty.',
-//                keyboardType: TextInputType.text,
-//                style: new TextStyle(
-//                  fontFamily: "Poppins",
-//                ),
-//              ),
-//
-//            ],
-//          ),
-//        ],
-//      ),
-//      Row(
-//        children: <Widget>[
-//          Column(
-//            children: <Widget>[
-//              TextFormField(
-//                decoration: new InputDecoration(
-//                  labelText: "Category Name",
-//                  fillColor: Colors.white,
-//                  border: new OutlineInputBorder(
-//                    borderRadius: new BorderRadius.circular(15.0),
-//                    borderSide: new BorderSide(
-//                    ),
-//                  ),
-//                  //fillColor: Colors.green
-//                ),
-//                initialValue:  _categoryName,
-//                onSaved: (value) =>  _categoryName = value,
-//                validator: (value) => value.isNotEmpty ? null : 'Category Name cant\'t be empty.',
-//                keyboardType: TextInputType.text,
-//                style: new TextStyle(
-//                  fontFamily: "Poppins",
-//                ),
-//              ),
-//
-//            ],
-//          ),
-//        ],
-//      ),
-//      Row(
-//        children: <Widget>[
-//          Column(
-//            children: <Widget>[
-//              TextFormField(
-//                decoration: new InputDecoration(
-//                  labelText: "Item Name",
-//                  fillColor: Colors.white,
-//                  border: new OutlineInputBorder(
-//                    borderRadius: new BorderRadius.circular(15.0),
-//                    borderSide: new BorderSide(
-//                    ),
-//                  ),
-//                  //fillColor: Colors.green
-//                ),
-//                initialValue:  _itemName,
-//                onSaved: (value) =>  _itemName = value,
-//                validator: (value) => value.isNotEmpty ? null : 'Item Name cant\'t be empty.',
-//                keyboardType: TextInputType.text,
-//                style: new TextStyle(
-//                  fontFamily: "Poppins",
-//                ),
-//              ),
-//
-//            ],
-//          ),
-//        ],
-//      ),
-//      TextFormField(
-//        decoration: new InputDecoration(
-//          labelText: "Quantity",
-//          fillColor: Colors.white,
-//          border: new OutlineInputBorder(
-//            borderRadius: new BorderRadius.circular(15.0),
-//            borderSide: new BorderSide(
-//            ),
-//          ),
-//          //fillColor: Colors.green
-//        ),
-//        initialValue:  _quantity.toString(),
-//        onSaved: (value) =>  _quantity = int.tryParse(value),
-//        validator: (value) => value.isNotEmpty ? null : 'Quantity cant\'t be empty.',
-//        keyboardType: TextInputType.number,
-//        style: new TextStyle(
-//          fontFamily: "Quicksand",
-//        ),
-//      ),
-
+      RaisedButton(
+        onPressed: (){
+          setState(() {
+            if(_isItemNameManual){
+              _isItemNameManual = false;
+              _manualItemBtnTitle =  'Add manually';
+            }else{
+              _isItemNameManual = true;
+              _manualItemBtnTitle =  'Select from list';
+            }
+          });
+        },
+        child: Text(
+            _manualItemBtnTitle,
+            style: TextStyle(fontSize: 20)
+        ),
+      ),
       SizedBox(
-        height: 20,
+        height: 25,
       ),
-//      DropDownFormField(
-//        titleText: 'Quantity',
-//        hintText: 'Please choose Quantity',
-//        value: _quantity,
-//        onSaved: (value) {
-//          setState(() {
-//            _quantity = value;
-//          });
-//        },
-//        onChanged: (value) {
-//          setState(() {
-//            _quantity = value;
-//          });
-//        },
-//        dataSource: displayDropDownValues(data.companies),
-//        textField: 'display',
-//        valueField: 'value',
-//        validator: (value) =>
-//            value.isNotEmpty ? null : 'Quantity cant\'t be empty.',
-//      ),
-            TextFormField(
+
+
+
+      _isCategoryNameManual != true ? DropDownFormField(
+        titleText: 'Category',
+        hintText: 'Please choose category',
+        value: _categoryName,
+        onSaved: (value) {
+          setState(() {
+            _categoryName = value;
+          });
+        },
+        onChanged: (value) {
+          setState(() {
+            _categoryName = value;
+          });
+        },
+        dataSource: displayDropDownValues(data.categories),
+        textField: 'display',
+        valueField: 'value',
+        validator: (value) =>
+        value.isNotEmpty ? null : 'category name cant\'t be empty.',
+      ) : TextFormField(
+        decoration: new InputDecoration(
+          labelText: 'Category',
+          fillColor: Colors.white,
+          border: new OutlineInputBorder(
+            borderRadius: new BorderRadius.circular(5.0),
+            borderSide: new BorderSide(
+            ),
+          ),
+        ),
+        initialValue: _categoryName,
+        onSaved: (value) => _categoryName = value,
+        validator: (value) => value.isNotEmpty ? null : 'Category cant\'t be empty.',
+        keyboardType: TextInputType.text,
+        style: new TextStyle(
+          fontFamily: "Quicksand",
+        ),
+      ),
+
+      RaisedButton(
+        onPressed: (){
+          setState(() {
+            if(_isCategoryNameManual){
+              _isCategoryNameManual = false;
+              _manualCategoryBtnTitle =  'Add manually';
+            }else{
+              _isCategoryNameManual = true;
+              _manualCategoryBtnTitle =  'Select from list';
+            }
+          });
+        },
+        child: Text(
+            _manualCategoryBtnTitle,
+            style: TextStyle(fontSize: 20)
+        ),
+      ),
+      SizedBox(
+        height: 25,
+      ),
+
+      TextFormField(
         decoration: new InputDecoration(
           labelText: "Quantity",
           fillColor: Colors.white,
           border: new OutlineInputBorder(
-            borderRadius: new BorderRadius.circular(15.0),
+            borderRadius: new BorderRadius.circular(5.0),
             borderSide: new BorderSide(
             ),
           ),
-          //fillColor: Colors.green
         ),
         initialValue:  _quantity.toString(),
         onSaved: (value) =>  _quantity = int.tryParse(value),
@@ -444,7 +392,7 @@ class _F_ItemsEntryState extends State<F_ItemsEntry> {
         height: 20,
       ),
 
-      DropDownFormField(
+      _isMeasureNameManual != true ? DropDownFormField(
         titleText: 'Measure',
         hintText: 'Please choose Measure',
         value: _measure,
@@ -463,46 +411,42 @@ class _F_ItemsEntryState extends State<F_ItemsEntry> {
         valueField: 'value',
         validator: (value) =>
             value.isNotEmpty ? null : 'Item name cant\'t be empty.',
+      ) : TextFormField(
+        decoration: new InputDecoration(
+          labelText: 'Measure',
+          fillColor: Colors.white,
+          border: new OutlineInputBorder(
+            borderRadius: new BorderRadius.circular(5.0),
+            borderSide: new BorderSide(
+            ),
+          ),
+        ),
+        initialValue: _measure,
+        onSaved: (value) => _measure = value,
+        validator: (value) => value.isNotEmpty ? null : 'Measure cant\'t be empty.',
+        keyboardType: TextInputType.text,
+        style: new TextStyle(
+          fontFamily: "Quicksand",
+        ),
       ),
-//      TextFormField(
-//        decoration: new InputDecoration(
-//          labelText: "Measure",
-//          fillColor: Colors.white,
-//          border: new OutlineInputBorder(
-//            borderRadius: new BorderRadius.circular(15.0),
-//            borderSide: new BorderSide(
-//            ),
-//          ),
-//          //fillColor: Colors.green
-//        ),
-//        initialValue: _measure,
-//        onSaved: (value) => _measure = value,
-//        validator: (value) => value.isNotEmpty ? null : 'Company name cant\'t be empty.',
-//        keyboardType: TextInputType.text,
-//        style: new TextStyle(
-//          fontFamily: "Quicksand",
-//        ),
-//      ),
 
-//      TextFormField(
-//        decoration: new InputDecoration(
-//            labelText: "Quantity",
-//            //fillColor: Colors.grey,
-//            border: new OutlineInputBorder(
-//              borderRadius: new BorderRadius.circular(0.0),
-//              borderSide: new BorderSide(
-//              ),
-//            ),
-//            fillColor: Colors.green
-//        ),
-//        initialValue:  _quantity.toString(),
-//        onSaved: (value) =>  _quantity = int.tryParse(value),
-//        validator: (value) => value.isNotEmpty ? null : 'Quantity cant\'t be empty.',
-//        keyboardType: TextInputType.number,
-//        style: new TextStyle(
-//          fontFamily: "Quicksand",
-//        ),
-//      ),
+      RaisedButton(
+        onPressed: (){
+          setState(() {
+            if(_isMeasureNameManual){
+              _isMeasureNameManual = false;
+              _manualMeasureBtnTitle =  'Add manually';
+            }else{
+              _isMeasureNameManual = true;
+              _manualMeasureBtnTitle =  'Select from list';
+            }
+          });
+        },
+        child: Text(
+            _manualCompanyBtnTitle,
+            style: TextStyle(fontSize: 20)
+        ),
+      ),
       SizedBox(
         height: 25,
       ),
@@ -511,10 +455,9 @@ class _F_ItemsEntryState extends State<F_ItemsEntry> {
           labelText: "Description",
           fillColor: Colors.white,
           border: new OutlineInputBorder(
-            borderRadius: new BorderRadius.circular(0.0),
+            borderRadius: new BorderRadius.circular(5.0),
             borderSide: new BorderSide(),
           ),
-          //fillColor: Colors.green
         ),
         initialValue: _description,
         onSaved: (value) => _description = value,
@@ -545,7 +488,7 @@ class _F_ItemsEntryState extends State<F_ItemsEntry> {
             itemName: _itemName,
             companyName: _companyName,
             categoryName: _categoryName,
-            quantity: 10,
+            quantity: _quantity,
             goodsID: widget.goodsID,
             measure: _measure,
             item_id: DateTime.now().toString());

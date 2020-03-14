@@ -12,6 +12,7 @@ import 'package:bhavani_connect/firebase/database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'add_items_dropdown.dart';
 import 'add_items_entry_page.dart';
 
 class ItemDetailsPage extends StatelessWidget {
@@ -73,25 +74,25 @@ class _F_ItemDetailsPageState extends State<F_ItemDetailsPage> {
           leftAction: () {
             Navigator.pop(context, true);
           },
-          rightActionBar: Container(
-            child: Icon(
-              Icons.add,
-              size: 40,
-              color: Colors.black38,
-            ),
-          ),
-          rightAction: () {
-
-            widget.employee.role == 'Supervisor' ?
-            GoToPage(
-              context,
-              ItemsEntryPage(
-                database: widget.database,
-                goodsID: widget.goodsID,
-              ),
-            ) : '';
-//            print('right action bar is pressed in appbar');
-          },
+//          rightActionBar: Container(
+//            child: Icon(
+//              Icons.add,
+//              size: 40,
+//              color: Colors.black38,
+//            ),
+//          ),
+//          rightAction: () {
+//
+//            widget.employee.role == 'Supervisor' ?
+//            GoToPage(
+//              context,
+//              ItemsEntry(
+//                database: widget.database,
+//                goodsID: widget.goodsID,
+//              ),
+//            ) : '';
+////            print('right action bar is pressed in appbar');
+//          },
           primaryText: null,
           secondaryText: 'Item Details',
           tabBarWidget: null,
@@ -101,14 +102,14 @@ class _F_ItemDetailsPageState extends State<F_ItemDetailsPage> {
         padding: const EdgeInsets.all(10.0),
         child: _goodsItemsDetails(context),
       ),
-    floatingActionButton: widget.employee.role == 'Supervisor' ? Container(): FloatingActionButton(
+    floatingActionButton: widget.employee.role != 'Supervisor' ? Container(): FloatingActionButton(
       elevation: 90,
       backgroundColor: backgroundColor,
       autofocus: true,
       onPressed: () {
         GoToPage(
           context,
-          ItemsEntryPage(
+          ItemsEntry(
             database: widget.database,
             goodsID: widget.goodsID,
           ),

@@ -138,11 +138,16 @@ class _F_ManageEmployeesPageState extends State<F_ManageEmployeesPage> {
                               SizedBox(height: 10,),
                               InkWell(
                                 child: ListTile(
-                                  leading: CircleAvatar(
-                                    backgroundImage: AssetImage("images/profile_image.jpg"),
-                                    backgroundColor: Colors.red,
-                                    radius: 30,
+                                  leading: data.employeeImagePath == null ? CircleAvatar(
+                                    radius: 30.0,
+                                    backgroundColor: Colors.grey[200],
+                                  ) : CircleAvatar(
+                                    radius: 30.0,
+                                    backgroundImage:
+                                    NetworkImage(data.employeeImagePath),
+                                    backgroundColor: Colors.transparent,
                                   ),
+
                                   title: Text('${data.employeeName}',style: subTitleStyle,),
                                   subtitle: Text(data.employeeRole, style: descriptionStyle,),
                                   trailing: getEditStatus(),

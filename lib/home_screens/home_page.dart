@@ -10,6 +10,7 @@ import 'package:bhavani_connect/common_widgets/navigationBar.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -47,8 +48,9 @@ class _F_HomePageState extends State<F_HomePage> {
   }
 
   Widget _buildContent(BuildContext context) {
-    final database = Provider.of<Database>(context, listen: false);
     Widget child;
+    final database = Provider.of<Database>(context, listen: false);
+
     switch (currentIndex) {
       case 0:
         child = Dashboard(

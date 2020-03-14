@@ -82,24 +82,24 @@ class _F_GoodsDetailsPageState extends State<F_GoodsDetailsPage> {
             ),
           ),
           body: _buildContent(context),
-          floatingActionButton: widget.employee.role != 'Supervisor'
-              ? Container()
-              : FloatingActionButton(
-                  elevation: 90,
-                  backgroundColor: backgroundColor,
-                  autofocus: true,
-                  onPressed: () {
-                    GoToPage(
-                      context,
-                      ItemsEntry(
-                        database: widget.database,
-                        goodsID: widget.goodsID,
-                      ),
-                    );
-                  },
-                  child: Icon(Icons.add),
-                  tooltip: 'Add Items',
-                ),
+//          floatingActionButton: widget.employee.role != 'Supervisor'
+//              ? Container()
+//              : FloatingActionButton(
+//                  elevation: 90,
+//                  backgroundColor: backgroundColor,
+//                  autofocus: true,
+//                  onPressed: () {
+//                    GoToPage(
+//                      context,
+//                      ItemsEntry(
+//                        database: widget.database,
+//                        goodsID: widget.goodsID,
+//                      ),
+//                    );
+//                  },
+//                  child: Icon(Icons.add),
+//                  tooltip: 'Add Items',
+//                ),
         ),
       ),
     );

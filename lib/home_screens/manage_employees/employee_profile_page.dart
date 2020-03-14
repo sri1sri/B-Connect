@@ -326,16 +326,15 @@ class _F_EmployeeProfilePageState extends State<F_EmployeeProfilePage> {
                                     right: 130.0,
                                     top: 30.0,
                                     bottom: 260.0,
-                                    child: Container(
-                                        height: 50.0,
-                                        width: 50.0,
-                                        decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(100.0),
-                                            image: DecorationImage(
-                                                image: AssetImage(
-                                                    "images/profile_image.jpg"),
-                                                fit: BoxFit.fill)))),
+                                    child: employee.employeeImagePath == null ? CircleAvatar(
+                                      radius: 30.0,
+                                      backgroundColor: Colors.grey[200],
+                                    ) : CircleAvatar(
+                                      radius: 30.0,
+                                      backgroundImage:
+                                      NetworkImage(employee.employeeImagePath),
+                                      backgroundColor: Colors.transparent,
+                                    ),),
                               ]),
                             ])),
                         Column(
@@ -621,8 +620,8 @@ class _F_EmployeeProfilePageState extends State<F_EmployeeProfilePage> {
                           "Accountant",
                           "Manager",
                           "Supervisor",
-                          "Security guard",
-                          "Coolie",
+                          "Security",
+                          "Store Manager",
                           ],
                           onSelected: (String selectedRole) => widget.selectedRole = selectedRole
                   ),
