@@ -5,8 +5,12 @@ import 'package:bhavani_connect/common_variables/app_functions.dart';
 import 'package:bhavani_connect/common_widgets/button_widget/to_do_button.dart';
 import 'package:bhavani_connect/common_widgets/custom_appbar_widget/custom_app_bar.dart';
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
+import 'package:bhavani_connect/common_widgets/platform_alert/platform_exception_alert_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:geocoder/geocoder.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
 
 class AttendancePage extends StatelessWidget {
@@ -26,8 +30,12 @@ class F_AttendancePage extends StatefulWidget {
 class _F_AttendancePageState extends State<F_AttendancePage> {
   File _inTimeImage;
   File _outTimeImage;
+  bool inLocation;
+  String _inUploadedTime = '';
+  String _outUploadedTime = '';
   @override
   Widget build(BuildContext context) {
+    currentlocationfinder();
     return offlineWidget(context);
 }
 
@@ -87,6 +95,14 @@ Widget offlineWidget(BuildContext context){
                         ),
                       ),
                     ),
+                    Container(
+                      child: Text('$_inUploadedTime',
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.blue,
+                        ),
+                      ),
+                    ),
                   ],
                 ),
                 SizedBox(height: 10,),
@@ -101,7 +117,15 @@ Widget offlineWidget(BuildContext context){
                           width: 200,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
-                            color: Colors.black,
+                            color: Colors.grey[300],
+                          ),
+                          child: Center(
+                            child: Text('  Tap here to \nupload image',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 20,
+                            ),
+                            ),
                           ),
                         ),
                       ],
@@ -135,8 +159,17 @@ Widget offlineWidget(BuildContext context){
                         ),
                       ),
                     ),
+                    Container(
+                      child: Text(' $_outUploadedTime',
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.blue,
+                        ),
+                      ),
+                    ),
                   ],
                 ),
+
                 SizedBox(height: 10,),
                 GestureDetector(onTap:() => _captureImage(1),
                   child: _outTimeImage == null
@@ -149,8 +182,16 @@ Widget offlineWidget(BuildContext context){
                         width: 200,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color: Colors.black,
+                          color: Colors.grey[300],
                         ),
+                        child:Center(
+                          child: Text('  Tap here to \nupload image',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 20,
+                            ),
+                          ),
+                        )
                       ),
                     ],
                   )
@@ -191,9 +232,46 @@ Widget offlineWidget(BuildContext context){
   }
 
   Future<void> _captureImage(int type) async{
+  if(inLocation){
     File uploadImage = await ImagePicker.pickImage(source: IMAGE_SOURCE);
     setState(() {
-      type == 0 ? _inTimeImage = uploadImage : _outTimeImage = uploadImage;
+      type == 0 ? {_inTimeImage = uploadImage, _inUploadedTime = DateTime.now().toString()} : {_outTimeImage = uploadImage, _outUploadedTime = DateTime.now().toString()};
+      _inUploadedTime = DateTime.now().toString();
     });
+  }else{
+    PlatformExceptionAlertDialog(
+      title: 'ERROR',
+      exception: PlatformException(code: '', message: 'You are not in site location. Please make sure you are in site location.'),
+    ).show(context);
+  }
+  }
+
+    Future<bool>currentlocationfinder() async{
+
+      Geolocator()..forceAndroidLocationManager = true;
+    await Geolocator().checkGeolocationPermissionStatus();
+    Position position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.best);
+    debugPrint('location: ${position.latitude}');
+    final coordinates = new Coordinates(position.latitude, position.longitude);
+    var addresses = await Geocoder.local.findAddressesFromCoordinates(coordinates);
+    var first = addresses.first;
+    print("${first.featureName} : ${first.addressLine}");
+    double distanceInMeters = await Geolocator().distanceBetween(position.latitude, position.longitude, 37.785834, -122.406417);
+    double distance = 500.0;
+    double lat = position.latitude;
+    double lon = position.longitude;
+
+    if(distanceInMeters>distance){
+      print('not in location latitude: $lat and longitude: $lon, distance is $distanceInMeters');
+      setState(() {
+        inLocation = false;
+      });
+    }
+    else{
+      print('in location latitude: $lat and longitude: $lon, distance is $distanceInMeters');
+      setState(() {
+        inLocation = true;
+      });
+    }
   }
 }

@@ -45,6 +45,9 @@ dependencies:
   flutter_cupertino_date_picker: ^1.0.12
   dropdown_formfield: ^0.1.1
   dropdownfield: ^1.0.3
+  geolocator: ^5.3.0
+  geocoder: ^0.2.1
+  location: ^2.5.4
 
 dev_dependencies:
   flutter_test:
