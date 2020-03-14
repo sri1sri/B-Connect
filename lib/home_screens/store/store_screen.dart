@@ -84,7 +84,7 @@ class _F_StorePageState extends State<F_StorePage> {
                 Navigator.pop(context, true);
               },
               rightActionBar: Container(
-                  child: widget.employee.role != 'Site Manager' ? Container() : IconButton(
+                  child: widget.employee.role != 'Site Engineer' ? Container() : IconButton(
                     icon: Icon(
                       Icons.shopping_cart,
                       size: 40,

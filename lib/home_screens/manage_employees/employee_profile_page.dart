@@ -622,6 +622,7 @@ class _F_EmployeeProfilePageState extends State<F_EmployeeProfilePage> {
                           "Supervisor",
                           "Security",
                           "Store Manager",
+                          "Site Engineer"
                           ],
                           onSelected: (String selectedRole) => widget.selectedRole = selectedRole
                   ),

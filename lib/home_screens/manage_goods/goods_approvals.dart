@@ -9,8 +9,10 @@ import 'package:bhavani_connect/database_model/goods_entry_model.dart';
 import 'package:bhavani_connect/firebase/database.dart';
 import 'package:bhavani_connect/home_screens/manage_goods/add_goods_entry_page.dart';
 import 'package:bhavani_connect/home_screens/manage_goods/goods_details_page.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:simple_animations/simple_animations/controlled_animation.dart';
@@ -49,6 +51,35 @@ class _F_GoodsApprovalsPageState extends State<F_GoodsApprovalsPage> {
     Track("color2").add(Duration(seconds: 3),
         ColorTween(begin: Colors.grey.shade400, end: Colors.grey.shade300))
   ]);
+
+
+
+  DateTime selectedDate = DateTime.now();
+  var customFormat = DateFormat("dd MMMM yyyy 'at' HH:mm:ss 'UTC+5:30'");
+  var customFormat2 = DateFormat("dd MMMM yyyy");
+
+//  final FirebaseStorage _storage =
+//  FirebaseStorage(storageBucket: 'gs://bconnect-9d1b5.appspot.com/');
+//  StorageUploadTask _uploadTask;
+//  String _profilePicPathURL;
+
+  Future<Null> showPicker(BuildContext context) async {
+    final DateTime picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2020),
+      lastDate: DateTime.now(),
+    );
+    if (picked != null) {
+      setState(() {
+        print(customFormat.format(picked));
+        selectedDate = picked;
+      });
+    }
+  }
+
+
+
 
   Widget addGoods(){
     if(widget.employee.role == 'Security'){
@@ -99,7 +130,46 @@ class _F_GoodsApprovalsPageState extends State<F_GoodsApprovalsPage> {
               tabBarWidget: null,
             ),
           ),
-          body: _buildContent(context),
+          body: Column(
+
+              children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.only(top: 0, bottom: 10),
+                  child: Container(
+                    child: RaisedButton(
+                      color: Colors.white,
+                      child: Container(
+                        height: 60,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Container(
+                              child: Row(
+                                children: <Widget>[
+                                  Icon(
+                                    Icons.date_range,
+                                    size: 18.0,
+                                    color: backgroundColor,
+                                  ),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Text('${customFormat2.format(selectedDate)}',
+                                      style: subTitleStyle),
+                                ],
+                              ),
+                            ),
+                            Text('Change', style: subTitleStyle),
+                          ],
+                        ),
+                      ),
+                      onPressed: () => showPicker(context),
+                    ),
+                  ),
+                ),
+                Expanded(child: _buildContent(context))]
+
+          ),
         ),
       ),
     );
@@ -126,6 +196,7 @@ class _F_GoodsApprovalsPageState extends State<F_GoodsApprovalsPage> {
                       children: <Widget>[
                         Column(
                           children: <Widget>[
+
                             _ItemEntry(
                                 context,
                                 GoodsDetailsPage(

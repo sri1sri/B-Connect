@@ -285,7 +285,7 @@ class _F_OrderedItemsPageState extends State<F_OrderedItemsPage> {
           children: [
             SizedBox(height: 15),
             Text(
-              "Site Manager requested Time",
+              "Site Engineer requested Time",
               style: descriptionStyle,
             ),
             SizedBox(height: 10),
@@ -323,7 +323,7 @@ class _F_OrderedItemsPageState extends State<F_OrderedItemsPage> {
             ),
             SizedBox(height: 20),
             Text(
-              "Site Manager Received Time",
+              "Site Engineer Received Time",
               style: descriptionStyle,
             ),
             SizedBox(height: 10),
@@ -388,7 +388,7 @@ class _F_OrderedItemsPageState extends State<F_OrderedItemsPage> {
     switch (approvalLevel) {
       case 0:
         if (widget.employee.role == 'Manager') {
-          return _approvalButtonWidget('Accpet Site Manager request', () {
+          return _approvalButtonWidget('Accpet Site Engineer request', () {
             final _orderDetails = OrderDetails(
               managerApprovalTimestamp: Timestamp.fromDate(DateTime.now()),
               managerID: widget.employee.employeeID,
@@ -421,7 +421,7 @@ class _F_OrderedItemsPageState extends State<F_OrderedItemsPage> {
         }
         break;
       case 2:
-        if (widget.employee.role == 'Site Manager') {
+        if (widget.employee.role == 'Site Engineer') {
           return _approvalButtonWidget('Items Received', () {
             final _orderDetails = OrderDetails(
               siteManagerReceivedTimestamp: Timestamp.fromDate(DateTime.now()),
