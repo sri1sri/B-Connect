@@ -1,6 +1,7 @@
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 
 void GoToPage(BuildContext context, Widget page) {
@@ -16,6 +17,8 @@ void GoToPage(BuildContext context, Widget page) {
 //String branchName;
 
 String EMPLOYEE_ID;
+ImageSource IMAGE_SOURCE = ImageSource.gallery;
+
 
 String getDateTime(int timestamp) {
   var format = new DateFormat('dd MMM yyyy, hh:mm a');

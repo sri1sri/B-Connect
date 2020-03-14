@@ -109,7 +109,7 @@ class _F_SignUpPageState extends State<F_SignUpPage> {
   }
 
   Future<void> _captureImage() async{
-    File profileImage = await ImagePicker.pickImage(source: ImageSource.gallery);
+    File profileImage = await ImagePicker.pickImage(source: IMAGE_SOURCE);
 setState(() {
   _profilePic = profileImage;
   print(_profilePic);
