@@ -607,7 +607,7 @@ class _F_GoodsDetailsPageState extends State<F_GoodsDetailsPage> {
 
   Widget _ItemCard(ItemEntry data) {
     print(
-        'comp = ${data.categoryName},${data.categoryName},${data.measure}, ${data.quantity}');
+        'comp = ${data.categoryName},${data.categoryName},${data.measure}, ${data.quantityAvailable}');
     return Container(
       child: Card(
         shape: RoundedRectangleBorder(
@@ -633,7 +633,7 @@ class _F_GoodsDetailsPageState extends State<F_GoodsDetailsPage> {
                     height: 10,
                   ),
                   Text(
-                    data.quantity.toString(),
+                    data.quantityAvailable.toString(),
                     style: descriptionStyleDark,
                   ),
                   SizedBox(
@@ -674,7 +674,7 @@ class _F_GoodsDetailsPageState extends State<F_GoodsDetailsPage> {
                     height: 10,
                   ),
                   Text(
-                    data.quantity.toString(),
+                    data.quantityAvailable.toString(),
                     style: descriptionStyleDark,
                   ),
                 ]),

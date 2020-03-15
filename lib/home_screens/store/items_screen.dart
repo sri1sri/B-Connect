@@ -170,7 +170,7 @@ class _F_ItemsPageState extends State<F_ItemsPage> {
                           height: 10,
                         ),
                         Text(
-                          ('${data.quantity} ${data.measure}'),
+                          ('${data.quantityAvailable} ${data.measure}'),
                           style: descriptionStyleDark,
                         ),
                       ]),
@@ -182,7 +182,7 @@ class _F_ItemsPageState extends State<F_ItemsPage> {
 
                   widget.employee.role != 'Site Engineer'
                       ? Container()
-                      : data.quantity == 0 ? Container() : Container(
+                      : data.quantityAvailable == 0 ? Container() : Container(
                           child: AnimatedButton(
                             onTap: () {
                               final _cartEntry = Cart(

@@ -488,7 +488,8 @@ class _F_ItemsEntryState extends State<F_ItemsEntry> {
             itemName: _itemName,
             companyName: _companyName,
             categoryName: _categoryName,
-            quantity: _quantity,
+            quantityAvailable: _quantity,
+            totalQuantity: _quantity,
             goodsID: widget.goodsID,
             measure: _measure,
             item_id: DateTime.now().toString());

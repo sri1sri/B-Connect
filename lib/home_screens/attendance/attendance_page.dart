@@ -12,6 +12,7 @@ import 'package:flutter/services.dart';
 import 'package:geocoder/geocoder.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 
 class AttendancePage extends StatelessWidget {
   @override
@@ -235,7 +236,7 @@ Widget offlineWidget(BuildContext context){
   if(inLocation){
     File uploadImage = await ImagePicker.pickImage(source: IMAGE_SOURCE);
     setState(() {
-      type == 0 ? {_inTimeImage = uploadImage, _inUploadedTime = DateTime.now().toString()} : {_outTimeImage = uploadImage, _outUploadedTime = DateTime.now().toString()};
+      type == 0 ? {_inTimeImage = uploadImage, _inUploadedTime = DateFormat("dd MMMM yyyy").format(DateTime.now()).toString()} : {_outTimeImage = uploadImage, _outUploadedTime = DateTime.now().toString()};
       _inUploadedTime = DateTime.now().toString();
     });
   }else{

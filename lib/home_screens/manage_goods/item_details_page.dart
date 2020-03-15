@@ -172,7 +172,7 @@ class _F_ItemDetailsPageState extends State<F_ItemDetailsPage> {
                       SizedBox(height: 10,),
                       Text("Quantity",style: descriptionStyle,),
                       SizedBox(height: 10,),
-                      Text('${data.quantity.toString()} ${data.measure}',style: descriptionStyleDark,),
+                      Text('${data.quantityAvailable.toString()} ${data.measure}',style: descriptionStyleDark,),
                     ]
                 ),
               ],

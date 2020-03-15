@@ -39,7 +39,7 @@ class F_CartPage extends StatefulWidget {
 class _F_CartPageState extends State<F_CartPage> {
   var itemIDs = [];
   var cartIDs = [];
-  var itemQuantity =[];
+  var orderedItemQuantity =[];
   @override
   Widget build(BuildContext context) {
     return offlineWidget(context);
@@ -122,17 +122,15 @@ class _F_CartPageState extends State<F_CartPage> {
               StreamBuilder<ItemEntry>(
                 stream: widget.database.viewItem(cartData.itemID),
                 builder: (context, snapshot) {
-//                  for(var i = 0 ; i > cartSnapshot.data.length; i++){
-//                    itemQuantity.insert(i, cartData.quantity);
-//                    print('item qyantity == ${itemQuantity}');
-//                  }
+
 
                   cartIDs.add(cartData.cartID);
-                  itemQuantity.add(cartData.quantity);
-print(itemQuantity);
+                  orderedItemQuantity.add(cartData.quantity);
 
                   final itemData = snapshot.data;
                   itemIDs.add(itemData.itemID);
+
+
                       return Container(
                   child: SingleChildScrollView(
                     padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
@@ -217,13 +215,13 @@ print(itemQuantity);
                     height: 10,
                   ),
                   Text(
-                    "Quantity",
+                    "Quantity available",
                     style: descriptionStyle,
                   ),
                   SizedBox(
                     height: 10,
                   ),
-                  Text('${itemData.quantity} ${itemData.measure}',
+                  Text('${itemData.quantityAvailable} ${itemData.measure}',
                     style: descriptionStyleDark,
                   ),
                 ]),
@@ -292,6 +290,10 @@ print(itemQuantity);
                   backgroundColor: removeButtonBackgroundColor,
                   onPressed: () => {
                     widget.database.deleteCartItem(cartData.cartID),
+                    print('itemIDs1 => ${itemIDs}'),
+                  itemIDs.clear(),
+                    print('itemIDs 2=> ${itemIDs}'),
+
                   },
                 ),
               ],
@@ -321,11 +323,15 @@ print(itemQuantity);
       managerApprovalTimestamp: Timestamp.fromDate(DateTime.parse('2000-01-01 00:00:00.000')),
       siteManagerReceivedTimestamp: Timestamp.fromDate(DateTime.parse('2000-01-01 00:00:00.000')),
       status: 0,
-      itemQuantity: itemQuantity.sublist((itemQuantity.length - 2), itemQuantity.length),
+      itemQuantity: orderedItemQuantity.sublist((orderedItemQuantity.length - cartIDs.length), orderedItemQuantity.length),
       empty: null,
     );
 
     itemIDs == null ? null : await widget.database.ordersEntry(_submitOrder);
+
+    //final _itemEntry = ItemEntry(quantityAvailable: );
+
+
 
     for(var i = 0; i < cartIDs.length; i++){
       cartIDs = cartIDs.toSet().toList();
@@ -334,6 +340,6 @@ print(itemQuantity);
   }
     itemIDs.clear();
     cartIDs.clear();
-    itemQuantity.clear();
+    orderedItemQuantity.clear();
   }
 }

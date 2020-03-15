@@ -43,6 +43,7 @@ abstract class Database{
   Future<void> updateOrderDetails(OrderDetails orderDetails, String itemID);
   Future<void> updateCartDetails(Cart cartDetails, String cartID);
   Future<void> updateEmployeeDetails(EmployeeDetails employeeDetails, String employeeUID);
+  Future<void> updateItemDetails(ItemEntry itemDetails, String itemID);
 
 
 }
@@ -112,7 +113,7 @@ class FirestoreDatabase implements Database {
   Stream<List<ItemEntry>> viewItemsList(String goodsID) =>  _service.collectionStream(
     path: APIPath.viewItemsList(),
     builder: (data, documentId) => ItemEntry.fromMap(data, documentId),
-    queryBuilder: goodsID != null ? (query) => query.where('goods_id', isEqualTo: goodsID) : (query) => query.where('quantity', isGreaterThan: -1),
+    queryBuilder: goodsID != null ? (query) => query.where('goods_id', isEqualTo: goodsID) : (query) => query.where('quantity_available', isGreaterThan: -1),
   );
 
   @override
@@ -218,5 +219,11 @@ class FirestoreDatabase implements Database {
   Future<void> updateEmployeeDetails(EmployeeDetails employeeDetails, String employeeUID) async => await _service.updateData(
     path: APIPath.employeeDetails(employeeUID),
     data: employeeDetails.toMap(),
+  );
+
+  @override
+  Future<void> updateItemDetails(ItemEntry itemDetails, String itemID) async => await _service.updateData(
+    path: APIPath.addItem(itemID),
+    data: itemDetails.toMap(),
   );
 }
