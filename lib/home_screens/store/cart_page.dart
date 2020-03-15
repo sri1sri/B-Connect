@@ -5,15 +5,15 @@ import 'package:bhavani_connect/database_model/cart_model.dart';
 import 'package:bhavani_connect/database_model/items_entry_model.dart';
 import 'package:bhavani_connect/database_model/order_details_model.dart';
 import 'package:bhavani_connect/firebase/database.dart';
-import 'package:bhavani_connect/home_screens/store/add_description.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:bhavani_connect/common_variables/app_colors.dart';
 import 'package:bhavani_connect/common_variables/app_fonts.dart';
 import 'package:bhavani_connect/common_widgets/button_widget/to_do_button.dart';
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
+import 'package:bhavani_connect/home_screens/store/store_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 
 class CartPage extends StatelessWidget {
   CartPage({@required this.database});
@@ -107,6 +107,9 @@ class _F_CartPageState extends State<F_CartPage> {
     );
   }
 
+//  _updateItemQuantity(){
+//    itemQuantity.add(cartData.quantity)
+//  }
 
   Widget _cartContent(BuildContext context) {
     return StreamBuilder<List<Cart>>(
@@ -117,16 +120,21 @@ class _F_CartPageState extends State<F_CartPage> {
           itemBuilder: (context, cartData) =>
 
               StreamBuilder<ItemEntry>(
-                stream: widget.database.viewItem((cartData == null ? 0 : cartData.itemID)),
+                stream: widget.database.viewItem(cartData.itemID),
                 builder: (context, snapshot) {
 
-
                   cartIDs.add(cartData.cartID);
+                  cartIDs = cartIDs.toSet().toList();
+                  print('cartIDs --> ${cartIDs}');
+
+
                   orderedItemQuantity.add(cartData.quantity);
 
-                  final itemData = snapshot.data;
-                  itemIDs.add(cartData == null ? 0 : cartData.itemID);
 
+                  final itemData = snapshot.data;
+                  itemIDs.add(itemData.itemID);
+                  itemIDs = itemIDs.toSet().toList();
+                  print('itemsID --> ${itemIDs}');
 
                       return Container(
                   child: SingleChildScrollView(
@@ -178,7 +186,7 @@ class _F_CartPageState extends State<F_CartPage> {
                     height: 10,
                   ),
                   Text(
-                    (itemData == null ? "" : itemData.companyName),
+                    itemData.companyName,
                     style: descriptionStyleDark,
                   ),
                   SizedBox(
@@ -192,7 +200,7 @@ class _F_CartPageState extends State<F_CartPage> {
                     height: 10,
                   ),
                   Text(
-                    (itemData == null ? "" : itemData.itemName),
+                    itemData.itemName,
                     style: descriptionStyleDark,
                   ),
                 ]),
@@ -205,7 +213,7 @@ class _F_CartPageState extends State<F_CartPage> {
                     height: 10,
                   ),
                   Text(
-                    (itemData == null ? "" : itemData.categoryName),
+                    itemData.categoryName,
                     style: descriptionStyleDark,
                   ),
                   SizedBox(
@@ -218,14 +226,12 @@ class _F_CartPageState extends State<F_CartPage> {
                   SizedBox(
                     height: 10,
                   ),
-                  Text('${(itemData == null ? "" : itemData.quantityAvailable)} ${(itemData == null ? "" : itemData.measure)}',
+                  Text('${itemData.quantityAvailable} ${itemData.measure}',
                     style: descriptionStyleDark,
                   ),
                 ]),
               ],
             ),
-
-
             SizedBox(
               height: 20,
             ),
@@ -243,6 +249,7 @@ class _F_CartPageState extends State<F_CartPage> {
                               quantity: cartData.quantity + 1);
                           widget.database.updateCartDetails(
                               _cartEntry, cartData.cartID);
+                          //itemQuantity.insert(, (cartData.quantity + 1));
 
                         }
                       },
@@ -267,6 +274,8 @@ class _F_CartPageState extends State<F_CartPage> {
                              quantity: cartData.quantity - 1);
                          widget.database.updateCartDetails(
                              _cartEntry, cartData.cartID);
+                        // itemQuantity.insert(i, (cartData.quantity - 1));
+
                        }
 
                       },
@@ -286,9 +295,7 @@ class _F_CartPageState extends State<F_CartPage> {
                   backgroundColor: removeButtonBackgroundColor,
                   onPressed: () => {
                     widget.database.deleteCartItem(cartData.cartID),
-                    print('itemIDs1 => ${itemIDs}'),
                   itemIDs.clear(),
-                    print('itemIDs 2=> ${itemIDs}'),
                   },
                 ),
               ],
@@ -306,9 +313,11 @@ class _F_CartPageState extends State<F_CartPage> {
     itemIDs = itemIDs.toSet().toList();
     cartIDs = cartIDs.toSet().toList();
 
+print('itemsID --> ${itemIDs}');
+    print('cartIDs --> ${cartIDs}');
 
     final _submitOrder = OrderDetails(
-      itemID: itemIDs,
+      itemID: itemIDs.sublist((itemIDs.length - cartIDs.length), itemIDs.length),
       siteManagerID: EMPLOYEE_ID,
       supervisorID: 'Not assigned',
       managerID: 'Not assigned',
@@ -323,6 +332,10 @@ class _F_CartPageState extends State<F_CartPage> {
     );
 
     itemIDs == null ? null : await widget.database.ordersEntry(_submitOrder);
+
+    //final _itemEntry = ItemEntry(quantityAvailable: );
+
+
 
     for(var i = 0; i < cartIDs.length; i++){
       cartIDs = cartIDs.toSet().toList();

@@ -8,11 +8,12 @@ import 'package:bhavani_connect/database_model/cart_model.dart';
 import 'package:bhavani_connect/database_model/employee_details_model.dart';
 import 'package:bhavani_connect/database_model/items_entry_model.dart';
 import 'package:bhavani_connect/firebase/database.dart';
-import 'package:bhavani_connect/home_screens/store/add_description.dart';
+import 'package:bhavani_connect/home_screens/store/no_access_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'add_description.dart';
 import 'categories_tab.dart';
 
 class ItemsPage extends StatelessWidget {
@@ -47,6 +48,9 @@ class F_ItemsPage extends StatefulWidget {
 }
 
 class _F_ItemsPageState extends State<F_ItemsPage> {
+
+  String cartBtnTitle;
+
   @override
   Widget build(BuildContext context) {
     return offlineWidget(context);
@@ -84,9 +88,7 @@ class _F_ItemsPageState extends State<F_ItemsPage> {
                             _ItemCard(itemData, (snapshot.data == null ? 0 : snapshot.data.length)
                                // snapshot.data.length
                             ),
-                            SizedBox(
-                              height: 20,
-                            ),
+                            SizedBox(height: 20),
                           ],
                         ),
                       ),
@@ -182,7 +184,7 @@ class _F_ItemsPageState extends State<F_ItemsPage> {
 
                   widget.employee.role != 'Site Engineer'
                       ? Container()
-                      : data.quantityAvailable == 0 ? Container() : Container(
+                      : data.quantityAvailable == 0 ? Container(child: Text('No stock'),) : Container(
                           child: AnimatedButton(
                             onTap: () {
                               final _cartEntry = Cart(
@@ -192,12 +194,9 @@ class _F_ItemsPageState extends State<F_ItemsPage> {
                                   addedDate:
                                       Timestamp.fromDate(DateTime.now()),
                               quantity: 1);
-                              widget.database.setcartItems(
-                                  _cartEntry, DateTime.now().toString());
+                              length == 0 ? widget.database.setcartItems(_cartEntry, DateTime.now().toString()) : null;
 
-                              GoToPage(context, AddDescription(database: widget.database,cartID: ''));
-
-
+                              length == 0 ? GoToPage(context, AddDescription(database: widget.database,cartID: '')) : null;
 
                             },
                             animationDuration:

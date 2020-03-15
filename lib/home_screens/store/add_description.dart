@@ -124,7 +124,7 @@ class _F_AddDescriptionState extends State<F_AddDescription> {
               Container(
                 child: AnimatedButton(
 //                  onTap: _submit,
-                  animationDuration: const Duration(milliseconds: 1000)/,
+                  animationDuration: const Duration(milliseconds: 1000),
                   initialText: "Add item usage",
                   finalText: "Description Added",
                   iconData: Icons.check,
