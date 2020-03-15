@@ -7,8 +7,6 @@ import 'offline_page.dart';
 class CustomOfflineWidget extends StatelessWidget {
 
   CustomOfflineWidget({this.onlineChild});
-
- // final Widget offlineChild;
   final Widget onlineChild;
 
   @override

@@ -11,16 +11,12 @@ import 'package:bhavani_connect/home_screens/settings_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:url_launcher/url_launcher.dart';
-//import 'package:flutter_launch/flutter_launch.dart';
-
 
 
 Future<void> _signOut(BuildContext context) async {
   try {
     final auth = Provider.of<AuthBase>(context, listen: false);
     await auth.signOut();
-    //Navigator.of(context).pop();
   } catch (e) {
     print(e.toString());
   }
@@ -77,7 +73,6 @@ class _F_ProfilePageState extends State<F_ProfilePage> {
           appBar:
           PreferredSize(
             preferredSize: Size.fromHeight(150),
-            //preferredSize : Size(double.infinity, 100),
             child: CustomAppBar(
               leftActionBar: null,
               leftAction: (){
@@ -133,9 +128,6 @@ class _F_ProfilePageState extends State<F_ProfilePage> {
                         Container(
                             height: 400,
                             width: 440,
-                            //color: Colors.red,
-                            //padding: EdgeInsets.symmetric(horizontal: -60.0),
-//                            margin: const EdgeInsets.only(left: .2),
                             child: Column(children: <Widget>[
                               Stack(children: [
                                 Container(
@@ -164,17 +156,12 @@ class _F_ProfilePageState extends State<F_ProfilePage> {
                                             borderRadius: BorderRadius.circular(10.0),
                                             color: Colors.white),
                                         child: Column(
-                                          // crossAxisAlignment: CrossAxisAlignment.center,
                                             children: <Widget>[
                                               SizedBox(
                                                 height: 70,
                                               ),
                                               Text(
-
                                                  (employee == null ? "" : employee.employeeName),
-
-
-//                                                '${employee.employeeName}',
                                                 style: titleStyle,
                                               ),
                                               SizedBox(
@@ -182,7 +169,6 @@ class _F_ProfilePageState extends State<F_ProfilePage> {
                                               ),
                                               Text(
                                                 (employee == null ? "" : employee.employeeContactNumber),
-//                                                '${employee.employeeContactNumber}',
                                                 style: descriptionStyleDark,
                                               ),
                                               SizedBox(
@@ -269,22 +255,8 @@ class _F_ProfilePageState extends State<F_ProfilePage> {
                                     radius: 30.0,
                                     backgroundImage:
                                         NetworkImage((employee == null ? "" : employee.employeeImagePath)),
-//                                    AssetImage("images/profile_image.jpg"),
                                     backgroundColor: Colors.transparent,
                                   ),
-
-
-
-//                                    Container(
-//                                        height: 50.0,
-//                                        width: 50.0,
-//                                        decoration: BoxDecoration(
-//                                            borderRadius:
-//                                            BorderRadius.circular(100.0),
-//                                            image: DecorationImage(
-//                                                image: AssetImage(
-//                                                    "images/profile_image.jpg"),
-//                                                fit: BoxFit.fill)))
                                 ),
                               ]),
                             ])),

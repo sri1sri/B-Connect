@@ -3,14 +3,10 @@ import 'dart:async';
 import 'package:bhavani_connect/common_variables/app_colors.dart';
 import 'package:bhavani_connect/common_variables/app_fonts.dart';
 import 'package:bhavani_connect/common_variables/app_functions.dart';
-import 'package:bhavani_connect/common_widgets/button_widget/to_do_button.dart';
 import 'package:bhavani_connect/common_widgets/custom_appbar_widget/custom_app_bar.dart';
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
-import 'package:bhavani_connect/database_model/goods_entry_model.dart';
 import 'package:bhavani_connect/firebase/database.dart';
-import 'package:bhavani_connect/home_screens/camera_screens/Camera_page.dart';
 import 'package:bhavani_connect/home_screens/manage_goods/uploader_file.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -151,7 +147,6 @@ class _F_AddGoodsEntryPageState extends State<F_AddGoodsEntryPage> {
                       child: Container(
                         width: 200,
                         height: 20,
-//                        color: Colors.green,
                         child: Center(child: Text('tap to add vehicle photo',style: descriptionStyle)),
                       ),
                       onTap: () {

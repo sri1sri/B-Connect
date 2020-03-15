@@ -270,9 +270,6 @@ setState(() {
   Future<void> _submit(String path) async {
     try {
       FirebaseUser user = await FirebaseAuth.instance.currentUser();
-
-//      _imageUpload();
-
       final employeeDetails = EmployeeDetails(
         username: _usernameController.value.text,
         phoneNumber: '+91${widget.phoneNo}',

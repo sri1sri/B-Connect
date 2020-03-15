@@ -11,17 +11,20 @@ class GoodsEmptyContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          SizedBox(height: 20.0,),
-          Text(title, style: TextStyle(fontSize: 30.0, color: Colors.blueGrey),
-          ),
-          SizedBox(height: 10.0,),
-          Text(message, style: TextStyle(fontSize: 18.0, color: Colors.blueGrey,fontWeight: FontWeight.w600),
-          ),
-          SizedBox(height: 40.0,),
-        ],
+      child: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            SizedBox(height: 20.0,),
+            Text(title, style: TextStyle(fontSize: 30.0, color: Colors.blueGrey),
+            ),
+            SizedBox(height: 10.0,),
+            Text(message, style: TextStyle(fontSize: 18.0, color: Colors.blueGrey,fontWeight: FontWeight.w600),
+            ),
+            SizedBox(height: 40.0,),
+          ],
+        ),
       ),
     );
   }

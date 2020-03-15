@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'dart:async';
-import 'package:bhavani_connect/home_screens/manage_goods/uploader_file.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
@@ -78,7 +77,6 @@ class _F_CameraPageState extends State<F_CameraPage> {
                 )
               ],
             ),
-           // Uploader(file: _imageFile),
           ]
         ],
       ),

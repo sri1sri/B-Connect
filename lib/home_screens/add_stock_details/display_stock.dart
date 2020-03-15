@@ -7,7 +7,6 @@ import 'package:bhavani_connect/database_model/common_variables_model.dart';
 import 'package:bhavani_connect/firebase/database.dart';
 import 'package:bhavani_connect/home_screens/add_stock_details/edit_stock.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 class DisplayStock extends StatelessWidget {
   DisplayStock({@required this.database, @required this.title});
@@ -50,7 +49,6 @@ class _F_DisplayStockState extends State<F_DisplayStock> {
         child: Scaffold(
           appBar: PreferredSize(
             preferredSize: Size.fromHeight(120),
-            //preferredSize : Size(double.infinity, 100),
             child: CustomAppBar(
               leftActionBar: Container(
                 child: Icon(Icons.arrow_back, size: 40,color: Colors.black38,),
@@ -145,22 +143,19 @@ class _F_DisplayStockState extends State<F_DisplayStock> {
     switch (widget.title){
       case 'Companies':
         return (data == null ? 0 : data.companies.length);
-          //data.companies.length;
         break;
 
       case 'Categories':
         return (data == null ? 0 : data.categories.length);
-        //data.categories.length;
+
         break;
 
       case 'Items':
         return (data == null ? 0 : data.itemNames.length);
-        //data.itemNames.length;
         break;
 
       case 'Measures':
         return (data == null ? 0 : data.measures.length);
-        //data.itemNames.length;
         break;
     }
   }

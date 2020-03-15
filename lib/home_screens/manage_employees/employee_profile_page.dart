@@ -7,13 +7,11 @@ import 'package:bhavani_connect/database_model/common_variables_model.dart';
 import 'package:bhavani_connect/database_model/employee_details_model.dart';
 import 'package:bhavani_connect/database_model/employee_list_model.dart';
 import 'package:bhavani_connect/firebase/database.dart';
-import 'package:bhavani_connect/firebase/firebase_common_variables.dart';
+import 'package:bhavani_connect/home_screens/store/add_description.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:grouped_buttons/grouped_buttons.dart';
 import 'package:url_launcher/url_launcher.dart';
-//import 'package:flutter_picker/flutter_picker.dart';
-
 
 void customLaunch(command) async {
   if (await canLaunch(command)) {
@@ -67,7 +65,6 @@ class _F_EmployeeProfilePageState extends State<F_EmployeeProfilePage> {
           appBar:
           PreferredSize(
             preferredSize: Size.fromHeight(120),
-            //preferredSize : Size(double.infinity, 100),
             child: CustomAppBar(
               leftActionBar: Container(
                 child: Icon(Icons.arrow_back, size: 40,color: Colors.black38,),
@@ -76,7 +73,6 @@ class _F_EmployeeProfilePageState extends State<F_EmployeeProfilePage> {
                 Navigator.pop(context,true);
               },
               rightActionBar: Container(
-                //child: Icon(Icons.notifications, size: 40,),
               ),
               rightAction: (){
                 print('right action bar is pressed in appbar');
@@ -86,31 +82,6 @@ class _F_EmployeeProfilePageState extends State<F_EmployeeProfilePage> {
               tabBarWidget: null,
             ),
           ),
-
-//          new AppBar(
-//            backgroundColor: Color(0xFF1F4B6E),
-//            title: Center(
-//                child: Text(
-//              'Employee details',
-//              style: subTitleStyleLight,
-//            )),
-//            leading: IconButton(
-//              icon: Icon(Icons.arrow_back),
-//              onPressed: () => Navigator.pop(context, false),
-//            ),
-//            centerTitle: true,
-//            actions: <Widget>[
-//              FlatButton(
-//                child: Text('',
-//                  style: TextStyle(
-//                    fontSize: 18,
-//                    color: Colors.white,
-//                  ),
-//                ),
-//                onPressed: ()=> print(''),
-//              )
-//            ],
-//          ),
           body: _buildContent(context),
         ),
       ),
@@ -130,7 +101,6 @@ class _F_EmployeeProfilePageState extends State<F_EmployeeProfilePage> {
             builder: (context, snapshots) {
 
               final commonVariables = snapshots.data;
-             // print('roles=>${commonVariables.employeeRoles}');
 
               return SingleChildScrollView(
                 child: Center(
@@ -142,8 +112,6 @@ class _F_EmployeeProfilePageState extends State<F_EmployeeProfilePage> {
                         Container(
                             height: 430,
                             width: 440,
-                            //color: Colors.red,
-                            //padding: EdgeInsets.symmetric(horizontal: -60.0),
                             margin: const EdgeInsets.only(left: .2),
                             child: Column(children: <Widget>[
                               Stack(children: [
@@ -173,14 +141,12 @@ class _F_EmployeeProfilePageState extends State<F_EmployeeProfilePage> {
                                             borderRadius: BorderRadius.circular(10.0),
                                             color: Colors.white),
                                         child: Column(
-                                            // crossAxisAlignment: CrossAxisAlignment.center,
                                             children: <Widget>[
                                               SizedBox(
                                                 height: 70,
                                               ),
                                               Text(
                                                 (employee == null ? "" : employee.employeeName),
-                                               // '${employee.employeeName}',
                                                 style: titleStyle,
                                               ),
                                               SizedBox(
@@ -188,7 +154,6 @@ class _F_EmployeeProfilePageState extends State<F_EmployeeProfilePage> {
                                               ),
                                               Text(
                                                 (employee == null ? "" : employee.employeeContactNumber),
-                                                //'${employee.employeeContactNumber}',
                                                 style: descriptionStyleDark,
                                               ),
                                               SizedBox(
@@ -211,7 +176,6 @@ class _F_EmployeeProfilePageState extends State<F_EmployeeProfilePage> {
                                                       ),
                                                       Text(
                                                           (employee == null ? "" : employee.employeeRole),
-                                                         // '${employee.employeeRole}',
                                                           style:
                                                               descriptionStyleDark),
                                                     ],
@@ -268,7 +232,7 @@ class _F_EmployeeProfilePageState extends State<F_EmployeeProfilePage> {
                                                   MaterialButton(
                                                     minWidth: 20,
                                                     onPressed: () {
-                                                      //FlutterLaunch.launchWathsApp(phone: "${employee.employeeContactNumber}", message: "Hello ${employee.employeeName}");
+                                                     // FlutterLaunch.launchWathsApp(phone: "${employee.employeeContactNumber}", message: "Hello ${employee.employeeName}");
                                                     },
                                                     child: Column(
                                                       mainAxisAlignment:
@@ -354,7 +318,6 @@ class _F_EmployeeProfilePageState extends State<F_EmployeeProfilePage> {
                                   borderRadius: BorderRadius.circular(10.0),
                                   color: Colors.white),
                               child: Column(
-                                  // crossAxisAlignment: CrossAxisAlignment.center,
                                   children: <Widget>[
                                     SizedBox(
                                       height: 5,
@@ -482,92 +445,6 @@ class _F_EmployeeProfilePageState extends State<F_EmployeeProfilePage> {
         selected=v;
       });
     }
-
-//    Widget radiobuttons(BuildContext context){
-//      RadioListTile(value: 0,
-//          title: new Text('Manager'),
-//          activeColor: Colors.blue,
-//          groupValue: selected,
-//          onChanged: (int v){onChanged(v);});
-//      RadioListTile(value: 1,
-//          title: new Text('Manager'),
-//          activeColor: Colors.blue,
-//          groupValue: selected,
-//          onChanged: (int v){onChanged(v);});
-//      RadioListTile(value: 2,
-//          title: new Text('Manager'),
-//          activeColor: Colors.blue,
-//          groupValue: selected,
-//          onChanged: (int v){onChanged(v);});
-//      RadioListTile(value: 3,
-//          title: new Text('Manager'),
-//          activeColor: Colors.blue,
-//          groupValue: selected,
-//          onChanged: (int v){onChanged(v);});
-//      RadioListTile(value: 4,
-//          title: new Text('Manager'),
-//          activeColor: Colors.blue,
-//          groupValue: selected,
-//          onChanged: (int v){onChanged(v);});
-//      RadioListTile(value: 5,
-//          title: new Text('Manager'),
-//          activeColor: Colors.blue,
-//          groupValue: selected,
-//          onChanged: (int v){onChanged(v);});
-//    }
-
-//List<Widget> radioButtons(){
-//  List<Widget> list = new List<Widget>();
-//
-//
-//  list.add(new RadioListTile(value: 0,
-//      title: new Text('Manager'),
-//      activeColor: Colors.blue,
-//      groupValue: selected,
-//      onChanged: (int v){onChanged(v);})
-//  );
-//  list.add(new RadioListTile(value: 1,
-//      title: new Text('Manager'),
-//      activeColor: Colors.blue,
-//      groupValue: selected,
-//      onChanged: (int v){onChanged(v);})
-//  );
-//  list.add(new RadioListTile(value: 3,
-//      title: new Text('Manager'),
-//      activeColor: Colors.blue,
-//      groupValue: selected,
-//      onChanged: (int v){onChanged(v);})
-//  );
-//  list.add(new RadioListTile(value: 4,
-//      title: new Text('Manager'),
-//      activeColor: Colors.blue,
-//      groupValue: selected,
-//      onChanged: (int v){onChanged(v);})
-//  );
-//  list.add(new RadioListTile(value: 5,
-//      title: new Text('Manager'),
-//      activeColor: Colors.blue,
-//      groupValue: selected,
-//      onChanged: (int v){onChanged(v);})
-//  );
-//  list.add(new RadioListTile(value: 6,
-//      title: new Text('Manager'),
-//      activeColor: Colors.blue,
-//      groupValue: selected,
-//      onChanged: (int v){onChanged(v);})
-//  );
-//
-//  return list;
-//}
-
-
-
-
-
-
-
-
-
 
     Dialog fancyDialog = Dialog(
       shape: RoundedRectangleBorder(

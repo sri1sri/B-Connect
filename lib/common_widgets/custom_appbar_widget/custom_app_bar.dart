@@ -86,11 +86,6 @@ class CustomAppBar extends StatelessWidget {
           ),
         ),
         tabBarWidget == null ? Container(height: 0,width: 0,) :tabBarWidget,
-//        Container(
-//          child: tabBarWidget == null ? Container(height: 0,width: 0,)
-//          : tabBarWidget,
-//        ),
-
 
 
       ],

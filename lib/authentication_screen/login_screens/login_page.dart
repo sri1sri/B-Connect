@@ -5,7 +5,6 @@ import 'package:bhavani_connect/common_variables/app_functions.dart';
 import 'package:bhavani_connect/common_widgets/button_widget/to_do_button.dart';
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
 import 'package:bhavani_connect/firebase/auth.dart';
-import 'package:bhavani_connect/home_screens/manage_employees/manage_employees_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -68,8 +67,6 @@ class LoginPage extends StatelessWidget {
               SizedBox(height: 50),
               new Image.asset(
                   'images/1.JPG', width: 300, height: 150),
-//              new Image.asset(
-//                  'images/1.JPG', width: 300, height: 150),
             ],
           ),
           Column(children: <Widget>[

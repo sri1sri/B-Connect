@@ -1,19 +1,16 @@
 import 'package:bhavani_connect/common_variables/app_colors.dart';
 import 'package:bhavani_connect/common_variables/app_fonts.dart';
 import 'package:bhavani_connect/common_variables/app_functions.dart';
-import 'package:bhavani_connect/common_widgets/button_widget/to_do_button.dart';
 import 'package:bhavani_connect/common_widgets/custom_appbar_widget/custom_app_bar.dart';
 import 'package:bhavani_connect/common_widgets/list_item_builder/list_items_builder.dart';
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
 import 'package:bhavani_connect/database_model/employee_details_model.dart';
 import 'package:bhavani_connect/database_model/items_entry_model.dart';
 import 'package:bhavani_connect/firebase/database.dart';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import 'add_items_dropdown.dart';
-import 'add_items_entry_page.dart';
+
 
 class ItemDetailsPage extends StatelessWidget {
   ItemDetailsPage({@required this.database, @required this.goodsID, @required this.employee});
@@ -74,25 +71,6 @@ class _F_ItemDetailsPageState extends State<F_ItemDetailsPage> {
           leftAction: () {
             Navigator.pop(context, true);
           },
-//          rightActionBar: Container(
-//            child: Icon(
-//              Icons.add,
-//              size: 40,
-//              color: Colors.black38,
-//            ),
-//          ),
-//          rightAction: () {
-//
-//            widget.employee.role == 'Supervisor' ?
-//            GoToPage(
-//              context,
-//              ItemsEntry(
-//                database: widget.database,
-//                goodsID: widget.goodsID,
-//              ),
-//            ) : '';
-////            print('right action bar is pressed in appbar');
-//          },
           primaryText: null,
           secondaryText: 'Item Details',
           tabBarWidget: null,

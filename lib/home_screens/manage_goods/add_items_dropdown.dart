@@ -1,7 +1,5 @@
 import 'package:bhavani_connect/common_variables/app_colors.dart';
 import 'package:bhavani_connect/common_variables/app_fonts.dart';
-import 'package:bhavani_connect/common_variables/app_functions.dart';
-import 'package:bhavani_connect/common_widgets/button_widget/to_do_button.dart';
 import 'package:bhavani_connect/common_widgets/custom_appbar_widget/custom_app_bar.dart';
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
 import 'package:bhavani_connect/common_widgets/platform_alert/platform_exception_alert_dialog.dart';
@@ -9,9 +7,7 @@ import 'package:bhavani_connect/database_model/common_variables_model.dart';
 import 'package:bhavani_connect/database_model/goods_entry_model.dart';
 import 'package:bhavani_connect/database_model/items_entry_model.dart';
 import 'package:bhavani_connect/firebase/database.dart';
-//import 'package:configurable_expansion_tile/configurable_expansion_tile.dart';
 import 'package:dropdown_formfield/dropdown_formfield.dart';
-import 'package:dropdownfield/dropdownfield.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -31,23 +27,6 @@ class ItemsEntry extends StatelessWidget {
     );
   }
 }
-
-//class Company {
-//  int id;
-//  String name;
-//
-//  Company(this.id, this.name);
-//
-//  static List<Company> getCompanies() {
-//    return <Company>[
-//      Company(1, 'Apple'),
-//      Company(2, 'Google'),
-//      Company(3, 'Samsung'),
-//      Company(4, 'Sony'),
-//      Company(5, 'LG'),
-//    ];
-//  }
-//}
 
 class F_ItemsEntry extends StatefulWidget {
   F_ItemsEntry({@required this.database, @required this.goodsID});
@@ -87,7 +66,6 @@ class _F_ItemsEntryState extends State<F_ItemsEntry> {
         child: Scaffold(
           appBar: PreferredSize(
             preferredSize: Size.fromHeight(120),
-            //preferredSize : Size(double.infinity, 100),
             child: CustomAppBar(
               leftActionBar: Container(
                 child: Icon(
@@ -160,8 +138,6 @@ class _F_ItemsEntryState extends State<F_ItemsEntry> {
             child: Padding(
               padding: const EdgeInsets.all(15.0),
               child: Column(
-                //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //crossAxisAlignment: CrossAxisAlignment.center|,
                 children: _buildFormChildren(commonVariables),
               ),
             ),

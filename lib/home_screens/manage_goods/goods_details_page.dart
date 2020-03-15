@@ -8,7 +8,6 @@ import 'package:bhavani_connect/database_model/employee_details_model.dart';
 import 'package:bhavani_connect/database_model/goods_entry_model.dart';
 import 'package:bhavani_connect/database_model/items_entry_model.dart';
 import 'package:bhavani_connect/firebase/database.dart';
-import 'package:bhavani_connect/home_screens/manage_goods/add_items_dropdown.dart';
 import 'package:bhavani_connect/home_screens/manage_goods/item_details_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
@@ -58,7 +57,6 @@ class _F_GoodsDetailsPageState extends State<F_GoodsDetailsPage> {
         child: Scaffold(
           appBar: PreferredSize(
             preferredSize: Size.fromHeight(120),
-            //preferredSize : Size(double.infinity, 100),
             child: CustomAppBar(
               leftActionBar: Container(
                 child: Icon(
@@ -82,50 +80,10 @@ class _F_GoodsDetailsPageState extends State<F_GoodsDetailsPage> {
             ),
           ),
           body: _buildContent(context),
-//          floatingActionButton: widget.employee.role != 'Supervisor'
-//              ? Container()
-//              : FloatingActionButton(
-//                  elevation: 90,
-//                  backgroundColor: backgroundColor,
-//                  autofocus: true,
-//                  onPressed: () {
-//                    GoToPage(
-//                      context,
-//                      ItemsEntry(
-//                        database: widget.database,
-//                        goodsID: widget.goodsID,
-//                      ),
-//                    );
-//                  },
-//                  child: Icon(Icons.add),
-//                  tooltip: 'Add Items',
-//                ),
         ),
       ),
     );
   }
-
-//  Widget _addItem() {
-//    if (widget.employee.role == 'Supervisor') {
-//      return IconButton(
-//        icon: Icon(
-//          Icons.add_circle,
-//          color: Colors.white,
-//        ),
-//        onPressed: () {
-//          GoToPage(
-//            context,
-//            ItemsEntryPage(
-//              database: widget.database,
-//              goodsID: widget.goodsID,
-//            ),
-//          );
-//        },
-//      );
-//    } else {
-//      return Container();
-//    }
-//  }
 
   Widget _statusApprovalButton() {
     return StreamBuilder<GoodsEntry>(
@@ -249,9 +207,6 @@ class _F_GoodsDetailsPageState extends State<F_GoodsDetailsPage> {
               _goodsDetails(context),
               _statusApprovalButton(),
             ]),
-  //          Column(children: <Widget>[
-  //            _goodsItemsDetails(context),
-  //          ]),
           ]),
         ),
       );
@@ -430,7 +385,6 @@ class _F_GoodsDetailsPageState extends State<F_GoodsDetailsPage> {
           width: 50,
         ),
         Column(
-          //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             SizedBox(
               height: 20,
@@ -516,7 +470,6 @@ class _F_GoodsDetailsPageState extends State<F_GoodsDetailsPage> {
           width: 50,
         ),
         Column(
-          //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Text(
               "Security Approved Time",

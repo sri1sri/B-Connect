@@ -1,12 +1,6 @@
-import 'package:bhavani_connect/common_variables/app_colors.dart';
+
 import 'package:bhavani_connect/common_variables/app_fonts.dart';
-import 'package:bhavani_connect/common_widgets/button_widget/to_do_button.dart';
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
-import 'package:bhavani_connect/home_screens/stepper_screens/StepFourView.dart';
-import 'package:bhavani_connect/home_screens/stepper_screens/StepOneView.dart';
-import 'package:bhavani_connect/home_screens/stepper_screens/StepThreeView.dart';
-import 'package:bhavani_connect/home_screens/stepper_screens/StepTwoView.dart';
-import 'package:bhavani_connect/home_screens/store/store_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -63,27 +57,6 @@ class _F_OrderDetailsState extends State<F_OrderDetails> {
 
     ];
   }
-
-
-//  int current_step = 0;
-//  List<Step> steps = [
-//    Step(
-//      title: Text('Step 1'),
-//      content: Text('Hello!'),
-//      isActive: true,
-//    ),
-//    Step(
-//      title: Text('Step 2'),
-//      content: Text('World!'),
-//      isActive: true,
-//    ),
-//    Step(
-//      title: Text('Step 3'),
-//      content: Text('Hello World!'),
-//      state: StepState.complete,
-//      isActive: true,
-//    ),
-//  ];
   @override
   Widget build(BuildContext context) {
     return offlineWidget( context );
@@ -112,7 +85,7 @@ class _F_OrderDetailsState extends State<F_OrderDetails> {
         ),
       ),
       body: Column(
-        //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+
 
         children: <Widget>[
           SizedBox( height: 10, ),

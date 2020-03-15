@@ -1,4 +1,3 @@
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -12,9 +11,6 @@ void GoToPage(BuildContext context, Widget page) {
     ),
   );
 }
-
-//var format = new DateFormat('HH:mm a');
-//String branchName;
 
 String EMPLOYEE_ID;
 ImageSource IMAGE_SOURCE = ImageSource.gallery;
@@ -38,16 +34,3 @@ String getTime(int timestamp) {
   return format.format(date);
 }
 
-//void uniqifyList(List<Dynamic> list) {
-//  for (int i = 0; i < list.length; i++) {
-//    Dynamic o = list[i];
-//    int index;
-//    // Remove duplicates
-//    do {
-//      index = list.indexOf(o, i+1);
-//      if (index != -1) {
-//        list.removeRange(index, 1);
-//      }
-//    } while (index != -1);
-//  }
-//}

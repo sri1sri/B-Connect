@@ -8,7 +8,7 @@ import 'package:bhavani_connect/database_model/cart_model.dart';
 import 'package:bhavani_connect/database_model/employee_details_model.dart';
 import 'package:bhavani_connect/database_model/items_entry_model.dart';
 import 'package:bhavani_connect/firebase/database.dart';
-import 'package:bhavani_connect/home_screens/store/no_access_screen.dart';
+import 'package:bhavani_connect/home_screens/store/add_description.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -194,6 +194,11 @@ class _F_ItemsPageState extends State<F_ItemsPage> {
                               quantity: 1);
                               widget.database.setcartItems(
                                   _cartEntry, DateTime.now().toString());
+
+                              GoToPage(context, AddDescription(database: widget.database,cartID: ''));
+
+
+
                             },
                             animationDuration:
                                 const Duration(milliseconds: 1000),

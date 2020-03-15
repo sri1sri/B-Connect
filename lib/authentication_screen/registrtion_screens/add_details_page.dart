@@ -33,7 +33,6 @@ class _F_AddDetailsPageState extends State<F_AddDetailsPage> {
           appBar:
           PreferredSize(
             preferredSize: Size.fromHeight(120),
-            //preferredSize : Size(double.infinity, 100),
             child: CustomAppBar(
               leftActionBar: Container(
                 child: Icon(Icons.arrow_back, size: 40,color: Colors.black38,),
@@ -42,7 +41,6 @@ class _F_AddDetailsPageState extends State<F_AddDetailsPage> {
                 Navigator.pop(context,true);
               },
               rightActionBar: Container(
-                //child: Icon(Icons.notifications, size: 40,),
               ),
               rightAction: (){
                 print('right action bar is pressed in appbar');

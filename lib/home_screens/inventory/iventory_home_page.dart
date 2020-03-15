@@ -37,7 +37,6 @@ class _F_InventoryPageState extends State<F_InventoryPage> {
           appBar:
           PreferredSize(
             preferredSize: Size.fromHeight(120),
-            //preferredSize : Size(double.infinity, 100),
             child: CustomAppBar(
               leftActionBar: Container(
                 child: Icon(Icons.arrow_back, size: 40,color: Colors.black38,),
@@ -46,7 +45,6 @@ class _F_InventoryPageState extends State<F_InventoryPage> {
                 Navigator.pop(context,true);
               },
               rightActionBar: Container(
-                //child: Icon(Icons.notifications, size: 40,),
               ),
               rightAction: (){
                 print('right action bar is pressed in appbar');
@@ -106,10 +104,10 @@ class _F_InventoryPageState extends State<F_InventoryPage> {
             Text("Inventory Summary",style: highlightDescription,),
             SizedBox(height: 20,),
             Expanded(child: myGridView),
-            _recentActivities(),
+//            _recentActivities(),
             SizedBox(height: 10,),
             _recentItems(),
-            SizedBox(height: 10,),
+            SizedBox(height: 30,),
 
           ],
         ),
@@ -185,7 +183,7 @@ class _F_InventoryPageState extends State<F_InventoryPage> {
             Column(
               children: <Widget>[
 
-                Text('Recent Items',
+                Text('Item Usage',
                     style: highlightDescription
                 ),
               ],

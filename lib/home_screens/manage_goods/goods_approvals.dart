@@ -9,12 +9,10 @@ import 'package:bhavani_connect/database_model/goods_entry_model.dart';
 import 'package:bhavani_connect/firebase/database.dart';
 import 'package:bhavani_connect/home_screens/manage_goods/add_goods_entry_page.dart';
 import 'package:bhavani_connect/home_screens/manage_goods/goods_details_page.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
-import 'package:shimmer/shimmer.dart';
 import 'package:simple_animations/simple_animations/controlled_animation.dart';
 import 'package:simple_animations/simple_animations/multi_track_tween.dart';
 
@@ -57,11 +55,6 @@ class _F_GoodsApprovalsPageState extends State<F_GoodsApprovalsPage> {
   DateTime selectedDate = DateTime.now();
   var customFormat = DateFormat("dd MMMM yyyy 'at' HH:mm:ss 'UTC+5:30'");
   var customFormat2 = DateFormat("dd MMMM yyyy");
-
-//  final FirebaseStorage _storage =
-//  FirebaseStorage(storageBucket: 'gs://bconnect-9d1b5.appspot.com/');
-//  StorageUploadTask _uploadTask;
-//  String _profilePicPathURL;
 
   Future<Null> showPicker(BuildContext context) async {
     final DateTime picked = await showDatePicker(
@@ -113,7 +106,6 @@ class _F_GoodsApprovalsPageState extends State<F_GoodsApprovalsPage> {
         child: Scaffold(
           appBar: PreferredSize(
             preferredSize: Size.fromHeight(120),
-            //preferredSize : Size(double.infinity, 100),
             child: CustomAppBar(
               leftActionBar: Container(
                 child: Icon(Icons.arrow_back, size: 40,color: Colors.black38,),
@@ -319,19 +311,6 @@ class _F_GoodsApprovalsPageState extends State<F_GoodsApprovalsPage> {
               },
             ),
           ),
-
-
-//                        Container(
-//                            height: 100.0,
-//                            width: 100.0,
-//                            decoration: BoxDecoration(
-//                                borderRadius: BorderRadius.only(
-//                                    topLeft: const Radius.circular(0.0),
-//                                    topRight: const Radius.circular(0.0)),
-//                                image: DecorationImage(
-//                                    image: NetworkImage(data.mrrImagePath),
-//                                    fit: BoxFit.cover)),
-//                        ),
                         SizedBox(
                           height: 20,
                         ),

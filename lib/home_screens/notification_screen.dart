@@ -1,6 +1,4 @@
-import 'package:bhavani_connect/common_variables/app_colors.dart';
 import 'package:bhavani_connect/common_variables/app_fonts.dart';
-import 'package:bhavani_connect/common_widgets/button_widget/to_do_button.dart';
 import 'package:bhavani_connect/common_widgets/custom_appbar_widget/custom_app_bar.dart';
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
 
@@ -44,7 +42,6 @@ class _F_NotificationPageState extends State<F_NotificationPage> {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(120),
-        //preferredSize : Size(double.infinity, 100),
         child: CustomAppBar(
           leftActionBar: Container(
             child: Icon(
@@ -67,7 +64,6 @@ class _F_NotificationPageState extends State<F_NotificationPage> {
                     "Clear",
                     style: subTitleStyle,
                   ),
-                  //shape: CircleBorder(side: BorderSide(color: Colors.transparent)),
                 )),
           ),
           rightAction: () {
@@ -131,8 +127,6 @@ class _F_NotificationPageState extends State<F_NotificationPage> {
 
               SizedBox(height: 20,),
             ],
-
-
 
           ),
         ),

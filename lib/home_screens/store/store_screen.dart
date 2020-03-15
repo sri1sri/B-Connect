@@ -88,6 +88,7 @@ class _F_StorePageState extends State<F_StorePage> {
                     icon: Icon(
                       Icons.shopping_cart,
                       size: 40,
+                      color: backgroundColor,
                     ),
                     onPressed: () => GoToPage(context, CartPage(database: widget.database,)),
                   ),
@@ -95,8 +96,8 @@ class _F_StorePageState extends State<F_StorePage> {
               rightAction: () {
                 print('right action bar is pressed in appbar');
               },
-              primaryText: 'Store',
-              secondaryText: null,
+              primaryText: null,
+              secondaryText: 'Store',
               tabBarWidget: Center(
                 child: new TabBar(
                   labelColor: backgroundColor,
@@ -129,7 +130,6 @@ class _F_StorePageState extends State<F_StorePage> {
             }).toList(),
           ),
         ),
-        //theme: new ThemeData(primaryColor: Colors.deepOrange),
       ),
     );
   }

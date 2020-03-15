@@ -16,8 +16,6 @@ import 'package:bhavani_connect/home_screens/store/store_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-///9588495083
 import 'manage_employees/manage_employees_page.dart';
 
 class Dashboard extends StatelessWidget {
@@ -58,8 +56,6 @@ class _F_DashboardState extends State<F_Dashboard> {
     "images/Addstock.jpg",
     "images/Attendance.jpg",
     "images/ManageEmployees.jpg"
-
-
   ];
 
   @override
@@ -89,10 +85,8 @@ class _F_DashboardState extends State<F_Dashboard> {
           backgroundColor: Colors.white,
           appBar: PreferredSize(
             preferredSize: Size.fromHeight(160),
-            //preferredSize : Size(double.infinity, 100),
             child: CustomAppBar(
               leftActionBar: Container(
-                  // child: Icon(Icons.arrow_back, size: 40,),
                   ),
               leftAction: () {
                 print('left action bar is pressed in appbar');
@@ -113,17 +107,6 @@ class _F_DashboardState extends State<F_Dashboard> {
                       );
                     }),
               ),
-
-//
-//              Container(
-//                  child: FlatButton(
-//                    onPressed: () {
-//                      GoToPage(context, NotificationPage());
-//                    },
-//                    child: Icon(Icons.notifications, size: 30,color: backgroundColor),
-//                    //shape: CircleBorder(side: BorderSide(color: Colors.transparent)),
-//                  )),
-
               rightAction: () {
                 GoToPage(context, NotificationPage());
               },
@@ -133,157 +116,8 @@ class _F_DashboardState extends State<F_Dashboard> {
                   "Hello " + (employee == null ? "hgygy" : employee.username) + " ("+(employee == null ? "" : employee.role)+ ")",
 
             ),
-
-            //customAppBar1(Container(color: Colors.green,),Container(color:  Colors.red,), 'hghg', 'hgygi',  (){print('tftft');}, (){print('tftft');}),
           ),
 
-//          body: PreferredSize(
-//            preferredSize: Size(double.infinity, 100),
-//            child: Container(
-//              decoration: BoxDecoration(
-//                  boxShadow: [BoxShadow(
-//                      color: Colors.black12,
-//                      spreadRadius: 5,
-//                      blurRadius: 2
-//                  )]
-//              ),
-//              width: MediaQuery.of(context).size.width,
-//              height: 130,8333
-//              child: Container(
-//                decoration: BoxDecoration(
-//                    color: backgroundColor,
-//                    borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20),bottomRight: Radius.circular(20))
-//                ),
-//                child: Container(
-//                  margin: EdgeInsets.fromLTRB(20, 60, 20, 0),
-//                  child: Row(
-//                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                    crossAxisAlignment: CrossAxisAlignment.center,
-//                    children: [
-//                      Column(
-//                        crossAxisAlignment: CrossAxisAlignment.start,
-//                        children: <Widget>[
-//                          Text(
-//                            "Hello!",
-//                            style: activeSubTitleStyle,
-//                          ),
-//                          Text(
-//                            "${employee.username}(${employee.role})",
-//                            style: subTitleStyleLight,
-//                          ),
-//                        ],
-//                      ),
-//                      Column(
-//                        mainAxisAlignment: MainAxisAlignment.center,
-//                        children: <Widget>[
-//                          InkWell(
-//                            child: Icon(
-//                              Icons.notifications,
-//                              color: activeButtonTextColor,
-//                            ),
-//                            onTap: () => GoToPage(context, NotificationPage())
-//                          ),
-//                        ],
-//                      )
-//
-//                    ],
-//                  ),
-//                ),
-//              ),
-//            ),
-//          ),
-
-//          body: Padding(
-//            padding: const EdgeInsets.only(
-//                top: 50.0, bottom: 10.0, left: 10.0, right: 10.0),
-//            child: new GridView.builder(
-//              itemCount: features.length,
-//              gridDelegate:
-//              new SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
-//              itemBuilder: (BuildContext context, int index) {
-//                return new GestureDetector(
-//                  child: new Card(
-//                    elevation: 5.0,
-//                    child: new Container(
-//                      alignment: Alignment.center,
-//                      margin: new EdgeInsets.only(
-//                          top: 25.0, bottom: 10.0, left: 10.0, right: 10.0),
-//                      child: new Column(
-//                        children: <Widget>[
-//                          new Icon(
-//                            F_icons[index],
-//                            size: 50,
-//                            color: backgroundColor,
-//                          ),
-//                          new Text(
-//                            features[index],
-//                            style: descriptionStyle,
-//                          ),
-//                        ],
-//                      ),
-//                    ),
-//                  ),
-//                  onTap: () {
-//                    switch (features[index]) {
-//                      case 'Employees':
-//                        {
-//                          GoToPage(
-//                              context,
-//                              ManageEmployeesPage(
-//                                database: widget.database,
-//                                employee: employee,
-//                              ));
-//                        }
-//                        break;
-//
-//                      case 'Goods Approvals':
-//                        {
-//                          GoToPage(
-//                              context,
-//                              GoodsApprovalsPage(
-//                                database: widget.database,
-//                                employee: employee,
-//                              ));
-//                        }
-//                        break;
-//                      case 'Store':
-//                        {
-//                          GoToPage(context, StorePage(database: widget.database,employeeRole: employee.role,));
-//                        }
-//                        break;
-//
-//                      case 'Inventory':
-//                        {
-//                          GoToPage(context, InventoryPage(),);
-//                        }
-//                        break;
-//
-//                      case 'Attendance':{
-//                        GoToPage(context, AttendancePage(),);
-//                      }
-//                      break;
-////                      case 'Notifications':
-////                        {
-////                          GoToPage(context, NotificationsPage());
-////                        }
-////                        break;
-//
-//                      case 'Add stock details':
-//                        {
-//                          GoToPage(context, AddStock(database: widget.database,));
-//                        }
-//                        break;
-//
-//
-//                      default:
-//                        {}
-//                        break;
-//                    }
-//                  },
-//                );
-//              },
-//            ),
-//          ),
           bottomSheet: (employee == null ? "" : employee.role) == 'Not assigned' ? Center(
             child: Column(
               children: <Widget>[
@@ -318,15 +152,6 @@ class _F_DashboardState extends State<F_Dashboard> {
                             top: 5.0, bottom: 0.0, left: 0.0, right: 0.0),
                         child: new Column(
                           children: <Widget>[
-//                            Container(
-//
-//                                height: 60.0,
-//                                width: 60.0,
-//                                decoration: BoxDecoration(
-//                                    image: DecorationImage(
-//                                        image: AssetImage(
-//                                          F_image[index],),
-//                                        fit: BoxFit.fill))),
                             Image.asset(
                               F_image[index],height: 80,
                             ),
@@ -391,12 +216,6 @@ class _F_DashboardState extends State<F_Dashboard> {
                             );
                           }
                           break;
-//                      case 'Notifications':
-//                        {
-//                          GoToPage(context, NotificationsPage());
-//                        }
-//                        break;
-
                         case 'Add stock':
                           {
                             GoToPage(

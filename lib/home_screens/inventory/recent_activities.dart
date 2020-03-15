@@ -1,9 +1,6 @@
-import 'package:bhavani_connect/common_variables/app_colors.dart';
 import 'package:bhavani_connect/common_variables/app_fonts.dart';
-import 'package:bhavani_connect/common_widgets/button_widget/to_do_button.dart';
 import 'package:bhavani_connect/common_widgets/custom_appbar_widget/custom_app_bar.dart';
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -44,7 +41,6 @@ class _F_ActivityPageState extends State<F_ActivityPage> {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(120),
-        //preferredSize : Size(double.infinity, 100),
         child: CustomAppBar(
           leftActionBar: Container(
             child: Icon(
@@ -131,8 +127,6 @@ class _F_ActivityPageState extends State<F_ActivityPage> {
 
               SizedBox(height: 10,),
             ],
-
-
 
           ),
         ),

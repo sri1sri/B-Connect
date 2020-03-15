@@ -3,10 +3,8 @@ import 'package:bhavani_connect/common_variables/app_functions.dart';
 import 'package:bhavani_connect/common_widgets/list_item_builder/list_items_builder.dart';
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
 import 'package:bhavani_connect/database_model/employee_details_model.dart';
-import 'package:bhavani_connect/database_model/items_entry_model.dart';
 import 'package:bhavani_connect/database_model/order_details_model.dart';
 import 'package:bhavani_connect/firebase/database.dart';
-import 'package:bhavani_connect/home_screens/order_details.dart';
 import 'package:bhavani_connect/home_screens/store/ordered_items_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -103,8 +101,6 @@ class _F_OrdersPageState extends State<F_OrdersPage> {
                     SizedBox(
                       height: 10,
                     ),
-//                              _OrderedItemsCard(itemData.companyName, "Wires",
-//                                  "Electricals", "100 mts"),
                     SizedBox(height: 10),
                     Text(
                       "Order Status",
@@ -130,6 +126,7 @@ class _F_OrdersPageState extends State<F_OrdersPage> {
                     Container(
                       width: MediaQuery.of(context).size.width ,
                       child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           SizedBox(width: 10,),
                           Text("Ordered",style: statusTracker,),
@@ -196,6 +193,7 @@ class _F_OrdersPageState extends State<F_OrdersPage> {
     return Container(
       width: MediaQuery.of(context).size.width,
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           SizedBox(width: 25,),
           CircleAvatar(backgroundColor: levelOne,radius: 6,),

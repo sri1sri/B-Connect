@@ -7,7 +7,6 @@ import 'package:bhavani_connect/common_variables/app_fonts.dart';
 import 'package:bhavani_connect/common_variables/app_colors.dart';
 import 'package:bhavani_connect/common_widgets/platform_alert/platform_exception_alert_dialog.dart';
 import 'package:bhavani_connect/firebase/auth.dart';
-import 'package:bhavani_connect/home_screens/home_page.dart';
 import 'package:bhavani_connect/landing_page.dart';
 import 'package:bhavani_connect/models/otp_model.dart';
 import 'package:flutter/cupertino.dart';

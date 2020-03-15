@@ -1,5 +1,4 @@
 import 'package:bhavani_connect/common_variables/app_colors.dart';
-import 'package:bhavani_connect/common_variables/app_fonts.dart';
 import 'package:bhavani_connect/common_widgets/button_widget/add_to_cart_button.dart';
 import 'package:bhavani_connect/common_widgets/custom_appbar_widget/custom_app_bar.dart';
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
@@ -115,31 +114,7 @@ class _F_EditStockState extends State<F_EditStock> {
               tabBarWidget: null,
             ),
           ),
-
-//          new AppBar(
-//            backgroundColor: Color(0xFF1F4B6E),
-//            title: Center(
-//                child: Text(
-//                  'Add ${widget.title}',
-//                  style: subTitleStyleLight,
-//                )),
-//            leading: IconButton(
-//              icon: Icon(Icons.arrow_back),
-//              onPressed: () => Navigator.pop(context, false),
-//            ),
-//            centerTitle: true,
-//            actions: <Widget>[
-//              FlatButton(
-//                child: Text('',
-//                  style: TextStyle(
-//                    fontSize: 18,
-//                    color: Colors.white,
-//                  ),
-//                ),
-//                onPressed: ()=> print(''),
-//              )
-//            ],
-//          ),
+          
           body: Column(
             children: <Widget>[
               _buildContent(),

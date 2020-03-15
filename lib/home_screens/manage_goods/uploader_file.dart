@@ -7,11 +7,7 @@ import 'package:bhavani_connect/common_widgets/custom_appbar_widget/custom_app_b
 import 'package:bhavani_connect/common_widgets/platform_alert/platform_exception_alert_dialog.dart';
 import 'package:bhavani_connect/database_model/goods_entry_model.dart';
 import 'package:bhavani_connect/database_model/notification_model.dart';
-import 'package:bhavani_connect/firebase/api_path.dart';
 import 'package:bhavani_connect/firebase/database.dart';
-import 'package:bhavani_connect/firebase/firebase_common_variables.dart';
-import 'package:bhavani_connect/firebase/firestore_service.dart';
-import 'package:bhavani_connect/home_screens/manage_goods/goods_approvals.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
@@ -142,7 +138,6 @@ class _UploaderState extends State<Uploader> {
           return Scaffold(
             appBar: PreferredSize(
               preferredSize: Size.fromHeight(150),
-              //preferredSize : Size(double.infinity, 100),
               child: CustomAppBar(
                 leftActionBar: Container(
                   child: Icon(Icons.arrow_back, size: 40,color: Colors.black38,),
@@ -151,7 +146,6 @@ class _UploaderState extends State<Uploader> {
                   Navigator.pop(context,true);
                 },
                 rightActionBar: Container(
-                  //child: Icon(Icons.notifications, size: 40,),
                 ),
                 rightAction: (){
                   print('right action bar is pressed in appbar');
@@ -192,7 +186,6 @@ class _UploaderState extends State<Uploader> {
                           value: progressPercent,
                           backgroundColor: backgroundColor),
                     ),
-                    // LinearProgressIndicator(value: progressPercent,),
                   ),
                   Text('${(progressPercent * 100).toStringAsFixed(2)}%',style: titleStyle,),
                 ],

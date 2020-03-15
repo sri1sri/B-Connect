@@ -43,7 +43,6 @@ class _F_AddStockState extends State<F_AddStock> {
         child: Scaffold(
           appBar: PreferredSize(
             preferredSize: Size.fromHeight(120),
-            //preferredSize : Size(double.infinity, 100),
             child: CustomAppBar(
               leftActionBar: Container(
                 child: Icon(Icons.arrow_back, size: 40,color: Colors.black38,),
@@ -62,30 +61,6 @@ class _F_AddStockState extends State<F_AddStock> {
               tabBarWidget: null,
             ),
           ),
-//          new AppBar(
-//            backgroundColor: Color( 0xFF1F4B6E ),
-//            title: Center(
-//                child: Text(
-//                  'Stock details',
-//                  style: subTitleStyleLight,
-//                ) ),
-//            leading: IconButton(
-//              icon: Icon( Icons.arrow_back ),
-//              onPressed: () => Navigator.pop( context,false ),
-//            ),
-//            centerTitle: true,
-//            actions: <Widget>[
-//              FlatButton(
-//                child: Text('',
-//                  style: TextStyle(
-//                    fontSize: 18,
-//                    color: Colors.white,
-//                  ),
-//                ),
-//                onPressed: ()=> print(''),
-//              )
-//            ],
-//          ),
           body: _buildContent( context ),
         ),
       ),
@@ -104,7 +79,6 @@ class _F_AddStockState extends State<F_AddStock> {
               _stockOptions( 'Categories' ,Icons.category),
               _stockOptions( 'Items' ,Icons.add_shopping_cart),
               _stockOptions( 'Measures' ,Icons.insert_chart),
-//              _options(''),
             ],
           ),
         ),

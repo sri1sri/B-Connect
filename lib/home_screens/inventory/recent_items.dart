@@ -3,7 +3,6 @@ import 'package:bhavani_connect/common_variables/app_fonts.dart';
 import 'package:bhavani_connect/common_widgets/button_widget/to_do_button.dart';
 import 'package:bhavani_connect/common_widgets/custom_appbar_widget/custom_app_bar.dart';
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
-import 'package:bhavani_connect/home_screens/inventory/Add_Inventory_Item.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -73,7 +72,7 @@ class _F_RecentItemPageState extends State<F_RecentItemPage> {
             print('right action bar is pressed in appbar');
           },
           primaryText: null,
-          secondaryText: 'Recent Items',
+          secondaryText: 'Item Usage',
           tabBarWidget: null,
         ),
       ),
@@ -97,20 +96,6 @@ class _F_RecentItemPageState extends State<F_RecentItemPage> {
           ),
         ),
       ),
-      floatingActionButton:FloatingActionButton(
-        elevation: 90,
-        backgroundColor: backgroundColor,
-        autofocus: true,
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => InventoryItemsEntryPage() ),
-          );
-        },
-        child: Icon(Icons.add),
-        tooltip: 'Add Items',
-      ),
 
     );
   }
@@ -120,7 +105,7 @@ class _F_RecentItemPageState extends State<F_RecentItemPage> {
     return Column(children: <Widget>[
           Stack(children: [
             Container(
-              height: 340.0,
+              height: 280.0,
               width: MediaQuery.of(context).size.width,
             ),
             Positioned(
@@ -169,6 +154,7 @@ class _F_RecentItemPageState extends State<F_RecentItemPage> {
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
+                          SizedBox(height: 10,),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
@@ -199,18 +185,18 @@ class _F_RecentItemPageState extends State<F_RecentItemPage> {
                             ],
                           ),
                           SizedBox(height: 8,),
-                          Divider(
-                          color: Colors.black.withOpacity(0.5),
-                          ),
-                          SizedBox(height: 2,),
-                          Column(
-                            children: <Widget>[
-                              Text("Price",style: descriptionStyle,),
-                              SizedBox(height: 5,),
-                              Text(Price,style: highlightDescription,),
-                            ],
-                          ),
-                          SizedBox(height: 2,),
+//                          Divider(
+//                          color: Colors.black.withOpacity(0.5),
+//                          ),
+//                          SizedBox(height: 2,),
+//                          Column(
+//                            children: <Widget>[
+//                              Text("Price",style: descriptionStyle,),
+//                              SizedBox(height: 5,),
+//                              Text(Price,style: highlightDescription,),
+//                            ],
+//                          ),
+//                          SizedBox(height: 2,),
                           Divider(
                             color: Colors.black.withOpacity(0.5),
                           ),

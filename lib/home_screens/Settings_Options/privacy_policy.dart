@@ -1,9 +1,6 @@
-import 'package:bhavani_connect/common_variables/app_colors.dart';
 import 'package:bhavani_connect/common_variables/app_fonts.dart';
-import 'package:bhavani_connect/common_widgets/button_widget/to_do_button.dart';
 import 'package:bhavani_connect/common_widgets/custom_appbar_widget/custom_app_bar.dart';
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -99,41 +96,6 @@ class _F_PrivacyPolicy extends State<F_PrivacyPolicy> {
         ),
       ),
 
-//      child: Card(
-//        shape: RoundedRectangleBorder(
-//          borderRadius: BorderRadius.circular(10.0),
-//        ),
-//        color: Colors.white,
-//        elevation: 10,
-//        child: Center(
-//          child: Column(
-//            mainAxisAlignment: MainAxisAlignment.spaceAround,
-//
-//            children: <Widget>[
-//              SizedBox(height: 20,),
-//              Column(
-//                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//                children: [
-//                  Column(
-//                      children: <Widget>[
-//
-//                        Text(messageTitle,style: descriptionStyle,),
-//                        SizedBox(height: 10,),
-//                        Text(messageContent,style: descriptionStyleDark,),
-//                        SizedBox(height: 10,),
-//                      ]
-//                  ),
-//                ],
-//              ),
-//
-//              SizedBox(height: 20,),
-//            ],
-//
-//
-//
-//          ),
-//        ),
-//      ),
     );
 
   }

@@ -5,7 +5,6 @@ import 'package:bhavani_connect/common_widgets/button_widget/to_do_button.dart';
 import 'package:bhavani_connect/common_widgets/loading_page.dart';
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
 import 'package:bhavani_connect/common_variables/app_fonts.dart';
-import 'package:bhavani_connect/common_widgets/platform_alert/platform_alert_dialog.dart';
 import 'package:bhavani_connect/common_widgets/platform_alert/platform_exception_alert_dialog.dart';
 import 'package:bhavani_connect/firebase/auth.dart';
 import 'package:bhavani_connect/models/phone_number_model.dart';
@@ -155,7 +154,6 @@ class _F_PhoneNumberPageState extends State<F_PhoneNumberPage> {
                onPressed: (){
                  Navigator.of(context).pop();
                },
-               // onPressed: model.canSubmit ? () => _submit() : null,
               ),
             ],
           ),

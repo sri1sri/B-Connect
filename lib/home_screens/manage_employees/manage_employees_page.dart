@@ -8,7 +8,6 @@ import 'package:bhavani_connect/database_model/employee_list_model.dart';
 import 'package:bhavani_connect/firebase/database.dart';
 import 'package:bhavani_connect/firebase/firebase_common_variables.dart';
 import 'package:bhavani_connect/home_screens/manage_employees/employee_profile_page.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -85,7 +84,6 @@ class _F_ManageEmployeesPageState extends State<F_ManageEmployeesPage> {
 
           PreferredSize(
             preferredSize: Size.fromHeight(120),
-            //preferredSize : Size(double.infinity, 100),
             child: CustomAppBar(
               leftActionBar: Container(
                 child: Icon(Icons.arrow_back, size: 40,color: Colors.black38,),
@@ -94,7 +92,6 @@ class _F_ManageEmployeesPageState extends State<F_ManageEmployeesPage> {
                 Navigator.pop(context,true);
               },
               rightActionBar: Container(
-                //child: Icon(Icons.notifications, size: 40,),
               ),
               rightAction: (){
                 print('right action bar is pressed in appbar');
@@ -149,7 +146,7 @@ class _F_ManageEmployeesPageState extends State<F_ManageEmployeesPage> {
                                   ),
 
                                   title: Text('${data.employeeName}',style: subTitleStyle,),
-                                  subtitle: Text(data.employeeRole, style: descriptionStyle,),
+                                  subtitle: Text(data.employeeRole, style: descriptionStyleDark,),
                                   trailing: getEditStatus(),
                                 ),
                                 onTap: (){
@@ -166,7 +163,6 @@ class _F_ManageEmployeesPageState extends State<F_ManageEmployeesPage> {
                   }
               ),
             ),
-      //_buildContent(context),
     ]
     ),
           ),

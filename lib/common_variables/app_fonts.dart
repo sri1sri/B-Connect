@@ -39,7 +39,7 @@ var descriptionStyleDark = TextStyle(
     color: Colors.black,
     fontFamily: 'Quicksand',
     fontWeight: FontWeight.w500,
-    fontSize: 17.0);
+    fontSize: 16.0);
 var activeSubTitleStyle = TextStyle(
     color: Colors.white,
     fontFamily: 'Quicksand',

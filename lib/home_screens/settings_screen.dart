@@ -1,23 +1,13 @@
-import 'package:bhavani_connect/common_variables/app_colors.dart';
-import 'package:bhavani_connect/common_variables/app_fonts.dart';
-import 'package:bhavani_connect/common_variables/app_functions.dart';
 import 'package:bhavani_connect/common_widgets/custom_appbar_widget/custom_app_bar.dart';
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
 import 'package:bhavani_connect/common_widgets/platform_alert/platform_alert_dialog.dart';
-import 'package:bhavani_connect/database_model/employee_list_model.dart';
 import 'package:bhavani_connect/firebase/auth.dart';
-import 'package:bhavani_connect/firebase/database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:url_launcher/url_launcher.dart';
-
 import 'Settings_Options/how_to_use.dart';
 import 'Settings_Options/privacy_policy.dart';
 import 'Settings_Options/terms_conditions.dart';
-//import 'package:flutter_launch/flutter_launch.dart';
-
-
 
 Future<void> _signOut(BuildContext context) async {
   try {
@@ -73,7 +63,6 @@ class _F_SettingsPageState extends State<F_SettingsPage> {
           appBar:
           PreferredSize(
             preferredSize: Size.fromHeight( 119 ),
-            //preferredSize : Size(double.infinity, 100),
             child: CustomAppBar(
               leftActionBar: Icon( Icons.arrow_back,
                 color: Colors.black, ),
@@ -81,20 +70,6 @@ class _F_SettingsPageState extends State<F_SettingsPage> {
                 Navigator.pop( context,true );
               },
               rightActionBar: null,
-//              Container(
-//                child: InkWell(
-//                    child: Icon(Icons.more_vert,
-//                      color: Colors.black,
-//                    ),
-//                    onTap: () {
-//                      Navigator.push(
-//                        context,
-//                        MaterialPageRoute(
-//                            builder: (context) => SettingsPage() ),
-//                      );
-//                    }
-//                ),
-//              ),
               rightAction: () {
                 print( 'right action bar is pressed in appbar' );
               },
@@ -103,22 +78,6 @@ class _F_SettingsPageState extends State<F_SettingsPage> {
               tabBarWidget: null,
             ),
           ),
-
-//          AppBar(
-//            backgroundColor: backgroundColor,
-//            iconTheme: IconThemeData(
-//              color: Colors.white, //change your color here
-//            ),
-//            title: Text(
-//                      "Settings",
-//                        style: activeSubTitleStyle,
-//                      ),
-//
-//            brightness: Brightness.light,
-//            elevation: 0,
-//
-//          ),
-
           body: _buildContent( context ),
         ),
       ),
@@ -140,28 +99,10 @@ class _F_SettingsPageState extends State<F_SettingsPage> {
 
                   children: <Widget>[
                     SizedBox( height: 5.0 ),
-
-//                    Divider(
-//                      color: Colors.black,
-//                    ),
                     _reportAnIssue( ),
-//                    Divider(
-//                      color: Colors.black,
-//                    ),
                     _howToUse( ),
-//                    Divider(
-//                      color: Colors.black,
-//                    ),
                     _privacyPolicy( ),
-//                    Divider(
-//                      color: Colors.black,
-//                    ),
                     _termsAndConditions( ),
-//                    Divider(
-//                      color: Colors.black,
-//                    ),
-
-
                   ],
                 ),
               ),
@@ -224,35 +165,6 @@ class _F_SettingsPageState extends State<F_SettingsPage> {
     );
   }
 
-
-//Widget _signOutBtn() {
-//  return RaisedButton(
-//    onPressed: () => _confirmSignOut(context),
-//    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(80.0)),
-//    padding: const EdgeInsets.all(0.0),
-//    child: Ink(
-//      decoration: const BoxDecoration(
-//        color: Color(0xFF1F4B6E) ,
-//        borderRadius: BorderRadius.all(Radius.circular(10)),
-//      ),
-//      child: Container(
-//        constraints: const BoxConstraints(minWidth: 88.0,minHeight: 50.0),
-//        // min sizes for Material buttons
-//        alignment: Alignment.center,
-//        child: Text(
-//          'Sign Out',
-//          style: TextStyle(
-//            color: Colors.white,
-//            letterSpacing: 1.5,
-//            fontSize: 18.0,
-//            fontWeight: FontWeight.w600,
-//            fontFamily: 'OpenSans',
-//          ),
-//        ),
-//      ),
-//    ),
-//  );
-//}
   Widget _reportAnIssue() {
     return Container(
       width: double.infinity,
@@ -288,7 +200,6 @@ class _F_SettingsPageState extends State<F_SettingsPage> {
                   color: Colors.black54,
                   size: 30,
                 ),
-//,
               ],
 
             ),
@@ -342,7 +253,6 @@ class _F_SettingsPageState extends State<F_SettingsPage> {
                   color: Colors.black54,
                   size: 30,
                 ),
-//,
               ],
 
             ),
@@ -400,7 +310,6 @@ class _F_SettingsPageState extends State<F_SettingsPage> {
                   color: Colors.black54,
                   size: 30,
                 ),
-//,
               ],
 
             ),

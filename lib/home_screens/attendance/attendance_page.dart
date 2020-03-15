@@ -1,6 +1,6 @@
 import 'dart:io';
-
 import 'package:bhavani_connect/common_variables/app_colors.dart';
+import 'package:bhavani_connect/common_variables/app_fonts.dart';
 import 'package:bhavani_connect/common_variables/app_functions.dart';
 import 'package:bhavani_connect/common_widgets/button_widget/to_do_button.dart';
 import 'package:bhavani_connect/common_widgets/custom_appbar_widget/custom_app_bar.dart';
@@ -49,7 +49,6 @@ Widget offlineWidget(BuildContext context){
         appBar:
         PreferredSize(
           preferredSize: Size.fromHeight(120),
-          //preferredSize : Size(double.infinity, 100),
           child: CustomAppBar(
             leftActionBar: Container(
               child: Icon(Icons.arrow_back, size: 40,color: Colors.black38,),
@@ -58,7 +57,6 @@ Widget offlineWidget(BuildContext context){
               Navigator.pop(context,true);
             },
             rightActionBar: Container(
-              //child: Icon(Icons.notifications, size: 40,),
             ),
             rightAction: (){
               print('right action bar is pressed in appbar');
@@ -90,18 +88,13 @@ Widget offlineWidget(BuildContext context){
                   children: <Widget>[
                     Container(
                       child: Text('In Time :',
-                        style: TextStyle(
-                          fontSize: 20,
-                          color: Colors.blue,
-                        ),
+                        style: titleStyle,
                       ),
                     ),
+                    SizedBox(width: 20,),
                     Container(
                       child: Text('$_inUploadedTime',
-                        style: TextStyle(
-                          fontSize: 20,
-                          color: Colors.blue,
-                        ),
+                        style: subTitleStyle
                       ),
                     ),
                   ],
@@ -122,10 +115,7 @@ Widget offlineWidget(BuildContext context){
                           ),
                           child: Center(
                             child: Text('  Tap here to \nupload image',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 20,
-                            ),
+                            style: subTitleStyle
                             ),
                           ),
                         ),
@@ -154,18 +144,13 @@ Widget offlineWidget(BuildContext context){
                   children: <Widget>[
                     Container(
                       child: Text('Out Time :',
-                        style: TextStyle(
-                          fontSize: 20,
-                          color: Colors.blue,
-                        ),
+                        style: titleStyle,
                       ),
                     ),
+                    SizedBox(width:10,),
                     Container(
                       child: Text(' $_outUploadedTime',
-                        style: TextStyle(
-                          fontSize: 20,
-                          color: Colors.blue,
-                        ),
+                        style: subTitleStyle
                       ),
                     ),
                   ],
@@ -187,10 +172,7 @@ Widget offlineWidget(BuildContext context){
                         ),
                         child:Center(
                           child: Text('  Tap here to \nupload image',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 20,
-                            ),
+                            style: subTitleStyle
                           ),
                         )
                       ),
@@ -213,20 +195,20 @@ Widget offlineWidget(BuildContext context){
                     ],
                   )
                 ),
-
+                SizedBox(height: 80,),
+                ToDoButton(
+                  assetName: '',
+                  text: 'Update Attendance',
+                  textColor: Colors.white,
+                  backgroundColor: activeButtonBackgroundColor,
+                  onPressed: (){},
+                ),
 
               ],
             ),
           ),
         ),
-        SizedBox(height: 100,),
-        ToDoButton(
-          assetName: 'images/googe-logo.png',
-          text: 'Update Attendance',
-          textColor: Colors.white,
-          backgroundColor: activeButtonBackgroundColor,
-          onPressed: (){},
-        ),
+
       ],
     );
 

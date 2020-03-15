@@ -71,7 +71,6 @@ class _F_OrderedItemsPageState extends State<F_OrderedItemsPage> {
         child: Scaffold(
           appBar: PreferredSize(
             preferredSize: Size.fromHeight(120),
-            //preferredSize : Size(double.infinity, 100),
             child: CustomAppBar(
               leftActionBar: Container(
                 child: Icon(
@@ -84,7 +83,6 @@ class _F_OrderedItemsPageState extends State<F_OrderedItemsPage> {
                 Navigator.pop(context, true);
               },
               rightActionBar: Container(
-                  //child: Icon(Icons.notifications, size: 40,),
                   ),
               rightAction: () {
                 print('right action bar is pressed in appbar');
@@ -218,7 +216,7 @@ class _F_OrderedItemsPageState extends State<F_OrderedItemsPage> {
       return Text(
         widget.itemsQuantity[i].toString(),
         style: descriptionStyleDark,
-      );//gvjvjv
+      );
     }
   }
 
@@ -230,7 +228,6 @@ class _F_OrderedItemsPageState extends State<F_OrderedItemsPage> {
           width: 50,
         ),
         Column(
-          //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             SizedBox(height: 20),
             CircleAvatar(
@@ -281,7 +278,6 @@ class _F_OrderedItemsPageState extends State<F_OrderedItemsPage> {
         ),
         SizedBox(width: 50),
         Column(
-          //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             SizedBox(height: 15),
             Text(
@@ -471,4 +467,3 @@ class _F_OrderedItemsPageState extends State<F_OrderedItemsPage> {
     );
   }
 }
-//jgfcjfcjfgcgf

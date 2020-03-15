@@ -2,7 +2,6 @@ import 'package:bhavani_connect/landing_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'authentication_screen/login_screens/login_page.dart';
-import 'package:bhavani_connect/authentication_screen/splash_screens/splash_sceen.dart';
 import 'package:bhavani_connect/authentication_screen/splash_screens/onboarding_screen.dart';
 
 import 'firebase/auth.dart';
