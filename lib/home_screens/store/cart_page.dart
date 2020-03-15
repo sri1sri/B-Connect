@@ -39,6 +39,7 @@ class F_CartPage extends StatefulWidget {
 class _F_CartPageState extends State<F_CartPage> {
   var itemIDs = [];
   var cartIDs = [];
+  var removedItemIDs = [];
   var orderedItemQuantity =[];
   @override
   Widget build(BuildContext context) {
@@ -122,21 +123,18 @@ class _F_CartPageState extends State<F_CartPage> {
               StreamBuilder<ItemEntry>(
                 stream: widget.database.viewItem(cartData.itemID),
                 builder: (context, snapshot) {
+                  final itemData = snapshot.data;
 
                   cartIDs.add(cartData.cartID);
                   cartIDs = cartIDs.toSet().toList();
-                  print('cartIDs --> ${cartIDs}');
 
-
-                  orderedItemQuantity.add(cartData.quantity);
-
-
-                  final itemData = snapshot.data;
                   itemIDs.add(itemData.itemID);
                   itemIDs = itemIDs.toSet().toList();
-                  print('itemsID --> ${itemIDs}');
 
-                      return Container(
+                  orderedItemQuantity.add(cartData.quantity);
+                  orderedItemQuantity = orderedItemQuantity.sublist(orderedItemQuantity.length - itemIDs.length);
+
+                  return Container(
                   child: SingleChildScrollView(
                     padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                     child: Column(
@@ -229,12 +227,12 @@ class _F_CartPageState extends State<F_CartPage> {
                   Text('${itemData.quantityAvailable} ${itemData.measure}',
                     style: descriptionStyleDark,
                   ),
+
+                  Text(cartData.itemDescription),
                 ]),
               ],
             ),
-            SizedBox(
-              height: 20,
-            ),
+            SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -243,14 +241,12 @@ class _F_CartPageState extends State<F_CartPage> {
                   children: <Widget>[
                     new FloatingActionButton(
                       onPressed: (){
-                        //add();
                         if(cartData.quantity >= 1){
                           final _cartEntry = Cart(
                               quantity: cartData.quantity + 1);
                           widget.database.updateCartDetails(
                               _cartEntry, cartData.cartID);
                           //itemQuantity.insert(, (cartData.quantity + 1));
-
                         }
                       },
                       child: new Icon(
@@ -274,10 +270,7 @@ class _F_CartPageState extends State<F_CartPage> {
                              quantity: cartData.quantity - 1);
                          widget.database.updateCartDetails(
                              _cartEntry, cartData.cartID);
-                        // itemQuantity.insert(i, (cartData.quantity - 1));
-
                        }
-
                       },
                       child: new Icon(
                         const IconData(0xe15b, fontFamily: 'MaterialIcons'),
@@ -295,7 +288,9 @@ class _F_CartPageState extends State<F_CartPage> {
                   backgroundColor: removeButtonBackgroundColor,
                   onPressed: () => {
                     widget.database.deleteCartItem(cartData.cartID),
-                  itemIDs.clear(),
+                    removedItemIDs.add(itemData.itemID),
+                    itemIDs.clear(),
+                    orderedItemQuantity.clear(),
                   },
                 ),
               ],
@@ -310,14 +305,14 @@ class _F_CartPageState extends State<F_CartPage> {
   }
 
   Future<void> _submitOrder() async {
-    itemIDs = itemIDs.toSet().toList();
-    cartIDs = cartIDs.toSet().toList();
 
-print('itemsID --> ${itemIDs}');
-    print('cartIDs --> ${cartIDs}');
+    for(final id in removedItemIDs){
+      itemIDs.remove(id);
+    }
+
 
     final _submitOrder = OrderDetails(
-      itemID: itemIDs.sublist((itemIDs.length - cartIDs.length), itemIDs.length),
+      itemID: itemIDs,
       siteManagerID: EMPLOYEE_ID,
       supervisorID: 'Not assigned',
       managerID: 'Not assigned',
@@ -327,15 +322,11 @@ print('itemsID --> ${itemIDs}');
       managerApprovalTimestamp: Timestamp.fromDate(DateTime.parse('2000-01-01 00:00:00.000')),
       siteManagerReceivedTimestamp: Timestamp.fromDate(DateTime.parse('2000-01-01 00:00:00.000')),
       status: 0,
-      itemQuantity: orderedItemQuantity.sublist((orderedItemQuantity.length - cartIDs.length), orderedItemQuantity.length),
+      itemQuantity: orderedItemQuantity.sublist((orderedItemQuantity.length - itemIDs.length), orderedItemQuantity.length),
       empty: null,
     );
 
     itemIDs == null ? null : await widget.database.ordersEntry(_submitOrder);
-
-    //final _itemEntry = ItemEntry(quantityAvailable: );
-
-
 
     for(var i = 0; i < cartIDs.length; i++){
       cartIDs = cartIDs.toSet().toList();
@@ -344,6 +335,7 @@ print('itemsID --> ${itemIDs}');
   }
     itemIDs.clear();
     cartIDs.clear();
+    removedItemIDs.clear();
     orderedItemQuantity.clear();
   }
 }

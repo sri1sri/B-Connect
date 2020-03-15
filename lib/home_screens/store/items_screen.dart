@@ -191,18 +191,18 @@ class _F_ItemsPageState extends State<F_ItemsPage> {
                                   itemID: data.itemID,
                                   employeeID: EMPLOYEE_ID,
                                   purchaseStatus: false,
-                                  addedDate:
-                                      Timestamp.fromDate(DateTime.now()),
-                              quantity: 1);
-                              length == 0 ? widget.database.setcartItems(_cartEntry, DateTime.now().toString()) : null;
+                                  addedDate: Timestamp.fromDate(DateTime.now()),
+                              quantity: 1,
+                              itemDescription: 'Not updated by site engineer.');
+                              String cartID = DateTime.now().toString();
 
-                              length == 0 ? GoToPage(context, AddDescription(database: widget.database,cartID: '')) : null;
-
+                              length == 0 ? widget.database.setcartItems(_cartEntry, cartID) : null;
+                              length == 0 ? GoToPage(context, AddDescription(database: widget.database,cartID: cartID)) : null;
                             },
                             animationDuration:
                                 const Duration(milliseconds: 1000),
                             initialText: length == 0 ? 'Add to cart' : "Added to Cart",
-                            finalText: "Added to Cart",
+                            finalText: length == 0 ? 'Added to Cart' : "Already added to Cart",
                             iconData: Icons.check,
                             iconSize: 32.0,
                             buttonStyle: ButtonStyle(

@@ -9,6 +9,7 @@ import 'package:bhavani_connect/database_model/employee_details_model.dart';
 import 'package:bhavani_connect/database_model/items_entry_model.dart';
 import 'package:bhavani_connect/database_model/order_details_model.dart';
 import 'package:bhavani_connect/firebase/database.dart';
+import 'package:bhavani_connect/home_screens/store/ordered_items_details_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -18,12 +19,10 @@ class OrderedItemsPage extends StatelessWidget {
       {@required this.database,
       @required this.itemsID,
       @required this.orderID,
-        @required this.employee,
-      @required this.itemsQuantity});
+      @required this.employee,
+      });
   Database database;
   var itemsID;
-  var itemsQuantity;
-
   String orderID;
   EmployeeDetails employee;
 
@@ -35,7 +34,6 @@ class OrderedItemsPage extends StatelessWidget {
         itemsID: itemsID,
         orderID: orderID,
         employee: employee,
-          itemsQuantity: itemsQuantity,
       ),
     );
   }
@@ -46,11 +44,9 @@ class F_OrderedItemsPage extends StatefulWidget {
       {@required this.database,
       @required this.itemsID,
       @required this.orderID,
-      @required this.employee,
-      @required this.itemsQuantity});
+      @required this.employee,});
   Database database;
   var itemsID;
-  var itemsQuantity;
   String orderID;
   EmployeeDetails employee;
 
@@ -59,6 +55,7 @@ class F_OrderedItemsPage extends StatefulWidget {
 }
 
 class _F_OrderedItemsPageState extends State<F_OrderedItemsPage> {
+  
   @override
   Widget build(BuildContext context) {
     return offlineWidget(context);
@@ -82,11 +79,6 @@ class _F_OrderedItemsPageState extends State<F_OrderedItemsPage> {
               leftAction: () {
                 Navigator.pop(context, true);
               },
-              rightActionBar: Container(
-                  ),
-              rightAction: () {
-                print('right action bar is pressed in appbar');
-              },
               primaryText: null,
               secondaryText: 'Ordered items',
               tabBarWidget: null,
@@ -99,125 +91,24 @@ class _F_OrderedItemsPageState extends State<F_OrderedItemsPage> {
   }
 
   Widget _buildContent(BuildContext context) {
-    return StreamBuilder<List<ItemEntry>>(
-      stream: widget.database.viewMultipleItem(widget.itemsID),
-      builder: (context, itemSnapshots) {
-        return ListItemsBuilder<ItemEntry>(
-          snapshot: itemSnapshots,
-          itemBuilder: (context, itemData) => Column(
-            children: <Widget>[
-              Container(
-                color: Colors.white,
-                child: SingleChildScrollView(
-                  padding: EdgeInsets.all(10.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Column(
-                        children: <Widget>[
-                          _OrderedItemsCard(itemData),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
+    return StreamBuilder<OrderDetails>(
+      stream: widget.database.readSingleOrder(widget.orderID),
+      builder: (context, snapshot) {
+        final orderDetails = snapshot.data;
+
+        return SingleChildScrollView(
+          child: Container(
+            child: Column(children: <Widget>[
+              Column(children: <Widget>[
+                _trackOrderStatus(orderDetails),
+                _approvalButtonVisibility(
+                    orderDetails == null ? 0 : orderDetails.status),
+              ]),
+            ]),
           ),
         );
       },
     );
-  }
-
-  Widget _OrderedItemsCard(ItemEntry itemData) {
-    return Container(
-      child: Card(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            SizedBox(
-              height: 20,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Column(children: <Widget>[
-                  Text(
-                    "Company Name",
-                    style: descriptionStyle,
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    itemData.companyName,
-                    style: descriptionStyleDark,
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    "Item names",
-                    style: descriptionStyle,
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    itemData.itemName,
-                    style: descriptionStyleDark,
-                  ),
-                ]),
-                Column(children: <Widget>[
-                  Text(
-                    "Category",
-                    style: descriptionStyle,
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    itemData.categoryName,
-                    style: descriptionStyleDark,
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    "Quantity",
-                    style: descriptionStyle,
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-
-                  Text(
-                    widget.itemsQuantity[0].toString(),
-                    style: descriptionStyleDark,
-                  ),
-                ]),
-              ],
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            _OrderStatus(),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _iteQuantity(){
-    for(var i = 0; i<2; i++){
-      return Text(
-        widget.itemsQuantity[i].toString(),
-        style: descriptionStyleDark,
-      );
-    }
   }
 
   Widget _statusTracker(OrderDetails orderDetails, Color levelOne,
@@ -286,11 +177,16 @@ class _F_OrderedItemsPageState extends State<F_OrderedItemsPage> {
             ),
             SizedBox(height: 10),
             Text(
-            (orderDetails == null ? 946665000 : orderDetails.siteManagerOrderedTimestamp.seconds) == 946665000
-             ? 'Time not updated.'
-             : getDateTime((orderDetails == null ? 946665000 : orderDetails.siteManagerOrderedTimestamp.seconds)),
-             style: descriptionStyleDark,
-             ),
+              (orderDetails == null
+                          ? 946665000
+                          : orderDetails.siteManagerOrderedTimestamp.seconds) ==
+                      946665000
+                  ? 'Time not updated.'
+                  : getDateTime((orderDetails == null
+                      ? 946665000
+                      : orderDetails.siteManagerOrderedTimestamp.seconds)),
+              style: descriptionStyleDark,
+            ),
             SizedBox(height: 20),
             Text(
               "Manager Approved Time",
@@ -298,9 +194,14 @@ class _F_OrderedItemsPageState extends State<F_OrderedItemsPage> {
             ),
             SizedBox(height: 10),
             Text(
-              (orderDetails == null ? 946665000 : orderDetails.managerApprovalTimestamp.seconds) == 946665000
+              (orderDetails == null
+                          ? 946665000
+                          : orderDetails.managerApprovalTimestamp.seconds) ==
+                      946665000
                   ? 'Time not updated.'
-                  : getDateTime((orderDetails == null ? 946665000 : orderDetails.managerApprovalTimestamp.seconds)),
+                  : getDateTime((orderDetails == null
+                      ? 946665000
+                      : orderDetails.managerApprovalTimestamp.seconds)),
               style: descriptionStyleDark,
             ),
             SizedBox(height: 20),
@@ -310,9 +211,15 @@ class _F_OrderedItemsPageState extends State<F_OrderedItemsPage> {
             ),
             SizedBox(height: 10),
             Text(
-              (orderDetails == null ? 946665000 : orderDetails.storeMangerDeliveredTimestamp.seconds) == 946665000
+              (orderDetails == null
+                          ? 946665000
+                          : orderDetails
+                              .storeMangerDeliveredTimestamp.seconds) ==
+                      946665000
                   ? 'Time not updated.'
-                  : getDateTime((orderDetails == null ? 946665000 : orderDetails.storeMangerDeliveredTimestamp.seconds)),
+                  : getDateTime((orderDetails == null
+                      ? 946665000
+                      : orderDetails.storeMangerDeliveredTimestamp.seconds)),
               style: descriptionStyleDark,
             ),
             SizedBox(height: 20),
@@ -322,12 +229,31 @@ class _F_OrderedItemsPageState extends State<F_OrderedItemsPage> {
             ),
             SizedBox(height: 10),
             Text(
-              (orderDetails == null ? 946665000 : orderDetails.siteManagerReceivedTimestamp.seconds) == 946665000
+              (orderDetails == null
+                          ? 946665000
+                          : orderDetails
+                              .siteManagerReceivedTimestamp.seconds) ==
+                      946665000
                   ? 'Time not updated.'
-                  : getDateTime((orderDetails == null ? 946665000 : orderDetails.siteManagerReceivedTimestamp.seconds)),
+                  : getDateTime((orderDetails == null
+                      ? 946665000
+                      : orderDetails.siteManagerReceivedTimestamp.seconds)),
               style: descriptionStyleDark,
             ),
             SizedBox(height: 20),
+            GestureDetector(
+              child: Text('Tap here to view items'),
+              onTap: () {
+                GoToPage(
+                    context,
+                    OrderedItemsDetailsPage(
+                        database: widget.database,
+                        itemsID: widget.itemsID,
+                        orderID: widget.orderID,
+                        employee: widget.employee,
+                    itemsQuantity: orderDetails.itemQuantity,));
+              },
+            ),
           ],
         ),
       ],
@@ -356,25 +282,6 @@ class _F_OrderedItemsPageState extends State<F_OrderedItemsPage> {
             Colors.green, Colors.green);
         break;
     }
-  }
-
-  Widget _OrderStatus() {
-    return StreamBuilder<OrderDetails>(
-      stream: widget.database.readSingleOrder(widget.orderID),
-      builder: (context, snapshot) {
-        final orderDetails = snapshot.data;
-        return SingleChildScrollView(
-          child: Container(
-            child: Column(children: <Widget>[
-              Column(children: <Widget>[
-                _trackOrderStatus(orderDetails),
-                _approvalButtonVisibility(orderDetails == null ? 0 : orderDetails.status),
-              ]),
-            ]),
-          ),
-        );
-      },
-    );
   }
 
   Widget _approvalButtonVisibility(int approvalLevel) {

@@ -12,6 +12,7 @@ class Cart{
     @required this.addedDate,
     @required this.empty,
     @required this.quantity,
+    @required this.itemDescription,
   });
 
   final String cartID;
@@ -20,6 +21,7 @@ class Cart{
   final bool purchaseStatus;
   final Timestamp addedDate;
   final int quantity;
+  final itemDescription;
 
   final Null empty;
 
@@ -35,6 +37,7 @@ class Cart{
     final bool purchaseStatus = data['purchased_status'];
     final Timestamp addedDate = data['added_date'];
     final int quantity = data['quantity'];
+    final String itemDescription = data['item_description'];
     final Null empty = data['empty'];
 
     return Cart(
@@ -44,6 +47,7 @@ class Cart{
       purchaseStatus: purchaseStatus,
       addedDate: addedDate,
       quantity: quantity,
+      itemDescription : itemDescription,
       empty: empty,
     );
   }
@@ -55,6 +59,8 @@ class Cart{
       purchaseStatus != null ? 'purchased_status': 'empty': purchaseStatus,
       addedDate != null ? 'added_date': 'empty': addedDate,
       quantity != null ? 'quantity' : 'empty' : quantity,
+      itemDescription != null ? 'item_description' : 'empty' : itemDescription,
+
     };
   }
 }
