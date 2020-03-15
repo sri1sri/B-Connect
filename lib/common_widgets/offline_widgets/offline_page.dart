@@ -20,18 +20,21 @@ class CustomOfflinePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Column(
-        children: <Widget>[
-          Image(
-            image: AssetImage(
-              'images/no_internet.png',
+      child: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Column(
+          children: <Widget>[
+            Image(
+              image: AssetImage(
+                'images/no_internet.png',
+              ),
+              height: 300.0,
+              width: 300.0,
             ),
-            height: 300.0,
-            width: 300.0,
-          ),
-          SizedBox(height: 30.0,),
-          Text('No Internet connection. Please check connection!!!', style: titleStyle,)
-        ],
+            SizedBox(height: 30.0,),
+            Text('No Internet connection.\nPlease check connection!!!', style: titleStyle,)
+          ],
+        ),
       ),
     );
   }

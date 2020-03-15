@@ -42,7 +42,7 @@ class _F_AddGoodsEntryPageState extends State<F_AddGoodsEntryPage> {
   bool vechicelCamera;
 
   Future<void> _captureImage() async {
-    File selected = await ImagePicker.pickImage(source: IMAGE_SOURCE);
+    File selected = await ImagePicker.pickImage(source: IMAGE_SOURCE,imageQuality: 25);
 
     setState(() {
       if (vechicelCamera) {

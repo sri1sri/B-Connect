@@ -326,13 +326,13 @@ class _F_EmployeeProfilePageState extends State<F_EmployeeProfilePage> {
                                     right: 130.0,
                                     top: 30.0,
                                     bottom: 260.0,
-                                    child: employee.employeeImagePath == null ? CircleAvatar(
+                                    child: (employee == null ? "" : employee.employeeImagePath) == null ? CircleAvatar(
                                       radius: 30.0,
                                       backgroundColor: Colors.grey[200],
                                     ) : CircleAvatar(
                                       radius: 30.0,
                                       backgroundImage:
-                                      NetworkImage(employee.employeeImagePath),
+                                      NetworkImage((employee == null ? "" : employee.employeeImagePath)),
                                       backgroundColor: Colors.transparent,
                                     ),),
                               ]),
@@ -365,7 +365,7 @@ class _F_EmployeeProfilePageState extends State<F_EmployeeProfilePage> {
                                       height: 5,
                                     ),
                                     Text(
-                                      '${getDate(employee.employeeDateOfBirth.seconds)}',
+                                      '${getDate((employee == null ? 0 : employee.employeeDateOfBirth.seconds))}',
                                       style: subTitleStyle,
                                     ),
                                     SizedBox(
@@ -388,7 +388,7 @@ class _F_EmployeeProfilePageState extends State<F_EmployeeProfilePage> {
                                       height: 5,
                                     ),
                                     Text(
-                                      '${getDate(employee.employeeJoinDate.seconds)}',
+                                      '${getDate((employee == null ? 0 : employee.employeeJoinDate.seconds))}',
                                       style: subTitleStyle,
                                     ),
                                     SizedBox(
@@ -399,7 +399,7 @@ class _F_EmployeeProfilePageState extends State<F_EmployeeProfilePage> {
                                       height: 5,
                                     ),
                                     Text(
-                                      'Coimbatore${employee.employeeLatitude}',
+                                      'Coimbatore${(employee == null ? "" : employee.employeeLatitude)}',
                                       style: subTitleStyle,
                                     ),
                                   ]),

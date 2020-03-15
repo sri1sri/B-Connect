@@ -132,7 +132,7 @@ class _F_GoodsDetailsPageState extends State<F_GoodsDetailsPage> {
       stream: widget.database.readGoodsDetails(widget.goodsID),
       builder: (context, snapshot) {
         final goods = snapshot.data;
-        return _approvalButtonVisibility(goods.approvalLevel, goods.itemsAdded);
+        return _approvalButtonVisibility((goods == null ? 0 : goods.approvalLevel), (goods == null ? false : goods.itemsAdded));
       },
     );
   }
@@ -423,7 +423,6 @@ class _F_GoodsDetailsPageState extends State<F_GoodsDetailsPage> {
 
   Widget _statusTracker(GoodsEntry data, Color levelOne, Color levelTwo,
       Color levelThree, Color levelFour, Color levelFive) {
-   print('time => ${data.storeMangerItemReceivedTimestamp.seconds}');
 
     return Row(
       children: <Widget>[
@@ -527,9 +526,9 @@ class _F_GoodsDetailsPageState extends State<F_GoodsDetailsPage> {
               height: 10,
             ),
             Text(
-              data.securityRequestedTimestamp.seconds == 946665000
+            (data == null ? 946665000 : data.securityRequestedTimestamp.seconds) == 946665000
                   ? 'Time not updated.'
-                  : getDateTime(data.securityRequestedTimestamp.seconds),
+                  : getDateTime((data == null ? 946665000 : data.securityRequestedTimestamp.seconds)),
               style: descriptionStyleDark,
             ),
             SizedBox(
@@ -543,9 +542,10 @@ class _F_GoodsDetailsPageState extends State<F_GoodsDetailsPage> {
               height: 10,
             ),
             Text(
-              data.supervisorApprovalTimestamp.seconds == 946665000
+          (data == null ? 946665000 : data.supervisorApprovalTimestamp.seconds) == 946665000
                   ? 'Time not updated.'
-                  : getDateTime(data.supervisorApprovalTimestamp.seconds),
+                  :
+              getDateTime((data == null ? 946665000 : data.supervisorApprovalTimestamp.seconds)),
               style: descriptionStyleDark,
             ),
             SizedBox(
@@ -559,9 +559,10 @@ class _F_GoodsDetailsPageState extends State<F_GoodsDetailsPage> {
               height: 10,
             ),
             Text(
-              data.managerApprovalTimestamp.seconds == 946665000
+            (data == null ? 946665000 : data.managerApprovalTimestamp.seconds) == 946665000
                   ? 'Time not updated.'
-                  : getDateTime(data.managerApprovalTimestamp.seconds),
+                  : getDateTime((data == null ? 946665000 : data.managerApprovalTimestamp.seconds)),
+
               style: descriptionStyleDark,
             ),
             SizedBox(
@@ -575,9 +576,9 @@ class _F_GoodsDetailsPageState extends State<F_GoodsDetailsPage> {
               height: 10,
             ),
             Text(
-              data.storeMangerItemReceivedTimestamp.seconds == 946665000
+              (data == null ? 946665000 : data.storeMangerItemReceivedTimestamp.seconds) == 946665000
                   ? 'Time not updated.'
-                  : getDateTime(data.storeMangerItemReceivedTimestamp.seconds),
+                  : getDateTime((data == null ? 946665000 : data.storeMangerItemReceivedTimestamp.seconds)),
               style: descriptionStyleDark,
             ),
             SizedBox(
@@ -591,10 +592,11 @@ class _F_GoodsDetailsPageState extends State<F_GoodsDetailsPage> {
               height: 10,
             ),
             Text(
-              data.accountantTransactionStatusTimestamp.seconds == 946665000
+        (data == null ? 946665000 : data.accountantTransactionStatusTimestamp.seconds) == 946665000
                   ? 'Time not updated.'
-                  : getDateTime(
-                      data.accountantTransactionStatusTimestamp.seconds),
+                  :
+            getDateTime((data == null ? 946665000 : data.accountantTransactionStatusTimestamp.seconds)),
+
               style: descriptionStyleDark,
             ),
           ],

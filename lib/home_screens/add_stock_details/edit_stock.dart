@@ -111,7 +111,7 @@ class _F_EditStockState extends State<F_EditStock> {
                 print('right action bar is pressed in appbar');
               },
               primaryText: null,
-              secondaryText: 'Add Items',
+              secondaryText: 'Add Details',
               tabBarWidget: null,
             ),
           ),

@@ -290,12 +290,11 @@ class _F_OrderedItemsPageState extends State<F_OrderedItemsPage> {
             ),
             SizedBox(height: 10),
             Text(
-              orderDetails.siteManagerOrderedTimestamp.seconds == 946665000
-                  ? 'Time not updated.'
-                  : getDateTime(
-                      orderDetails.siteManagerOrderedTimestamp.seconds),
-              style: descriptionStyleDark,
-            ),
+            (orderDetails == null ? 946665000 : orderDetails.siteManagerOrderedTimestamp.seconds) == 946665000
+             ? 'Time not updated.'
+             : getDateTime((orderDetails == null ? 946665000 : orderDetails.siteManagerOrderedTimestamp.seconds)),
+             style: descriptionStyleDark,
+             ),
             SizedBox(height: 20),
             Text(
               "Manager Approved Time",
@@ -303,9 +302,9 @@ class _F_OrderedItemsPageState extends State<F_OrderedItemsPage> {
             ),
             SizedBox(height: 10),
             Text(
-              orderDetails.managerApprovalTimestamp.seconds == 946665000
+              (orderDetails == null ? 946665000 : orderDetails.managerApprovalTimestamp.seconds) == 946665000
                   ? 'Time not updated.'
-                  : getDateTime(orderDetails.managerApprovalTimestamp.seconds),
+                  : getDateTime((orderDetails == null ? 946665000 : orderDetails.managerApprovalTimestamp.seconds)),
               style: descriptionStyleDark,
             ),
             SizedBox(height: 20),
@@ -315,10 +314,9 @@ class _F_OrderedItemsPageState extends State<F_OrderedItemsPage> {
             ),
             SizedBox(height: 10),
             Text(
-              orderDetails.storeMangerDeliveredTimestamp.seconds == 946665000
+              (orderDetails == null ? 946665000 : orderDetails.storeMangerDeliveredTimestamp.seconds) == 946665000
                   ? 'Time not updated.'
-                  : getDateTime(
-                      orderDetails.storeMangerDeliveredTimestamp.seconds),
+                  : getDateTime((orderDetails == null ? 946665000 : orderDetails.storeMangerDeliveredTimestamp.seconds)),
               style: descriptionStyleDark,
             ),
             SizedBox(height: 20),
@@ -328,10 +326,9 @@ class _F_OrderedItemsPageState extends State<F_OrderedItemsPage> {
             ),
             SizedBox(height: 10),
             Text(
-              orderDetails.siteManagerReceivedTimestamp.seconds == 946665000
+              (orderDetails == null ? 946665000 : orderDetails.siteManagerReceivedTimestamp.seconds) == 946665000
                   ? 'Time not updated.'
-                  : getDateTime(
-                      orderDetails.siteManagerReceivedTimestamp.seconds),
+                  : getDateTime((orderDetails == null ? 946665000 : orderDetails.siteManagerReceivedTimestamp.seconds)),
               style: descriptionStyleDark,
             ),
             SizedBox(height: 20),
@@ -342,7 +339,7 @@ class _F_OrderedItemsPageState extends State<F_OrderedItemsPage> {
   }
 
   Widget _trackOrderStatus(OrderDetails orderDetails) {
-    switch (orderDetails.status) {
+    switch ((orderDetails == null ? 0 : orderDetails.status)) {
       case 0:
         return _statusTracker(orderDetails, Colors.green, Colors.orangeAccent,
             Colors.grey, Colors.grey);
@@ -375,7 +372,7 @@ class _F_OrderedItemsPageState extends State<F_OrderedItemsPage> {
             child: Column(children: <Widget>[
               Column(children: <Widget>[
                 _trackOrderStatus(orderDetails),
-                _approvalButtonVisibility(orderDetails.status == null ? 0 : orderDetails.status),
+                _approvalButtonVisibility(orderDetails == null ? 0 : orderDetails.status),
               ]),
             ]),
           ),

@@ -138,7 +138,7 @@ class _F_ManageEmployeesPageState extends State<F_ManageEmployeesPage> {
                               SizedBox(height: 10,),
                               InkWell(
                                 child: ListTile(
-                                  leading: data.employeeImagePath == null ? CircleAvatar(
+                                  leading: (data == null ? "" : data.employeeImagePath) == null ? CircleAvatar(
                                     radius: 30.0,
                                     backgroundColor: Colors.grey[200],
                                   ) : CircleAvatar(

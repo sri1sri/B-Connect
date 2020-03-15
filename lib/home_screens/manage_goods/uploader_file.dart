@@ -11,10 +11,20 @@ import 'package:bhavani_connect/firebase/api_path.dart';
 import 'package:bhavani_connect/firebase/database.dart';
 import 'package:bhavani_connect/firebase/firebase_common_variables.dart';
 import 'package:bhavani_connect/firebase/firestore_service.dart';
+import 'package:bhavani_connect/home_screens/manage_goods/goods_approvals.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+void GoToPage(BuildContext context, Widget page) {
+  Navigator.of(context).push(
+    MaterialPageRoute<void>(
+      fullscreenDialog: true,
+      builder: (context) => page,
+    ),
+  );
+}
 
 class Uploader extends StatefulWidget {
   final Database database;
@@ -115,6 +125,10 @@ class _UploaderState extends State<Uploader> {
     await widget.database.setNotification(_notificationEntry);
   }
 
+  goBack(){
+    Navigator.pop(context,true);
+  }
+
   @override
   Widget build(BuildContext context) {
     if (_uploadTask != null) {
@@ -159,6 +173,7 @@ class _UploaderState extends State<Uploader> {
                   ),
                   SizedBox(height: 10,),
                   if (_uploadTask.isComplete) Text('Uploaded Successfully',style: titleStyle,),
+                  if(_uploadTask.isComplete) goBack(),
                   if (_uploadTask.isPaused)
                     FlatButton(
                       child: Icon(Icons.play_arrow,color: backgroundColor,size: 40,),
