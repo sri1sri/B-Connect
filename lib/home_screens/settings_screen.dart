@@ -64,14 +64,30 @@ class _F_SettingsPageState extends State<F_SettingsPage> {
           PreferredSize(
             preferredSize: Size.fromHeight( 119 ),
             child: CustomAppBar(
-              leftActionBar: Icon( Icons.arrow_back,
-                color: Colors.black, ),
+              leftActionBar: Container(
+                child: Icon(
+                  Icons.arrow_back,
+                  size: 40,
+                  color: Colors.black38,
+                ),
+              ),
               leftAction: () {
-                Navigator.pop( context,true );
+                Navigator.pop(context, true);
               },
-              rightActionBar: null,
+              rightActionBar: Padding(
+                padding: const EdgeInsets.only(top:15.0,),
+                child: Container(
+                    child: FlatButton(
+                      onPressed: () {
+                        print('clearing notification');
+                      },
+                      child: Text(
+                        "",
+                      ),
+                    )),
+              ),
               rightAction: () {
-                print( 'right action bar is pressed in appbar' );
+                print('right action bar is pressed in appbar');
               },
               primaryText: null,
               secondaryText: 'Settings',

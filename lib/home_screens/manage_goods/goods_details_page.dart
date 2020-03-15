@@ -280,16 +280,36 @@ class _F_GoodsDetailsPageState extends State<F_GoodsDetailsPage> {
                         SizedBox(
                           height: 10,
                         ),
-                        Container(
-                            height: 100.0,
-                            width: 100.0,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                    topLeft: const Radius.circular(10.0),
-                                    topRight: const Radius.circular(10.0)),
-                                image: DecorationImage(
-                                    image: NetworkImage((data == null ? "" : data.vehicelImagePath)),
-                                    fit: BoxFit.cover))),
+                        PhotoHero(
+                          photo: (data == null ? "" : data.vehicelImagePath),
+                          width: 100.0,
+                          height: 100.0,
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute<void>(
+                                builder: (BuildContext context) {
+                                  return Scaffold(
+                                    appBar: AppBar(
+                                      backgroundColor: Colors.black,
+                                    ),
+                                    body: Container(
+                                      // The blue background emphasizes that it's a new route.
+                                      color: Colors.black,
+                                      padding: const EdgeInsets.only(top:200.0,bottom: 200,left:10,right: 10),
+                                      alignment: Alignment.topLeft,
+                                      child: PhotoHero(
+                                        photo: (data == null ? "" : data.vehicelImagePath),
+                                        width: double.infinity,
+                                        height: double.infinity,
+                                        onTap: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                    ),
+                                  );
+                                }
+                            ));
+                          },
+                        ),
                         SizedBox(
                           height: 20,
                         ),
@@ -302,16 +322,36 @@ class _F_GoodsDetailsPageState extends State<F_GoodsDetailsPage> {
                         SizedBox(
                           height: 10,
                         ),
-                        Container(
-                            height: 100.0,
-                            width: 100.0,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                    topLeft: const Radius.circular(10.0),
-                                    topRight: const Radius.circular(10.0)),
-                                image: DecorationImage(
-                                    image: NetworkImage((data == null ? "" : data.mrrImagePath)),
-                                    fit: BoxFit.cover))),
+                        PhotoHero(
+                          photo: (data == null ? "" : data.mrrImagePath),
+                          width: 100.0,
+                          height: 100.0,
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute<void>(
+                                builder: (BuildContext context) {
+                                  return Scaffold(
+                                    appBar: AppBar(
+                                      backgroundColor: Colors.black,
+                                    ),
+                                    body: Container(
+                                      // The blue background emphasizes that it's a new route.
+                                      color: Colors.black,
+                                      padding: const EdgeInsets.only(top:200.0,bottom: 200,left:10,right: 10),
+                                      alignment: Alignment.topLeft,
+                                      child: PhotoHero(
+                                        photo: (data == null ? "" : data.mrrImagePath),
+                                        width: double.infinity,
+                                        height: double.infinity,
+                                        onTap: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                    ),
+                                  );
+                                }
+                            ));
+                          },
+                        ),
                         SizedBox(
                           height: 20,
                         ),
@@ -726,4 +766,51 @@ _OrderedItemsCard(
       ),
     ),
   );
+}
+
+class PhotoHero extends StatelessWidget {
+  const PhotoHero({ Key key, this.photo, this.onTap, this.width, this.height }) : super(key: key);
+
+  final String photo;
+  final VoidCallback onTap;
+  final double width;
+  final double height;
+
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: new BoxDecoration(
+        color: Colors.grey,
+        borderRadius: BorderRadius.only(
+          topLeft: const Radius.circular(10.0),
+          topRight: const Radius.circular(10.0),
+          bottomLeft: const Radius.circular(10.0),
+          bottomRight: const Radius.circular(10.0),),
+      ),
+      child: SizedBox(
+        width: width,
+        height: height,
+        child: Hero(
+          tag: photo,
+          child: Material(
+            color: Colors.transparent,
+            child: InkWell(
+              onTap: onTap,
+              child: Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                        topLeft: const Radius.circular(10.0),
+                        topRight: const Radius.circular(10.0),
+                        bottomLeft: const Radius.circular(10.0),
+                        bottomRight: const Radius.circular(10.0),),
+                      image: DecorationImage(
+                          image: NetworkImage(photo),
+                          fit: BoxFit.cover))
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+
+  }
 }

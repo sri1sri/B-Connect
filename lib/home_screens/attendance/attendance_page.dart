@@ -6,6 +6,7 @@ import 'package:bhavani_connect/common_widgets/button_widget/to_do_button.dart';
 import 'package:bhavani_connect/common_widgets/custom_appbar_widget/custom_app_bar.dart';
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
 import 'package:bhavani_connect/common_widgets/platform_alert/platform_exception_alert_dialog.dart';
+import 'package:bhavani_connect/home_screens/attendance/viewall_attendance.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -57,9 +58,23 @@ Widget offlineWidget(BuildContext context){
               Navigator.pop(context,true);
             },
             rightActionBar: Container(
+              padding: EdgeInsets.only(top: 10),
+              child: InkWell(
+                  child: Icon(
+                    Icons.list,
+                    color: backgroundColor,
+                    size: 30,
+                  ),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ViewAllAttendancePage()),
+                    );
+                  }),
             ),
-            rightAction: (){
-              print('right action bar is pressed in appbar');
+            rightAction: () {
+              GoToPage(context, ViewAllAttendancePage());
             },
             primaryText: null,
             secondaryText: 'Attendance',

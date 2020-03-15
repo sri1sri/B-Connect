@@ -247,37 +247,44 @@ class _F_GoodsApprovalsPageState extends State<F_GoodsApprovalsPage> {
                       height: 10,
                     ),
 
-
-
-                    Container(
-                      height: 100,
-                      width: 100,
-                      child: ControlledAnimation(
-                        playback: Playback.MIRROR,
-                        tween: tween,
-                        duration: tween.duration,
-                        builder: (context, animation) {
-                          return Container(
-                            decoration: BoxDecoration(
-                                gradient: LinearGradient(
-                                    begin: Alignment.topCenter,
-                                    end: Alignment.bottomCenter,
-                                    colors: [animation["color1"], animation["color2"]]),
-                                image: DecorationImage(
-                                    image: NetworkImage(data.vehicelImagePath),
-                                    fit: BoxFit.cover)
-
-                            ),
-                          );
-                        },
-                      ),
+                    PhotoHero(
+                      photo: (data == null ? "" : data.vehicelImagePath),
+                      width: 100.0,
+                      height: 100.0,
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute<void>(
+                            builder: (BuildContext context) {
+                              return Scaffold(
+                                appBar: AppBar(
+                                  backgroundColor: Colors.black,
+                                ),
+                                body: Container(
+                                  // The blue background emphasizes that it's a new route.
+                                  color: Colors.black,
+                                  padding: const EdgeInsets.only(top:200.0,bottom: 200,left:10,right: 10),
+                                  alignment: Alignment.topLeft,
+                                  child: PhotoHero(
+                                    photo: (data == null ? "" : data.vehicelImagePath),
+                                    width: double.infinity,
+                                    height: double.infinity,
+                                    onTap: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                ),
+                              );
+                            }
+                        ));
+                      },
                     ),
-
 
                     SizedBox(
                       height: 20,
                     ),
                   ]),
+
+
+
                   Column(
                       children: <Widget>[
                         Text(
@@ -288,29 +295,38 @@ class _F_GoodsApprovalsPageState extends State<F_GoodsApprovalsPage> {
                           height: 10,
                         ),
 
-          Container(
-            height: 100,
-            width: 100,
-            child: ControlledAnimation(
-              playback: Playback.MIRROR,
-              tween: tween,
-              duration: tween.duration,
-              builder: (context, animation) {
-                return Container(
-                  decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [animation["color1"], animation["color2"]]),
-                      image: DecorationImage(
-                          image: NetworkImage(data.mrrImagePath),
-                          fit: BoxFit.cover)
 
-                  ),
-                );
-              },
-            ),
-          ),
+                        PhotoHero(
+                          photo: (data == null ? "" : data.mrrImagePath),
+                          width: 100.0,
+                          height: 100.0,
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute<void>(
+                                builder: (BuildContext context) {
+                                  return Scaffold(
+                                    appBar: AppBar(
+                                      backgroundColor: Colors.black,
+                                    ),
+                                    body: Container(
+                                      // The blue background emphasizes that it's a new route.
+                                      color: Colors.black,
+                                      padding: const EdgeInsets.only(top:200.0,bottom: 200,left:10,right: 10),
+                                      alignment: Alignment.topLeft,
+                                      child: PhotoHero(
+                                        photo: (data == null ? "" : data.mrrImagePath),
+                                        width: double.infinity,
+                                        height: double.infinity,
+                                        onTap: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                    ),
+                                  );
+                                }
+                            ));
+                          },
+                        ),
+
                         SizedBox(
                           height: 20,
                         ),
@@ -346,6 +362,7 @@ class _F_GoodsApprovalsPageState extends State<F_GoodsApprovalsPage> {
               Container(
                 width: MediaQuery.of(context).size.width ,
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     SizedBox(width: 10,),
                     Text("Security",style: statusTracker,),
@@ -409,6 +426,7 @@ class _F_GoodsApprovalsPageState extends State<F_GoodsApprovalsPage> {
     return Container(
       width: MediaQuery.of(context).size.width ,
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           SizedBox(width: 25,),
           CircleAvatar(backgroundColor: levelOne,radius: 6,),
@@ -457,4 +475,50 @@ class _F_GoodsApprovalsPageState extends State<F_GoodsApprovalsPage> {
     );
   }
 
+}
+class PhotoHero extends StatelessWidget {
+  const PhotoHero({ Key key, this.photo, this.onTap, this.width, this.height }) : super(key: key);
+
+  final String photo;
+  final VoidCallback onTap;
+  final double width;
+  final double height;
+
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: new BoxDecoration(
+          color: Colors.grey,
+          borderRadius: BorderRadius.only(
+            topLeft: const Radius.circular(10.0),
+            topRight: const Radius.circular(10.0),
+            bottomLeft: const Radius.circular(10.0),
+            bottomRight: const Radius.circular(10.0),),
+          ),
+      child: SizedBox(
+        width: width,
+        height: height,
+        child: Hero(
+          tag: photo,
+          child: Material(
+            color: Colors.transparent,
+            child: InkWell(
+              onTap: onTap,
+              child: Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                        topLeft: const Radius.circular(10.0),
+                        topRight: const Radius.circular(10.0),
+                        bottomLeft: const Radius.circular(10.0),
+                        bottomRight: const Radius.circular(10.0),),
+                      image: DecorationImage(
+                          image: NetworkImage(photo),
+                          fit: BoxFit.cover))
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
+
+  }
 }

@@ -279,7 +279,6 @@ class _F_ProfilePageState extends State<F_ProfilePage> {
                               borderRadius: BorderRadius.circular(10.0),
                               color: Colors.white),
                           child: Column(
-                            // crossAxisAlignment: CrossAxisAlignment.center,
                               children: <Widget>[
                                 SizedBox(
                                   height: 5,
@@ -290,7 +289,7 @@ class _F_ProfilePageState extends State<F_ProfilePage> {
                                   height: 5,
                                 ),
                                 Text(
-                                  '29-10-1996',
+                                  '${getDate((employee == null ? 0 : employee.employeeDateOfBirth.seconds))}',
                                   style: subTitleStyle,
                                 ),
                                 SizedBox(
@@ -301,7 +300,8 @@ class _F_ProfilePageState extends State<F_ProfilePage> {
                                   height: 5,
                                 ),
                                 Text(
-                                  'Male',
+                                  (employee == null ? "" : employee.employeeGender),
+                                  //'${employee.employeeGender}',
                                   style: subTitleStyle,
                                 ),
                                 SizedBox(
@@ -312,7 +312,7 @@ class _F_ProfilePageState extends State<F_ProfilePage> {
                                   height: 5,
                                 ),
                                 Text(
-                                  '21-02-2019',
+                                  '${getDate((employee == null ? 0 : employee.employeeJoinDate.seconds))}',
                                   style: subTitleStyle,
                                 ),
                                 SizedBox(
@@ -323,7 +323,7 @@ class _F_ProfilePageState extends State<F_ProfilePage> {
                                   height: 5,
                                 ),
                                 Text(
-                                  'Coimbatore',
+                                  'Coimbatore${(employee == null ? "" : employee.employeeLatitude)}',
                                   style: subTitleStyle,
                                 ),
                               ]),

@@ -41,7 +41,7 @@ class _F_NotificationPageState extends State<F_NotificationPage> {
   Widget _buildContent(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(120),
+        preferredSize: Size.fromHeight(140),
         child: CustomAppBar(
           leftActionBar: Container(
             child: Icon(
@@ -69,7 +69,7 @@ class _F_NotificationPageState extends State<F_NotificationPage> {
           rightAction: () {
             print('right action bar is pressed in appbar');
           },
-          primaryText: null,
+          primaryText: 'Test Page',
           secondaryText: 'Notifications',
           tabBarWidget: null,
         ),
@@ -81,10 +81,12 @@ class _F_NotificationPageState extends State<F_NotificationPage> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               SizedBox(height: 10,),
-              _Notificationcard("Aproval Needed", "Manager approved the request"),
-              _Notificationcard("Goods Delivered", "Goods collected by security"),
-              _Notificationcard("Items Order", "100 tons of steels ordered"),
+              _recentActivities("Created Order", "100 tons of steels ordered", "05/Mar/2020 - 2:22 am"),
+              _recentActivities("Approved Payment", "Bricks approved for payment", "07/Mar/2020 - 5:34 pm"),
+              _recentActivities("Ordered Item", "1 ton cements ordered", "03/Mar/2020 - 11:32 am"),
               SizedBox(height: 20,),
+
+              Text("This Feature is not yet implemented.",style: subTitleStyle,)
 
             ],
           ),
@@ -93,8 +95,7 @@ class _F_NotificationPageState extends State<F_NotificationPage> {
 
     );
   }
-
-  _Notificationcard(String messageTitle, String messageContent,)
+  _recentActivities(String messageTitle, String messageContent,String dateTime)
   {
     return Container(
 
@@ -109,7 +110,7 @@ class _F_NotificationPageState extends State<F_NotificationPage> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
 
             children: <Widget>[
-              SizedBox(height: 20,),
+              SizedBox(height: 10,),
               Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -120,12 +121,14 @@ class _F_NotificationPageState extends State<F_NotificationPage> {
                         SizedBox(height: 10,),
                         Text(messageContent,style: descriptionStyleDark,),
                         SizedBox(height: 10,),
+                        Text(dateTime,style: descriptionStyleDarkBlur,),
+                        SizedBox(height: 10,),
                       ]
                   ),
                 ],
               ),
 
-              SizedBox(height: 20,),
+              SizedBox(height: 10,),
             ],
 
           ),
@@ -134,5 +137,4 @@ class _F_NotificationPageState extends State<F_NotificationPage> {
     );
 
   }
-
 }
