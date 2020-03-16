@@ -212,7 +212,7 @@ class _F_DashboardState extends State<F_Dashboard> {
                           {
                             GoToPage(
                               context,
-                              AttendancePage(),
+                              AttendancePage(database: widget.database,),
                             );
                           }
                           break;

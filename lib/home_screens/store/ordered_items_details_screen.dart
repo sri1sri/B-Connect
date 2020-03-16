@@ -205,7 +205,4 @@ class _F_OrderedItemsDetailsPageState extends State<F_OrderedItemsDetailsPage> {
       }
     );
   }
-
-
-
 }

@@ -21,4 +21,7 @@ class APIPath {
   static String ordersEntry(String orderID) => 'orders/$orderID';
   static String viewOrders() => 'orders/';
 
+  static String attandanceEntry(String uid, String attendanceID) => 'employees/$uid/attendance/$attendanceID';
+  static String viewAttandance(String uid) => 'employees/$uid/attendance';
+
 }

@@ -71,9 +71,6 @@ class _F_GoodsApprovalsPageState extends State<F_GoodsApprovalsPage> {
     }
   }
 
-
-
-
   Widget addGoods(){
     if(widget.employee.role == 'Security'){
       return IconButton(

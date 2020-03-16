@@ -1,5 +1,6 @@
 
 import 'package:bhavani_connect/common_variables/app_functions.dart';
+import 'package:bhavani_connect/database_model/attendance_model.dart';
 import 'package:bhavani_connect/database_model/cart_model.dart';
 import 'package:bhavani_connect/database_model/common_variables_model.dart';
 import 'package:bhavani_connect/database_model/employee_details_model.dart';
@@ -10,6 +11,7 @@ import 'package:bhavani_connect/database_model/items_entry_model.dart';
 import 'package:bhavani_connect/database_model/notification_model.dart';
 import 'package:bhavani_connect/database_model/order_details_model.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
 
 import 'api_path.dart';
@@ -52,7 +54,10 @@ abstract class Database{
   Stream<List<ItemInventry>> viewInventryItems();
   Future<void> updateInventryDetails(ItemInventry inventryDetails, String inventryID);
   Future<void> deleteItemInventry(String inventryID);
-
+  Future<void> setAttendanceEntry(Attendance attendanceEntry, String attendanceID);
+  Future<void> updateAttendanceEntry(Attendance attendanceEntry, String attendanceID);
+  Stream<Attendance> readAttendance();
+  Stream<List<Attendance>> readAllAttendance();
 
 }
 
@@ -182,7 +187,7 @@ class FirestoreDatabase implements Database {
   Stream<List<Cart>> addCartItemStatus(String itemID) => _service.collectionStream(
     path: APIPath.viewCart(),
     builder: (data, documentId) => Cart.fromMap(data, documentId),
-    queryBuilder: (query) => query.where('item_id', isEqualTo: itemID),
+    queryBuilder: (query) => query.where('item_id', isEqualTo: itemID).where('employee_id', isEqualTo: uid),
   );
 
   @override
@@ -298,5 +303,27 @@ class FirestoreDatabase implements Database {
     path: APIPath.addInventry(inventryID),
   );
 
+  @override
+  Future<void> setAttendanceEntry(Attendance attendanceEntry, String attendanceID) async => await _service.setData(
+    path: APIPath.attandanceEntry(uid, attendanceID),
+    data: attendanceEntry.toMap(),
+  );
 
+  @override
+  Future<void> updateAttendanceEntry(Attendance attendanceEntry, String attendanceID) async => await _service.updateData(
+    path: APIPath.attandanceEntry(uid, attendanceID),
+    data: attendanceEntry.toMap(),
+  );
+
+  @override
+  Stream<Attendance> readAttendance() => _service.documentStream(
+    path: APIPath.attandanceEntry(uid, DateFormat("dd MMMM yyyy").format(DateTime.now()).toString()),
+    builder: (data, documentId) => Attendance.fromMap(data, documentId),
+  );
+
+  @override
+  Stream<List<Attendance>> readAllAttendance() => _service.collectionStream(
+    path: APIPath.viewAttandance(uid),
+    builder: (data, documentId) => Attendance.fromMap(data, documentId),
+  );
 }

@@ -43,6 +43,7 @@ class _F_CartPageState extends State<F_CartPage> {
   var cartIDs = [];
   var removedItemIDs = [];
   var orderedItemQuantity =[];
+  var availableItemQuantity = [];
   @override
   Widget build(BuildContext context) {
     return offlineWidget(context);
@@ -120,6 +121,9 @@ class _F_CartPageState extends State<F_CartPage> {
                 stream: widget.database.viewItem(cartData.itemID),
                 builder: (context, snapshot) {
                   final itemData = snapshot.data;
+
+                  availableItemQuantity.add(itemData == null ? 0 : itemData.quantityAvailable);
+                  print('available quantity ==> ${availableItemQuantity}');
 
                   cartIDs.add((cartData == null ? 0 : cartData.cartID));
                   cartIDs = cartIDs.toSet().toList();
@@ -318,6 +322,7 @@ class _F_CartPageState extends State<F_CartPage> {
                     widget.database.deleteItemInventry(cartData.cartID),
 
                     removedItemIDs.add(itemData.itemID),
+                    availableItemQuantity.clear(),
                     itemIDs.clear(),
                     orderedItemQuantity.clear(),
                   },
@@ -339,6 +344,16 @@ class _F_CartPageState extends State<F_CartPage> {
       itemIDs.remove(id);
     }
 
+    orderedItemQuantity = orderedItemQuantity.sublist((orderedItemQuantity.length - itemIDs.length), orderedItemQuantity.length);
+    availableItemQuantity = availableItemQuantity.sublist(availableItemQuantity.length - itemIDs.length);
+    print('available quantity 1==> ${availableItemQuantity}');
+
+    for(var i = 0; i < itemIDs.length; i++){
+      final itemDetails = ItemEntry(quantityAvailable: availableItemQuantity[i] - orderedItemQuantity[i]);
+      await widget.database.updateItemDetails(itemDetails, itemIDs[i]);
+    }
+
+    print('available quantity 2==> ${availableItemQuantity}');
 
     final _submitOrder = OrderDetails(
       itemID: itemIDs,
@@ -351,7 +366,7 @@ class _F_CartPageState extends State<F_CartPage> {
       managerApprovalTimestamp: Timestamp.fromDate(DateTime.parse('2000-01-01 00:00:00.000')),
       siteManagerReceivedTimestamp: Timestamp.fromDate(DateTime.parse('2000-01-01 00:00:00.000')),
       status: 0,
-      itemQuantity: orderedItemQuantity.sublist((orderedItemQuantity.length - itemIDs.length), orderedItemQuantity.length),
+      itemQuantity: orderedItemQuantity,
       empty: null,
     );
 
@@ -362,9 +377,13 @@ class _F_CartPageState extends State<F_CartPage> {
 
       cartIDs == null ? null : await widget.database.deleteCartItem(cartIDs[i]);
   }
+
+
+
     itemIDs.clear();
     cartIDs.clear();
     removedItemIDs.clear();
     orderedItemQuantity.clear();
+    availableItemQuantity.clear();
   }
 }
