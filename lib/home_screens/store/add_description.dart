@@ -76,22 +76,23 @@ class _F_AddDescriptionState extends State<F_AddDescription> {
       onlineChild: Padding(
         padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
         child: Scaffold(
-          appBar:
-          PreferredSize(
-            preferredSize: Size.fromHeight(120),
-            child: CustomAppBar(
-              leftActionBar: Container(
-                child: Icon(Icons.arrow_back, size: 40,color: Colors.black38,),
-              ),
-              leftAction: (){
-                Navigator.pop(context,true);
-              },
-              primaryText: null,
-              secondaryText: 'Add item usage',
-              tabBarWidget: null,
-            ),
-          ),
+//          appBar:
+//          PreferredSize(
+//            preferredSize: Size.fromHeight(120),
+//            child: CustomAppBar(
+//              leftActionBar: Container(
+//                child: Icon(Icons.arrow_back, size: 40,color: Colors.black38,),
+//              ),
+//              leftAction: (){
+//                Navigator.pop(context,true);
+//              },
+//              primaryText: null,
+//              secondaryText: 'Add item usage',
+//              tabBarWidget: null,
+//            ),
+//          ),
           body: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
               _buildContent(),
               Container(
@@ -127,12 +128,10 @@ class _F_AddDescriptionState extends State<F_AddDescription> {
   Widget _buildContent() {
     return SingleChildScrollView(
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.only(top:25.0),
         child: Card(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
             child: _buildForm(),
-          ),
+
         ),
       ),
     );
@@ -141,7 +140,7 @@ class _F_AddDescriptionState extends State<F_AddDescription> {
     return Form(
       key: _formKey,
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: _buildFormChildren(),
       ),
     );
@@ -154,9 +153,9 @@ class _F_AddDescriptionState extends State<F_AddDescription> {
           padding: const EdgeInsets.all(.0),
           child: TextField(
             onChanged: (value) => _itemUsageDescription = value,
-            minLines: 10,
-            maxLines: 15,
-            autocorrect: false,
+            minLines: 1,
+            maxLines: 5,
+            autocorrect: true,
             decoration: InputDecoration(
               hintText: 'Please write item usage description.',
               filled: true,

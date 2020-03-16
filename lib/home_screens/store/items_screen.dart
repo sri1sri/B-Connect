@@ -219,7 +219,7 @@ class _F_ItemsPageState extends State<F_ItemsPage> {
                             initialText: length == 0 ? 'Add to cart' : "Added to Cart",
                             finalText: length == 0 ? 'Added to Cart' : "Already added to Cart",
                             iconData: Icons.check,
-                            iconSize: 32.0,
+                            iconSize: 28.0,
                             buttonStyle: ButtonStyle(
                               primaryColor: activeButtonBackgroundColor,
                               secondaryColor: Colors.white,
@@ -229,7 +229,7 @@ class _F_ItemsPageState extends State<F_ItemsPage> {
                                 color: Colors.white,
                               ),
                               finalTextStyle: TextStyle(
-                                fontSize: 22.0,
+                                fontSize: 18.0,
                                 color: backgroundColor,
                               ),
                               borderRadius: 10.0,

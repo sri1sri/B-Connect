@@ -41,7 +41,7 @@ class _F_NotificationPageState extends State<F_NotificationPage> {
   Widget _buildContent(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(140),
+        preferredSize: Size.fromHeight(160),
         child: CustomAppBar(
           leftActionBar: Container(
             child: Icon(

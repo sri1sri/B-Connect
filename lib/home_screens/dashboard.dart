@@ -84,7 +84,7 @@ class _F_DashboardState extends State<F_Dashboard> {
         return Scaffold(
           backgroundColor: Colors.white,
           appBar: PreferredSize(
-            preferredSize: Size.fromHeight(170),
+            preferredSize: Size.fromHeight(200),
             child: CustomAppBar(
               leftActionBar: Container(
                   ),
@@ -119,18 +119,20 @@ class _F_DashboardState extends State<F_Dashboard> {
           ),
 
           bottomSheet: (employee == null ? "" : employee.role) == 'Not assigned' ? Center(
-            child: Column(
-              children: <Widget>[
-                Image(
-                  image: AssetImage(
-                    'images/no_internet.png',
+            child: Center(
+              child: Column(
+                children: <Widget>[
+                  Image(
+                    image: AssetImage(
+                      'images/no_internet.png',
+                    ),
+                    height: 200.0,
+                    width: 200.0,
                   ),
-                  height: 300.0,
-                  width: 300.0,
-                ),
-                SizedBox(height: 30.0,),
-                Text('You are not assigned to any role. Ask your manager to assign a role.', style: titleStyle,)
-              ],
+                  SizedBox(height: 20.0,),
+                  Text('You are not assigned to any role.\nAsk your manager to assign a role.', style: subTitleStyle,)
+                ],
+              ),
             ),
           ) : Container(
             color: Colors.white,
@@ -153,7 +155,7 @@ class _F_DashboardState extends State<F_Dashboard> {
                         child: new Column(
                           children: <Widget>[
                             Image.asset(
-                              F_image[index],height: 80,
+                              F_image[index],height: 70,
                             ),
                             SizedBox(height: 5,),
                             new Text(

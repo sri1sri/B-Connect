@@ -258,7 +258,7 @@ class _F_GoodsApprovalsPageState extends State<F_GoodsApprovalsPage> {
                                 body: Container(
                                   // The blue background emphasizes that it's a new route.
                                   color: Colors.black,
-                                  padding: const EdgeInsets.only(top:200.0,bottom: 200,left:10,right: 10),
+                                  padding: const EdgeInsets.only(top:100.0,bottom: 100,left:10,right: 10),
                                   alignment: Alignment.topLeft,
                                   child: PhotoHero(
                                     photo: (data == null ? "" : data.vehicelImagePath),
@@ -307,7 +307,7 @@ class _F_GoodsApprovalsPageState extends State<F_GoodsApprovalsPage> {
                                     body: Container(
                                       // The blue background emphasizes that it's a new route.
                                       color: Colors.black,
-                                      padding: const EdgeInsets.only(top:200.0,bottom: 200,left:10,right: 10),
+                                      padding: const EdgeInsets.only(top:100.0,bottom: 100,left:10,right: 10),
                                       alignment: Alignment.topLeft,
                                       child: PhotoHero(
                                         photo: (data == null ? "" : data.mrrImagePath),
@@ -361,14 +361,14 @@ class _F_GoodsApprovalsPageState extends State<F_GoodsApprovalsPage> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    SizedBox(width: 10,),
+
                     Text("Security",style: statusTracker,),
                     SizedBox(width: 15,),
 
                     Text("Supervisor",style: statusTracker,),
-                    SizedBox(width: 10,),
+                    SizedBox(width: 15,),
                     Text("Store Manager",style: statusTracker,),
-                    SizedBox(width: 10,),
+                    SizedBox(width: 15,),
 
                     Text("Accountant",style: statusTracker,),
 
@@ -425,7 +425,7 @@ class _F_GoodsApprovalsPageState extends State<F_GoodsApprovalsPage> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          SizedBox(width: 25,),
+          SizedBox(width: 15,),
           CircleAvatar(backgroundColor: levelOne,radius: 6,),
           Padding(
             padding: EdgeInsets.all(0.0),
@@ -466,7 +466,7 @@ class _F_GoodsApprovalsPageState extends State<F_GoodsApprovalsPage> {
             ),
           ),
           CircleAvatar(backgroundColor: levelFour,radius: 6,),
-          SizedBox(width: 25,),
+          SizedBox(width: 15,),
         ],
       ),
     );

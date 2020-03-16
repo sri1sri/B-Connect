@@ -32,7 +32,7 @@ var statusTracker = TextStyle(
     color: Color(0xFF1F4B6E),
     fontFamily: 'Quicksand',
     fontWeight: FontWeight.w500,
-    fontSize: 14.0);
+    fontSize: 12.0);
 
 
 var descriptionStyleDark = TextStyle(

@@ -360,14 +360,14 @@ class _F_GoodsDetailsPageState extends State<F_GoodsDetailsPage> {
                   ),
                   _trackGoodsStatus(data),
                   SizedBox(
-                    height: 20,
+                    height: 10,
                   ),
                   Text(
                     "Tap for Item Details",
                     style: descriptionStyleDarkBlur,
                   ),
                   SizedBox(
-                    height: 20,
+                    height: 10,
                   ),
                 ],
               ),

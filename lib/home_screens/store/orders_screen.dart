@@ -109,7 +109,7 @@ class _F_OrdersPageState extends State<F_OrdersPage> {
                     SizedBox(height: 10),
                     Text(
                       "#${orderData.orderID}",
-                      style: descriptionStyle,
+                      style: descriptionStyleDark,
                     ),
 
 
@@ -128,13 +128,13 @@ class _F_OrdersPageState extends State<F_OrdersPage> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          SizedBox(width: 10,),
+                          SizedBox(width: 0,),
                           Text("Ordered",style: statusTracker,),
-                          SizedBox(width: 25,),
+                          SizedBox(width: 30,),
                           Text("Approved",style: statusTracker,),
                           SizedBox(width: 30,),
                           Text("Delivered",style: statusTracker,),
-                          SizedBox(width: 20,),
+                          SizedBox(width: 30,),
 
                           Text("Received",style: statusTracker,),
 
@@ -195,7 +195,7 @@ class _F_OrdersPageState extends State<F_OrdersPage> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          SizedBox(width: 25,),
+          SizedBox(width: 15,),
           CircleAvatar(backgroundColor: levelOne,radius: 6,),
           Padding(
             padding: EdgeInsets.all(0.0),
@@ -236,7 +236,7 @@ class _F_OrdersPageState extends State<F_OrdersPage> {
             ),
           ),
           CircleAvatar(backgroundColor: levelFour,radius: 6,),
-          SizedBox(width: 25,),
+          SizedBox(width: 15,),
         ],
       ),
     );
