@@ -127,76 +127,82 @@ class _F_OrderedItemsDetailsPageState extends State<F_OrderedItemsDetailsPage> {
   }
 
   Widget _OrderedItemsCard(ItemEntry itemData) {
-    return Container(
-      child: Card(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            SizedBox(
-              height: 20,
-            ),
-            Row(
+    return StreamBuilder(
+      stream: widget.database.readOrderQty(widget.orderID,itemData.itemID),
+      builder: (context, snapshot) {
+        String qty  = snapshot.data.toString();
+        return Container(
+          child: Card(
+            child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Column(children: <Widget>[
-                  Text(
-                    "Company Name",
-                    style: descriptionStyle,
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    itemData.companyName,
-                    style: descriptionStyleDark,
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    "Item names",
-                    style: descriptionStyle,
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    itemData.itemName,
-                    style: descriptionStyleDark,
-                  ),
-                ]),
-                Column(children: <Widget>[
-                  Text(
-                    "Category",
-                    style: descriptionStyle,
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    itemData.categoryName,
-                    style: descriptionStyleDark,
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    "Quantity",
-                    style: descriptionStyle,
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text('0', style: descriptionStyleDark),
-                ]),
+              children: <Widget>[
+                SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Column(children: <Widget>[
+                      Text(
+                        "Company Name",
+                        style: descriptionStyle,
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        itemData.companyName,
+                        style: descriptionStyleDark,
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        "Item names",
+                        style: descriptionStyle,
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        itemData.itemName,
+                        style: descriptionStyleDark,
+                      ),
+                    ]),
+                    Column(children: <Widget>[
+                      Text(
+                        "Category",
+                        style: descriptionStyle,
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        itemData.categoryName,
+                        style: descriptionStyleDark,
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        "Quantity",
+                        style: descriptionStyle,
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text(qty, style: descriptionStyleDark),
+                    ]),
+                  ],
+                ),
+                SizedBox(
+                  height: 20,
+                ),
               ],
             ),
-            SizedBox(
-              height: 20,
-            ),
-          ],
-        ),
-      ),
+          ),
+        );
+      }
     );
   }
 

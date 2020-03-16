@@ -40,7 +40,9 @@ abstract class Database{
   Future<void> ordersEntry(OrderDetails orderDetails);
   Stream<List<OrderDetails>> readOrders(String queryKey);
   Stream<List<ItemEntry>> viewMultipleItem(itemsID);
+  Stream<List<ItemEntry>> viewMultipleItems(orderID, itemsID);
   Stream<OrderDetails> readSingleOrder(String orderID);
+  Stream<String> readOrderQty(String orderID,String itemId);
   Future<void> updateOrderDetails(OrderDetails orderDetails, String itemID);
   Future<void> updateCartDetails(Cart cartDetails, String cartID);
   Future<void> updateEmployeeDetails(EmployeeDetails employeeDetails, String employeeUID);
@@ -204,10 +206,43 @@ class FirestoreDatabase implements Database {
   );
 
   @override
+  Stream<List<ItemEntry>> viewMultipleItems(orderId, itemsID) => _service.collectionStream(
+    path: APIPath.viewItemsList(),
+    builder: (data, documentId) => ItemEntry.fromMap(data, documentId),
+    queryBuilder: (query) => query.where('item_id', whereIn: itemsID),
+  );
+
+  @override
   Stream<OrderDetails> readSingleOrder(String orderID) => _service.documentStream(
     path: APIPath.ordersEntry(orderID),
     builder: (data, documentId) => OrderDetails.fromMap(data, documentId),
   );
+
+  @override
+  Stream<String> readOrderQty(String orderID,String itemId) => _service.documentStream(
+    path: APIPath.ordersEntry(orderID),
+    builder: (data, documentId) => getQty(data, documentId,itemId),
+  );
+
+  String getQty(Map<String, dynamic> data, String documentId,String itemId) {
+    if (data == null) {
+      return null;
+    }
+    final String orderID = documentId;
+
+    String qty = '0';
+
+    var itemID = data['item_id'];
+    var itemQuantity = data['item_quantity'];
+
+    for (var i = 0; i < itemID.length; i++) {
+      if(itemID[i].toString() == itemId){
+        qty = itemQuantity[i].toString();
+        break;
+      }
+    }
+    return qty;
+  }
 
   @override
   Future<void> updateOrderDetails(OrderDetails orderDetails, String itemID) async => await _service.updateData(
