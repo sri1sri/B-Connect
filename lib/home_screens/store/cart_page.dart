@@ -3,6 +3,7 @@ import 'package:bhavani_connect/common_variables/app_functions.dart';
 import 'package:bhavani_connect/common_widgets/custom_appbar_widget/custom_app_bar.dart';
 import 'package:bhavani_connect/common_widgets/list_item_builder/list_items_builder.dart';
 import 'package:bhavani_connect/database_model/cart_model.dart';
+import 'package:bhavani_connect/database_model/item_inventry_model.dart';
 import 'package:bhavani_connect/database_model/items_entry_model.dart';
 import 'package:bhavani_connect/database_model/order_details_model.dart';
 import 'package:bhavani_connect/firebase/database.dart';
@@ -85,9 +86,6 @@ class _F_CartPageState extends State<F_CartPage> {
                 }
             ),
           ),
-          rightAction: () {
-            print('right action bar is pressed in appbar');
-          },
           primaryText: null,
           secondaryText: 'Cart',
           tabBarWidget: null,
@@ -109,9 +107,6 @@ class _F_CartPageState extends State<F_CartPage> {
     );
   }
 
-//  _updateItemQuantity(){
-//    itemQuantity.add(cartData.quantity)
-//  }
 
   Widget _cartContent(BuildContext context) {
     return StreamBuilder<List<Cart>>(
@@ -274,7 +269,11 @@ class _F_CartPageState extends State<F_CartPage> {
                               quantity: cartData.quantity + 1);
                           widget.database.updateCartDetails(
                               _cartEntry, cartData.cartID);
-                          //itemQuantity.insert(, (cartData.quantity + 1));
+
+                          final _itemInventryEntry = ItemInventry(
+                              quantity: cartData.quantity + 1);
+                          widget.database.updateInventryDetails(_itemInventryEntry, cartData.cartID);
+
                         }
                       },
                       child: new Icon(
@@ -316,6 +315,8 @@ class _F_CartPageState extends State<F_CartPage> {
                   backgroundColor: removeButtonBackgroundColor,
                   onPressed: () => {
                     widget.database.deleteCartItem(cartData.cartID),
+                    widget.database.deleteItemInventry(cartData.cartID),
+
                     removedItemIDs.add(itemData.itemID),
                     itemIDs.clear(),
                     orderedItemQuantity.clear(),

@@ -5,6 +5,7 @@ import 'package:bhavani_connect/database_model/common_variables_model.dart';
 import 'package:bhavani_connect/database_model/employee_details_model.dart';
 import 'package:bhavani_connect/database_model/employee_list_model.dart';
 import 'package:bhavani_connect/database_model/goods_entry_model.dart';
+import 'package:bhavani_connect/database_model/item_inventry_model.dart';
 import 'package:bhavani_connect/database_model/items_entry_model.dart';
 import 'package:bhavani_connect/database_model/notification_model.dart';
 import 'package:bhavani_connect/database_model/order_details_model.dart';
@@ -44,6 +45,11 @@ abstract class Database{
   Future<void> updateCartDetails(Cart cartDetails, String cartID);
   Future<void> updateEmployeeDetails(EmployeeDetails employeeDetails, String employeeUID);
   Future<void> updateItemDetails(ItemEntry itemDetails, String itemID);
+  Future<void> setInventryItems(ItemInventry itemInventry, String inventryID);
+  Stream<ItemInventry> readInventryDetails(String inventryID);
+  Stream<List<ItemInventry>> viewInventryItems();
+  Future<void> updateInventryDetails(ItemInventry inventryDetails, String inventryID);
+  Future<void> deleteItemInventry(String inventryID);
 
 
 }
@@ -226,4 +232,36 @@ class FirestoreDatabase implements Database {
     path: APIPath.addItem(itemID),
     data: itemDetails.toMap(),
   );
+
+  @override
+  Future<void> setInventryItems(ItemInventry itemInventry, String inventryID) async => await _service.setData(
+    path: APIPath.addInventry(inventryID),
+    data: itemInventry.toMap(),
+  );
+
+  @override
+  Stream<ItemInventry> readInventryDetails(String inventryID) => _service.documentStream(
+    path: APIPath.addInventry(inventryID),
+    builder: (data, documentId) => ItemInventry.fromMap(data, documentId),
+  );
+
+  @override
+  Stream<List<ItemInventry>> viewInventryItems() => _service.collectionStream(
+    path: APIPath.viewInventry(),
+    builder: (data, documentId) => ItemInventry.fromMap(data, documentId),
+    queryBuilder: (query) => query.where('employee_id', isEqualTo: EMPLOYEE_ID),
+  );
+
+  @override
+  Future<void> updateInventryDetails(ItemInventry inventryDetails, String inventryID) async => await _service.updateData(
+    path: APIPath.addInventry(inventryID),
+    data: inventryDetails.toMap(),
+  );
+
+  @override
+  Future<void> deleteItemInventry(String inventryID) async => await _service.deleteData(
+    path: APIPath.addInventry(inventryID),
+  );
+
+
 }

@@ -2,21 +2,26 @@ import 'package:bhavani_connect/common_variables/app_colors.dart';
 import 'package:bhavani_connect/common_variables/app_fonts.dart';
 import 'package:bhavani_connect/common_widgets/custom_appbar_widget/custom_app_bar.dart';
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
+import 'package:bhavani_connect/firebase/database.dart';
 import 'package:bhavani_connect/home_screens/inventory/recent_activities.dart';
-import 'package:bhavani_connect/home_screens/inventory/recent_items.dart';
+import 'package:bhavani_connect/home_screens/inventory/iten_inventory_page.dart';
 import 'package:flutter/material.dart';
 
 class InventoryPage extends StatelessWidget {
+  InventoryPage({@required this.database});
+  Database database;
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: F_InventoryPage(),
+      child: F_InventoryPage(database: database),
 
     );
   }
 }
 
 class F_InventoryPage extends StatefulWidget {
+  F_InventoryPage({@required this.database});
+  Database database;
   @override
   _F_InventoryPageState createState() => _F_InventoryPageState();
 }
@@ -101,7 +106,7 @@ class _F_InventoryPageState extends State<F_InventoryPage> {
         child: Column(
 
           children: <Widget>[
-            Text("Inventory Summary",style: highlightDescription,),
+           // Text("Inventory Summary",style: highlightDescription,),
             SizedBox(height: 20,),
             Expanded(child: myGridView),
 //            _recentActivities(),
@@ -168,7 +173,7 @@ class _F_InventoryPageState extends State<F_InventoryPage> {
           Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => RecentItemPage( ) ),
+                builder: (context) => ItemInventoryPage(database: widget.database,) ),
           );
         },
         padding: EdgeInsets.all(15.0),

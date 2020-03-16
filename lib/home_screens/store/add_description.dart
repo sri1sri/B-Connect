@@ -5,6 +5,7 @@ import 'package:bhavani_connect/common_widgets/custom_appbar_widget/custom_app_b
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
 import 'package:bhavani_connect/common_widgets/platform_alert/platform_exception_alert_dialog.dart';
 import 'package:bhavani_connect/database_model/cart_model.dart';
+import 'package:bhavani_connect/database_model/item_inventry_model.dart';
 import 'package:bhavani_connect/firebase/database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -29,7 +30,6 @@ class F_AddDescription extends StatefulWidget {
   Database database;
   String cartID;
 
-
   @override
   _F_AddDescriptionState createState() => _F_AddDescriptionState();
 }
@@ -52,8 +52,9 @@ class _F_AddDescriptionState extends State<F_AddDescription> {
     if(_validateAndSaveForm()) {
       try{
         final _cartEntry = Cart(itemDescription : _itemUsageDescription);
-        print(_itemUsageDescription);
+        final _inventryEntry = ItemInventry(itemDescription : _itemUsageDescription);
         widget.database.updateCartDetails(_cartEntry, widget.cartID);
+        widget.database.updateInventryDetails(_inventryEntry, widget.cartID);
 
         Navigator.of(context).pop();
       }on PlatformException catch (e){
