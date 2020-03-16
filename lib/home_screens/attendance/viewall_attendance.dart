@@ -1,19 +1,8 @@
-import 'dart:io';
-
-import 'package:bhavani_connect/common_variables/app_colors.dart';
 import 'package:bhavani_connect/common_variables/app_fonts.dart';
-import 'package:bhavani_connect/common_variables/app_functions.dart';
-import 'package:bhavani_connect/common_widgets/button_widget/to_do_button.dart';
 import 'package:bhavani_connect/common_widgets/custom_appbar_widget/custom_app_bar.dart';
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
-import 'package:bhavani_connect/common_widgets/platform_alert/platform_exception_alert_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:geocoder/geocoder.dart';
-import 'package:geolocator/geolocator.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:intl/intl.dart';
 
 class ViewAllAttendancePage extends StatelessWidget {
   @override
@@ -53,7 +42,6 @@ class _F_ViewAllAttendancePageState extends State<F_ViewAllAttendancePage> {
                 Navigator.pop(context,true);
               },
               rightActionBar: Container(
-                //child: Icon(Icons.notifications, size: 40,),
               ),
               rightAction: (){
                 print('right action bar is pressed in appbar');

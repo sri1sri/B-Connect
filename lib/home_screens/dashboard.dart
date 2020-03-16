@@ -84,7 +84,7 @@ class _F_DashboardState extends State<F_Dashboard> {
         return Scaffold(
           backgroundColor: Colors.white,
           appBar: PreferredSize(
-            preferredSize: Size.fromHeight(160),
+            preferredSize: Size.fromHeight(170),
             child: CustomAppBar(
               leftActionBar: Container(
                   ),

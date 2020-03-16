@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:bhavani_connect/common_variables/app_functions.dart';
 import 'package:bhavani_connect/common_widgets/custom_appbar_widget/custom_app_bar.dart';
 import 'package:bhavani_connect/common_widgets/list_item_builder/list_items_builder.dart';
@@ -125,13 +126,13 @@ class _F_CartPageState extends State<F_CartPage> {
                 builder: (context, snapshot) {
                   final itemData = snapshot.data;
 
-                  cartIDs.add(cartData.cartID);
+                  cartIDs.add((cartData == null ? 0 : cartData.cartID));
                   cartIDs = cartIDs.toSet().toList();
 
-                  itemIDs.add(itemData.itemID);
+                  itemIDs.add((itemData == null ? 0 : itemData.itemID));
                   itemIDs = itemIDs.toSet().toList();
 
-                  orderedItemQuantity.add(cartData.quantity);
+                  orderedItemQuantity.add((cartData == null ? 0 : cartData.quantity));
                   orderedItemQuantity = orderedItemQuantity.sublist(orderedItemQuantity.length - itemIDs.length);
 
                   return Container(
@@ -184,7 +185,7 @@ class _F_CartPageState extends State<F_CartPage> {
                     height: 10,
                   ),
                   Text(
-                    itemData.companyName,
+                    (itemData == null ? "" : itemData.companyName),
                     style: descriptionStyleDark,
                   ),
                   SizedBox(
@@ -198,7 +199,7 @@ class _F_CartPageState extends State<F_CartPage> {
                     height: 10,
                   ),
                   Text(
-                    itemData.itemName,
+                    (itemData == null ? "" : itemData.itemName),
                     style: descriptionStyleDark,
                   ),
                 ]),
@@ -211,7 +212,7 @@ class _F_CartPageState extends State<F_CartPage> {
                     height: 10,
                   ),
                   Text(
-                    itemData.categoryName,
+                    (itemData == null ? "" : itemData.categoryName),
                     style: descriptionStyleDark,
                   ),
                   SizedBox(
@@ -224,15 +225,42 @@ class _F_CartPageState extends State<F_CartPage> {
                   SizedBox(
                     height: 10,
                   ),
-                  Text('${itemData.quantityAvailable} ${itemData.measure}',
+                  Text('${(itemData == null ? "" : itemData.quantityAvailable)} ${(itemData == null ? "" : itemData.measure)}',
                     style: descriptionStyleDark,
                   ),
-
-                  Text(cartData.itemDescription),
                 ]),
               ],
             ),
-            SizedBox(height: 20),
+            SizedBox(height: 10),
+            Divider(
+              color: Colors.black.withOpacity(0.5),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Center(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Text("Description",style: descriptionStyle,),
+                      SizedBox(height: 6,),
+                      AutoSizeText(
+                        (cartData == null ? "" : cartData.itemDescription),
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 12),
+                        minFontSize: 9,
+                        maxLines: 5,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ),
+            Divider(
+              color: Colors.black.withOpacity(0.5),
+            ),
+            SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [

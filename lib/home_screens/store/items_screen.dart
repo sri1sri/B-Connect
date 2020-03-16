@@ -61,7 +61,9 @@ class _F_ItemsPageState extends State<F_ItemsPage> {
       onlineChild: Padding(
         padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
         child: Scaffold(
-          body: _buildContent(context),
+          body: Container(
+            color: Colors.white,
+              child: _buildContent(context)),
         ),
       ),
     );
@@ -80,6 +82,7 @@ class _F_ItemsPageState extends State<F_ItemsPage> {
                    return Column(
                   children: <Widget>[
                     Container(
+                      color: Colors.transparent,
                       child: SingleChildScrollView(
                         padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
                         child: Column(

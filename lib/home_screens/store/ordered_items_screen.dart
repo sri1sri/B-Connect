@@ -2,6 +2,7 @@ import 'package:bhavani_connect/common_variables/app_colors.dart';
 import 'package:bhavani_connect/common_variables/app_fonts.dart';
 import 'package:bhavani_connect/common_variables/app_functions.dart';
 import 'package:bhavani_connect/common_widgets/button_widget/add_to_cart_button.dart';
+import 'package:bhavani_connect/common_widgets/button_widget/to_do_button.dart';
 import 'package:bhavani_connect/common_widgets/custom_appbar_widget/custom_app_bar.dart';
 import 'package:bhavani_connect/common_widgets/list_item_builder/list_items_builder.dart';
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
@@ -80,7 +81,7 @@ class _F_OrderedItemsPageState extends State<F_OrderedItemsPage> {
                 Navigator.pop(context, true);
               },
               primaryText: null,
-              secondaryText: 'Ordered items',
+              secondaryText: 'Order Status',
               tabBarWidget: null,
             ),
           ),
@@ -101,6 +102,25 @@ class _F_OrderedItemsPageState extends State<F_OrderedItemsPage> {
             child: Column(children: <Widget>[
               Column(children: <Widget>[
                 _trackOrderStatus(orderDetails),
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: ToDoButton(
+                    assetName: '',
+                    text: 'Tap here to view items',
+                    textColor: Colors.white,
+                    backgroundColor: activeButtonBackgroundColor,
+                    onPressed: (){
+                      GoToPage(
+                          context,
+                          OrderedItemsDetailsPage(
+                            database: widget.database,
+                            itemsID: widget.itemsID,
+                            orderID: widget.orderID,
+                            employee: widget.employee,
+                            itemsQuantity: orderDetails.itemQuantity,));
+                    },
+                  ),
+                ),
                 _approvalButtonVisibility(
                     orderDetails == null ? 0 : orderDetails.status),
               ]),
@@ -120,14 +140,14 @@ class _F_OrderedItemsPageState extends State<F_OrderedItemsPage> {
         ),
         Column(
           children: [
-            SizedBox(height: 20),
+            SizedBox(height: 10),
             CircleAvatar(
               backgroundColor: levelOne,
               radius: 6,
             ),
             SizedBox(height: 2),
             SizedBox(
-              height: 60,
+              height: 65,
               width: 3,
               child: Container(
                 color: levelTwo,
@@ -140,7 +160,7 @@ class _F_OrderedItemsPageState extends State<F_OrderedItemsPage> {
             ),
             SizedBox(height: 2),
             SizedBox(
-              height: 60,
+              height: 65,
               width: 3,
               child: Container(
                 color: levelThree,
@@ -153,7 +173,7 @@ class _F_OrderedItemsPageState extends State<F_OrderedItemsPage> {
             ),
             SizedBox(height: 2),
             SizedBox(
-              height: 60,
+              height: 65,
               width: 3,
               child: Container(
                 color: levelFour,
@@ -187,7 +207,7 @@ class _F_OrderedItemsPageState extends State<F_OrderedItemsPage> {
                       : orderDetails.siteManagerOrderedTimestamp.seconds)),
               style: descriptionStyleDark,
             ),
-            SizedBox(height: 20),
+            SizedBox(height: 30),
             Text(
               "Manager Approved Time",
               style: descriptionStyle,
@@ -204,7 +224,7 @@ class _F_OrderedItemsPageState extends State<F_OrderedItemsPage> {
                       : orderDetails.managerApprovalTimestamp.seconds)),
               style: descriptionStyleDark,
             ),
-            SizedBox(height: 20),
+            SizedBox(height: 30),
             Text(
               "Store Manager Delivered Time",
               style: descriptionStyle,
@@ -222,7 +242,7 @@ class _F_OrderedItemsPageState extends State<F_OrderedItemsPage> {
                       : orderDetails.storeMangerDeliveredTimestamp.seconds)),
               style: descriptionStyleDark,
             ),
-            SizedBox(height: 20),
+            SizedBox(height: 30),
             Text(
               "Site Engineer Received Time",
               style: descriptionStyle,
@@ -241,19 +261,6 @@ class _F_OrderedItemsPageState extends State<F_OrderedItemsPage> {
               style: descriptionStyleDark,
             ),
             SizedBox(height: 20),
-            GestureDetector(
-              child: Text('Tap here to view items'),
-              onTap: () {
-                GoToPage(
-                    context,
-                    OrderedItemsDetailsPage(
-                        database: widget.database,
-                        itemsID: widget.itemsID,
-                        orderID: widget.orderID,
-                        employee: widget.employee,
-                    itemsQuantity: orderDetails.itemQuantity,));
-              },
-            ),
           ],
         ),
       ],

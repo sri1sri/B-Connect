@@ -1,4 +1,3 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:bhavani_connect/common_variables/app_colors.dart';
 import 'package:bhavani_connect/common_variables/app_fonts.dart';
 import 'package:bhavani_connect/common_widgets/button_widget/add_to_cart_button.dart';
@@ -6,7 +5,6 @@ import 'package:bhavani_connect/common_widgets/custom_appbar_widget/custom_app_b
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
 import 'package:bhavani_connect/common_widgets/platform_alert/platform_exception_alert_dialog.dart';
 import 'package:bhavani_connect/database_model/cart_model.dart';
-import 'package:bhavani_connect/database_model/common_variables_model.dart';
 import 'package:bhavani_connect/firebase/database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -172,6 +170,8 @@ class _F_AddDescriptionState extends State<F_AddDescription> {
               ),
             ),
             style: descriptionStyleDark,
+              keyboardType: TextInputType.text,
+              keyboardAppearance: Brightness.dark,
           ),
         ),
       ),

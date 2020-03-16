@@ -15,7 +15,7 @@
         android:name="io.flutter.app.FlutterApplication"
     android:icon="@mipmap/logo"
     tools:ignore="GoogleAppIndexingWarning"
-    android:label="locationchecking"
+    android:label="B Connect"
     >
     <activity
         android:name=".MainActivity"
