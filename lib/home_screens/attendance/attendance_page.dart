@@ -87,7 +87,7 @@ class _F_AttendancePageState extends State<F_AttendancePage> {
               tabBarWidget: null,
             ),
           ),
-          body: _buildContent(context),
+          body: SingleChildScrollView(child: _buildContent(context)),
         ),
       ),
     );
@@ -110,6 +110,12 @@ class _F_AttendancePageState extends State<F_AttendancePage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
+                      Text("Note: Once the attandance is uploaded that can't be changed.",style: TextStyle(
+                    color: Colors.red,
+                    fontFamily: 'Quicksand',
+                    fontWeight: FontWeight.w600,
+                    fontSize: 18.0),),
+                      SizedBox(height: 10),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: <Widget>[
@@ -242,8 +248,7 @@ class _F_AttendancePageState extends State<F_AttendancePage> {
                                     ),
                                   ],
                                 )),
-                      SizedBox(height: 80),
-                      Text('Once the attandance is uploaded that cant be changed.')
+                      SizedBox(height: 50),
                     ],
                   ),
                 ),

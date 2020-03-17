@@ -48,6 +48,7 @@ class _F_UploadAttandancePageState extends State<F_UploadAttendancePage> {
   StorageUploadTask _uploadTask;
   String _profilePicPathURL;
 
+
   @override
   Widget build(BuildContext context) {
     return offlineWidget(context);
@@ -100,12 +101,12 @@ class _F_UploadAttandancePageState extends State<F_UploadAttendancePage> {
                   children: <Widget>[
                     Container(
                       child: Text(widget.attendanceType == 0 ?
-                        'In Time :' : 'Out Time :',
+                        'In Time:' : 'Out Time:',
                         style: titleStyle,
                       ),
                     ),
                     SizedBox(
-                      width: 20,
+                      width: 10,
                     ),
                     Container(
                       child: Text(DateFormat("dd MMMM yyyy, HH:mm a").format(DateTime.now()).toString(), style: subTitleStyle),
@@ -170,7 +171,10 @@ class _F_UploadAttandancePageState extends State<F_UploadAttendancePage> {
     );
   }
 
+
   void _imageUpload() async {
+
+    print('Attendance->${widget.capturedImage}');
 
     if (widget.capturedImage != null ) {
       String _profilePicPath = 'attandance_pics/${widget.uploadTime}.png';
@@ -187,6 +191,11 @@ class _F_UploadAttandancePageState extends State<F_UploadAttendancePage> {
           .getDownloadURL();
 
       _submit(_profilePicPathURL);
+    }else {
+      PlatformExceptionAlertDialog(
+        title: "Please add Image.",
+        exception: null,
+      ).show(context);
     }
   }
 

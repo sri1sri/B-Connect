@@ -76,25 +76,26 @@ class _F_AddDescriptionState extends State<F_AddDescription> {
       onlineChild: Padding(
         padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
         child: Scaffold(
-//          appBar:
-//          PreferredSize(
-//            preferredSize: Size.fromHeight(120),
-//            child: CustomAppBar(
-//              leftActionBar: Container(
-//                child: Icon(Icons.arrow_back, size: 40,color: Colors.black38,),
-//              ),
-//              leftAction: (){
-//                Navigator.pop(context,true);
-//              },
-//              primaryText: null,
-//              secondaryText: 'Add item usage',
-//              tabBarWidget: null,
-//            ),
-//          ),
+          appBar:
+          PreferredSize(
+            preferredSize: Size.fromHeight(120),
+            child: CustomAppBar(
+              leftActionBar: Container(
+                child: Icon(Icons.arrow_back, size: 40,color: Colors.black38,),
+              ),
+              leftAction: (){
+                Navigator.pop(context,true);
+              },
+              primaryText: null,
+              secondaryText: 'Add item usage',
+              tabBarWidget: null,
+            ),
+          ),
           body: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               _buildContent(),
+              SizedBox(height: 10,),
               Container(
                 child: AnimatedButton(
                   onTap: _submit,
@@ -102,17 +103,17 @@ class _F_AddDescriptionState extends State<F_AddDescription> {
                   initialText: "Save item usage",
                   finalText: "Saved",
                   iconData: Icons.check,
-                  iconSize: 32.0,
+                  iconSize: 22.0,
                   buttonStyle: ButtonStyle(
                     primaryColor: activeButtonBackgroundColor,
                     secondaryColor: Colors.white,
                     elevation: 10.0,
                     initialTextStyle: TextStyle(
-                      fontSize: 22.0,
+                      fontSize: 18.0,
                       color: Colors.white,
                     ),
                     finalTextStyle: TextStyle(
-                      fontSize: 22.0,
+                      fontSize: 18.0,
                       color: backgroundColor,
                     ),
                     borderRadius: 10.0,
@@ -128,7 +129,7 @@ class _F_AddDescriptionState extends State<F_AddDescription> {
   Widget _buildContent() {
     return SingleChildScrollView(
       child: Padding(
-        padding: const EdgeInsets.only(top:25.0),
+        padding: const EdgeInsets.only(top:35.0),
         child: Card(
             child: _buildForm(),
 
@@ -153,7 +154,7 @@ class _F_AddDescriptionState extends State<F_AddDescription> {
           padding: const EdgeInsets.all(.0),
           child: TextField(
             onChanged: (value) => _itemUsageDescription = value,
-            minLines: 1,
+            minLines: 2,
             maxLines: 5,
             autocorrect: true,
             decoration: InputDecoration(

@@ -234,26 +234,20 @@ class _F_CartPageState extends State<F_CartPage> {
             Divider(
               color: Colors.black.withOpacity(0.5),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                Center(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Text("Description",style: descriptionStyle,),
-                      SizedBox(height: 6,),
-                      AutoSizeText(
-                        (cartData == null ? "" : cartData.itemDescription),
-                        textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 12),
-                        minFontSize: 9,
-                        maxLines: 5,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ],
-                  ),
-                )
+                Text(
+                  "Description",
+                  style: descriptionStyle,
+                ),
+                SizedBox(
+                  height: 6,
+                ),
+                Text(
+                  (cartData == null ? "" : cartData.itemDescription),
+                  textAlign: TextAlign.center,
+                ),
               ],
             ),
             Divider(

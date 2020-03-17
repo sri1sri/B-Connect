@@ -135,7 +135,7 @@ class _F_ItemInventoryPageState extends State<F_ItemInventoryPage> {
     return Column(children: <Widget>[
       Stack(children: [
         Container(
-          height: 280.0,
+          height: 270.0,
           width: MediaQuery.of(context).size.width,
         ),
         Positioned(
@@ -281,7 +281,13 @@ class _F_ItemInventoryPageState extends State<F_ItemInventoryPage> {
                             textAlign: TextAlign.center,
                           ),
                         ],
-                      )
+                      ),
+                      SizedBox(
+                        height: 2,
+                      ),
+                      Divider(
+                        color: Colors.black.withOpacity(0.5),
+                      ),
                     ]))),
       ]),
     ]);
