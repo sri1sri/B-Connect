@@ -102,7 +102,7 @@ class _F_SignUpPageState extends State<F_SignUpPage> {
       onlineChild: Padding(
         padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
         child: Scaffold(
-          body: _buildContent(context),
+          body: SingleChildScrollView(child: _buildContent(context)),
         ),
       ),
     );
