@@ -102,7 +102,7 @@ class _F_SignUpPageState extends State<F_SignUpPage> {
       onlineChild: Padding(
         padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
         child: Scaffold(
-          body: SingleChildScrollView(child: _buildContent(context)),
+          body: widget(child: _buildContent(context)),
         ),
       ),
     );
@@ -120,148 +120,150 @@ setState(() {
   Widget _buildContent(BuildContext context) {
     return TransparentLoading(
       loading: widget.model.isLoading,
-      child: Container(
-        color: Colors.white,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Column(
-              children: <Widget>[],
-            ),
-            Column(
-              children: <Widget>[
-                Text(
-                  'Create your own \naccount today',
-                  style: titleStyle,
-                  textAlign: TextAlign.center,
-                ),
-                SizedBox(height: 10,),
-                Text(
-                  'To create an Account enter your name and date of birth.',
-                  style: descriptionStyle,
-                  textAlign: TextAlign.center,
-                ),
-              ],
-            ),
+      child: SingleChildScrollView(
+        child: Container(
+          color: Colors.white,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Column(
+                children: <Widget>[],
+              ),
+              Column(
+                children: <Widget>[
+                  Text(
+                    'Create your own \naccount today',
+                    style: titleStyle,
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(height: 10,),
+                  Text(
+                    'To create an Account enter your name and date of birth.',
+                    style: descriptionStyle,
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              ),
 
-            Column(
-              children: <Widget>[
-                GestureDetector(onTap: _captureImage,
-                    child: _profilePic == null ?
-                    Container(
+              Column(
+                children: <Widget>[
+                  GestureDetector(onTap: _captureImage,
+                      child: _profilePic == null ?
+                      Container(
+                          width: 120,
+                          height: 120,
+                          child: Padding(
+                            padding: const EdgeInsets.only(top:50,left: 25),
+                            child: Text('Add Photo',style: descriptionStyle,),
+                          ),
+                        decoration: BoxDecoration(
+                          color: Colors.grey[100],
+                            shape: BoxShape.circle,),
+                      )
+                          :
+                      Container(
                         width: 120,
                         height: 120,
-                        child: Padding(
-                          padding: const EdgeInsets.only(top:50,left: 25),
-                          child: Text('Add Photo',style: descriptionStyle,),
-                        ),
-                      decoration: BoxDecoration(
-                        color: Colors.grey[100],
-                          shape: BoxShape.circle,),
-                    )
-                        :
-                    Container(
-                      width: 120,
-                      height: 120,
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          image: DecorationImage(
-                            image: FileImage(_profilePic),  // here add your image file path
-                            fit: BoxFit.fill,
-                          )),
-                    )),
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                              image: FileImage(_profilePic),  // here add your image file path
+                              fit: BoxFit.fill,
+                            )),
+                      )),
 
-                SizedBox(height: 20.0),
+                  SizedBox(height: 20.0),
 
-                new TextFormField(
-                  controller: _usernameController,
-                  textInputAction: TextInputAction.done,
-                  obscureText: false,
-                  focusNode: _usernameFocusNode,
-                  onEditingComplete: () => _imageUpload(),
-                  onChanged: model.updateUsername,
-                  decoration: new InputDecoration(
-                    prefixIcon: Icon(
-                      Icons.account_circle,
-                      color: backgroundColor,
-                    ),
-                    labelText: "Enter your name",
-                    border: new OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(5.0),
-                      borderSide: new BorderSide(),
-                    ),
-                  ),
-                  validator: (val) {
-                    if(val.length==0) {
-                      return "Username cannot be empty";
-                    }else{
-                      return null;
-                    }
-                  },
-                  keyboardType: TextInputType.text,
-                  style: new TextStyle(
-                    fontFamily: "Poppins",
-                  ),
-                ),
-
-                SizedBox(height: 10.0),
-
-                Padding(
-                  padding: EdgeInsets.only(top: 0,bottom: 10),
-                  child: Container(
-
-                    child: RaisedButton(
-
-                      color: Colors.white,
-                      child: Container(
-                        height: 60,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Container(
-                              child: Row(
-                                children: <Widget>[
-                                  Icon(
-                                    Icons.date_range,
-                                    size: 18.0,
-                                    color: backgroundColor,
-                                  ),
-                                  SizedBox(width: 10,),
-                                  Text(
-                                      '${customFormat2.format(selectedDate)}',
-                                      style: subTitleStyle
-                                  ),
-                                ],
-                              ),
-                            ),
-
-                            Text(
-                              'Change',
-                              style: subTitleStyle
-                            ),
-                          ],
-                        ),
+                  new TextFormField(
+                    controller: _usernameController,
+                    textInputAction: TextInputAction.done,
+                    obscureText: false,
+                    focusNode: _usernameFocusNode,
+                    onEditingComplete: () => _imageUpload(),
+                    onChanged: model.updateUsername,
+                    decoration: new InputDecoration(
+                      prefixIcon: Icon(
+                        Icons.account_circle,
+                        color: backgroundColor,
                       ),
-                      onPressed: () => showPicker(context),
+                      labelText: "Enter your name",
+                      border: new OutlineInputBorder(
+                        borderRadius: new BorderRadius.circular(5.0),
+                        borderSide: new BorderSide(),
+                      ),
+                    ),
+                    validator: (val) {
+                      if(val.length==0) {
+                        return "Username cannot be empty";
+                      }else{
+                        return null;
+                      }
+                    },
+                    keyboardType: TextInputType.text,
+                    style: new TextStyle(
+                      fontFamily: "Poppins",
+                    ),
+                  ),
+
+                  SizedBox(height: 10.0),
+
+                  Padding(
+                    padding: EdgeInsets.only(top: 0,bottom: 10),
+                    child: Container(
+
+                      child: RaisedButton(
+
+                        color: Colors.white,
+                        child: Container(
+                          height: 60,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Container(
+                                child: Row(
+                                  children: <Widget>[
+                                    Icon(
+                                      Icons.date_range,
+                                      size: 18.0,
+                                      color: backgroundColor,
+                                    ),
+                                    SizedBox(width: 10,),
+                                    Text(
+                                        '${customFormat2.format(selectedDate)}',
+                                        style: subTitleStyle
+                                    ),
+                                  ],
+                                ),
+                              ),
+
+                              Text(
+                                'Change',
+                                style: subTitleStyle
+                              ),
+                            ],
+                          ),
+                        ),
+                        onPressed: () => showPicker(context),
+
+                      ),
 
                     ),
 
                   ),
 
-                ),
 
-
-                ToDoButton(
-                  assetName: 'images/googl-logo.png',
-                  text: 'Register',
-                  textColor: Colors.white,
-                  backgroundColor: activeButtonBackgroundColor,
-                  onPressed: model.canSubmit ? () => _imageUpload() : null,
-                ),
-                SizedBox(height: 100.0),
-              ],
-            ),
-          ],
+                  ToDoButton(
+                    assetName: 'images/googl-logo.png',
+                    text: 'Register',
+                    textColor: Colors.white,
+                    backgroundColor: activeButtonBackgroundColor,
+                    onPressed: model.canSubmit ? () => _imageUpload() : null,
+                  ),
+                  SizedBox(height: 100.0),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
