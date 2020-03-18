@@ -92,15 +92,15 @@ class _F_ItemInventoryPageState extends State<F_ItemInventoryPage> {
   Widget _cartContent(BuildContext context) {
     return StreamBuilder<List<ItemInventry>>(
       stream: widget.database.viewInventryItems(),
-      builder: (context, cartSnapshot) {
+      builder: (context, inventorySnapshot) {
         return ListItemsBuilder<ItemInventry>(
-          snapshot: cartSnapshot,
+          snapshot: inventorySnapshot,
           itemBuilder: (context, inventryItemData) => StreamBuilder<ItemEntry>(
             stream: widget.database.viewItem(inventryItemData.itemID),
-            builder: (context, snapshot) {
-              final itemData = snapshot.data;
+            builder: (context, itemSnapshot) {
+              final itemData = itemSnapshot.data;
 
-              return Container(
+             return Container(
                 child: SingleChildScrollView(
                   padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                   child: Column(
@@ -109,13 +109,13 @@ class _F_ItemInventoryPageState extends State<F_ItemInventoryPage> {
                       SizedBox(
                         height: 10,
                       ),
-                      _ItemsCard(
+                      inventryItemData != null ? inventryItemData.isOrdered == true ? _ItemsCard(
                           itemData != null ? itemData.companyName : '',
                           itemData != null ? itemData.categoryName : '',
                           itemData != null ? itemData.itemName : '',
                           '${itemData != null ? itemData.quantityAvailable : ''} ${itemData != null ? itemData.measure : ''}',
                           getDateTime(inventryItemData != null ? inventryItemData.addedDate.seconds : ''),
-                          inventryItemData != null ? inventryItemData.itemDescription : ''),
+                          inventryItemData != null ? inventryItemData.itemDescription : '') : Center(child: Container(height: 0.0, width: 0.0,)) : null,
                       SizedBox(
                         height: 20,
                       ),
@@ -135,7 +135,7 @@ class _F_ItemInventoryPageState extends State<F_ItemInventoryPage> {
     return Column(children: <Widget>[
       Stack(children: [
         Container(
-          height: 270.0,
+          height: 300.0,
           width: MediaQuery.of(context).size.width,
         ),
         Positioned(

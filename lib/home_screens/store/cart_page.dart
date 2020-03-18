@@ -134,6 +134,10 @@ class _F_CartPageState extends State<F_CartPage> {
                   orderedItemQuantity.add((cartData == null ? 0 : cartData.quantity));
                   orderedItemQuantity = orderedItemQuantity.sublist(orderedItemQuantity.length - itemIDs.length);
 
+
+                  availableItemQuantity.add((itemData == null ? 0 : itemData.quantityAvailable));
+                  availableItemQuantity = availableItemQuantity.sublist(availableItemQuantity.length - itemIDs.length);
+
                   return Container(
                   child: SingleChildScrollView(
                     padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
@@ -319,6 +323,7 @@ class _F_CartPageState extends State<F_CartPage> {
                     availableItemQuantity.clear(),
                     itemIDs.clear(),
                     orderedItemQuantity.clear(),
+                    availableItemQuantity.clear(),
                   },
                 ),
               ],
@@ -339,13 +344,13 @@ class _F_CartPageState extends State<F_CartPage> {
     }
 
     orderedItemQuantity = orderedItemQuantity.sublist((orderedItemQuantity.length - itemIDs.length), orderedItemQuantity.length);
-    availableItemQuantity = availableItemQuantity.sublist(availableItemQuantity.length - itemIDs.length);
+    availableItemQuantity = availableItemQuantity.sublist((availableItemQuantity.length - itemIDs.length), availableItemQuantity.length);
     print('available quantity 1==> ${availableItemQuantity}');
 
-    for(var i = 0; i < itemIDs.length; i++){
-      final itemDetails = ItemEntry(quantityAvailable: availableItemQuantity[i] - orderedItemQuantity[i]);
-      await widget.database.updateItemDetails(itemDetails, itemIDs[i]);
-    }
+//    for(var i = 0; i < itemIDs.length; i++){
+//      final itemDetails = ItemEntry(quantityAvailable: availableItemQuantity[i] - orderedItemQuantity[i]);
+//      await widget.database.updateItemDetails(itemDetails, itemIDs[i]);
+//    }
 
     print('available quantity 2==> ${availableItemQuantity}');
 
@@ -368,10 +373,11 @@ class _F_CartPageState extends State<F_CartPage> {
 
     for(var i = 0; i < cartIDs.length; i++){
       cartIDs = cartIDs.toSet().toList();
-
       cartIDs == null ? null : await widget.database.deleteCartItem(cartIDs[i]);
+      final _itemInventryEntry = ItemInventry(
+          isOrdered: true);
+      widget.database.updateInventryDetails(_itemInventryEntry, cartIDs[i]);
   }
-
 
 
     itemIDs.clear();

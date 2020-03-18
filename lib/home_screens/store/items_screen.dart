@@ -188,7 +188,7 @@ class _F_ItemsPageState extends State<F_ItemsPage> {
 
                   widget.employee.role != 'Site Engineer'
                       ? Container()
-                      : data.quantityAvailable == 0 ? Container(child: Text('No stock'),) : Container(
+                      : data.quantityAvailable == 0 ? Container(child: Text('No stock',style: subTitleStyle,),) : Container(
                           child: AnimatedButton(
                             onTap: () {
                               final _cartEntry = Cart(
@@ -209,7 +209,8 @@ class _F_ItemsPageState extends State<F_ItemsPage> {
                                   employeeID: EMPLOYEE_ID,
                                   addedDate: Timestamp.fromDate(DateTime.now()),
                                   quantity: 1,
-                                  itemDescription: 'Not updated by site engineer.');
+                                  itemDescription: 'Not updated by site engineer.',
+                              isOrdered: false);
                               length == 0 ? widget.database.setInventryItems(_inventryEntry, cartID) : null;
 
 

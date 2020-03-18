@@ -31,6 +31,9 @@ String getDate(int timestamp) {
 String getTime(int timestamp) {
   var format = new DateFormat('hh:mm a');
   var date = new DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
-  return format.format(date);
+
+  return timestamp == 0 ? '--' : format.format(date);
+
+
 }
 

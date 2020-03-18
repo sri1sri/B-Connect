@@ -10,6 +10,7 @@ class CommonVaribles{
     @required this.categories,
     @required this.companies,
     @required this.measures,
+    @required  this.bhavaniSkyTowersLocation,
     @required this.empty,
   });
 
@@ -18,6 +19,7 @@ class CommonVaribles{
   final categories;
   final companies;
   final measures;
+  final GeoPoint bhavaniSkyTowersLocation;
 
   final Null empty;
 
@@ -30,6 +32,7 @@ class CommonVaribles{
     final categories = data['categories'];
     final companies = data['companies'];
     final measures = data['measures'];
+    final bhavaniSkyTowersLocation = data['bhavani_sky_towers_location'];
 
     final Null empty = data['empty'];
 
@@ -39,6 +42,7 @@ class CommonVaribles{
       categories: categories,
       companies: companies,
       measures: measures,
+      bhavaniSkyTowersLocation: bhavaniSkyTowersLocation,
       empty: empty,
     );
   }
@@ -50,6 +54,7 @@ class CommonVaribles{
       categories != null ? 'categories': 'empty': FieldValue.arrayUnion([categories]),
       companies != null ? 'companies': 'empty': FieldValue.arrayUnion([companies]),
       measures != null ? 'measures': 'empty': FieldValue.arrayUnion([measures]),
+      //bhavaniSkyTowersLocation != null ? 'bhavani_sky_towers_location': 'empty': FieldValue.arrayUnion([bhavaniSkyTowersLocation]),
       'empty' : null,
     };
   }

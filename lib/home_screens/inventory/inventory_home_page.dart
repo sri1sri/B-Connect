@@ -4,7 +4,7 @@ import 'package:bhavani_connect/common_widgets/custom_appbar_widget/custom_app_b
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
 import 'package:bhavani_connect/firebase/database.dart';
 import 'package:bhavani_connect/home_screens/inventory/recent_activities.dart';
-import 'package:bhavani_connect/home_screens/inventory/iten_inventory_page.dart';
+import 'package:bhavani_connect/home_screens/inventory/item_inventory_page.dart';
 import 'package:flutter/material.dart';
 
 class InventoryPage extends StatelessWidget {

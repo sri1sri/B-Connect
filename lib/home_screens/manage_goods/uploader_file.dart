@@ -13,15 +13,6 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-void GoToPage(BuildContext context, Widget page) {
-  Navigator.of(context).push(
-    MaterialPageRoute<void>(
-      fullscreenDialog: true,
-      builder: (context) => page,
-    ),
-  );
-}
-
 class Uploader extends StatefulWidget {
   final Database database;
   final File vehiceImage;
@@ -122,7 +113,7 @@ class _UploaderState extends State<Uploader> {
   }
 
   goBack(){
-    Navigator.pop(context,true);
+    return Navigator.of(context).pop();
   }
 
   @override
@@ -167,7 +158,7 @@ class _UploaderState extends State<Uploader> {
                   ),
                   SizedBox(height: 10,),
                   if (_uploadTask.isComplete) Text('Uploaded Successfully',style: titleStyle,),
-                  if(_uploadTask.isComplete) goBack(),
+                  if (_uploadTask.isComplete) goBack(),
                   if (_uploadTask.isPaused)
                     FlatButton(
                       child: Icon(Icons.play_arrow,color: backgroundColor,size: 40,),

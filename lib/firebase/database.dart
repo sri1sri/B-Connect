@@ -24,7 +24,7 @@ abstract class Database{
   Future<void> setGoodsEntry(GoodsEntry itemEntry, String itemID);
   Stream<EmployeesList> currentUserDetails();
   Future<void> setNotification(NotificationModel notificationEntry);
-  Stream<List<GoodsEntry>> readGoodsEntries();
+  Stream<List<GoodsEntry>> readGoodsEntries(String queryKey);
   Future<void> setItemEntry(ItemEntry itemEntry);
   Stream<GoodsEntry> readGoodsDetails(String goodsID);
   Stream<List<ItemEntry>> viewItemsList(String goodsID);
@@ -86,9 +86,10 @@ class FirestoreDatabase implements Database {
   );
 
   @override
-  Stream<List<GoodsEntry>> readGoodsEntries() => _service.collectionStream(
+  Stream<List<GoodsEntry>> readGoodsEntries(String queryKey) => _service.collectionStream(
     path: APIPath.goodsEntriesList(),
     builder: (data, documentId) => GoodsEntry.fromMap(data, documentId),
+    queryBuilder: (query) => query.where(queryKey, whereIn:  ['Not assigned', EMPLOYEE_ID]),
   );
 
   @override
@@ -200,7 +201,7 @@ class FirestoreDatabase implements Database {
   Stream<List<OrderDetails>> readOrders(String queryKey) => _service.collectionStream(
     path: APIPath.viewOrders(),
     builder: (data, documentId) => OrderDetails.fromMap(data, documentId),
-    queryBuilder: (query) => query.where(queryKey, isEqualTo: EMPLOYEE_ID),
+    queryBuilder: (query) => query.where(queryKey, whereIn:  ['Not assigned', EMPLOYEE_ID]),
   );
 
   @override

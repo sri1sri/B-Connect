@@ -91,92 +91,83 @@ class _F_AddDescriptionState extends State<F_AddDescription> {
               tabBarWidget: null,
             ),
           ),
-          body: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              _buildContent(),
-              SizedBox(height: 10,),
-              Container(
-                child: AnimatedButton(
-                  onTap: _submit,
-                  animationDuration: const Duration(milliseconds: 1000),
-                  initialText: "Save item usage",
-                  finalText: "Saved",
-                  iconData: Icons.check,
-                  iconSize: 22.0,
-                  buttonStyle: ButtonStyle(
-                    primaryColor: activeButtonBackgroundColor,
-                    secondaryColor: Colors.white,
-                    elevation: 10.0,
-                    initialTextStyle: TextStyle(
-                      fontSize: 18.0,
-                      color: Colors.white,
-                    ),
-                    finalTextStyle: TextStyle(
-                      fontSize: 18.0,
-                      color: backgroundColor,
-                    ),
-                    borderRadius: 10.0,
-                  ),
-                ),
-              ),
-            ],
-          ),
+          body: _buildContent(),
         ),
       ),
     );
   }
   Widget _buildContent() {
     return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.only(top:35.0),
-        child: Card(
-            child: _buildForm(),
-
-        ),
-      ),
+      child: _buildForm(),
     );
   }
   Widget _buildForm() {
     return Form(
       key: _formKey,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: _buildFormChildren(),
-      ),
+      child: _buildFormChildren(),
     );
   }
-  List<Widget>_buildFormChildren() {
 
-    return [
-      Container(
-        child: Padding(
-          padding: const EdgeInsets.all(.0),
-          child: TextField(
-            onChanged: (value) => _itemUsageDescription = value,
-            minLines: 2,
-            maxLines: 5,
-            autocorrect: true,
-            decoration: InputDecoration(
-              hintText: 'Please write item usage description.',
-              filled: true,
-              fillColor: Colors.black12,
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                borderSide: BorderSide(color: Colors.grey),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                borderSide: BorderSide(color: Colors.grey),
+  Widget _buildFormChildren() {
+
+    return Column(
+      children: <Widget>[
+        Container(
+            child: Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: TextField(
+                onChanged: (value) => _itemUsageDescription = value,
+                minLines: 2,
+                maxLines: 5,
+                autocorrect: true,
+                decoration: InputDecoration(
+                  hintText: 'Please write item usage description.',
+                  filled: true,
+                  fillColor: Colors.black12,
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                    borderSide: BorderSide(color: Colors.grey),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                    borderSide: BorderSide(color: Colors.grey),
+                  ),
+                ),
+                style: descriptionStyleDark,
+                  keyboardType: TextInputType.text,
+                  keyboardAppearance: Brightness.dark,
               ),
             ),
-            style: descriptionStyleDark,
-              keyboardType: TextInputType.text,
-              keyboardAppearance: Brightness.dark,
+          ),
+        SizedBox(height: 10,),
+        Container(
+          child: AnimatedButton(
+            onTap: _submit,
+            animationDuration: const Duration(milliseconds: 1000),
+            initialText: "Save item usage",
+            finalText: "Saved",
+            iconData: Icons.check,
+            iconSize: 22.0,
+            buttonStyle: ButtonStyle(
+              primaryColor: activeButtonBackgroundColor,
+              secondaryColor: Colors.white,
+              elevation: 10.0,
+              initialTextStyle: TextStyle(
+                fontSize: 18.0,
+                color: Colors.white,
+              ),
+              finalTextStyle: TextStyle(
+                fontSize: 18.0,
+                color: backgroundColor,
+              ),
+              borderRadius: 10.0,
+            ),
           ),
         ),
-      ),
-    ];
+      ],
+    );
+
+
   }
 }
 

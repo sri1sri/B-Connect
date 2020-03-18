@@ -10,7 +10,7 @@ import 'package:bhavani_connect/database_model/employee_details_model.dart';
 import 'package:bhavani_connect/firebase/api_path.dart';
 import 'package:bhavani_connect/firebase/auth.dart';
 import 'package:bhavani_connect/firebase/firestore_service.dart';
-import 'package:bhavani_connect/home_screens/home_page.dart';
+import 'package:bhavani_connect/landing_page.dart';
 import 'package:bhavani_connect/models/sign_up_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -102,7 +102,7 @@ class _F_SignUpPageState extends State<F_SignUpPage> {
       onlineChild: Padding(
         padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
         child: Scaffold(
-          body: SingleChildScrollView(child: _buildContent(context)),
+          body: _buildContent(context),
         ),
       ),
     );
@@ -120,160 +120,163 @@ setState(() {
   Widget _buildContent(BuildContext context) {
     return TransparentLoading(
       loading: widget.model.isLoading,
-      child: Container(
-        color: Colors.white,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Column(
-              children: <Widget>[],
-            ),
-            Column(
-              children: <Widget>[
-                Text(
-                  'Create your own \naccount today',
-                  style: titleStyle,
-                  textAlign: TextAlign.center,
-                ),
-                SizedBox(height: 10,),
-                Text(
-                  'To create an Account enter your name and date of birth.',
-                  style: descriptionStyle,
-                  textAlign: TextAlign.center,
-                ),
-              ],
-            ),
+      child: SingleChildScrollView(
+        child: Container(
+          color: Colors.white,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Column(
+                children: <Widget>[],
+              ),
+              Column(
+                children: <Widget>[
+                  Text(
+                    'Create your own \naccount today',
+                    style: titleStyle,
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(height: 10,),
+                  Text(
+                    'To create an Account enter your name and date of birth.',
+                    style: descriptionStyle,
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              ),
 
-            Column(
-              children: <Widget>[
-                GestureDetector(onTap: _captureImage,
-                    child: _profilePic == null ?
-                    Container(
+              Column(
+                children: <Widget>[
+                  GestureDetector(onTap: _captureImage,
+                      child: _profilePic == null ?
+                      Container(
+                          width: 120,
+                          height: 120,
+                          child: Padding(
+                            padding: const EdgeInsets.only(top:50,left: 25),
+                            child: Text('Add Photo',style: descriptionStyle,),
+                          ),
+                        decoration: BoxDecoration(
+                          color: Colors.grey[100],
+                            shape: BoxShape.circle,),
+                      )
+                          :
+                      Container(
                         width: 120,
                         height: 120,
-                        child: Padding(
-                          padding: const EdgeInsets.only(top:50,left: 25),
-                          child: Text('Add Photo',style: descriptionStyle,),
-                        ),
-                      decoration: BoxDecoration(
-                        color: Colors.grey[100],
-                          shape: BoxShape.circle,),
-                    )
-                        :
-                    Container(
-                      width: 120,
-                      height: 120,
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          image: DecorationImage(
-                            image: FileImage(_profilePic),  // here add your image file path
-                            fit: BoxFit.fill,
-                          )),
-                    )),
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                              image: FileImage(_profilePic),  // here add your image file path
+                              fit: BoxFit.fill,
+                            )),
+                      )),
 
-                SizedBox(height: 20.0),
+                  SizedBox(height: 20.0),
 
-                new TextFormField(
-                  controller: _usernameController,
-                  textInputAction: TextInputAction.done,
-                  obscureText: false,
-                  focusNode: _usernameFocusNode,
-                  onEditingComplete: () => _imageUpload(),
-                  onChanged: model.updateUsername,
-                  decoration: new InputDecoration(
-                    prefixIcon: Icon(
-                      Icons.account_circle,
-                      color: backgroundColor,
-                    ),
-                    labelText: "Enter your name",
-                    border: new OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(5.0),
-                      borderSide: new BorderSide(),
-                    ),
-                  ),
-                  validator: (val) {
-                    if(val.length==0) {
-                      return "Username cannot be empty";
-                    }else{
-                      return null;
-                    }
-                  },
-                  keyboardType: TextInputType.text,
-                  style: new TextStyle(
-                    fontFamily: "Poppins",
-                  ),
-                ),
-
-                SizedBox(height: 10.0),
-
-                Padding(
-                  padding: EdgeInsets.only(top: 0,bottom: 10),
-                  child: Container(
-
-                    child: RaisedButton(
-
-                      color: Colors.white,
-                      child: Container(
-                        height: 60,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Container(
-                              child: Row(
-                                children: <Widget>[
-                                  Icon(
-                                    Icons.date_range,
-                                    size: 18.0,
-                                    color: backgroundColor,
-                                  ),
-                                  SizedBox(width: 10,),
-                                  Text(
-                                      '${customFormat2.format(selectedDate)}',
-                                      style: subTitleStyle
-                                  ),
-                                ],
-                              ),
-                            ),
-
-                            Text(
-                              'Change',
-                              style: subTitleStyle
-                            ),
-                          ],
-                        ),
+                  new TextFormField(
+                    controller: _usernameController,
+                    textInputAction: TextInputAction.done,
+                    obscureText: false,
+                    focusNode: _usernameFocusNode,
+                    onEditingComplete: () => _imageUpload(),
+                    onChanged: model.updateUsername,
+                    decoration: new InputDecoration(
+                      prefixIcon: Icon(
+                        Icons.account_circle,
+                        color: backgroundColor,
                       ),
-                      onPressed: () => showPicker(context),
+                      labelText: "Enter your name",
+                      border: new OutlineInputBorder(
+                        borderRadius: new BorderRadius.circular(5.0),
+                        borderSide: new BorderSide(),
+                      ),
+                    ),
+                    validator: (val) {
+                      if(val.length==0) {
+                        return "Username cannot be empty";
+                      }else{
+                        return null;
+                      }
+                    },
+                    keyboardType: TextInputType.text,
+                    style: new TextStyle(
+                      fontFamily: "Poppins",
+                    ),
+                  ),
+
+                  SizedBox(height: 10.0),
+
+                  Padding(
+                    padding: EdgeInsets.only(top: 0,bottom: 10),
+                    child: Container(
+
+                      child: RaisedButton(
+
+                        color: Colors.white,
+                        child: Container(
+                          height: 60,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Container(
+                                child: Row(
+                                  children: <Widget>[
+                                    Icon(
+                                      Icons.date_range,
+                                      size: 18.0,
+                                      color: backgroundColor,
+                                    ),
+                                    SizedBox(width: 10,),
+                                    Text(
+                                        '${customFormat2.format(selectedDate)}',
+                                        style: subTitleStyle
+                                    ),
+                                  ],
+                                ),
+                              ),
+
+                              Text(
+                                'Change',
+                                style: subTitleStyle
+                              ),
+                            ],
+                          ),
+                        ),
+                        onPressed: () => showPicker(context),
+
+                      ),
 
                     ),
 
                   ),
 
-                ),
 
-
-                ToDoButton(
-                  assetName: 'images/googl-logo.png',
-                  text: 'Register',
-                  textColor: Colors.white,
-                  backgroundColor: activeButtonBackgroundColor,
-                  onPressed: model.canSubmit ? () => _imageUpload() : null,
-                ),
-                SizedBox(height: 100.0),
-              ],
-            ),
-          ],
+                  ToDoButton(
+                    assetName: 'images/googl-logo.png',
+                    text: 'Register',
+                    textColor: Colors.white,
+                    backgroundColor: activeButtonBackgroundColor,
+                    onPressed: model.canSubmit ? () => _imageUpload() : null,
+                  ),
+                  SizedBox(height: 100.0),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 
   Future<void> _submit(String path) async {
+
     try {
       FirebaseUser user = await FirebaseAuth.instance.currentUser();
       final employeeDetails = EmployeeDetails(
         username: _usernameController.value.text,
         phoneNumber: '+91${widget.phoneNo}',
-        gender: 'N',
+        gender: 'Not mentioned',
         dateOfBirth: Timestamp.fromDate(selectedDate),
         joinedDate: Timestamp.fromDate(DateTime.now()),
         latitude: '',
@@ -286,7 +289,7 @@ setState(() {
         path: APIPath.employeeDetails(user.uid),
         data: employeeDetails.toMap(),
       );
-      GoToPage(context, HomePage());
+      GoToPage(context, LandingPage());
 
     } on PlatformException catch (e) {
       PlatformExceptionAlertDialog(
@@ -297,7 +300,6 @@ setState(() {
   }
 
   void _imageUpload() async {
-
     if (_profilePic != null ) {
       String _profilePicPath = 'profile_pic_images/${DateTime.now()}.png';
       setState(() {
