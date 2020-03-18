@@ -123,7 +123,7 @@ class _F_AttendancePageState extends State<F_AttendancePage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text("Note: Once the attandance is uploaded that can't be changed.",style: TextStyle(
+                          Text("Note: The Uploaded Attendance cannot be changed.",style: TextStyle(
                               color: Colors.orangeAccent,
                               fontFamily: 'Quicksand',
                               fontWeight: FontWeight.w600,

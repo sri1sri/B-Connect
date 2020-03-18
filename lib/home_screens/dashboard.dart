@@ -84,7 +84,8 @@ class _F_DashboardState extends State<F_Dashboard> {
         return Scaffold(
           backgroundColor: Colors.white,
           appBar: PreferredSize(
-            preferredSize: Size.fromHeight(200),
+            preferredSize:
+            Size.fromHeight(200),
             child: CustomAppBar(
               leftActionBar: Container(
                   ),
@@ -155,7 +156,7 @@ class _F_DashboardState extends State<F_Dashboard> {
                         child: new Column(
                           children: <Widget>[
                             Image.asset(
-                              F_image[index],height: 70,
+                              F_image[index],height: 60,
                             ),
                             SizedBox(height: 5,),
                             new Text(

@@ -10,6 +10,7 @@ import 'package:bhavani_connect/firebase/database.dart';
 import 'package:bhavani_connect/home_screens/store/add_description.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_open_whatsapp/flutter_open_whatsapp.dart';
 import 'package:grouped_buttons/grouped_buttons.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -232,7 +233,7 @@ class _F_EmployeeProfilePageState extends State<F_EmployeeProfilePage> {
                                                   MaterialButton(
                                                     minWidth: 20,
                                                     onPressed: () {
-                                                     // FlutterLaunch.launchWathsApp(phone: "${employee.employeeContactNumber}", message: "Hello ${employee.employeeName}");
+                                                      FlutterOpenWhatsapp.sendSingleMessage("${employee.employeeContactNumber}", "Hello ${employee.employeeName},\nWelcome to B Connect.");
                                                     },
                                                     child: Column(
                                                       mainAxisAlignment:

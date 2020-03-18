@@ -135,7 +135,7 @@ class _F_OrderedItemsDetailsPageState extends State<F_OrderedItemsDetailsPage> {
 
   Widget _OrderedItemsCard(ItemEntry itemData, ItemInventry inventryData) {
     return StreamBuilder(
-        stream: widget.database.readOrderQty(widget.orderID, itemData.itemID),
+        stream: widget.database.readOrderQty(widget.orderID, (itemData == null ? "" : itemData.itemID)),
         builder: (context, snapshot) {
           String qty = snapshot.data.toString();
           return Container(
@@ -158,7 +158,7 @@ class _F_OrderedItemsDetailsPageState extends State<F_OrderedItemsDetailsPage> {
                           height: 10,
                         ),
                         Text(
-                          itemData.companyName,
+                          (itemData == null ? "" :    itemData.companyName),
                           style: descriptionStyleDark,
                         ),
                         SizedBox(
@@ -172,7 +172,7 @@ class _F_OrderedItemsDetailsPageState extends State<F_OrderedItemsDetailsPage> {
                           height: 10,
                         ),
                         Text(
-                          itemData.itemName,
+                          (itemData == null ? "" : itemData.itemName),
                           style: descriptionStyleDark,
                         ),
                       ]),
@@ -185,7 +185,7 @@ class _F_OrderedItemsDetailsPageState extends State<F_OrderedItemsDetailsPage> {
                           height: 10,
                         ),
                         Text(
-                          itemData.categoryName,
+                          (itemData == null ? "" : itemData.categoryName),
                           style: descriptionStyleDark,
                         ),
                         SizedBox(

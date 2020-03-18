@@ -9,6 +9,7 @@ import 'package:bhavani_connect/database_model/employee_details_model.dart';
 import 'package:bhavani_connect/database_model/item_inventry_model.dart';
 import 'package:bhavani_connect/database_model/items_entry_model.dart';
 import 'package:bhavani_connect/firebase/database.dart';
+import 'package:bhavani_connect/home_screens/store/add_item_description.dart';
 import 'package:bhavani_connect/home_screens/store/no_access_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
@@ -201,7 +202,7 @@ class _F_ItemsPageState extends State<F_ItemsPage> {
                               String cartID = DateTime.now().toString();
 
                               length == 0 ? widget.database.setcartItems(_cartEntry, cartID) : null;
-                              length == 0 ? GoToPage(context, AddDescription(database: widget.database,cartID: cartID)) : null;
+                              length == 0 ? GoToPage(context, AddItemDescription(database: widget.database,cartID: cartID)) : null;
 
 
                               final _inventryEntry = ItemInventry(

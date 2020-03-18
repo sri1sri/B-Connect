@@ -2,9 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'custom_raised_button.dart';
 
 class ToDoButton extends CustomRaisedButton{
+
   ToDoButton({
     @required String assetName,
     @required String text,
+    double textSize,
     Color backgroundColor,
     Color textColor,
     VoidCallback onPressed,
@@ -16,7 +18,7 @@ class ToDoButton extends CustomRaisedButton{
           children: <Widget>[
             Image.asset(assetName),
             Text(text,
-              style: TextStyle(fontSize: 19, fontWeight: FontWeight.w600,fontFamily: 'Quicksand'),
+              style: TextStyle(fontSize:17 , fontWeight: FontWeight.w600,fontFamily: 'Quicksand'),
             ),
             Opacity(
               opacity: 0.0,
@@ -28,4 +30,5 @@ class ToDoButton extends CustomRaisedButton{
         textColor: textColor,
         onPressed: onPressed,
       );
+
 }
