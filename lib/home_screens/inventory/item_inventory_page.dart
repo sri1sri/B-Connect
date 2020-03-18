@@ -135,7 +135,7 @@ class _F_ItemInventoryPageState extends State<F_ItemInventoryPage> {
     return Column(children: <Widget>[
       Stack(children: [
         Container(
-          height: 300.0,
+          height: 350.0,
           width: MediaQuery.of(context).size.width,
         ),
         Positioned(
