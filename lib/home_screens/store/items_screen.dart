@@ -188,7 +188,7 @@ class _F_ItemsPageState extends State<F_ItemsPage> {
 
                   widget.employee.role != 'Site Engineer'
                       ? Container()
-                      : data.quantityAvailable == 0 ? Container(child: Text('No stock',style: subTitleStyle,),) : Container(
+                      : data.quantityAvailable <= 0 ? Container(child: Text('No stock',style: subTitleStyle,),) : Container(
                           child: AnimatedButton(
                             onTap: () {
                               final _cartEntry = Cart(

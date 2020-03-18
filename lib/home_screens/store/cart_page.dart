@@ -123,7 +123,6 @@ class _F_CartPageState extends State<F_CartPage> {
                   final itemData = snapshot.data;
 
                   availableItemQuantity.add(itemData == null ? 0 : itemData.quantityAvailable);
-                  print('available quantity ==> ${availableItemQuantity}');
 
                   cartIDs.add((cartData == null ? 0 : cartData.cartID));
                   cartIDs = cartIDs.toSet().toList();
@@ -135,8 +134,6 @@ class _F_CartPageState extends State<F_CartPage> {
                   orderedItemQuantity = orderedItemQuantity.sublist(orderedItemQuantity.length - itemIDs.length);
 
 
-                  availableItemQuantity.add((itemData == null ? 0 : itemData.quantityAvailable));
-                  availableItemQuantity = availableItemQuantity.sublist(availableItemQuantity.length - itemIDs.length);
 
                   return Container(
                   child: SingleChildScrollView(
@@ -339,20 +336,49 @@ class _F_CartPageState extends State<F_CartPage> {
 
   Future<void> _submitOrder() async {
 
-    for(final id in removedItemIDs){
-      itemIDs.remove(id);
+
+
+
+    if(removedItemIDs.length == 0){
+      orderedItemQuantity = orderedItemQuantity.sublist((orderedItemQuantity.length +1 - itemIDs.length), orderedItemQuantity.length);
+      availableItemQuantity = availableItemQuantity.sublist((availableItemQuantity.length +1 - itemIDs.length), availableItemQuantity.length);
+
+
+      for(var i = 0; i < availableItemQuantity.length; i++){
+        print(availableItemQuantity.length);
+        print(availableItemQuantity);
+        print(itemIDs);
+        print(itemIDs[i+1]);
+        final int finalQuantityAvailable = availableItemQuantity[i] - orderedItemQuantity[i];
+        final itemDetails = ItemEntry(quantityAvailable: finalQuantityAvailable);
+        await widget.database.updateItemDetails(itemDetails, itemIDs[i+1].toString());
+        availableItemQuantity.removeAt(availableItemQuantity.length-1);
+      }
+
+      itemIDs.removeAt(0);
+      orderedItemQuantity.removeAt(0);
+    }else{
+      print('itemsID1->${itemIDs}');
+      for(final id in removedItemIDs){
+        itemIDs.remove(id);
+      }
+      print('itemsID2->${itemIDs}');
+
+      orderedItemQuantity = orderedItemQuantity.sublist((orderedItemQuantity.length - itemIDs.length), orderedItemQuantity.length);
+      availableItemQuantity = availableItemQuantity.sublist((availableItemQuantity.length - itemIDs.length), availableItemQuantity.length);
+
+      for(var i = 0; i < availableItemQuantity.length; i++){
+        print(itemIDs);
+        print(itemIDs[i]);
+        final int finalQuantityAvailable = availableItemQuantity[i] - orderedItemQuantity[i];
+        final itemDetails = ItemEntry(quantityAvailable: finalQuantityAvailable);
+        await widget.database.updateItemDetails(itemDetails, itemIDs[i].toString());
+        availableItemQuantity.removeAt(availableItemQuantity.length-1);
+      }
     }
 
-    orderedItemQuantity = orderedItemQuantity.sublist((orderedItemQuantity.length - itemIDs.length), orderedItemQuantity.length);
-    availableItemQuantity = availableItemQuantity.sublist((availableItemQuantity.length - itemIDs.length), availableItemQuantity.length);
-    print('available quantity 1==> ${availableItemQuantity}');
-
-//    for(var i = 0; i < itemIDs.length; i++){
-//      final itemDetails = ItemEntry(quantityAvailable: availableItemQuantity[i] - orderedItemQuantity[i]);
-//      await widget.database.updateItemDetails(itemDetails, itemIDs[i]);
-//    }
-
     print('available quantity 2==> ${availableItemQuantity}');
+    print('orderedItemQuantity  2==> ${orderedItemQuantity}');
 
     final _submitOrder = OrderDetails(
       //inventoryID: cartIDs,

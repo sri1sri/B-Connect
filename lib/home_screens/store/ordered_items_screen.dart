@@ -107,8 +107,8 @@ class _F_OrderedItemsPageState extends State<F_OrderedItemsPage> {
                   child: ToDoButton(
                     assetName: '',
                     text: 'Tap here to view items',
-                    textColor: Colors.white,
-                    backgroundColor: activeButtonBackgroundColor,
+                    textColor: backgroundColor,
+                    backgroundColor: Colors.grey[350],
                     onPressed: (){
                       GoToPage(
                           context,
@@ -117,7 +117,7 @@ class _F_OrderedItemsPageState extends State<F_OrderedItemsPage> {
                             itemsID: widget.itemsID,
                             orderID: widget.orderID,
                             employee: widget.employee,
-                            itemsQuantity: orderDetails.itemQuantity,));
+                            itemsQuantity: orderDetails.itemQuantity,),);
                     },
                   ),
                 ),
