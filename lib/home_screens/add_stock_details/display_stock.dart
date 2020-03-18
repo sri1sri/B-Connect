@@ -4,13 +4,15 @@ import 'package:bhavani_connect/common_variables/app_functions.dart';
 import 'package:bhavani_connect/common_widgets/custom_appbar_widget/custom_app_bar.dart';
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
 import 'package:bhavani_connect/database_model/common_variables_model.dart';
+import 'package:bhavani_connect/database_model/employee_details_model.dart';
 import 'package:bhavani_connect/firebase/database.dart';
 import 'package:bhavani_connect/home_screens/add_stock_details/edit_stock.dart';
 import 'package:flutter/material.dart';
 
 class DisplayStock extends StatelessWidget {
-  DisplayStock({@required this.database, @required this.title});
+  DisplayStock({@required this.database, @required this.title, @required this.employee});
   Database database;
+  EmployeeDetails employee;
   String title;
 
   @override
@@ -19,15 +21,18 @@ class DisplayStock extends StatelessWidget {
       child: F_DisplayStock(
         database: database,
         title: title,
+        employee: employee,
       ),
     );
   }
 }
 
 class F_DisplayStock extends StatefulWidget {
-  F_DisplayStock({@required this.database, @required this.title});
+  F_DisplayStock({@required this.database, @required this.title, @required this.employee});
   Database database;
   String title;
+  EmployeeDetails employee;
+
 
   @override
   _F_DisplayStockState createState() => _F_DisplayStockState();
@@ -66,7 +71,7 @@ class _F_DisplayStockState extends State<F_DisplayStock> {
             ),
           ),
           body: _buildContent(context),
-          floatingActionButton: FloatingActionButton(
+          floatingActionButton: widget.employee.role != 'Manager' ? Container(height: 0.0, width: 0.0,) : FloatingActionButton(
             elevation: 90,
             backgroundColor: backgroundColor,
             autofocus: true,

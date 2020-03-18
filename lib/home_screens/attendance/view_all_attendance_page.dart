@@ -136,7 +136,14 @@ class _F_ViewAllAttendancePageState extends State<F_ViewAllAttendancePage> {
                                 children: <Widget>[
                                   Column(
                                     children: <Widget>[
-                                      Container(
+                                      data.inTimePic == null ? Container(
+                          height: 60,
+                          width: 60,
+                          decoration: BoxDecoration(
+                              color: Colors.grey[200],
+                              shape: BoxShape.circle,
+                              )
+                      ) : Container(
                                           height: 60,
                                           width: 60,
                                           decoration: BoxDecoration(
@@ -163,7 +170,7 @@ class _F_ViewAllAttendancePageState extends State<F_ViewAllAttendancePage> {
                                               width: 20,
                                             ),
                                             Text(
-                                              getTime(data.inTime.seconds),
+                                              data == null ? '' : getTime(data.inTime == null ? 0 : data.inTime.seconds),
                                               style: descriptionStyleDark,
                                             )
                                           ],
@@ -182,7 +189,14 @@ class _F_ViewAllAttendancePageState extends State<F_ViewAllAttendancePage> {
                                 children: <Widget>[
                                   Column(
                                     children: <Widget>[
-                                      Container(
+                                      data.outTimePic == null ? Container(
+                                          height: 60,
+                                          width: 60,
+                                          decoration: BoxDecoration(
+                                            color: Colors.grey[200],
+                                            shape: BoxShape.circle,
+                                          )
+                                      ) : Container(
                                           height: 60,
                                           width: 60,
                                           decoration: BoxDecoration(
@@ -209,7 +223,7 @@ class _F_ViewAllAttendancePageState extends State<F_ViewAllAttendancePage> {
                                               width: 20,
                                             ),
                                             Text(
-                                              getTime(data.outTime.seconds),
+                                              data == null ? '' : getTime(data.outTime == null ? 0 : data.outTime.seconds),
                                               style: descriptionStyleDark,
                                             )
                                           ],

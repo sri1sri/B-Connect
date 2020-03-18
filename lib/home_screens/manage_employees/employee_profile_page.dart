@@ -297,7 +297,7 @@ class _F_EmployeeProfilePageState extends State<F_EmployeeProfilePage> {
                                       radius: 30.0,
                                       backgroundImage:
                                       NetworkImage((employee == null ? "" : employee.employeeImagePath)),
-                                      backgroundColor: Colors.transparent,
+                                      backgroundColor: Colors.grey[200],
                                     ),),
                               ]),
                             ])),

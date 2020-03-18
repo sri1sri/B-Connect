@@ -36,6 +36,7 @@ class _F_AddGoodsEntryPageState extends State<F_AddGoodsEntryPage> {
   File _MRRImage;
   final TextEditingController _MRRNumberController = TextEditingController();
   bool vechicelCamera;
+  String _mrr;
 
   Future<void> _captureImage() async {
     File selected = await ImagePicker.pickImage(source: IMAGE_SOURCE,imageQuality: 25);
@@ -47,6 +48,12 @@ class _F_AddGoodsEntryPageState extends State<F_AddGoodsEntryPage> {
         _MRRImage = selected;
       }
     });
+  }
+
+  @override
+  void dispose() {
+    _MRRNumberController.dispose();
+    super.dispose();
   }
 
   void _clear() {
@@ -67,7 +74,7 @@ class _F_AddGoodsEntryPageState extends State<F_AddGoodsEntryPage> {
         padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
         child: Scaffold(
           appBar:PreferredSize(
-            preferredSize: Size.fromHeight(115),
+            preferredSize: Size.fromHeight(130),
             //preferredSize : Size(double.infinity, 100),
             child: CustomAppBar(
               leftActionBar: Container(
@@ -85,17 +92,9 @@ class _F_AddGoodsEntryPageState extends State<F_AddGoodsEntryPage> {
               tabBarWidget: null,
             ),
           ),
-//          new AppBar(
-//            backgroundColor: Color(0xFF1F4B6E),
-//            title: Center(child:Text('Add Goods',style: subTitleStyleLight,)),
-//            leading: IconButton(icon:Icon(Icons.arrow_back),
-//              onPressed:() => Navigator.pop(context, false),
-//            ),
-//            centerTitle: true,
-//          ),
           body: _buildContent(context),
           bottomNavigationBar: BottomAppBar(
-            child: Uploader(vehiceImage: _vehicelImage, MRRImage: _MRRImage, database: widget.database, MRRNumber: _MRRNumberController.value.text,),
+            child: Uploader(vehiceImage: _vehicelImage, MRRImage: _MRRImage, database: widget.database, MRRNumber: _mrr,),
 //            ToDoButton(
           ),
         ),
@@ -139,10 +138,7 @@ class _F_AddGoodsEntryPageState extends State<F_AddGoodsEntryPage> {
                         },
                       ),
                     ],
-
                     SizedBox(height: 20,),
-
-
                     InkWell(
                       child: Container(
                         width: 200,
@@ -191,6 +187,7 @@ class _F_AddGoodsEntryPageState extends State<F_AddGoodsEntryPage> {
                     new TextFormField(
                       keyboardType: TextInputType.number,
                       controller: _MRRNumberController,
+                      onSaved: (value) => _mrr = value,
                       textInputAction: TextInputAction.done,
                       obscureText: false,
                       decoration: new InputDecoration(

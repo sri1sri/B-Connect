@@ -179,7 +179,7 @@ class _F_ItemsEntryState extends State<F_ItemsEntry> {
             _companyName = value;
           });
         },
-        dataSource: displayDropDownValues(data.companies),
+        dataSource: displayDropDownValues((data == null ? [] : data.companies)),
         textField: 'display',
         valueField: 'value',
         validator: (value) =>
@@ -240,7 +240,7 @@ class _F_ItemsEntryState extends State<F_ItemsEntry> {
             _itemName = value;
           });
         },
-        dataSource: displayDropDownValues(data.itemNames),
+        dataSource: displayDropDownValues((data == null ? [] : data.itemNames)),
         textField: 'display',
         valueField: 'value',
         validator: (value) =>
@@ -301,7 +301,7 @@ class _F_ItemsEntryState extends State<F_ItemsEntry> {
             _categoryName = value;
           });
         },
-        dataSource: displayDropDownValues(data.categories),
+        dataSource: displayDropDownValues((data == null ? [] : data.categories)),
         textField: 'display',
         valueField: 'value',
         validator: (value) =>
@@ -382,7 +382,7 @@ class _F_ItemsEntryState extends State<F_ItemsEntry> {
             _measure = value;
           });
         },
-        dataSource: displayDropDownValues(data.measures),
+        dataSource: displayDropDownValues((data == null ? [] : data.measures)),
         textField: 'display',
         valueField: 'value',
         validator: (value) =>

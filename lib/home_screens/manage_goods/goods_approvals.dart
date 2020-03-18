@@ -71,26 +71,26 @@ class _F_GoodsApprovalsPageState extends State<F_GoodsApprovalsPage> {
     }
   }
 
-  Widget addGoods(){
-    if(widget.employee.role == 'Security'){
-      return IconButton(
-          icon: Icon(
-            Icons.add_circle,
-            color: backgroundColor,
-            size: 30,
-          ),
-          onPressed: () {
-            GoToPage(
-                context,
-                AddGoodsEntryPage(
-                  database: widget.database,
-                ));
-          }
-      );
-    }else{
-      return Container();
-    }
-  }
+//  Widget addGoods(){
+//    if(widget.employee.role == 'Security'){
+//      return IconButton(
+//          icon: Icon(
+//            Icons.add_circle,
+//            color: backgroundColor,
+//            size: 30,
+//          ),
+//          onPressed: () {
+//            GoToPage(
+//                context,
+//                AddGoodsEntryPage(
+//                  database: widget.database,
+//                ));
+//          }
+//      );
+//    }else{
+//      return Container();
+//    }
+//  }
   @override
   Widget build(BuildContext context) {
     return offlineWidget(context);
@@ -109,10 +109,6 @@ class _F_GoodsApprovalsPageState extends State<F_GoodsApprovalsPage> {
               ),
               leftAction: (){
                 Navigator.pop(context,true);
-              },
-              rightActionBar: addGoods(),
-              rightAction: (){
-                print('right action bar is pressed in appbar');
               },
               primaryText: null,
               secondaryText: 'Goods Approvals',
@@ -159,8 +155,21 @@ class _F_GoodsApprovalsPageState extends State<F_GoodsApprovalsPage> {
                 Expanded(child: _buildContent(context))]
 
           ),
+          floatingActionButton: widget.employee.role != 'Security' ? null : FloatingActionButton(
+            onPressed: () {
+              // Add your onPressed code here!
+              GoToPage(
+                  context,
+                  AddGoodsEntryPage(
+                    database: widget.database,
+                  ));
+            },
+            child: Icon(Icons.add),
+            backgroundColor: backgroundColor,
+          ),
         ),
-      ),
+        ),
+
     );
   }
 
@@ -170,7 +179,7 @@ class _F_GoodsApprovalsPageState extends State<F_GoodsApprovalsPage> {
 
   Widget _buildCards(BuildContext context) {
     return StreamBuilder<List<GoodsEntry>>(
-        stream: widget.database.readGoodsEntries(),
+        stream: widget.database.readGoodsEntries(queryKey()),
         builder: (context, snapshot) {
           return ListItemsBuilder<GoodsEntry>(
             snapshot: snapshot,
@@ -206,6 +215,24 @@ class _F_GoodsApprovalsPageState extends State<F_GoodsApprovalsPage> {
             ),
           );
         });
+  }
+
+  String queryKey(){
+    print(widget.employee.role);
+    switch(widget.employee.role){
+      case 'Site Engineer':
+        return 'site_manager_id';
+        break;
+      case 'Store Manager':
+        return 'store_manager_id';
+        break;
+      case 'Supervisor':
+        return 'supervisor_id';
+        break;
+      case 'Manager':
+        return 'manager_id';
+        break;
+    }
   }
 
   _ItemEntry(BuildContext context, Widget page, GoodsEntry data) {
@@ -484,7 +511,7 @@ class PhotoHero extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: new BoxDecoration(
-          color: Colors.grey,
+          color: Colors.grey[200],
           borderRadius: BorderRadius.only(
             topLeft: const Radius.circular(10.0),
             topRight: const Radius.circular(10.0),

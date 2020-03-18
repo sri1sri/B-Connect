@@ -12,6 +12,8 @@ class ItemInventry{
     @required this.empty,
     @required this.quantity,
     @required this.itemDescription,
+    @required this.isOrdered,
+
   });
 
   final String cartID;
@@ -20,6 +22,7 @@ class ItemInventry{
   final Timestamp addedDate;
   final int quantity;
   final itemDescription;
+  final bool isOrdered;
 
   final Null empty;
 
@@ -35,6 +38,8 @@ class ItemInventry{
     final Timestamp addedDate = data['added_date'];
     final int quantity = data['quantity'];
     final String itemDescription = data['item_description'];
+    final bool isOrdered = data['is_ordered'];
+
     final Null empty = data['empty'];
 
     return ItemInventry(
@@ -44,6 +49,7 @@ class ItemInventry{
       addedDate: addedDate,
       quantity: quantity,
       itemDescription : itemDescription,
+      isOrdered : isOrdered,
       empty: empty,
     );
   }
@@ -55,6 +61,7 @@ class ItemInventry{
       addedDate != null ? 'added_date': 'empty': addedDate,
       quantity != null ? 'quantity' : 'empty' : quantity,
       itemDescription != null ? 'item_description' : 'empty' : itemDescription,
+      isOrdered != null ? 'is_ordered' : 'empty' : isOrdered,
     };
   }
 }

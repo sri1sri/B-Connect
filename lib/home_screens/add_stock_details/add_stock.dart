@@ -3,27 +3,31 @@ import 'package:bhavani_connect/common_variables/app_fonts.dart';
 import 'package:bhavani_connect/common_variables/app_functions.dart';
 import 'package:bhavani_connect/common_widgets/custom_appbar_widget/custom_app_bar.dart';
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
+import 'package:bhavani_connect/database_model/employee_details_model.dart';
 import 'package:bhavani_connect/firebase/database.dart';
 import 'package:bhavani_connect/home_screens/add_stock_details/display_stock.dart';
 import 'package:flutter/material.dart';
 
 class AddStock extends StatelessWidget {
-  AddStock({@required this.database});
+  AddStock({@required this.database, @required this.employee});
   Database database;
+  EmployeeDetails employee;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       child: F_AddStock(
         database: database,
+          employee: employee,
       ),
     );
   }
 }
 
 class F_AddStock extends StatefulWidget {
-  F_AddStock({@required this.database});
+  F_AddStock({@required this.database, @required this.employee});
   Database database;
+  EmployeeDetails employee;
 
   @override
   _F_AddStockState createState() => _F_AddStockState();
@@ -93,8 +97,7 @@ class _F_AddStockState extends State<F_AddStock> {
       child: FlatButton(
         onPressed: () =>
             GoToPage( context,
-                DisplayStock( database: widget.database,title: optionTitle ) ),
-
+                DisplayStock( database: widget.database,title: optionTitle, employee: widget.employee, ) ),
 
         padding: EdgeInsets.all( 15.0 ),
 

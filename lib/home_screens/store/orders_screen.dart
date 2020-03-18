@@ -155,7 +155,8 @@ class _F_OrdersPageState extends State<F_OrdersPage> {
             ),
             onTap: () {
               print('itemQuantity == ${orderData.itemQuantity}');
-              GoToPage(context, OrderedItemsPage(database: widget.database, itemsID: orderData.itemID, orderID: orderData.orderID, employee: widget.employee));
+              GoToPage(context, OrderedItemsPage(database: widget.database, itemsID: orderData.itemID, orderID: orderData.orderID, employee: widget.employee
+              ));
             },
           ),
         );

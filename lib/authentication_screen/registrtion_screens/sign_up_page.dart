@@ -10,7 +10,7 @@ import 'package:bhavani_connect/database_model/employee_details_model.dart';
 import 'package:bhavani_connect/firebase/api_path.dart';
 import 'package:bhavani_connect/firebase/auth.dart';
 import 'package:bhavani_connect/firebase/firestore_service.dart';
-import 'package:bhavani_connect/home_screens/home_page.dart';
+import 'package:bhavani_connect/landing_page.dart';
 import 'package:bhavani_connect/models/sign_up_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -102,7 +102,7 @@ class _F_SignUpPageState extends State<F_SignUpPage> {
       onlineChild: Padding(
         padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
         child: Scaffold(
-          body: widget(child: _buildContent(context)),
+          body: _buildContent(context),
         ),
       ),
     );
@@ -270,12 +270,13 @@ setState(() {
   }
 
   Future<void> _submit(String path) async {
+
     try {
       FirebaseUser user = await FirebaseAuth.instance.currentUser();
       final employeeDetails = EmployeeDetails(
         username: _usernameController.value.text,
         phoneNumber: '+91${widget.phoneNo}',
-        gender: 'N',
+        gender: 'Not mentioned',
         dateOfBirth: Timestamp.fromDate(selectedDate),
         joinedDate: Timestamp.fromDate(DateTime.now()),
         latitude: '',
@@ -288,7 +289,7 @@ setState(() {
         path: APIPath.employeeDetails(user.uid),
         data: employeeDetails.toMap(),
       );
-      GoToPage(context, HomePage());
+      GoToPage(context, LandingPage());
 
     } on PlatformException catch (e) {
       PlatformExceptionAlertDialog(
@@ -299,7 +300,6 @@ setState(() {
   }
 
   void _imageUpload() async {
-
     if (_profilePic != null ) {
       String _profilePicPath = 'profile_pic_images/${DateTime.now()}.png';
       setState(() {

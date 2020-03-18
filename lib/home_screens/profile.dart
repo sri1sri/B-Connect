@@ -22,17 +22,6 @@ Future<void> _signOut(BuildContext context) async {
   }
 }
 
-Future<void> _confirmSignOut(BuildContext context) async {
-  final didRequestSignOut = await PlatformAlertDialog(
-    title: 'Logout',
-    content: 'Are you sure that you want to logout?',
-    defaultActionText: 'Logout',
-    cancelActionText: 'Cancel',
-  ).show(context);
-  if (didRequestSignOut == true) {
-    _signOut(context);
-  }
-}
 
 class ProfilePage extends StatelessWidget {
   ProfilePage({@required this.database});
@@ -253,9 +242,9 @@ class _F_ProfilePageState extends State<F_ProfilePage> {
                                     backgroundColor: Colors.grey[200],
                                   ) : CircleAvatar(
                                     radius: 30.0,
+                                    backgroundColor: Colors.grey[200],
                                     backgroundImage:
                                         NetworkImage((employee == null ? "" : employee.employeeImagePath)),
-                                    backgroundColor: Colors.transparent,
                                   ),
                                 ),
                               ]),

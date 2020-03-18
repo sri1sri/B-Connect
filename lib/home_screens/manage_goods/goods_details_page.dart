@@ -68,12 +68,6 @@ class _F_GoodsDetailsPageState extends State<F_GoodsDetailsPage> {
               leftAction: () {
                 Navigator.pop(context, true);
               },
-              rightActionBar: Container(
-                  //child: Icon(Icons.notifications, size: 40,),
-                  ),
-              rightAction: () {
-                print('right action bar is pressed in appbar');
-              },
               primaryText: null,
               secondaryText: 'Goods Details',
               tabBarWidget: null,
@@ -124,6 +118,15 @@ class _F_GoodsDetailsPageState extends State<F_GoodsDetailsPage> {
             );
             widget.database.updateGoodsEntry(_itemEntry, widget.goodsID);
           });
+        } else if (widget.employee.role == 'Supervisor') {
+          return Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Text('Note: Please enter items details. Please go on tap for item details ',style: TextStyle(
+                color: Colors.orangeAccent,
+                fontFamily: 'Quicksand',
+                fontWeight: FontWeight.w600,
+                fontSize: 18.0),),
+          );
         } else {
           return Container(
             height: 0.0,
@@ -167,6 +170,12 @@ class _F_GoodsDetailsPageState extends State<F_GoodsDetailsPage> {
           );
         }
         break;
+      case 4:
+          return Container(
+            height: 0.0,
+            width: 0.0,
+          );
+        break;
     }
   }
 
@@ -206,6 +215,9 @@ class _F_GoodsDetailsPageState extends State<F_GoodsDetailsPage> {
             Column(children: <Widget>[
               _goodsDetails(context),
               _statusApprovalButton(),
+              SizedBox(
+                height: 20,
+              ),
             ]),
           ]),
         ),
@@ -223,7 +235,6 @@ class _F_GoodsDetailsPageState extends State<F_GoodsDetailsPage> {
           child: Column(
             children: <Widget>[
               Container(
-                height: MediaQuery.of(context).size.height,
                 padding: EdgeInsets.all(10.0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -387,16 +398,47 @@ class _F_GoodsDetailsPageState extends State<F_GoodsDetailsPage> {
     );
   }
 
+
+//  Widget _trackGoodsStatus(GoodsEntry data) {
+//    switch ((data == null ? 0 : data.approvalLevel)) {
+//      case 0:
+//        return _statusTracker(data, Colors.orangeAccent, Colors.grey,
+//            Colors.grey, Colors.grey, Colors.grey);
+//        break;
+//
+//      case 1:
+//        return _statusTracker(data, Colors.green, Colors.orangeAccent,
+//            Colors.grey, Colors.grey, Colors.grey);
+//        break;
+//
+//      case 2:
+//        return _statusTracker(data, Colors.green, Colors.green, Colors.green,
+//            Colors.orangeAccent, Colors.grey);
+//        break;
+//
+//      case 3:
+//        return _statusTracker(data, Colors.green, Colors.green, Colors.green,
+//            Colors.green, Colors.orangeAccent);
+//        break;
+//
+//      case 4:
+//        return _statusTracker(data, Colors.green, Colors.green, Colors.green,
+//            Colors.green, Colors.green);
+//        break;
+//    }
+//  }
+
+
   Widget _trackGoodsStatus(GoodsEntry data) {
     switch ((data == null ? 0 : data.approvalLevel)) {
       case 0:
-        return _statusTracker(data, Colors.orangeAccent, Colors.grey,
+        return _statusTracker(data, Colors.green, Colors.orangeAccent,
             Colors.grey, Colors.grey, Colors.grey);
         break;
 
       case 1:
-        return _statusTracker(data, Colors.green, Colors.orangeAccent,
-            Colors.grey, Colors.grey, Colors.grey);
+        return _statusTracker(data, Colors.green, Colors.green, Colors.orangeAccent,
+            Colors.grey, Colors.grey);
         break;
 
       case 2:
@@ -408,7 +450,6 @@ class _F_GoodsDetailsPageState extends State<F_GoodsDetailsPage> {
         return _statusTracker(data, Colors.green, Colors.green, Colors.green,
             Colors.green, Colors.orangeAccent);
         break;
-
       case 4:
         return _statusTracker(data, Colors.green, Colors.green, Colors.green,
             Colors.green, Colors.green);
@@ -512,7 +553,7 @@ class _F_GoodsDetailsPageState extends State<F_GoodsDetailsPage> {
         Column(
           children: [
             Text(
-              "Security Approved Time",
+              "Security Added Time",
               style: descriptionStyle,
             ),
             SizedBox(

@@ -140,9 +140,9 @@ class _F_ManageEmployeesPageState extends State<F_ManageEmployeesPage> {
                                     backgroundColor: Colors.grey[200],
                                   ) : CircleAvatar(
                                     radius: 30.0,
+                                    backgroundColor: Colors.grey[200],
                                     backgroundImage:
                                     NetworkImage(data.employeeImagePath),
-                                    backgroundColor: Colors.transparent,
                                   ),
 
                                   title: Text('${data.employeeName}',style: subTitleStyle,),
@@ -176,7 +176,7 @@ class _F_ManageEmployeesPageState extends State<F_ManageEmployeesPage> {
   }
 
   Widget getEditStatus (){
-    if(USERID() == 'HuOG1oaJCHSebSOKVeN3MNIU0eT2'){
+    if(widget.employee.role == 'Manager'){
       return Text('Edit', style: subTitleStyle);
     }
     return Text('View', style: subTitleStyle);

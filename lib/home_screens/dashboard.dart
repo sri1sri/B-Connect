@@ -224,6 +224,7 @@ class _F_DashboardState extends State<F_Dashboard> {
                                 context,
                                 AddStock(
                                   database: widget.database,
+                                  employee: employee,
                                 ));
                           }
                           break;
