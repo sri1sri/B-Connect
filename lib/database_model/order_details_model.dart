@@ -8,6 +8,7 @@ class OrderDetails {
 
     @required this.itemID,
     @required this.itemQuantity,
+    @required this.inventoryID,
 
     @required this.siteManagerID,
     @required this.managerID,
@@ -27,6 +28,7 @@ class OrderDetails {
 
   final String orderID;
 
+  final inventoryID;
   final itemID;
   final itemQuantity;
 
@@ -51,6 +53,7 @@ class OrderDetails {
     final String orderID = documentId;
 
     final itemID = data['item_id'];
+    final inventoryID = data['inventory_id'];
     final itemQuantity = data['item_quantity'];
 
     final String siteManagerID = data['site_manager_id'];
@@ -74,6 +77,7 @@ class OrderDetails {
     return OrderDetails(
       orderID: orderID,
       itemID: itemID,
+      inventoryID: inventoryID,
       siteManagerID: siteManagerID,
       supervisorID: supervisorID,
       managerID: managerID,
@@ -90,6 +94,7 @@ class OrderDetails {
 
   Map<String, dynamic> toMap() {
     return {
+      inventoryID != null ? 'inventory_id': 'empty': inventoryID,
       itemID != null ? 'item_id': 'empty': itemID,
       siteManagerID != null ? 'site_manager_id': 'empty': siteManagerID,
       supervisorID != null ? 'supervisor_id': 'empty': supervisorID,

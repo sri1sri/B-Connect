@@ -52,6 +52,7 @@ abstract class Database{
   Future<void> setInventryItems(ItemInventry itemInventry, String inventryID);
   Stream<ItemInventry> readInventryDetails(String inventryID);
   Stream<List<ItemInventry>> viewInventryItems();
+  Stream<List<ItemInventry>> viewInventryItemsInCart(List items);
   Future<void> updateInventryDetails(ItemInventry inventryDetails, String inventryID);
   Future<void> deleteItemInventry(String inventryID);
   Future<void> setAttendanceEntry(Attendance attendanceEntry, String attendanceID);
@@ -291,6 +292,13 @@ class FirestoreDatabase implements Database {
     path: APIPath.viewInventry(),
     builder: (data, documentId) => ItemInventry.fromMap(data, documentId),
     queryBuilder: (query) => query.where('employee_id', isEqualTo: EMPLOYEE_ID),
+  );
+
+  @override
+  Stream<List<ItemInventry>> viewInventryItemsInCart(List items) => _service.collectionStream(
+    path: APIPath.viewInventry(),
+    builder: (data, documentId) => ItemInventry.fromMap(data, documentId),
+    queryBuilder: (query) => query.where('item_id', whereIn: items),
   );
 
   @override

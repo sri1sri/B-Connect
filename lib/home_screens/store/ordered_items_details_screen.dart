@@ -1,25 +1,25 @@
-
 import 'package:bhavani_connect/common_variables/app_fonts.dart';
 import 'package:bhavani_connect/common_widgets/custom_appbar_widget/custom_app_bar.dart';
 import 'package:bhavani_connect/common_widgets/list_item_builder/list_items_builder.dart';
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
 import 'package:bhavani_connect/database_model/employee_details_model.dart';
+import 'package:bhavani_connect/database_model/item_inventry_model.dart';
 import 'package:bhavani_connect/database_model/items_entry_model.dart';
 import 'package:bhavani_connect/firebase/database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class OrderedItemsDetailsPage extends StatelessWidget {
-  OrderedItemsDetailsPage(
-      {@required this.database,
-        @required this.itemsID,
-        @required this.orderID,
-        @required this.employee,
-        @required this.itemsQuantity,
-        });
+  OrderedItemsDetailsPage({
+    @required this.database,
+    @required this.itemsID,
+    @required this.orderID,
+    @required this.employee,
+    @required this.itemsQuantity,
+  });
   Database database;
   var itemsID;
-var itemsQuantity;
+  var itemsQuantity;
   String orderID;
   EmployeeDetails employee;
 
@@ -37,13 +37,13 @@ var itemsQuantity;
 }
 
 class F_OrderedItemsDetailsPage extends StatefulWidget {
-  F_OrderedItemsDetailsPage(
-      {@required this.database,
-        @required this.itemsID,
-        @required this.orderID,
-        @required this.employee,
-        @required this.itemsQuantity,
-       });
+  F_OrderedItemsDetailsPage({
+    @required this.database,
+    @required this.itemsID,
+    @required this.orderID,
+    @required this.employee,
+    @required this.itemsQuantity,
+  });
   Database database;
   var itemsID;
   String orderID;
@@ -51,12 +51,12 @@ class F_OrderedItemsDetailsPage extends StatefulWidget {
   var itemsQuantity;
 
   @override
-  _F_OrderedItemsDetailsPageState createState() => _F_OrderedItemsDetailsPageState();
+  _F_OrderedItemsDetailsPageState createState() =>
+      _F_OrderedItemsDetailsPageState();
 }
 
 class _F_OrderedItemsDetailsPageState extends State<F_OrderedItemsDetailsPage> {
-
-  var orderData= [];
+  var orderData = [];
 
   @override
   Widget build(BuildContext context) {
@@ -93,116 +93,146 @@ class _F_OrderedItemsDetailsPageState extends State<F_OrderedItemsDetailsPage> {
   }
 
   Widget _buildContent(BuildContext context) {
-    return StreamBuilder<List<ItemEntry>>(
-      stream: widget.database.viewMultipleItem(widget.itemsID),
-      builder: (context, itemSnapshots) {
-        return ListItemsBuilder<ItemEntry>(
-          snapshot: itemSnapshots,
-          itemBuilder: (context, itemData) => Column(
-            children: <Widget>[
-              Container(
-                color: Colors.white,
-                child: SingleChildScrollView(
-                  padding: EdgeInsets.all(10.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Column(
+    return StreamBuilder<List<ItemInventry>>(
+      stream: widget.database.viewInventryItemsInCart(widget.itemsID),
+      builder: (context, inventorySnapshot) {
+        return ListItemsBuilder<ItemInventry>(
+          snapshot: inventorySnapshot,
+          itemBuilder: (context, inventryItemData) => StreamBuilder<ItemEntry>(
+            stream: widget.database.viewItem(inventryItemData.itemID),
+            builder: (context, itemSnapshot) {
+              final itemData = itemSnapshot.data;
+
+              return Column(
+                children: <Widget>[
+                  Container(
+                    color: Colors.white,
+                    child: SingleChildScrollView(
+                      padding: EdgeInsets.all(10.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                            _OrderedItemsCard(itemData),
+                          Column(
+                            children: <Widget>[
+                              _OrderedItemsCard(itemData, inventryItemData),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
                         ],
                       ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                    ],
+                    ),
                   ),
-                ),
-              ),
-            ],
+                ],
+              );
+            },
           ),
         );
       },
     );
   }
 
-  Widget _OrderedItemsCard(ItemEntry itemData) {
+  Widget _OrderedItemsCard(ItemEntry itemData, ItemInventry inventryData) {
     return StreamBuilder(
-      stream: widget.database.readOrderQty(widget.orderID,itemData.itemID),
-      builder: (context, snapshot) {
-        String qty  = snapshot.data.toString();
-        return Container(
-          child: Card(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                SizedBox(
-                  height: 20,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Column(children: <Widget>[
+        stream: widget.database.readOrderQty(widget.orderID, itemData.itemID),
+        builder: (context, snapshot) {
+          String qty = snapshot.data.toString();
+          return Container(
+            child: Card(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Column(children: <Widget>[
+                        Text(
+                          "Company Name",
+                          style: descriptionStyle,
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          itemData.companyName,
+                          style: descriptionStyleDark,
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          "Item names",
+                          style: descriptionStyle,
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          itemData.itemName,
+                          style: descriptionStyleDark,
+                        ),
+                      ]),
+                      Column(children: <Widget>[
+                        Text(
+                          "Category",
+                          style: descriptionStyle,
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          itemData.categoryName,
+                          style: descriptionStyleDark,
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          "Quantity",
+                          style: descriptionStyle,
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text(qty, style: descriptionStyleDark),
+                      ]),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  SizedBox(height: 10),
+                  Divider(
+                    color: Colors.black.withOpacity(0.5),
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
                       Text(
-                        "Company Name",
+                        "Description",
                         style: descriptionStyle,
                       ),
                       SizedBox(
-                        height: 10,
+                        height: 6,
                       ),
                       Text(
-                        itemData.companyName,
-                        style: descriptionStyleDark,
+                        (inventryData.itemDescription),
+                        textAlign: TextAlign.center,
                       ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Text(
-                        "Item names",
-                        style: descriptionStyle,
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Text(
-                        itemData.itemName,
-                        style: descriptionStyleDark,
-                      ),
-                    ]),
-                    Column(children: <Widget>[
-                      Text(
-                        "Category",
-                        style: descriptionStyle,
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Text(
-                        itemData.categoryName,
-                        style: descriptionStyleDark,
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Text(
-                        "Quantity",
-                        style: descriptionStyle,
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Text(qty, style: descriptionStyleDark),
-                    ]),
-                  ],
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-              ],
+                    ],
+                  ),
+                  Divider(
+                    color: Colors.black.withOpacity(0.5),
+                  ),
+                  SizedBox(height: 10),
+                ],
+              ),
             ),
-          ),
-        );
-      }
-    );
+          );
+        });
   }
 }

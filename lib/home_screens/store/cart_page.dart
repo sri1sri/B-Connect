@@ -355,6 +355,7 @@ class _F_CartPageState extends State<F_CartPage> {
     print('available quantity 2==> ${availableItemQuantity}');
 
     final _submitOrder = OrderDetails(
+      //inventoryID: cartIDs,
       itemID: itemIDs,
       siteManagerID: EMPLOYEE_ID,
       supervisorID: 'Not assigned',
@@ -378,7 +379,6 @@ class _F_CartPageState extends State<F_CartPage> {
           isOrdered: true);
       widget.database.updateInventryDetails(_itemInventryEntry, cartIDs[i]);
   }
-
 
     itemIDs.clear();
     cartIDs.clear();
