@@ -109,8 +109,8 @@ class _F_AttendancePageState extends State<F_AttendancePage> {
             builder: (context, commonVariablesSnapshot) {
               final commonVariables = commonVariablesSnapshot.data;
 
-                _lattitude = commonVariablesSnapshot.data == null ? 0.00 : commonVariables.bhavaniSkyTowersLocation.latitude;
-                _longitude = commonVariablesSnapshot.data == null ? 0.00 : commonVariables.bhavaniSkyTowersLocation.longitude;
+                _lattitude = commonVariables == null ? 0.00 : commonVariables.bhavaniSkyTowersLocation.latitude;
+                _longitude = commonVariables == null ? 0.00 : commonVariables.bhavaniSkyTowersLocation.longitude;
 
               return Column(
                 children: <Widget>[
@@ -123,11 +123,7 @@ class _F_AttendancePageState extends State<F_AttendancePage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text("Note: The Uploaded Attendance cannot be changed.",style: TextStyle(
-                              color: Colors.orangeAccent,
-                              fontFamily: 'Quicksand',
-                              fontWeight: FontWeight.w600,
-                              fontSize: 18.0),),
+                          Text("Note: The Uploaded Attendance cannot be changed.",style: descriptionStyle,),
                           SizedBox(height: 10),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
@@ -328,7 +324,7 @@ class _F_AttendancePageState extends State<F_AttendancePage> {
     double lat = position.latitude;
     double lon = position.longitude;
 
-    if (distanceInMeters > distance) {
+    if (distanceInMeters < distance) {
       print(
           'not in location latitude: $lat and longitude: $lon, distance is $distanceInMeters');
       setState(() {

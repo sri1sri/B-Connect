@@ -48,6 +48,16 @@ class _F_UploadAttandancePageState extends State<F_UploadAttendancePage> {
   StorageUploadTask _uploadTask;
   String _profilePicPathURL;
 
+  bool _loading;
+  double _progressValue;
+
+  @override
+  void initState() {
+    super.initState();
+    _loading = false;
+    _progressValue = 0.0;
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +93,7 @@ class _F_UploadAttandancePageState extends State<F_UploadAttendancePage> {
     );
   }
 
-  Widget _buildContent(context) {
+  Widget uploadAttendanceContent(Widget uploadAttendance){
     return Column(
       children: <Widget>[
         SizedBox(
@@ -101,7 +111,7 @@ class _F_UploadAttandancePageState extends State<F_UploadAttendancePage> {
                   children: <Widget>[
                     Container(
                       child: Text(widget.attendanceType == 0 ?
-                        'In Time:' : 'Out Time:',
+                      'In Time:' : 'Out Time:',
                         style: titleStyle,
                       ),
                     ),
@@ -119,56 +129,89 @@ class _F_UploadAttandancePageState extends State<F_UploadAttendancePage> {
                 GestureDetector(
                   child: widget.capturedImage == null
                       ? Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Container(
-                              height: 200,
-                              width: 200,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Colors.grey[300],
-                              ),
-                              child: Center(
-                                child: Text('Tap here to \nupload image',
-                                    style: subTitleStyle),
-                              ),
-                            ),
-                          ],
-                        )
-                      : Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Container(
-                              height: 200,
-                              width: 200,
-                              decoration: BoxDecoration(
-                                color: Colors.grey[100],
-                                shape: BoxShape.circle,
-                                image: DecorationImage(
-                                  image: FileImage(widget.capturedImage), // here add your image file path
-                                  fit: BoxFit.fill,
-                                ),
-                              ),
-                            ),
-                          ],
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(
+                        height: 200,
+                        width: 200,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.grey[300],
                         ),
+                        child: Center(
+                          child: Text('Tap here to \nupload image',
+                              style: subTitleStyle),
+                        ),
+                      ),
+                    ],
+                  )
+                      : Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(
+                        height: 200,
+                        width: 200,
+                        decoration: BoxDecoration(
+                          color: Colors.grey[100],
+                          shape: BoxShape.circle,
+                          image: DecorationImage(
+                            image: FileImage(widget.capturedImage), // here add your image file path
+                            fit: BoxFit.fill,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
                 SizedBox(height: 50,),
-                ToDoButton(
-                  assetName: '',
-                  text: 'Update Attendance',
-                  textColor: Colors.white,
-                  backgroundColor: activeButtonBackgroundColor,
-                  onPressed: (){
-                    _imageUpload();
-                  },
-                ),
+
+                uploadAttendance,
               ],
             ),
           ),
         ),
       ],
     );
+  }
+
+  Widget _buildContent(context) {
+    if (_uploadTask != null) {
+      return StreamBuilder<StorageTaskEvent>(
+          stream: _uploadTask.events == null ? null :_uploadTask.events,
+          builder: (context, snapshot) {
+            var event = snapshot?.data?.snapshot;
+
+            _progressValue =
+            event != null ? event.bytesTransferred / event.totalByteCount : 0;
+            return uploadAttendanceContent(
+              Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    LinearProgressIndicator(
+                      value: _progressValue,
+                    ),
+                    Text('${(_progressValue * 100).round()}%'),
+                  ],
+                ),
+              ),
+            );
+
+          },
+      );
+    }else{
+      return uploadAttendanceContent(
+        ToDoButton(
+          assetName: '',
+          text: 'Update Attendance',
+          textColor: Colors.white,
+          backgroundColor: activeButtonBackgroundColor,
+          onPressed: (){
+            _imageUpload();
+          },
+        ),
+      );
+    }
   }
 
 

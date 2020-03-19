@@ -106,8 +106,8 @@ class _UploaderState extends State<Uploader> {
       notificationDescription:
       'Item has been entered the dite. waiting for your approval.',
       itemEntryID: itemID,
-      senderID: 'VlkppQFc9jaeLgpjyt2yAIQL5wy2',
-      receiverID: 'N0aPI4jS3RRE4yiDPyQhS0sVNfU2',
+      senderID: 'not asigned',
+      receiverID: 'not assigned',
     );
     await widget.database.setNotification(_notificationEntry);
   }

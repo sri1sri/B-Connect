@@ -39,6 +39,8 @@ class F_SignUpPage extends StatefulWidget {
   final SignUpModel model;
   String phoneNo;
 
+
+
   static Widget create(BuildContext context, String phoneNo) {
     final AuthBase auth = Provider.of<AuthBase>(context);
 
@@ -63,6 +65,16 @@ class _F_SignUpPageState extends State<F_SignUpPage> {
   final FirebaseStorage _storage = FirebaseStorage(storageBucket: 'gs://bconnect-9d1b5.appspot.com/');
   StorageUploadTask _uploadTask;
   String _profilePicPathURL;
+
+  bool _loading;
+  double _progressValue;
+
+  @override
+  void initState() {
+    super.initState();
+    _loading = false;
+    _progressValue = 0.0;
+  }
 
   Future<Null> showPicker(BuildContext context) async {
     final DateTime picked = await showDatePicker(
@@ -113,160 +125,187 @@ class _F_SignUpPageState extends State<F_SignUpPage> {
 setState(() {
   _profilePic = profileImage;
   print(_profilePic);
-
 });
   }
 
-  Widget _buildContent(BuildContext context) {
-    return TransparentLoading(
-      loading: widget.model.isLoading,
-      child: SingleChildScrollView(
-        child: Container(
-          color: Colors.white,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Column(
-                children: <Widget>[],
-              ),
-              Column(
-                children: <Widget>[
-                  Text(
-                    'Create your own \naccount today',
-                    style: titleStyle,
-                    textAlign: TextAlign.center,
-                  ),
-                  SizedBox(height: 10,),
-                  Text(
-                    'To create an Account enter your name and date of birth.',
-                    style: descriptionStyle,
-                    textAlign: TextAlign.center,
-                  ),
-                ],
-              ),
+  Widget signupContent(Widget signInBtn){
+   return SingleChildScrollView(
+      child: Container(
+        color: Colors.white,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Column(
+              children: <Widget>[],
+            ),
+            Column(
+              children: <Widget>[
+                Text(
+                  'Create your own \naccount today',
+                  style: titleStyle,
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(height: 10,),
+                Text(
+                  'To create an Account enter your name and date of birth.',
+                  style: descriptionStyle,
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
 
-              Column(
-                children: <Widget>[
-                  GestureDetector(onTap: _captureImage,
-                      child: _profilePic == null ?
-                      Container(
-                          width: 120,
-                          height: 120,
-                          child: Padding(
-                            padding: const EdgeInsets.only(top:50,left: 25),
-                            child: Text('Add Photo',style: descriptionStyle,),
-                          ),
-                        decoration: BoxDecoration(
-                          color: Colors.grey[100],
-                            shape: BoxShape.circle,),
-                      )
-                          :
-                      Container(
-                        width: 120,
-                        height: 120,
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            image: DecorationImage(
-                              image: FileImage(_profilePic),  // here add your image file path
-                              fit: BoxFit.fill,
-                            )),
-                      )),
-
-                  SizedBox(height: 20.0),
-
-                  new TextFormField(
-                    controller: _usernameController,
-                    textInputAction: TextInputAction.done,
-                    obscureText: false,
-                    focusNode: _usernameFocusNode,
-                    onEditingComplete: () => _imageUpload(),
-                    onChanged: model.updateUsername,
-                    decoration: new InputDecoration(
-                      prefixIcon: Icon(
-                        Icons.account_circle,
-                        color: backgroundColor,
+            Column(
+              children: <Widget>[
+                GestureDetector(onTap: _captureImage,
+                    child: _profilePic == null ?
+                    Container(
+                      width: 120,
+                      height: 120,
+                      child: Padding(
+                        padding: const EdgeInsets.only(top:50,left: 25),
+                        child: Text('Add Photo',style: descriptionStyle,),
                       ),
-                      labelText: "Enter your name",
-                      border: new OutlineInputBorder(
-                        borderRadius: new BorderRadius.circular(5.0),
-                        borderSide: new BorderSide(),
-                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.grey[100],
+                        shape: BoxShape.circle,),
+                    )
+                        :
+                    Container(
+                      width: 120,
+                      height: 120,
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          image: DecorationImage(
+                            image: FileImage(_profilePic),  // here add your image file path
+                            fit: BoxFit.fill,
+                          )),
+                    )),
+
+                SizedBox(height: 20.0),
+
+                new TextFormField(
+                  controller: _usernameController,
+                  textInputAction: TextInputAction.done,
+                  obscureText: false,
+                  focusNode: _usernameFocusNode,
+                  onEditingComplete: () => _imageUpload(),
+                  onChanged: model.updateUsername,
+                  decoration: new InputDecoration(
+                    prefixIcon: Icon(
+                      Icons.account_circle,
+                      color: backgroundColor,
                     ),
-                    validator: (val) {
-                      if(val.length==0) {
-                        return "Username cannot be empty";
-                      }else{
-                        return null;
-                      }
-                    },
-                    keyboardType: TextInputType.text,
-                    style: new TextStyle(
-                      fontFamily: "Poppins",
+                    labelText: "Enter your name",
+                    border: new OutlineInputBorder(
+                      borderRadius: new BorderRadius.circular(5.0),
+                      borderSide: new BorderSide(),
                     ),
                   ),
+                  validator: (val) {
+                    if(val.length==0) {
+                      return "Username cannot be empty";
+                    }else{
+                      return null;
+                    }
+                  },
+                  keyboardType: TextInputType.text,
+                  style: new TextStyle(
+                    fontFamily: "Poppins",
+                  ),
+                ),
 
-                  SizedBox(height: 10.0),
+                SizedBox(height: 10.0),
 
-                  Padding(
-                    padding: EdgeInsets.only(top: 0,bottom: 10),
-                    child: Container(
+                Padding(
+                  padding: EdgeInsets.only(top: 0,bottom: 10),
+                  child: Container(
 
-                      child: RaisedButton(
+                    child: RaisedButton(
 
-                        color: Colors.white,
-                        child: Container(
-                          height: 60,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Container(
-                                child: Row(
-                                  children: <Widget>[
-                                    Icon(
-                                      Icons.date_range,
-                                      size: 18.0,
-                                      color: backgroundColor,
-                                    ),
-                                    SizedBox(width: 10,),
-                                    Text(
-                                        '${customFormat2.format(selectedDate)}',
-                                        style: subTitleStyle
-                                    ),
-                                  ],
-                                ),
+                      color: Colors.white,
+                      child: Container(
+                        height: 60,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Container(
+                              child: Row(
+                                children: <Widget>[
+                                  Icon(
+                                    Icons.date_range,
+                                    size: 18.0,
+                                    color: backgroundColor,
+                                  ),
+                                  SizedBox(width: 10,),
+                                  Text(
+                                      '${customFormat2.format(selectedDate)}',
+                                      style: subTitleStyle
+                                  ),
+                                ],
                               ),
+                            ),
 
-                              Text(
+                            Text(
                                 'Change',
                                 style: subTitleStyle
-                              ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
-                        onPressed: () => showPicker(context),
-
                       ),
+                      onPressed: () => showPicker(context),
 
                     ),
 
                   ),
 
-
-                  ToDoButton(
-                    assetName: 'images/googl-logo.png',
-                    text: 'Register',
-                    textColor: Colors.white,
-                    backgroundColor: activeButtonBackgroundColor,
-                    onPressed: model.canSubmit ? () => _imageUpload() : null,
-                  ),
-                  SizedBox(height: 100.0),
-                ],
-              ),
-            ],
-          ),
+                ),
+                signInBtn,
+              ],
+            ),
+          ],
         ),
       ),
     );
+  }
+
+
+
+  Widget _buildContent(BuildContext context) {
+
+    if (_uploadTask != null) {
+      return StreamBuilder<StorageTaskEvent>(
+          stream: _uploadTask.events == null ? null :_uploadTask.events,
+          builder: (context, snapshot) {
+            var event = snapshot?.data?.snapshot;
+
+            _progressValue =
+            event != null ? event.bytesTransferred / event.totalByteCount : 0;
+
+            return signupContent(
+              Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                LinearProgressIndicator(
+                  value: _progressValue,
+                ),
+                Text('${(_progressValue * 100).round()}%'),
+              ],
+            ),
+            );
+          }
+      );
+    }else{
+      return signupContent(
+          ToDoButton(
+            assetName: 'images/googl-logo.png',
+            text: 'Register',
+            textColor: Colors.white,
+            backgroundColor: activeButtonBackgroundColor,
+            onPressed: model.canSubmit ? () => _imageUpload() : null,
+          ),
+      );
+
+    }
   }
 
   Future<void> _submit(String path) async {
@@ -300,6 +339,7 @@ setState(() {
   }
 
   void _imageUpload() async {
+    _loading = !_loading;
     if (_profilePic != null ) {
       String _profilePicPath = 'profile_pic_images/${DateTime.now()}.png';
       setState(() {

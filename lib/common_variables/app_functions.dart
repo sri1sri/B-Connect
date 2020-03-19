@@ -13,7 +13,7 @@ void GoToPage(BuildContext context, Widget page) {
 }
 
 String EMPLOYEE_ID;
-ImageSource IMAGE_SOURCE = ImageSource.gallery;
+ImageSource IMAGE_SOURCE = ImageSource.camera;
 
 
 String getDateTime(int timestamp) {

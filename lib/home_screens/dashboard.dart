@@ -114,7 +114,7 @@ class _F_DashboardState extends State<F_Dashboard> {
               secondaryText: 'Welcome to B-Connect',
               //primaryText: 'Hello ${employee.username}(${employee.role}),',
               primaryText:
-                  "Hello " + (employee == null ? "hgygy" : employee.username) + " ("+(employee == null ? "" : employee.role)+ ")",
+                  "Hello " + (employee == null ? "Not updated" : employee.username) + " ("+(employee == null ? "" : employee.role)+ ")",
 
             ),
           ),

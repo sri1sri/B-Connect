@@ -155,7 +155,7 @@ class _F_GoodsApprovalsPageState extends State<F_GoodsApprovalsPage> {
                 Expanded(child: _buildContent(context))]
 
           ),
-          floatingActionButton: widget.employee.role != 'Security' ? null : FloatingActionButton(
+          floatingActionButton: widget.employee.role != 'Supervisor' ? null : FloatingActionButton(
             onPressed: () {
               // Add your onPressed code here!
               GoToPage(

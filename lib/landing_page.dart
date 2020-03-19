@@ -17,13 +17,13 @@ class LandingPage extends StatelessWidget {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.active) {
           User user = snapshot.data;
-//          if (user == null) {
-//            return OnboardingScreen(context: context);
-//          }
+          if (user == null) {
+            return OnboardingScreen(context: context);
+          }
           return Provider<User>.value(
             value: user,
             child: Provider<Database>(
-                create: (_) => FirestoreDatabase(uid: EMPLOYEE_ID = 'PMoedmkIxPZSIk41vGrPGGUilR72'),
+                create: (_) => FirestoreDatabase(uid: EMPLOYEE_ID = user.uid),
                 child: HomePage()),
           );
 
