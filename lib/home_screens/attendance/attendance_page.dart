@@ -44,7 +44,6 @@ class _F_AttendancePageState extends State<F_AttendancePage> {
   String _inUploadedTime = '';
   String _outUploadedTime = '';
 
-
   double _lattitude;
   double _longitude;
 
@@ -83,7 +82,8 @@ class _F_AttendancePageState extends State<F_AttendancePage> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => ViewAllAttendancePage(database: widget.database)),
+                            builder: (context) => ViewAllAttendancePage(
+                                database: widget.database)),
                       );
                     }),
               ),
@@ -100,179 +100,199 @@ class _F_AttendancePageState extends State<F_AttendancePage> {
 
   Widget _buildContent(context) {
     return StreamBuilder<Attendance>(
-        stream: widget.database.readAttendance(),
-        builder: (context, snapshot) {
-          final attendance = snapshot.data;
+      stream: widget.database.readAttendance(),
+      builder: (context, snapshot) {
+        final attendance = snapshot.data;
 
-          return StreamBuilder<CommonVaribles>(
-            stream: widget.database.readCommonVariables(),
-            builder: (context, commonVariablesSnapshot) {
-              final commonVariables = commonVariablesSnapshot.data;
+        return StreamBuilder<CommonVaribles>(
+          stream: widget.database.readCommonVariables(),
+          builder: (context, commonVariablesSnapshot) {
+            final commonVariables = commonVariablesSnapshot.data;
 
-                _lattitude = commonVariables == null ? 0.00 : commonVariables.bhavaniSkyTowersLocation.latitude;
-                _longitude = commonVariables == null ? 0.00 : commonVariables.bhavaniSkyTowersLocation.longitude;
+            _lattitude = commonVariables == null
+                ? 0.00
+                : commonVariables.bhavaniSkyTowersLocation.latitude;
+            _longitude = commonVariables == null
+                ? 0.00
+                : commonVariables.bhavaniSkyTowersLocation.longitude;
 
-              return Column(
-                children: <Widget>[
-                  SizedBox(
-                    height: 20,
-                  ),
-                  SingleChildScrollView(
-                    child: Padding(
-                      padding: EdgeInsets.only(left: 20, right: 20),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text("Note: The Uploaded Attendance cannot be changed.",style: descriptionStyle,),
-                          SizedBox(height: 10),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: <Widget>[
-                              Container(
-                                child: Text(
-                                  'In Time :',
-                                  style: titleStyle,
-                                ),
+            return Column(
+              children: <Widget>[
+                SizedBox(
+                  height: 20,
+                ),
+                SingleChildScrollView(
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 20, right: 20),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          "Note: The Uploaded Attendance cannot be changed.",
+                          style: descriptionStyle,
+                        ),
+                        SizedBox(height: 10),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            Container(
+                              child: Text(
+                                'In Time :',
+                                style: titleStyle,
                               ),
-                              SizedBox(
-                                width: 20,
-                              ),
-                              Container(
-                                child:
-                                Text('${attendance == null ? ' ' : getDateTime(attendance.inTime.seconds)}', style: subTitleStyle),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          GestureDetector(
-                              onTap: () => attendance == null ? _captureImage(0) : null,
-                              child: attendance == null
-                                  ? Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  Container(
-                                    height: 200,
-                                    width: 200,
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: Colors.grey[300],
-                                    ),
-                                    child: Center(
-                                      child: Text(
-                                          'Tap here to \nupload image',
-                                          style: subTitleStyle),
-                                    ),
-                                  ),
-                                ],
-                              )
-                                  : Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  Container(
-                                      height: 200,
-                                      width: 200,
-                                      decoration: BoxDecoration(
-                                          color: Colors.grey[200],
+                            ),
+                            SizedBox(
+                              width: 20,
+                            ),
+                            Container(
+                              child: Text(
+                                  '${attendance == null ? ' ' : getDateTime(attendance.inTime.seconds)}',
+                                  style: subTitleStyle),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        GestureDetector(
+                            onTap: () =>
+                                attendance == null ? _captureImage(0) : null,
+                            child: attendance == null
+                                ? Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      Container(
+                                        height: 200,
+                                        width: 200,
+                                        decoration: BoxDecoration(
                                           shape: BoxShape.circle,
-                                          image: DecorationImage(
-                                              image: NetworkImage(attendance.inTimePic),
-                                              fit: BoxFit.fill))
-                                  ),
-                                ],
-                              )),
-                          SizedBox(
-                            height: 50,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: <Widget>[
-                              Container(
-                                child: Text(
-                                  'Out Time :',
-                                  style: titleStyle,
-                                ),
-                              ),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              Container(
-                                child: Text(' ${attendance == null ? ' ' : attendance.outTime == null ? ' ' : getDateTime(attendance.outTime.seconds)}',
-                                    style: subTitleStyle),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          GestureDetector(
-                              onTap: () => attendance == null ? null : attendance.outTime == null ? _captureImage(1) : null,
-                              child: attendance == null
-                                  ? Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  Container(
-                                      height: 200,
-                                      width: 200,
-                                      decoration: BoxDecoration(
-                                        color: Colors.grey[200],
-                                        shape: BoxShape.circle,
+                                          color: Colors.grey[300],
+                                        ),
+                                        child: Center(
+                                          child: Text(
+                                              'Tap here to \nupload image',
+                                              style: subTitleStyle),
+                                        ),
                                       ),
-                                      child: Center(
-                                        child: Text(
-                                            '  Tap here to \nupload image',
-                                            style: subTitleStyle),
+                                    ],
+                                  )
+                                : Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      Container(
+                                          height: 200,
+                                          width: 200,
+                                          decoration: BoxDecoration(
+                                              color: Colors.grey[200],
+                                              shape: BoxShape.circle,
+                                              image: DecorationImage(
+                                                  image: NetworkImage(
+                                                      attendance.inTimePic),
+                                                  fit: BoxFit.fill))),
+                                    ],
+                                  )),
+                        SizedBox(
+                          height: 50,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            Container(
+                              child: Text(
+                                'Out Time :',
+                                style: titleStyle,
+                              ),
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Container(
+                              child: Text(
+                                  ' ${attendance == null ? ' ' : attendance.outTime == null ? ' ' : getDateTime(attendance.outTime.seconds)}',
+                                  style: subTitleStyle),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        GestureDetector(
+                            onTap: () => attendance == null
+                                ? null
+                                : attendance.outTime == null
+                                    ? _captureImage(1)
+                                    : null,
+                            child: attendance == null
+                                ? Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      Container(
+                                          height: 200,
+                                          width: 200,
+                                          decoration: BoxDecoration(
+                                            color: Colors.grey[200],
+                                            shape: BoxShape.circle,
+                                          ),
+                                          child: Center(
+                                            child: Text(
+                                                '  Tap here to \nupload image',
+                                                style: subTitleStyle),
+                                          )),
+                                    ],
+                                  )
+                                : attendance.outTime == null
+                                    ? Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Container(
+                                              height: 200,
+                                              width: 200,
+                                              decoration: BoxDecoration(
+                                                color: Colors.grey[200],
+                                                shape: BoxShape.circle,
+                                              ),
+                                              child: Center(
+                                                child: Text(
+                                                    '  Tap here to \nupload image',
+                                                    style: subTitleStyle),
+                                              )),
+                                        ],
+                                      )
+                                    : Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Container(
+                                              height: 200,
+                                              width: 200,
+                                              decoration: BoxDecoration(
+                                                  color: Colors.grey[100],
+                                                  shape: BoxShape.circle,
+                                                  image: DecorationImage(
+                                                      image: NetworkImage(
+                                                          attendance
+                                                              .outTimePic),
+                                                      fit: BoxFit.fill))),
+                                        ],
                                       )),
-                                ],
-                              )
-                                  : attendance.outTime == null ? Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  Container(
-                                      height: 200,
-                                      width: 200,
-                                      decoration: BoxDecoration(
-                                        color: Colors.grey[200],
-                                        shape: BoxShape.circle,
-                                      ),
-                                      child: Center(
-                                        child: Text(
-                                            '  Tap here to \nupload image',
-                                            style: subTitleStyle),
-                                      )),
-                                ],
-                              ): Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  Container(
-                                      height: 200,
-                                      width: 200,
-                                      decoration: BoxDecoration(
-                                          color: Colors.grey[100],
-                                          shape: BoxShape.circle,
-                                          image: DecorationImage(
-                                              image: NetworkImage(attendance.outTimePic),
-                                              fit: BoxFit.fill))
-                                  ),
-                                ],
-                              )),
-                          SizedBox(height: 50),
-                        ],
-                      ),
+                        SizedBox(height: 50),
+                      ],
                     ),
                   ),
-                ],
-              );
-            },
-          );
-        },
+                ),
+              ],
+            );
+          },
+        );
+      },
     );
   }
 
-  Future<void> _captureImage(int type) async {
-    currentlocationfinder(_lattitude, _longitude);
 
+
+  Future<void> _captureImage(int type) async {
+    await currentlocationfinder(_lattitude, _longitude);
     if (inLocation) {
       File uploadImage = await ImagePicker.pickImage(source: IMAGE_SOURCE);
       GoToPage(
@@ -286,14 +306,15 @@ class _F_AttendancePageState extends State<F_AttendancePage> {
       setState(() {
         type == 0
             ? {
-                _inTimeImage = uploadImage,
-                _inUploadedTime =
-                    DateFormat("dd MMMM yyyy").format(DateTime.now()).toString()
-              }
+          _inTimeImage = uploadImage,
+          _inUploadedTime = DateFormat("dd MMMM yyyy")
+              .format(DateTime.now())
+              .toString()
+        }
             : {
-                _outTimeImage = uploadImage,
-                _outUploadedTime = DateTime.now().toString()
-              };
+          _outTimeImage = uploadImage,
+          _outUploadedTime = DateTime.now().toString()
+        };
         _inUploadedTime = DateTime.now().toString();
       });
     } else {
@@ -302,10 +323,9 @@ class _F_AttendancePageState extends State<F_AttendancePage> {
         exception: PlatformException(
             code: '',
             message:
-                'You are not in site location. Please make sure you are in site location.'),
+            'You are not in site location. Please make sure you are in site location.'),
       ).show(context);
-    }
-  }
+    }  }
 
   Future<bool> currentlocationfinder(double lattitude, double longitude) async {
     Geolocator()..forceAndroidLocationManager = true;
@@ -324,15 +344,15 @@ class _F_AttendancePageState extends State<F_AttendancePage> {
     double lat = position.latitude;
     double lon = position.longitude;
 
-    if (distanceInMeters < distance) {
+    if (distanceInMeters.round() > distance.round()) {
       print(
-          'not in location latitude: $lat and longitude: $lon, distance is $distanceInMeters');
+          'not in location latitude: $lat and longitude: $lon, distance is ${distanceInMeters.round()}');
       setState(() {
         inLocation = false;
       });
     } else {
       print(
-          'in location latitude: $lat and longitude: $lon, distance is $distanceInMeters');
+          'in location latitude: $lat and longitude: $lon, distance is ${distanceInMeters.round()}');
       setState(() {
         inLocation = true;
       });

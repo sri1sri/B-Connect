@@ -93,6 +93,7 @@ class _F_GoodsApprovalsPageState extends State<F_GoodsApprovalsPage> {
 //  }
   @override
   Widget build(BuildContext context) {
+    print('role${widget.employee.role}');
     return offlineWidget(context);
   }
 
@@ -155,7 +156,7 @@ class _F_GoodsApprovalsPageState extends State<F_GoodsApprovalsPage> {
                 Expanded(child: _buildContent(context))]
 
           ),
-          floatingActionButton: widget.employee.role != 'Supervisor' ? null : FloatingActionButton(
+          floatingActionButton: widget.employee.role != 'Security' ? null : FloatingActionButton(
             onPressed: () {
               // Add your onPressed code here!
               GoToPage(
@@ -218,8 +219,10 @@ class _F_GoodsApprovalsPageState extends State<F_GoodsApprovalsPage> {
   }
 
   String queryKey(){
-    print(widget.employee.role);
     switch(widget.employee.role){
+      case 'Security':
+        return 'security_id';
+        break;
       case 'Site Engineer':
         return 'site_manager_id';
         break;
