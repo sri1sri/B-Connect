@@ -72,58 +72,53 @@ class _F_AddItemDescriptionState extends State<F_AddItemDescription> {
   }
 
   Widget offlineWidget(BuildContext context) {
-    return CustomOfflineWidget(
-      onlineChild: Padding(
-        padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-        child: Scaffold(
-          appBar:
-          PreferredSize(
-            preferredSize: Size.fromHeight(120),
-            child: CustomAppBar(
-              leftActionBar: Container(
-                child: Icon(Icons.arrow_back, size: 40,color: Colors.black38,),
-              ),
-              leftAction: (){
-                Navigator.pop(context,true);
-              },
-              primaryText: null,
-              secondaryText: 'Add item usage',
-              tabBarWidget: null,
+    return Scaffold(
+      resizeToAvoidBottomPadding: false,
+        appBar:
+        PreferredSize(
+          preferredSize: Size.fromHeight(120),
+          child: CustomAppBar(
+            leftActionBar: Container(
+              child: Icon(Icons.arrow_back, size: 40,color: Colors.black38,),
             ),
+            leftAction: (){
+              Navigator.pop(context,true);
+            },
+            primaryText: null,
+            secondaryText: 'Add item usage',
+            tabBarWidget: null,
           ),
-          body: Column(
-            children: <Widget>[
-              _buildContent(),
-              Container(
-                child:  AnimatedButton(
-                  onTap: _submit,
-                  animationDuration: const Duration(milliseconds: 1000),
-                  initialText: "Save item usage",
-                  finalText: "Saved",
-                  iconData: Icons.check,
-                  iconSize: 22.0,
-                  buttonStyle: ButtonStyle(
-                    primaryColor: activeButtonBackgroundColor,
-                    secondaryColor: Colors.white,
-                    elevation: 10.0,
-                    initialTextStyle: TextStyle(
-                      fontSize: 18.0,
-                      color: Colors.white,
-                    ),
-                    finalTextStyle: TextStyle(
-                      fontSize: 18.0,
-                      color: backgroundColor,
-                    ),
-                    borderRadius: 10.0,
-                  ),
-
-                ),
-              ),
-            ],
-          ),
-
         ),
-      ),
+        body: Column(
+          children: <Widget>[
+            _buildContent(),
+            Container(
+              child:  AnimatedButton(
+                onTap: _submit,
+                animationDuration: const Duration(milliseconds: 1000),
+                initialText: "Save item usage",
+                finalText: "Saved",
+                iconData: Icons.check,
+                iconSize: 22.0,
+                buttonStyle: ButtonStyle(
+                  primaryColor: activeButtonBackgroundColor,
+                  secondaryColor: Colors.white,
+                  elevation: 10.0,
+                  initialTextStyle: TextStyle(
+                    fontSize: 18.0,
+                    color: Colors.white,
+                  ),
+                  finalTextStyle: TextStyle(
+                    fontSize: 18.0,
+                    color: backgroundColor,
+                  ),
+                  borderRadius: 10.0,
+                ),
+
+              ),
+            ),
+          ],
+        ),
     );
   }
 
