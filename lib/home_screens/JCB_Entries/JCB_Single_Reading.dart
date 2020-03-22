@@ -6,10 +6,11 @@ import 'package:bhavani_connect/common_widgets/list_item_builder/list_items_buil
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
 import 'package:bhavani_connect/database_model/attendance_model.dart';
 import 'package:bhavani_connect/firebase/database.dart';
-import 'package:bhavani_connect/home_screens/JCB%20Entries/Add_Readings.dart';
 import 'package:bhavani_connect/home_screens/manage_goods/add_goods_entry_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import 'Add_Readings.dart';
 
 class ViewJCBReadingsPage extends StatelessWidget {
   ViewJCBReadingsPage({@required this.database});

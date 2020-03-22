@@ -1,19 +1,12 @@
 import 'package:bhavani_connect/common_variables/app_fonts.dart';
 import 'package:bhavani_connect/common_widgets/custom_appbar_widget/custom_app_bar.dart';
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
-import 'package:bhavani_connect/home_screens/JCB%20Entries/JCB_Single_Reading.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-void GoToPage(BuildContext context, Widget page) {
-  Navigator.of(context).push(
-    MaterialPageRoute<void>(
-      fullscreenDialog: true,
-      builder: (context) => page,
-    ),
-  );
-}
+import '../dashboard.dart';
+import 'JCB_Single_Reading.dart';
 
 class DailyReadingsPage extends StatelessWidget {
   @override

@@ -7,7 +7,6 @@ import 'package:bhavani_connect/common_widgets/platform_alert/platform_alert_dia
 import 'package:bhavani_connect/database_model/employee_details_model.dart';
 import 'package:bhavani_connect/firebase/auth.dart';
 import 'package:bhavani_connect/firebase/database.dart';
-import 'package:bhavani_connect/home_screens/JCB%20Entries/daily_readings.dart';
 import 'package:bhavani_connect/home_screens/add_stock_details/add_stock.dart';
 import 'package:bhavani_connect/home_screens/attendance/attendance_page.dart';
 import 'package:bhavani_connect/home_screens/inventory/inventory_home_page.dart';
@@ -17,6 +16,7 @@ import 'package:bhavani_connect/home_screens/store/store_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'JCB_Entries/daily_readings.dart';
 import 'manage_employees/manage_employees_page.dart';
 
 void GoToPage(BuildContext context, Widget page) {
@@ -245,8 +245,7 @@ class _F_DashboardState extends State<F_Dashboard> {
                         case 'JCB Entries':
                           {
                             GoToPage(
-                                context,
-                                DailyReadingsPage());
+                                context,DailyReadingsPage());
                           }
                           break;
 
