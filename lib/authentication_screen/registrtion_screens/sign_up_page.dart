@@ -114,7 +114,7 @@ class _F_SignUpPageState extends State<F_SignUpPage> {
       onlineChild: Padding(
         padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
         child: Scaffold(
-          body: _buildContent(context),
+          body: SingleChildScrollView(child: _buildContent(context)),
         ),
       ),
     );
@@ -133,10 +133,12 @@ setState(() {
       child: Container(
         color: Colors.white,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
             Column(
-              children: <Widget>[],
+              children: <Widget>[
+                SizedBox(height: 50,),
+              ],
             ),
             Column(
               children: <Widget>[
@@ -145,7 +147,7 @@ setState(() {
                   style: titleStyle,
                   textAlign: TextAlign.center,
                 ),
-                SizedBox(height: 10,),
+                SizedBox(height: 20,),
                 Text(
                   'To create an Account enter your name and date of birth.',
                   style: descriptionStyle,
@@ -153,6 +155,7 @@ setState(() {
                 ),
               ],
             ),
+            SizedBox(height: 20,),
 
             Column(
               children: <Widget>[
@@ -181,7 +184,7 @@ setState(() {
                           )),
                     )),
 
-                SizedBox(height: 20.0),
+                SizedBox(height: 40.0),
 
                 new TextFormField(
                   controller: _usernameController,
@@ -214,7 +217,7 @@ setState(() {
                   ),
                 ),
 
-                SizedBox(height: 10.0),
+                SizedBox(height: 20.0),
 
                 Padding(
                   padding: EdgeInsets.only(top: 0,bottom: 10),
@@ -225,40 +228,53 @@ setState(() {
                       color: Colors.white,
                       child: Container(
                         height: 60,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Container(
-                              child: Row(
-                                children: <Widget>[
-                                  Icon(
-                                    Icons.date_range,
-                                    size: 18.0,
-                                    color: backgroundColor,
-                                  ),
-                                  SizedBox(width: 10,),
-                                  Text(
-                                      '${customFormat2.format(selectedDate)}',
-                                      style: subTitleStyle
-                                  ),
-                                ],
-                              ),
-                            ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
 
-                            Text(
-                                'Change',
-                                style: subTitleStyle
-                            ),
+                            children: <Widget>[
+                              Text(
+                                'Select your date of birth.',
+                                style: descriptionStyle,
+                                textAlign: TextAlign.center,
+                              ),
+                              Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Container(
+                                child: Row(
+                                  children: <Widget>[
+                                    Icon(
+                                      Icons.date_range,
+                                      size: 18.0,
+                                      color: backgroundColor,
+                                    ),
+                                    SizedBox(width: 10,),
+                                    Text(
+                                        '${customFormat2.format(selectedDate)}',
+                                        style: subTitleStyle
+                                    ),
+                                  ],
+                                ),
+                              ),
+
+                              Text(
+                                  'Change',
+                                  style: subTitleStyle
+                              ),
+                            ],
+                          ),
+                              SizedBox(width: 10,),
                           ],
                         ),
                       ),
                       onPressed: () => showPicker(context),
 
                     ),
-
                   ),
 
                 ),
+                SizedBox(height: 15.0),
+
                 signInBtn,
               ],
             ),

@@ -312,7 +312,7 @@ class _F_ProfilePageState extends State<F_ProfilePage> {
                                   height: 5,
                                 ),
                                 Text(
-                                  'Coimbatore${(employee == null ? "" : employee.employeeLatitude)}',
+                                  'Not Menttioned${(employee == null ? "" : employee.employeeLatitude)}',
                                   style: subTitleStyle,
                                 ),
                               ]),

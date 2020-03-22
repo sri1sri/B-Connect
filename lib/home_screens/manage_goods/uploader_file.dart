@@ -158,7 +158,7 @@ class _UploaderState extends State<Uploader> {
                   ),
                   SizedBox(height: 10,),
                   if (_uploadTask.isComplete) Text('Uploaded Successfully',style: titleStyle,),
-                  if (_uploadTask.isComplete) goBack(),
+//                  if (_uploadTask.isComplete) goBack(),
                   if (_uploadTask.isPaused)
                     FlatButton(
                       child: Icon(Icons.play_arrow,color: backgroundColor,size: 40,),

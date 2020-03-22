@@ -15,7 +15,7 @@
         android:name="io.flutter.app.FlutterApplication"
     android:icon="@mipmap/logo"
     tools:ignore="GoogleAppIndexingWarning"
-    android:label="B Connect"
+    android:label="Bhavani Connect"
     >
     <activity
         android:name=".MainActivity"

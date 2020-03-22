@@ -38,13 +38,14 @@ class _F_NoAccessPageState extends State<F_NoAccessPage> {
   Widget _buildContent(BuildContext context) {
     return Center(
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Image(
             image: AssetImage(
-              'images/no_internet.png',
+              'images/construction.png',
             ),
-            height: 300.0,
-            width: 300.0,
+            height: 200.0,
+            width: 200.0,
           ),
           SizedBox(height: 30.0,),
           Text('You dont have access to this page!!!', style: titleStyle,)

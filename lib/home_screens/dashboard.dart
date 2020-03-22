@@ -7,6 +7,7 @@ import 'package:bhavani_connect/common_widgets/platform_alert/platform_alert_dia
 import 'package:bhavani_connect/database_model/employee_details_model.dart';
 import 'package:bhavani_connect/firebase/auth.dart';
 import 'package:bhavani_connect/firebase/database.dart';
+import 'package:bhavani_connect/home_screens/JCB%20Entries/daily_readings.dart';
 import 'package:bhavani_connect/home_screens/add_stock_details/add_stock.dart';
 import 'package:bhavani_connect/home_screens/attendance/attendance_page.dart';
 import 'package:bhavani_connect/home_screens/inventory/inventory_home_page.dart';
@@ -17,6 +18,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'manage_employees/manage_employees_page.dart';
+
+void GoToPage(BuildContext context, Widget page) {
+  Navigator.of(context).push(
+    MaterialPageRoute<void>(
+      fullscreenDialog: true,
+      builder: (context) => page,
+    ),
+  );
+}
+
 
 class Dashboard extends StatelessWidget {
   Dashboard({@required this.database});
@@ -47,7 +58,8 @@ class _F_DashboardState extends State<F_Dashboard> {
     "Store",
     "Inventory",
     "Attendance",
-    "Employees"
+    "Employees",
+    "JCB Entries"
   ];
   List<String> F_image = [
     "images/Approval.jpg",
@@ -55,7 +67,8 @@ class _F_DashboardState extends State<F_Dashboard> {
     "images/store.jpg",
     "images/Addstock.jpg",
     "images/Attendance.jpg",
-    "images/ManageEmployees.jpg"
+    "images/ManageEmployees.jpg",
+    "images/jcb.png"
   ];
 
   @override
@@ -227,6 +240,13 @@ class _F_DashboardState extends State<F_Dashboard> {
                                   database: widget.database,
                                   employee: employee,
                                 ));
+                          }
+                          break;
+                        case 'JCB Entries':
+                          {
+                            GoToPage(
+                                context,
+                                DailyReadingsPage());
                           }
                           break;
 
