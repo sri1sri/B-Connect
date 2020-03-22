@@ -63,7 +63,7 @@ class _UploaderState extends State<Uploader> {
       _submitItemEntryDetails(
           vehiceImagePathURL.toString(),
           MRRImagePathURL.toString(),
-          itemID, 1
+          itemID, int.parse(widget.MRRNumber)
       );
 
       _submitNotificationDetails(itemID);

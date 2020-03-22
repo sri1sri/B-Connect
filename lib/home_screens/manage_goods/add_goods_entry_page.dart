@@ -188,6 +188,11 @@ class _F_AddGoodsEntryPageState extends State<F_AddGoodsEntryPage> {
                       keyboardType: TextInputType.number,
                       controller: _MRRNumberController,
                       onSaved: (value) => _mrr = value,
+                      onChanged: (value) {
+                        setState(() {
+                          _mrr = value.toString();
+                        });
+                      } ,
                       textInputAction: TextInputAction.done,
                       obscureText: false,
                       decoration: new InputDecoration(
