@@ -59,7 +59,7 @@ class _F_DashboardState extends State<F_Dashboard> {
     "Inventory",
     "Attendance",
     "Employees",
-    "JCB Entries"
+//    "JCB Entries"
   ];
   List<String> F_image = [
     "images/Approval.jpg",
@@ -68,7 +68,7 @@ class _F_DashboardState extends State<F_Dashboard> {
     "images/Addstock.jpg",
     "images/Attendance.jpg",
     "images/ManageEmployees.jpg",
-    "images/jcb.png"
+//    "images/jcb.png"
   ];
 
   @override
@@ -242,12 +242,12 @@ class _F_DashboardState extends State<F_Dashboard> {
                                 ));
                           }
                           break;
-                        case 'JCB Entries':
-                          {
-                            GoToPage(
-                                context,DailyReadingsPage());
-                          }
-                          break;
+//                        case 'JCB Entries':
+//                          {
+//                            GoToPage(
+//                                context,DailyReadingsPage());
+//                          }
+//                          break;
 
                         default:
                           {}

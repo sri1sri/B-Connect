@@ -25,12 +25,8 @@ class MyApp extends StatelessWidget {
         ),
         debugShowCheckedModeBanner: false,
         home: LandingPage(),
-          //routes: routes
+        //routes: routes
       ),
     );
   }
-}//this is main page
-
-
-
-
+}

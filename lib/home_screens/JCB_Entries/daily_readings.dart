@@ -160,5 +160,3 @@ class _F_DailyReadingsPageState extends State<F_DailyReadingsPage> {
 
   }
 }
-
-

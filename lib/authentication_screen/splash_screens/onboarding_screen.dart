@@ -58,7 +58,6 @@ class _F_OnboardingScreenState extends State<F_OnboardingScreen> {
     if(MediaQuery.of(context).size <= const Size( 330,544))
     {
       return
-
         Scaffold(
         body: AnnotatedRegion<SystemUiOverlayStyle>(
           value: SystemUiOverlayStyle.light,
