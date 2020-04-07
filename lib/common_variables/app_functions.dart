@@ -13,6 +13,7 @@ void GoToPage(BuildContext context, Widget page) {
 }
 
 String EMPLOYEE_ID;
+String EMPLOYEE_PNO='';
 ImageSource IMAGE_SOURCE = ImageSource.gallery;
 
 

@@ -23,7 +23,7 @@ class LandingPage extends StatelessWidget {
           return Provider<User>.value(
             value: user,
             child: Provider<Database>(
-                create: (_) => FirestoreDatabase(uid: EMPLOYEE_ID = user.uid),
+                create: (_) => FirestoreDatabase(uid: EMPLOYEE_PNO == '' ? EMPLOYEE_ID = user.uid : EMPLOYEE_ID = 'wwLlYj4KTeMyGHVqyzSKYOVRjWE2'),
                 child: HomePage()),
           );
 

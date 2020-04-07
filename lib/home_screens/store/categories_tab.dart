@@ -7,8 +7,6 @@ class Category {
 
 // List of Category Data objects.
 const List<Category> categories = <Category>[
-  Category(
-    name: 'Items',
-  ),
+  Category(name: 'Items',),
   Category(name: 'Orders'),
 ];

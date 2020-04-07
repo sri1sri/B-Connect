@@ -155,8 +155,12 @@ class _F_AttendancePageState extends State<F_AttendancePage> {
                           height: 10,
                         ),
                         GestureDetector(
-                            onTap: () =>
-                                attendance == null ? _captureImage(0) : null,
+                            onTap: () => attendance == null ? _captureImage(0) : null,
+
+//                            {
+//                            print(attendance);
+//                            ;
+//                            },
                             child: attendance == null
                                 ? Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
@@ -170,7 +174,7 @@ class _F_AttendancePageState extends State<F_AttendancePage> {
                                         ),
                                         child: Center(
                                           child: Text(
-                                              'Tap here to \nupload image',
+                                              'Tap here to \nuploads image',
                                               style: subTitleStyle),
                                         ),
                                       ),
