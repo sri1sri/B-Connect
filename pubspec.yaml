@@ -52,6 +52,7 @@ dependencies:
   location: ^2.5.4
   flutter_open_whatsapp: ^0.1.2
   auto_size_text: ^2.1.0
+  firebase_messaging: 6.0.13
 
 dev_dependencies:
   flutter_test:
