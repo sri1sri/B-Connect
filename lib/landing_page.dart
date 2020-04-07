@@ -1,5 +1,7 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:notification_permissions/notification_permissions.dart';
 import 'package:provider/provider.dart';
 import 'authentication_screen/splash_screens/onboarding_screen.dart';
 import 'common_variables/app_functions.dart';
@@ -10,6 +12,9 @@ import 'home_screens/home_page.dart';
 class LandingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+
+    FirebaseMessaging().requestNotificationPermissions();
+
     final auth = Provider.of<AuthBase>(context, listen: false);
 
     return StreamBuilder<User>(
