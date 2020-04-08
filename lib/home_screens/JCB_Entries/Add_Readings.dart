@@ -88,49 +88,113 @@ class _F_AddReadingPagePageState extends State<F_AddReadingPagePage> {
                   children: <Widget>[
 
                       SizedBox(height: 30,),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          SizedBox(width: 10,),
-                          Text ("From",style: subTitleStyle),
-                          SizedBox(width: 10,),
-                          Text ("To",style: subTitleStyle),
-                          SizedBox(width: 10,),
+                    Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        color: Colors.white,
+                        elevation: 10,
+                        child: Center(
+                          child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
 
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          new Flexible(
-                            child: Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: new TextField(
-                                  decoration: InputDecoration(
-                                      contentPadding: EdgeInsets.all(10)
-                                  )
-                              ),
-                            ),
-                          ),
-                          new Flexible(
-                            child: Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: new TextField(
-                                  decoration: InputDecoration(
-                                      contentPadding: EdgeInsets.all(10)
-                                  )
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
+                              children: <Widget>[
+                                SizedBox(height: 10,),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: <Widget>[
+                                    SizedBox(width: 10,),
+                                    Text ("From",style: subTitleStyle),
+                                    SizedBox(width: 10,),
+                                    Text ("Start Reading",style: subTitleStyle),
+                                    SizedBox(width: 10,),
+
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: <Widget>[
+                                    new Flexible(
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(10.0),
+                                        child: new TextField(
+                                            decoration: InputDecoration(
+                                                contentPadding: EdgeInsets.all(10)
+                                            )
+                                        ),
+                                      ),
+                                    ),
+                                    new Flexible(
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(10.0),
+                                        child: new TextField(
+                                            decoration: InputDecoration(
+                                                contentPadding: EdgeInsets.all(10)
+                                            )
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(height: 5,),
+                              ]),)),
+
+                    SizedBox(height: 30,),
+                    Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        color: Colors.white,
+                        elevation: 10,
+                        child: Center(
+                          child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
+                              children: <Widget>[
+                                SizedBox(height: 10,),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: <Widget>[
+                                    SizedBox(width: 10,),
+                                    Text ("To",style: subTitleStyle),
+                                    SizedBox(width: 10,),
+                                    Text ("End Reading",style: subTitleStyle),
+                                    SizedBox(width: 10,),
+
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: <Widget>[
+                                    new Flexible(
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(10.0),
+                                        child: new TextField(
+                                            decoration: InputDecoration(
+                                                contentPadding: EdgeInsets.all(10)
+                                            )
+                                        ),
+                                      ),
+                                    ),
+                                    new Flexible(
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(10.0),
+                                        child: new TextField(
+                                            decoration: InputDecoration(
+                                                contentPadding: EdgeInsets.all(10)
+                                            )
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(height: 5,),
+                              ]),)),
+
 
 
                   ]
               ),
-            SizedBox(
-              height: 20,),
-            Text("This Feature is not yet implemented.",style: subTitleStyle,),
           ],
         ),
     );

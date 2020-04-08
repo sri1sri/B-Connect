@@ -67,18 +67,6 @@ class _F_ViewJCBReadingsPageState extends State<F_ViewJCBReadingsPage> {
             ),
           ),
           body: _buildContent(),
-          floatingActionButton:  FloatingActionButton(
-            onPressed: () {
-              // Add your onPressed code here!
-              GoToPage(
-                  context,
-                  AddReadingPage(
-                    database: widget.database,
-                  ));
-            },
-            child: Icon(Icons.add),
-            backgroundColor: backgroundColor,
-          ),
         ),
       ),
     );
@@ -91,7 +79,7 @@ class _F_ViewJCBReadingsPageState extends State<F_ViewJCBReadingsPage> {
           children: <Widget>[
                   Stack(children: [
                     Container(
-                      height: 150.0,
+                      height: 235.0,
                       width: MediaQuery.of(context).size.width,
                     ),
                     Positioned(
@@ -140,6 +128,82 @@ class _F_ViewJCBReadingsPageState extends State<F_ViewJCBReadingsPage> {
                             padding: const EdgeInsets.all(10.0),
                             child: Column(
                               children: <Widget>[
+                                Padding(
+                                  padding: const EdgeInsets.only(left:20.0,right: 20.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: <Widget>[
+                                      Row(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                        children: <Widget>[
+                                          Column(
+                                            children: <Widget>[
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    top: 10.0, left: 10.0),
+                                                child: Column(
+                                                  children: <Widget>[
+                                                    Text(
+                                                      'Start Reading',
+                                                      style: descriptionStyleDark,
+                                                    ),
+                                                    SizedBox(
+                                                      height: 8,
+                                                    ),
+                                                    Text(
+                                                      "11666.5",
+                                                      style: subTitleStyle,
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                height: 10,
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                        children: <Widget>[
+                                          Column(
+                                            children: <Widget>[
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    top: 10.0, left: 10.0),
+                                                child: Column(
+                                                  children: <Widget>[
+                                                    Text(
+                                                      'End Reading',
+                                                      style: descriptionStyleDark,
+                                                    ),
+                                                    SizedBox(
+                                                      height: 8,
+                                                    ),
+                                                    Text(
+                                                      "11667.5	",
+                                                      style: subTitleStyle,
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                height: 10,
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                new Divider(
+                                  color: Colors.black54,
+                                  thickness: 1,
+                                ),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: <Widget>[
@@ -254,9 +318,6 @@ class _F_ViewJCBReadingsPageState extends State<F_ViewJCBReadingsPage> {
             Text("Edit",style: subTitleStyle,),
        onTap: ()=> print("edit"),
         ),
-    SizedBox(
-    height: 10,),
-        Text("This Feature is not yet implemented.",style: subTitleStyle,)
     ]
     );
 

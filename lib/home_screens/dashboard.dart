@@ -64,9 +64,9 @@ class _F_DashboardState extends State<F_Dashboard> {
   ];
   List<String> F_image = [
     "images/Approval.jpg",
-    "images/inventory.png",
-    "images/store.jpg",
     "images/Addstock.jpg",
+    "images/store.jpg",
+    "images/inventory.png",
     "images/Attendance.jpg",
     "images/ManageEmployees.jpg",
     "images/jcb.png"

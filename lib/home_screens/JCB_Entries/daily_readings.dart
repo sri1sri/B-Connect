@@ -1,6 +1,9 @@
+import 'package:bhavani_connect/common_variables/app_colors.dart';
 import 'package:bhavani_connect/common_variables/app_fonts.dart';
 import 'package:bhavani_connect/common_widgets/custom_appbar_widget/custom_app_bar.dart';
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
+import 'package:bhavani_connect/firebase/database.dart';
+import 'package:bhavani_connect/home_screens/JCB_Entries/Add_Readings.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +12,8 @@ import '../dashboard.dart';
 import 'JCB_Single_Reading.dart';
 
 class DailyReadingsPage extends StatelessWidget {
+  DailyReadingsPage({@required this.database});
+  Database database;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -18,6 +23,8 @@ class DailyReadingsPage extends StatelessWidget {
 }
 
 class F_DailyReadingsPage extends StatefulWidget {
+  F_DailyReadingsPage({@required this.database});
+  Database database;
   @override
   _F_DailyReadingsPageState createState() => _F_DailyReadingsPageState();
 }
@@ -72,7 +79,7 @@ class _F_DailyReadingsPageState extends State<F_DailyReadingsPage> {
           rightAction: () {
             print('right action bar is pressed in appbar');
           },
-          primaryText: 'Test Page',
+          primaryText: null,
           secondaryText: 'Daily Readings',
           tabBarWidget: null,
         ),
@@ -88,10 +95,21 @@ class _F_DailyReadingsPageState extends State<F_DailyReadingsPage> {
               _recentActivities("Itachi Reading","07/Mar/2020"),
               _recentActivities("Itachi Reading","03/Mar/2020"),
               SizedBox(height: 20,),
-              Text("This Feature is not yet implemented.",style: subTitleStyle,)
             ],
           ),
         ),
+      ),
+      floatingActionButton:  FloatingActionButton(
+        onPressed: () {
+          // Add your onPressed code here!
+          GoToPage(
+              context,
+              AddReadingPage(
+                database: widget.database,
+              ));
+        },
+        child: Icon(Icons.add),
+        backgroundColor: backgroundColor,
       ),
 
     );
@@ -123,8 +141,9 @@ class _F_DailyReadingsPageState extends State<F_DailyReadingsPage> {
                         Column(
                           children: <Widget>[
                             CircleAvatar(
+                              backgroundColor: Colors.transparent,
                               backgroundImage: AssetImage("images/jcb.png"),
-                              radius: 40,
+                              radius: 45,
                             ),
                           ],
                         ),
