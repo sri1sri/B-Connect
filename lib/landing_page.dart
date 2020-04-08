@@ -10,10 +10,16 @@ import 'firebase/database.dart';
 import 'home_screens/home_page.dart';
 
 class LandingPage extends StatelessWidget {
+
+  var _firebaseMessaging = FirebaseMessaging();
+
   @override
   Widget build(BuildContext context) {
 
-    FirebaseMessaging().requestNotificationPermissions();
+    _firebaseMessaging.requestNotificationPermissions();
+    _firebaseMessaging.getToken().then((token){
+      DEVICE_TOKEN = token;
+    });
 
     final auth = Provider.of<AuthBase>(context, listen: false);
 

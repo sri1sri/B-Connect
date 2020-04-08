@@ -4,6 +4,7 @@ import 'package:bhavani_connect/common_variables/app_functions.dart';
 import 'package:bhavani_connect/common_widgets/custom_appbar_widget/custom_app_bar.dart';
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
 import 'package:bhavani_connect/common_widgets/platform_alert/platform_alert_dialog.dart';
+import 'package:bhavani_connect/database_model/employee_details_model.dart';
 import 'package:bhavani_connect/database_model/employee_list_model.dart';
 import 'package:bhavani_connect/firebase/auth.dart';
 import 'package:bhavani_connect/firebase/database.dart';
@@ -100,7 +101,7 @@ class _F_ProfilePageState extends State<F_ProfilePage> {
   }
 
   Widget _buildContent(BuildContext context) {
-    return StreamBuilder<EmployeesList>(
+    return StreamBuilder<EmployeeDetails>(
         stream: widget.database.readEmployee(EMPLOYEE_ID),
         builder: (context, snapshot) {
           final employee = snapshot.data;
@@ -150,14 +151,14 @@ class _F_ProfilePageState extends State<F_ProfilePage> {
                                                 height: 70,
                                               ),
                                               Text(
-                                                 (employee == null ? "" : employee.employeeName),
+                                                 (employee == null ? "" : employee.username),
                                                 style: titleStyle,
                                               ),
                                               SizedBox(
                                                 height: 5,
                                               ),
                                               Text(
-                                                (employee == null ? "" : employee.employeeContactNumber),
+                                                (employee == null ? "" : employee.phoneNumber),
                                                 style: descriptionStyleDark,
                                               ),
                                               SizedBox(
@@ -179,7 +180,7 @@ class _F_ProfilePageState extends State<F_ProfilePage> {
                                                         height: 5,
                                                       ),
                                                       Text(
-                                                          (employee == null ? "" : employee.employeeRole),
+                                                          (employee == null ? "" : employee.role),
                                                           style:
                                                           descriptionStyleDark),
                                                     ],
@@ -278,7 +279,7 @@ class _F_ProfilePageState extends State<F_ProfilePage> {
                                   height: 5,
                                 ),
                                 Text(
-                                  '${getDate((employee == null ? 0 : employee.employeeDateOfBirth.seconds))}',
+                                  '${getDate((employee == null ? 0 : employee.dateOfBirth.seconds))}',
                                   style: subTitleStyle,
                                 ),
                                 SizedBox(
@@ -289,7 +290,7 @@ class _F_ProfilePageState extends State<F_ProfilePage> {
                                   height: 5,
                                 ),
                                 Text(
-                                  (employee == null ? "" : employee.employeeGender),
+                                  (employee == null ? "" : employee.gender),
                                   //'${employee.employeeGender}',
                                   style: subTitleStyle,
                                 ),
@@ -301,7 +302,7 @@ class _F_ProfilePageState extends State<F_ProfilePage> {
                                   height: 5,
                                 ),
                                 Text(
-                                  '${getDate((employee == null ? 0 : employee.employeeJoinDate.seconds))}',
+                                  '${getDate((employee == null ? 0 : employee.joinedDate.seconds))}',
                                   style: subTitleStyle,
                                 ),
                                 SizedBox(
@@ -312,7 +313,7 @@ class _F_ProfilePageState extends State<F_ProfilePage> {
                                   height: 5,
                                 ),
                                 Text(
-                                  'Not Menttioned${(employee == null ? "" : employee.employeeLatitude)}',
+                                  'Not Menttioned${(employee == null ? "" : employee.latitude)}',
                                   style: subTitleStyle,
                                 ),
                               ]),

@@ -338,6 +338,7 @@ setState(() {
         longitude: '',
         role: 'Not assigned',
         employeeImagePath: path,
+        deviceToken: DEVICE_TOKEN,
       );
 
       await FirestoreService.instance.setData(

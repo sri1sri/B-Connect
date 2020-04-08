@@ -121,10 +121,10 @@ class _F_ManageEmployeesPageState extends State<F_ManageEmployeesPage> {
         ),
       ),
             Expanded(
-              child: StreamBuilder<List<EmployeesList>>(
+              child: StreamBuilder<List<EmployeeDetails>>(
                   stream: widget.database.readEmployees(),
                   builder: (context, snapshots) {
-                    return ListItemsBuilder<EmployeesList>(
+                    return ListItemsBuilder<EmployeeDetails>(
                       snapshot: snapshots,
                       itemBuilder: (context, data) => Container(
                         height: 100,
@@ -145,8 +145,8 @@ class _F_ManageEmployeesPageState extends State<F_ManageEmployeesPage> {
                                     NetworkImage(data.employeeImagePath),
                                   ),
 
-                                  title: Text('${data.employeeName}',style: subTitleStyle,),
-                                  subtitle: Text(data.employeeRole, style: descriptionStyleDark,),
+                                  title: Text('${data.username}',style: subTitleStyle,),
+                                  subtitle: Text(data.role, style: descriptionStyleDark,),
                                   trailing: getEditStatus(),
                                 ),
                                 onTap: (){
@@ -171,9 +171,9 @@ class _F_ManageEmployeesPageState extends State<F_ManageEmployeesPage> {
     );
   }
 
-  Widget _buildContent(BuildContext context) {
-    return _buildCards(context);
-  }
+//  Widget _buildContent(BuildContext context) {
+//    return _buildCards(context);
+//  }
 
   Widget getEditStatus (){
     if(widget.employee.role == 'Manager'){
@@ -182,43 +182,44 @@ class _F_ManageEmployeesPageState extends State<F_ManageEmployeesPage> {
     return Text('View', style: subTitleStyle);
   }
 
-  Widget _buildCards(BuildContext context) {
-
-    return StreamBuilder<List<EmployeesList>>(
-      stream: widget.database.readEmployees(),
-      builder: (context, snapshots) {
-        return ListItemsBuilder<EmployeesList>(
-          snapshot: snapshots,
-          itemBuilder: (context, data) => Container(
-              height: 100,
-              child: Card(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    SizedBox(height: 10,),
-                    InkWell(
-                      child: ListTile(
-                        leading: CircleAvatar(
-                          backgroundImage: AssetImage("images/profile_image.jpg"),
-                          backgroundColor: Colors.red,
-                          radius: 30,
-                        ),
-                        title: Text('${data.employeeName}',style: subTitleStyle,),
-                        subtitle: Text(data.employeeRole, style: descriptionStyle,),
-                        trailing: getEditStatus(),
-                      ),
-                      onTap: (){
-                        GoToPage(context, EmployeeProfilePage(database: widget.database, employeeID: data.employeeID,employee: widget.employee,));
-                        print('id${data.employeeID}');
-                      },
-                    ),
-                  ],
-                ),
-              ),
-            ),
-
-        );
-      }
-    );
-  }
+//  Widget _buildCards(BuildContext context) {
+//
+//    return StreamBuilder<List<EmployeesList>>(
+//      stream: widget.database.readEmployees(),
+//      builder: (context, snapshots) {
+//        print(snapshots.data.length);
+//        return ListItemsBuilder<EmployeesList>(
+//          snapshot: snapshots,
+//          itemBuilder: (context, data) => Container(
+//              height: 100,
+//              child: Card(
+//                child: Column(
+//                  mainAxisSize: MainAxisSize.min,
+//                  children: <Widget>[
+//                    SizedBox(height: 10,),
+//                    InkWell(
+//                      child: ListTile(
+//                        leading: CircleAvatar(
+//                          backgroundImage: AssetImage("images/profile_image.jpg"),
+//                          backgroundColor: Colors.red,
+//                          radius: 30,
+//                        ),
+//                        title: Text('${data.employeeName}',style: subTitleStyle,),
+//                        subtitle: Text(data.employeeRole, style: descriptionStyle,),
+//                        trailing: getEditStatus(),
+//                      ),
+//                      onTap: (){
+//                        GoToPage(context, EmployeeProfilePage(database: widget.database, employeeID: data.employeeID,employee: widget.employee,));
+//                        print('id${data.employeeID}');
+//                      },
+//                    ),
+//                  ],
+//                ),
+//              ),
+//            ),
+//
+//        );
+//      }
+//    );
+//  }
 }

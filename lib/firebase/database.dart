@@ -19,10 +19,10 @@ import 'firestore_service.dart';
 
 abstract class Database{
 
-  Stream<List<EmployeesList>> readEmployees();
-  Stream<EmployeesList> readEmployee(String employeeID);
+  Stream<List<EmployeeDetails>> readEmployees();
+  Stream<EmployeeDetails> readEmployee(String employeeID);
   Future<void> setGoodsEntry(GoodsEntry itemEntry, String itemID);
-  Stream<EmployeesList> currentUserDetails();
+  Stream<EmployeeDetails> currentUserDetails();
   Future<void> setNotification(NotificationModel notificationEntry);
   Stream<List<GoodsEntry>> readGoodsEntries(String queryKey);
   Future<void> setItemEntry(ItemEntry itemEntry);
@@ -70,20 +70,20 @@ class FirestoreDatabase implements Database {
   final _service = FirestoreService.instance;
 
   @override
-  Stream<List<EmployeesList>> readEmployees() => _service.collectionStream(
+  Stream<List<EmployeeDetails>> readEmployees() => _service.collectionStream(
     path: APIPath.employeesList(),
-    builder: (data, documentId) => EmployeesList.fromMap(data, documentId),
+    builder: (data, documentId) => EmployeeDetails.fromMap(data, documentId),
   );
   @override
-  Stream<EmployeesList> currentUserDetails() => _service.documentStream(
+  Stream<EmployeeDetails> currentUserDetails() => _service.documentStream(
     path: APIPath.employeeDetails(uid),
-    builder: (data, documentId) => EmployeesList.fromMap(data, documentId),
+    builder: (data, documentId) => EmployeeDetails.fromMap(data, documentId),
   );
 
   @override
-  Stream<EmployeesList> readEmployee(String employeeID) => _service.documentStream(
+  Stream<EmployeeDetails> readEmployee(String employeeID) => _service.documentStream(
     path: APIPath.employeeDetails(employeeID),
-    builder: (data, documentId) => EmployeesList.fromMap(data, documentId),
+    builder: (data, documentId) => EmployeeDetails.fromMap(data, documentId),
   );
 
   @override

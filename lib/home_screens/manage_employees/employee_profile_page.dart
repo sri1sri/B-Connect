@@ -90,7 +90,7 @@ class _F_EmployeeProfilePageState extends State<F_EmployeeProfilePage> {
   }
 
   Widget _buildContent(BuildContext context) {
-    return StreamBuilder<EmployeesList>(
+    return StreamBuilder<EmployeeDetails>(
         stream: widget.database.readEmployee(widget.employeeID),
         builder: (context, snapshot) {
           final employee = snapshot.data;
@@ -147,14 +147,14 @@ class _F_EmployeeProfilePageState extends State<F_EmployeeProfilePage> {
                                                 height: 70,
                                               ),
                                               Text(
-                                                (employee == null ? "" : employee.employeeName),
+                                                (employee == null ? "" : employee.username),
                                                 style: titleStyle,
                                               ),
                                               SizedBox(
                                                 height: 5,
                                               ),
                                               Text(
-                                                (employee == null ? "" : employee.employeeContactNumber),
+                                                (employee == null ? "" : employee.phoneNumber),
                                                 style: descriptionStyleDark,
                                               ),
                                               SizedBox(
@@ -176,7 +176,7 @@ class _F_EmployeeProfilePageState extends State<F_EmployeeProfilePage> {
                                                         height: 5,
                                                       ),
                                                       Text(
-                                                          (employee == null ? "" : employee.employeeRole),
+                                                          (employee == null ? "" : employee.role),
                                                           style:
                                                               descriptionStyleDark),
                                                     ],
@@ -233,7 +233,7 @@ class _F_EmployeeProfilePageState extends State<F_EmployeeProfilePage> {
                                                   MaterialButton(
                                                     minWidth: 20,
                                                     onPressed: () {
-                                                      FlutterOpenWhatsapp.sendSingleMessage("${employee.employeeContactNumber}", "Hello ${employee.employeeName},\nWelcome to B Connect.");
+                                                      FlutterOpenWhatsapp.sendSingleMessage("${employee.phoneNumber}", "Hello ${employee.username},\nWelcome to B Connect.");
                                                     },
                                                     child: Column(
                                                       mainAxisAlignment:
@@ -249,7 +249,7 @@ class _F_EmployeeProfilePageState extends State<F_EmployeeProfilePage> {
                                                     minWidth: 40,
                                                     onPressed: () {
                                                       customLaunch(
-                                                          'tel:${employee.employeeContactNumber}');
+                                                          'tel:${employee.phoneNumber}');
                                                     },
                                                     child: Column(
                                                       mainAxisAlignment:
@@ -268,7 +268,7 @@ class _F_EmployeeProfilePageState extends State<F_EmployeeProfilePage> {
                                                     minWidth: 40,
                                                     onPressed: () {
                                                       customLaunch(
-                                                          'sms:${employee.employeeContactNumber}');
+                                                          'sms:${employee.phoneNumber}');
                                                     },
                                                     child: Column(
                                                       mainAxisAlignment:
@@ -329,7 +329,7 @@ class _F_EmployeeProfilePageState extends State<F_EmployeeProfilePage> {
                                       height: 5,
                                     ),
                                     Text(
-                                      '${getDate((employee == null ? 0 : employee.employeeDateOfBirth.seconds))}',
+                                      '${getDate((employee == null ? 0 : employee.dateOfBirth.seconds))}',
                                       style: subTitleStyle,
                                     ),
                                     SizedBox(
@@ -340,7 +340,7 @@ class _F_EmployeeProfilePageState extends State<F_EmployeeProfilePage> {
                                       height: 5,
                                     ),
                                     Text(
-                                      (employee == null ? "" : employee.employeeGender),
+                                      (employee == null ? "" : employee.gender),
                                       //'${employee.employeeGender}',
                                       style: subTitleStyle,
                                     ),
@@ -352,7 +352,7 @@ class _F_EmployeeProfilePageState extends State<F_EmployeeProfilePage> {
                                       height: 5,
                                     ),
                                     Text(
-                                      '${getDate((employee == null ? 0 : employee.employeeJoinDate.seconds))}',
+                                      '${getDate((employee == null ? 0 : employee.joinedDate.seconds))}',
                                       style: subTitleStyle,
                                     ),
                                     SizedBox(
@@ -363,7 +363,7 @@ class _F_EmployeeProfilePageState extends State<F_EmployeeProfilePage> {
                                       height: 5,
                                     ),
                                     Text(
-                                      'Coimbatore${(employee == null ? "" : employee.employeeLatitude)}',
+                                      'Coimbatore${(employee == null ? "" : employee.latitude)}',
                                       style: subTitleStyle,
                                     ),
                                   ]),

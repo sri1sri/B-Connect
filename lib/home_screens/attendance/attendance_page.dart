@@ -296,6 +296,9 @@ class _F_AttendancePageState extends State<F_AttendancePage> {
 
 
   Future<void> _captureImage(int type) async {
+    print(inLocation);
+    print(_lattitude);
+    print(_longitude);
     await currentlocationfinder(_lattitude, _longitude);
     if (inLocation) {
       File uploadImage = await ImagePicker.pickImage(source: IMAGE_SOURCE);
@@ -334,16 +337,13 @@ class _F_AttendancePageState extends State<F_AttendancePage> {
   Future<bool> currentlocationfinder(double lattitude, double longitude) async {
     Geolocator()..forceAndroidLocationManager = true;
     await Geolocator().checkGeolocationPermissionStatus();
-    Position position = await Geolocator()
-        .getCurrentPosition(desiredAccuracy: LocationAccuracy.best);
+    Position position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.best);
     debugPrint('location: ${position.latitude}');
     final coordinates = new Coordinates(position.latitude, position.longitude);
-    var addresses =
-        await Geocoder.local.findAddressesFromCoordinates(coordinates);
+    var addresses = await Geocoder.local.findAddressesFromCoordinates(coordinates);
     var first = addresses.first;
     print("${first.featureName} : ${first.addressLine}");
-    double distanceInMeters = await Geolocator().distanceBetween(
-        position.latitude, position.longitude, lattitude, longitude);
+    double distanceInMeters = await Geolocator().distanceBetween(position.latitude, position.longitude, lattitude, longitude);
     double distance = 500.0;
     double lat = position.latitude;
     double lon = position.longitude;

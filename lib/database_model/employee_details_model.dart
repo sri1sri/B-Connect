@@ -12,6 +12,7 @@ class EmployeeDetails{
     this.employeeID,
     this.empty,
     this.employeeImagePath,
+    this.deviceToken,
 
   });
 
@@ -24,6 +25,7 @@ class EmployeeDetails{
   final String longitude;
   final String role;
   final String employeeImagePath;
+  final String deviceToken;
 
   final String employeeID;
   final Null empty;
@@ -45,6 +47,8 @@ class EmployeeDetails{
     final String longitude = data['employee_longitude'];
     final String role = data['employee_role'];
     final String employeeImagePath = data['employee_image_path'];
+    final String deviceToken = data['device_token'];
+
     final Null empty = data['empty'];
 
 
@@ -59,6 +63,7 @@ class EmployeeDetails{
       role: role,
       employeeID: employeeID,
       employeeImagePath: employeeImagePath,
+      deviceToken:deviceToken,
       empty: empty,
 
     );
@@ -74,6 +79,7 @@ class EmployeeDetails{
       latitude != null ? 'employee_latitude': 'empty' : latitude,
       longitude != null ? 'employee_longitude': 'empty' : longitude,
       role != null ? 'employee_role': 'empty' : role,
+      deviceToken != null ? 'device_token': 'empty' : deviceToken,
       employeeImagePath != null ? 'employee_image_path': 'empty' : employeeImagePath,
     };
   }
