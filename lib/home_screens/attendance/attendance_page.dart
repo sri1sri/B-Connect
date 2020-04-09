@@ -335,8 +335,8 @@ class _F_AttendancePageState extends State<F_AttendancePage> {
     }  }
 
   Future<bool> currentlocationfinder(double lattitude, double longitude) async {
-    Geolocator()..forceAndroidLocationManager = true;
-    await Geolocator().checkGeolocationPermissionStatus();
+//    Geolocator()..forceAndroidLocationManager = true;
+//    await Geolocator().checkGeolocationPermissionStatus();
     Position position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.best);
     debugPrint('location: ${position.latitude}');
     final coordinates = new Coordinates(position.latitude, position.longitude);

@@ -66,7 +66,18 @@ class _F_ViewJCBReadingsPageState extends State<F_ViewJCBReadingsPage> {
               tabBarWidget: null,
             ),
           ),
-          body: _buildContent(),
+          body: SingleChildScrollView(
+            child: Column(
+              children: <Widget>[
+                _buildContent(),
+                _buildContent(),
+                _buildContent(),
+                _buildContent(),
+                _buildContent(),
+
+              ],
+            ),
+          ),
         ),
       ),
     );
@@ -125,11 +136,11 @@ class _F_ViewJCBReadingsPageState extends State<F_ViewJCBReadingsPage> {
                               borderRadius: BorderRadius.circular(10.0),
                               color: Colors.white),
                           child: Padding(
-                            padding: const EdgeInsets.all(10.0),
+                            padding: const EdgeInsets.symmetric(horizontal:10.0, vertical: 0),
                             child: Column(
                               children: <Widget>[
                                 Padding(
-                                  padding: const EdgeInsets.only(left:20.0,right: 20.0),
+                                  padding: const EdgeInsets.only(left:0.0,right: 0.0),
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: <Widget>[
@@ -145,7 +156,11 @@ class _F_ViewJCBReadingsPageState extends State<F_ViewJCBReadingsPage> {
                                                 child: Column(
                                                   children: <Widget>[
                                                     Text(
-                                                      'Start Reading',
+                                                      'Start',
+                                                      style: descriptionStyleDark,
+                                                    ),
+                                                    Text(
+                                                      'Reading',
                                                       style: descriptionStyleDark,
                                                     ),
                                                     SizedBox(
@@ -177,7 +192,11 @@ class _F_ViewJCBReadingsPageState extends State<F_ViewJCBReadingsPage> {
                                                 child: Column(
                                                   children: <Widget>[
                                                     Text(
-                                                      'End Reading',
+                                                      'End',
+                                                      style: descriptionStyleDark,
+                                                    ),
+                                                    Text(
+                                                      'Reading',
                                                       style: descriptionStyleDark,
                                                     ),
                                                     SizedBox(
@@ -197,6 +216,42 @@ class _F_ViewJCBReadingsPageState extends State<F_ViewJCBReadingsPage> {
                                           ),
                                         ],
                                       ),
+                                      Row(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                        children: <Widget>[
+                                          Column(
+                                            children: <Widget>[
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    top: 10.0, left: 10.0),
+                                                child: Column(
+                                                  children: <Widget>[
+                                                    Text(
+                                                      'Total',
+                                                      style: descriptionStyleDark,
+                                                    ),
+                                                    Text(
+                                                      'Reading',
+                                                      style: descriptionStyleDark,
+                                                    ),
+                                                    SizedBox(
+                                                      height: 8,
+                                                    ),
+                                                    Text(
+                                                      "11667.5	",
+                                                      style: subTitleStyle,
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                height: 10,
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      )
                                     ],
                                   ),
                                 ),
@@ -239,6 +294,7 @@ class _F_ViewJCBReadingsPageState extends State<F_ViewJCBReadingsPage> {
                                         ),
                                       ],
                                     ),
+
                                     Row(
                                       mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
@@ -313,11 +369,12 @@ class _F_ViewJCBReadingsPageState extends State<F_ViewJCBReadingsPage> {
 
                 ]
       ),
-        GestureDetector(
-          child:
-            Text("Edit",style: subTitleStyle,),
-       onTap: ()=> print("edit"),
-        ),
+        SizedBox(height: 20,),
+//        GestureDetector(
+//          child:
+//            Text("Edit",style: subTitleStyle,),
+//       onTap: ()=> print("edit"),
+//        ),
     ]
     );
 

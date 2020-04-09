@@ -26,15 +26,30 @@ class F_AddReadingPagePage extends StatefulWidget {
   F_AddReadingPagePage({@required this.database});
   Database database;
   @override
-  _F_AddReadingPagePageState createState() =>
-      _F_AddReadingPagePageState();
+  _F_AddReadingPagePageState createState() => _F_AddReadingPagePageState();
 }
 
 class _F_AddReadingPagePageState extends State<F_AddReadingPagePage> {
+  final GlobalKey<FormState> _startFormKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _endFormKey = GlobalKey<FormState>();
+
+//  final _startFormKey = GlobalKey<FormState>();
+//  final _endFormKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return offlineWidget(context);
   }
+
+//  bool _validateAndSaveForm() {
+//    final form = _startFormKey.currentState;
+//    if (form.validate()) {
+//      form.save();
+//      return true;
+//    }
+//    return false;
+//  }
+
 
   Widget offlineWidget(BuildContext context) {
     return CustomOfflineWidget(
@@ -64,17 +79,31 @@ class _F_AddReadingPagePageState extends State<F_AddReadingPagePage> {
               tabBarWidget: null,
             ),
           ),
-          body: _buildContent(),
-    bottomNavigationBar: BottomAppBar(
-        child:FlatButton.icon(
-        color: activeButtonTextColor,
-//        onPressed: _startUpload,
-        icon: Icon(
-          Icons.cloud_upload,
-          size: 30,
-          color: backgroundColor,
-        ),
-        label: Text('Upload', style: titleStyle))),
+          body:  SingleChildScrollView(child: _buildContent()),
+          bottomNavigationBar: BottomAppBar(
+              child: FlatButton(
+                  color: activeButtonTextColor,
+                  onPressed: (){
+                    final FormState form = _startFormKey.currentState;
+                    final FormState formm = _endFormKey.currentState;
+                    if (form.validate()) {
+                      print('Form is valid');
+                    } else {
+                      print('Form is invalid');
+                    }
+                    if (formm.validate()) {
+                      print('Form is valid');
+                    } else {
+                      print('Form is invalid');
+                    }
+                  },
+//        icon: Icon(
+//          Icons.cloud_upload,
+//          size: 30,
+//          color: backgroundColor,
+//        ),
+
+                  child: Text('Submit', style: titleStyle))),
         ),
       ),
     );
@@ -82,122 +111,170 @@ class _F_AddReadingPagePageState extends State<F_AddReadingPagePage> {
 
   Widget _buildContent() {
     return Card(
-        child: Column(
-          children: <Widget>[
-            Column(
-                  children: <Widget>[
-
-                      SizedBox(height: 30,),
-                    Card(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0),
+      child: Column(
+        children: <Widget>[
+          Column(children: <Widget>[
+            SizedBox(
+              height: 30,
+            ),
+            Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                color: Colors.white,
+                elevation: 10,
+                child: Center(
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: <Widget>[
+                        SizedBox(
+                          height: 10,
                         ),
-                        color: Colors.white,
-                        elevation: 10,
-                        child: Center(
-                          child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-
-                              children: <Widget>[
-                                SizedBox(height: 10,),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    SizedBox(width: 10,),
-                                    Text ("From",style: subTitleStyle),
-                                    SizedBox(width: 10,),
-                                    Text ("Start Reading",style: subTitleStyle),
-                                    SizedBox(width: 10,),
-
-                                  ],
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    new Flexible(
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(10.0),
-                                        child: new TextField(
-                                            decoration: InputDecoration(
-                                                contentPadding: EdgeInsets.all(10)
-                                            )
-                                        ),
-                                      ),
-                                    ),
-                                    new Flexible(
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(10.0),
-                                        child: new TextField(
-                                            decoration: InputDecoration(
-                                                contentPadding: EdgeInsets.all(10)
-                                            )
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(height: 5,),
-                              ]),)),
-
-                    SizedBox(height: 30,),
-                    Card(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Text("Start Time", style: subTitleStyle),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Text("Start Reading", style: subTitleStyle),
+                            SizedBox(
+                              width: 10,
+                            ),
+                          ],
                         ),
-                        color: Colors.white,
-                        elevation: 10,
-                        child: Center(
-                          child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
-                              children: <Widget>[
-                                SizedBox(height: 10,),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    SizedBox(width: 10,),
-                                    Text ("To",style: subTitleStyle),
-                                    SizedBox(width: 10,),
-                                    Text ("End Reading",style: subTitleStyle),
-                                    SizedBox(width: 10,),
-
-                                  ],
+                        Form(
+                          key: _endFormKey,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              new Flexible(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: new TextFormField(
+                                      keyboardType: TextInputType.number,
+                                      validator: (value) {
+                                        if (value.isEmpty) {
+                                          print('value is null');
+                                          return 'should not be empty';
+                                        } else {
+                                          print('value is not null');
+                                          return null;
+                                        }
+                                      },
+                                      decoration: InputDecoration(
+                                          contentPadding: EdgeInsets.all(10))),
                                 ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    new Flexible(
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(10.0),
-                                        child: new TextField(
-                                            decoration: InputDecoration(
-                                                contentPadding: EdgeInsets.all(10)
-                                            )
-                                        ),
-                                      ),
-                                    ),
-                                    new Flexible(
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(10.0),
-                                        child: new TextField(
-                                            decoration: InputDecoration(
-                                                contentPadding: EdgeInsets.all(10)
-                                            )
-                                        ),
-                                      ),
-                                    ),
-                                  ],
+                              ),
+                              new Flexible(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: new TextFormField(
+                                      keyboardType: TextInputType.number,
+                                      validator: (value) {
+                                        if (value.isEmpty) {
+                                          print('value is null');
+                                          return 'should not be empty';
+                                        } else {
+                                          print('value is not null');
+                                          return null;
+                                        }
+                                      },
+                                      decoration: InputDecoration(
+                                          contentPadding: EdgeInsets.all(10))),
                                 ),
-                                SizedBox(height: 5,),
-                              ]),)),
-
-
-
-                  ]
-              ),
-          ],
-        ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                      ]),
+                )),
+            SizedBox(
+              height: 30,
+            ),
+            Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                color: Colors.white,
+                elevation: 10,
+                child: Center(
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Text("End Time", style: subTitleStyle),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Text("End Reading", style: subTitleStyle),
+                            SizedBox(
+                              width: 10,
+                            ),
+                          ],
+                        ),
+                        Form(
+                          key: _startFormKey,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              new Flexible(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: new TextFormField(
+                                      keyboardType: TextInputType.number,
+                                      validator: (value) {
+                                        if (value.isEmpty) {
+                                          return 'should not be empty';
+                                        } else {
+                                          return null;
+                                        }
+                                      },
+                                      decoration: InputDecoration(
+                                          contentPadding: EdgeInsets.all(10))),
+                                ),
+                              ),
+                              new Flexible(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: new TextFormField(
+                                      keyboardType: TextInputType.number,
+                                      validator: (value) {
+                                        if (value.isEmpty) {
+                                          return 'should not be empty';
+                                        } else {
+                                          return null;
+                                        }
+                                      },
+                                      decoration: InputDecoration(
+                                          contentPadding: EdgeInsets.all(10))),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                      ]),
+                )),
+          ]),
+        ],
+      ),
     );
-
   }
 }
