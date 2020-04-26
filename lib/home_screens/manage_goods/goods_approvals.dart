@@ -182,6 +182,8 @@ class _F_GoodsApprovalsPageState extends State<F_GoodsApprovalsPage> {
     return StreamBuilder<List<GoodsEntry>>(
         stream: widget.database.readGoodsEntries(queryKey()),
         builder: (context, snapshot) {
+
+
           return ListItemsBuilder<GoodsEntry>(
             snapshot: snapshot,
             itemBuilder: (context, data) => Column(

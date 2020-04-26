@@ -224,8 +224,6 @@ class _F_ItemsEntryState extends State<F_ItemsEntry> {
         height: 25,
       ),
 
-
-
       _isItemNameManual != true ? DropDownFormField(
         titleText: 'Item',
         hintText: 'Please choose item',

@@ -165,24 +165,25 @@ class _F_PhoneNumberPageState extends State<F_PhoneNumberPage> {
 
   Future<void> _submit(BuildContext context) async {
     try {
-    await Firestore.instance
-          .collection('employees')
-          .where('employee_contact_number',
-          isEqualTo: '+91${_phoneNumberController.value.text}')
-          .snapshots()
-          .listen((data) => {
-            print('data=${data}'),
-        if (data.documents.length == 0)
-          {
-        model.submit(),
-    GoToPage(context, OTPPage(phoneNo: _phoneNumberController.value.text, newUser: true)),
-          }
-        else
-          {
-            model.submit(),
-            GoToPage(context, OTPPage(phoneNo: _phoneNumberController.value.text, newUser: false)),
-          }
-      });
+        await Firestore.instance
+            .collection('employees')
+            .where('employee_contact_number',
+            isEqualTo: '+91${_phoneNumberController.value.text}')
+            .snapshots()
+            .listen((data) => {
+          print('data=${data}'),
+
+          if (data.documents.length == 0)
+            {
+              model.submit(),
+              GoToPage(context, OTPPage(phoneNo: _phoneNumberController.value.text, newUser: true)),
+            }
+          else
+            {
+              model.submit(),
+              GoToPage(context, OTPPage(phoneNo: _phoneNumberController.value.text, newUser: false)),
+            }
+        });
     } on PlatformException catch (e) {
       PlatformExceptionAlertDialog(
         title: 'Phone number failed',

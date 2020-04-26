@@ -95,8 +95,6 @@ class _F_EmployeeProfilePageState extends State<F_EmployeeProfilePage> {
         builder: (context, snapshot) {
           final employee = snapshot.data;
 
-
-
           return StreamBuilder<CommonVaribles>(
             stream: widget.database.readCommonVariables(),
             builder: (context, snapshots) {

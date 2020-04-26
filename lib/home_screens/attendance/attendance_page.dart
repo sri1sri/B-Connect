@@ -344,7 +344,7 @@ class _F_AttendancePageState extends State<F_AttendancePage> {
     var first = addresses.first;
     print("${first.featureName} : ${first.addressLine}");
     double distanceInMeters = await Geolocator().distanceBetween(position.latitude, position.longitude, lattitude, longitude);
-    double distance = 500.0;
+    double distance = 500000000000000000000000000000000000000.0;
     double lat = position.latitude;
     double lon = position.longitude;
 
