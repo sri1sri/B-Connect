@@ -60,7 +60,7 @@ class _F_DashboardState extends State<F_Dashboard> {
     "Inventory",
     "Attendance",
     "Employees",
-   // "JCB Entries"
+    "JCB Entries"
   ];
   List<String> F_image = [
     "images/Approval.jpg",
@@ -69,7 +69,7 @@ class _F_DashboardState extends State<F_Dashboard> {
     "images/inventory.png",
     "images/Attendance.jpg",
     "images/ManageEmployees.jpg",
-    //"images/jcb.png"
+    "images/jcb.png"
   ];
 
   @override
