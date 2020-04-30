@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:bhavani_connect/common_variables/app_colors.dart';
 import 'package:bhavani_connect/common_variables/app_fonts.dart';
 import 'package:bhavani_connect/common_variables/app_functions.dart';
@@ -33,6 +35,9 @@ class F_ViewJCBReadingsPage extends StatefulWidget {
 }
 
 class _F_ViewJCBReadingsPageState extends State<F_ViewJCBReadingsPage> {
+
+
+
   @override
   Widget build(BuildContext context) {
     return offlineWidget(context);
@@ -69,322 +74,273 @@ class _F_ViewJCBReadingsPageState extends State<F_ViewJCBReadingsPage> {
           body: SingleChildScrollView(
             child: Column(
               children: <Widget>[
-                _buildContent("05/Mar/2020","43543.43","43873.4","292.3","11.30 am","5.00 pm","6 hrs"),
-                _buildContent("06/Mar/2020","43346.43","43433.4","483.3","11.00 am","5.00 pm","6 hrs"),
-                _buildContent("07/Mar/2020","43543.43","43873.4","292.3","11.30 am","5.00 pm","6 hrs"),
-                _buildContent("08/Mar/2020","43543.43","43873.4","292.3","11.30 am","5.00 pm","6 hrs"),
-                _buildContent("09/Mar/2020","43543.43","43873.4","292.3","11.30 am","5.00 pm","6 hrs"),
+                _buildContent("05/Mar/2020",43543.43,43873.4,292.3,"11.30 am","5.00 pm","6 hrs"),
+                _buildContent("06/Mar/2020",43543.43,43873.4,292.3,"11.00 am","5.00 pm","6 hrs"),
+                _buildContent("07/Mar/2020",43543.43,43873.4,292.3,"11.30 am","5.00 pm","6 hrs"),
+                _buildContent("08/Mar/2020",43543.43,43873.4,292.3,"11.30 am","5.00 pm","6 hrs"),
+                _buildContent("09/Mar/2020",43543.43,43873.4,292.3,"11.30 am","5.00 pm","6 hrs"),
 
               ],
             ),
-          ),
-          floatingActionButton:  FloatingActionButton(
-            onPressed: () {
-              // Add your onPressed code here!
-          GoToPage(
-              context,
-              AddReadingPage(
-                database: widget.database,
-              ));
-            },
-            child: Icon(Icons.add),
-            backgroundColor: backgroundColor,
           ),
         ),
       ),
     );
   }
 
-  Widget _buildContent(String date,String startRead,String endRead,String totalRead,String startTime,String endTime,String totalTime) {
+  Widget _buildContent(String date,double startRead,double endRead,double totalRead,String startTime,String endTime,String totalTime) {
     return ExpansionTile(
       title: Text(date,style: subTitleStyle,),
       children: [
         Column(
             children:<Widget>[
-              Column(
-                  children: <Widget>[
-                    Stack(children: [
-                      Container(
-                        height: 235.0,
-                        width: MediaQuery.of(context).size.width,
-                      ),
-                      Positioned(
-                          left: 50.0,
-                          right: 50.0,
-                          top: 5.0,
-                          bottom: 30.0,
-                          child: Container(
-                            padding: EdgeInsets.only(
-                                left: 0.0, right: 0.0, top: 3.0, bottom: 0.0),
-                            height: 100.0,
-                            width: 200.0,
-                            decoration: BoxDecoration(
-                                boxShadow: [
-                                  new BoxShadow(
-                                    color: Colors.black54,
-                                    blurRadius: 10.0,
-                                  ),
-                                ],
-                                borderRadius: BorderRadius.circular(10.0),
-                                color: Colors.white.withOpacity(0.8)),
-                            child: Column(
-                              children: <Widget>[Text(date)],
-                            ),
-                          )),
-                      Positioned(
-                          left: 5.0,
-                          right: 5.0,
-                          top: 30.0,
-                          bottom: 15.0,
-                          child: Container(
-                            padding: EdgeInsets.only(
-                                left: 10.0, right: 10.0, top: 10.0, bottom: 0.0),
-                            height: 15.0,
-                            width: 180.0,
-                            decoration: BoxDecoration(
-                                boxShadow: [
-                                  new BoxShadow(
-                                    color: Colors.black54,
-                                    blurRadius: 10.0,
-                                  ),
-                                ],
-                                borderRadius: BorderRadius.circular(10.0),
-                                color: Colors.white),
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal:10.0, vertical: 0),
-                              child: Column(
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Container(
+                  padding: EdgeInsets.only(
+                      left: 10.0, right: 10.0, top: 10.0, bottom: 0.0),
+                  height: 200.0,
+                  width: MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                      boxShadow: [
+                        new BoxShadow(
+                          color: Colors.black54,
+                          blurRadius: 10.0,
+                        ),
+                      ],
+                      borderRadius: BorderRadius.circular(10.0),
+                      color: Colors.white),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal:10.0, vertical: 0),
+                    child: Column(
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.only(left:0.0,right: 0.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Row(
+                                mainAxisAlignment:
+                                MainAxisAlignment.spaceBetween,
                                 children: <Widget>[
-                                  Padding(
-                                    padding: const EdgeInsets.only(left:0.0,right: 0.0),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: <Widget>[
-                                        Row(
-                                          mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                          children: <Widget>[
-                                            Column(
-                                              children: <Widget>[
-                                                Padding(
-                                                  padding: const EdgeInsets.only(
-                                                      top: 10.0, left: 10.0),
-                                                  child: Column(
-                                                    children: <Widget>[
-                                                      Text(
-                                                        'Start',
-                                                        style: descriptionStyleDark,
-                                                      ),
-                                                      Text(
-                                                        'Reading',
-                                                        style: descriptionStyleDark,
-                                                      ),
-                                                      SizedBox(
-                                                        height: 8,
-                                                      ),
-                                                      Text(
-                                                        startRead,
-                                                        style: subTitleStyle,
-                                                      )
-                                                    ],
-                                                  ),
-                                                ),
-                                                SizedBox(
-                                                  height: 10,
-                                                ),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                        Row(
-                                          mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                          children: <Widget>[
-                                            Column(
-                                              children: <Widget>[
-                                                Padding(
-                                                  padding: const EdgeInsets.only(
-                                                      top: 10.0, left: 10.0),
-                                                  child: Column(
-                                                    children: <Widget>[
-                                                      Text(
-                                                        'End',
-                                                        style: descriptionStyleDark,
-                                                      ),
-                                                      Text(
-                                                        'Reading',
-                                                        style: descriptionStyleDark,
-                                                      ),
-                                                      SizedBox(
-                                                        height: 8,
-                                                      ),
-                                                      Text(
-                                                        endRead,
-                                                        style: subTitleStyle,
-                                                      )
-                                                    ],
-                                                  ),
-                                                ),
-                                                SizedBox(
-                                                  height: 10,
-                                                ),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                        Row(
-                                          mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                          children: <Widget>[
-                                            Column(
-                                              children: <Widget>[
-                                                Padding(
-                                                  padding: const EdgeInsets.only(
-                                                      top: 10.0, left: 10.0),
-                                                  child: Column(
-                                                    children: <Widget>[
-                                                      Text(
-                                                        'Total',
-                                                        style: descriptionStyleDark,
-                                                      ),
-                                                      Text(
-                                                        'Reading',
-                                                        style: descriptionStyleDark,
-                                                      ),
-                                                      SizedBox(
-                                                        height: 8,
-                                                      ),
-                                                      Text(
-                                                        totalRead,
-                                                        style: subTitleStyle,
-                                                      )
-                                                    ],
-                                                  ),
-                                                ),
-                                                SizedBox(
-                                                  height: 10,
-                                                ),
-                                              ],
-                                            ),
-                                          ],
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                  new Divider(
-                                    color: Colors.black54,
-                                    thickness: 1,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  Column(
                                     children: <Widget>[
-                                      Row(
-                                        mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                        children: <Widget>[
-                                          Column(
-                                            children: <Widget>[
-                                              Padding(
-                                                padding: const EdgeInsets.only(
-                                                    top: 10.0, left: 10.0),
-                                                child: Column(
-                                                  children: <Widget>[
-                                                    Text(
-                                                      'From',
-                                                      style: descriptionStyleDark,
-                                                    ),
-                                                    SizedBox(
-                                                      height: 8,
-                                                    ),
-                                                    Text(
-                                                      startTime,
-                                                      style: subTitleStyle,
-                                                    )
-                                                  ],
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                height: 10,
-                                              ),
-                                            ],
-                                          ),
-                                        ],
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            top: 10.0, left: 10.0),
+                                        child: Column(
+                                          children: <Widget>[
+                                            Text(
+                                              'Start',
+                                              style: descriptionStyleDark,
+                                            ),
+                                            Text(
+                                              'Reading',
+                                              style: descriptionStyleDark,
+                                            ),
+                                            SizedBox(
+                                              height: 8,
+                                            ),
+                                            Text(
+                                              "$startRead",
+                                              style: subTitleStyle,
+                                            )
+                                          ],
+                                        ),
                                       ),
-
-                                      Row(
-                                        mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                        children: <Widget>[
-                                          Column(
-                                            children: <Widget>[
-                                              Padding(
-                                                padding: const EdgeInsets.only(
-                                                    top: 10.0, left: 10.0),
-                                                child: Column(
-                                                  children: <Widget>[
-                                                    Text(
-                                                      'To',
-                                                      style: descriptionStyleDark,
-                                                    ),
-                                                    SizedBox(
-                                                      height: 8,
-                                                    ),
-                                                    Text(
-                                                      endTime,
-                                                      style: subTitleStyle,
-                                                    )
-                                                  ],
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                height: 10,
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                        children: <Widget>[
-                                          Column(
-                                            children: <Widget>[
-                                              Padding(
-                                                padding: const EdgeInsets.only(
-                                                    top: 10.0, left: 10.0),
-                                                child: Column(
-                                                  children: <Widget>[
-                                                    Text(
-                                                      'Total',
-                                                      style: descriptionStyleDark,
-                                                    ),
-                                                    SizedBox(
-                                                      height: 8,
-                                                    ),
-                                                    Text(
-                                                      totalTime,
-                                                      style: subTitleStyle,
-                                                    )
-                                                  ],
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                height: 10,
-                                              ),
-                                            ],
-                                          ),
-                                        ],
+                                      SizedBox(
+                                        height: 10,
                                       ),
                                     ],
                                   ),
                                 ],
                               ),
+                              Row(
+                                mainAxisAlignment:
+                                MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  Column(
+                                    children: <Widget>[
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            top: 10.0, left: 10.0),
+                                        child: Column(
+                                          children: <Widget>[
+                                            Text(
+                                              'End',
+                                              style: descriptionStyleDark,
+                                            ),
+                                            Text(
+                                              'Reading',
+                                              style: descriptionStyleDark,
+                                            ),
+                                            SizedBox(
+                                              height: 8,
+                                            ),
+                                            Text(
+                                              "$endRead",
+                                              style: subTitleStyle,
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  Column(
+                                    children: <Widget>[
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            top: 10.0, left: 10.0),
+                                        child: Column(
+                                          children: <Widget>[
+                                            Text(
+                                              'Total',
+                                              style: descriptionStyleDark,
+                                            ),
+                                            Text(
+                                              'Reading',
+                                              style: descriptionStyleDark,
+                                            ),
+                                            SizedBox(
+                                              height: 8,
+                                            ),
+                                            Text(
+                                              "$totalRead",
+                                              style: subTitleStyle,
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
+                        new Divider(
+                          color: Colors.black54,
+                          thickness: 1,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Row(
+                              mainAxisAlignment:
+                              MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Column(
+                                  children: <Widget>[
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          top: 10.0, left: 10.0),
+                                      child: Column(
+                                        children: <Widget>[
+                                          Text(
+                                            'From',
+                                            style: descriptionStyleDark,
+                                          ),
+                                          SizedBox(
+                                            height: 8,
+                                          ),
+                                          Text(
+                                            startTime,
+                                            style: subTitleStyle,
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                  ],
+                                ),
+                              ],
                             ),
-                          )),
-                    ]),
 
-                  ]
+                            Row(
+                              mainAxisAlignment:
+                              MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Column(
+                                  children: <Widget>[
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          top: 10.0, left: 10.0),
+                                      child: Column(
+                                        children: <Widget>[
+                                          Text(
+                                            'To',
+                                            style: descriptionStyleDark,
+                                          ),
+                                          SizedBox(
+                                            height: 8,
+                                          ),
+                                          Text(
+                                            endTime,
+                                            style: subTitleStyle,
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment:
+                              MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Column(
+                                  children: <Widget>[
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          top: 10.0, left: 10.0),
+                                      child: Column(
+                                        children: <Widget>[
+                                          Text(
+                                            'Total',
+                                            style: descriptionStyleDark,
+                                          ),
+                                          SizedBox(
+                                            height: 8,
+                                          ),
+                                          Text(
+                                            totalTime,
+                                            style: subTitleStyle,
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
               ),
-              SizedBox(height: 20,),
 //        GestureDetector(
 //          child:
 //            Text("Edit",style: subTitleStyle,),

@@ -52,7 +52,7 @@ class CustomAppBar extends StatelessWidget {
               ),
               Padding(
                 padding: EdgeInsets.only(
-                  top: 45,
+                  top: 55,
                   right: 20,
                 ),
                 child: InkWell(

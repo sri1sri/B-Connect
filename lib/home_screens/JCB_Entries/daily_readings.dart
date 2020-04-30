@@ -52,7 +52,7 @@ class _F_DailyReadingsPageState extends State<F_DailyReadingsPage> {
   Widget _buildContent(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(150),
+        preferredSize: Size.fromHeight(120),
         child: CustomAppBar(
           leftActionBar: Container(
             child: Icon(
@@ -81,7 +81,7 @@ class _F_DailyReadingsPageState extends State<F_DailyReadingsPage> {
             print('right action bar is pressed in appbar');
           },
           primaryText: null,
-          secondaryText: 'Daily Readings',
+          secondaryText: 'Vehicle Entries',
           tabBarWidget: null,
         ),
       ),
@@ -104,7 +104,7 @@ class _F_DailyReadingsPageState extends State<F_DailyReadingsPage> {
       ),
       floatingActionButton:  FloatingActionButton(
         onPressed: () {
-          editNameDialogue(context);
+          newEntryDialogue(context);
           // Add your onPressed code here!
 //          GoToPage(
 //              context,
@@ -169,7 +169,7 @@ class _F_DailyReadingsPageState extends State<F_DailyReadingsPage> {
       onTap: (){
         GoToPage(
             context,
-            ViewJCBReadingsPage());
+            AddReadingPage());
       },
     );
 
@@ -178,7 +178,7 @@ class _F_DailyReadingsPageState extends State<F_DailyReadingsPage> {
 
 
 
-void editNameDialogue(BuildContext context,) {
+void newEntryDialogue(BuildContext context,) {
 
   final _formKey = GlobalKey<FormState>();
   String _updatedGangName;
