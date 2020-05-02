@@ -54,6 +54,7 @@ dependencies:
   firebase_messaging: 6.0.13
   notification_permissions: ^0.4.4
   spring_button: ^1.0.13
+  calendar_timeline: 0.4.0
 
 dev_dependencies:
   flutter_test:
@@ -107,6 +108,13 @@ flutter:
     - images/ManageEmployees.jpg
     - images/store.jpg
     - images/jcb.png
+    - images/c1.png
+    - images/c2.png
+    - images/c3.png
+    - images/c4.png
+    - images/c5.png
+    - images/c6.png
+    - images/c7.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

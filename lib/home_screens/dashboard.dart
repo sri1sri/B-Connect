@@ -7,6 +7,7 @@ import 'package:bhavani_connect/common_widgets/platform_alert/platform_alert_dia
 import 'package:bhavani_connect/database_model/employee_details_model.dart';
 import 'package:bhavani_connect/firebase/auth.dart';
 import 'package:bhavani_connect/firebase/database.dart';
+import 'package:bhavani_connect/home_screens/Vehicle_Entry/day_selection.dart';
 import 'package:bhavani_connect/home_screens/add_stock_details/add_stock.dart';
 import 'package:bhavani_connect/home_screens/attendance/attendance_page.dart';
 import 'package:bhavani_connect/home_screens/inventory/inventory_home_page.dart';
@@ -60,7 +61,7 @@ class _F_DashboardState extends State<F_Dashboard> {
     "Inventory",
     "Attendance",
     "Employees",
-    "JCB Entries"
+    "Vehicle Entries"
   ];
   List<String> F_image = [
     "images/Approval.jpg",
@@ -268,10 +269,10 @@ class _F_DashboardState extends State<F_Dashboard> {
                                 ));
                           }
                           break;
-                        case 'JCB Entries':
+                        case 'Vehicle Entries':
                           {
                             GoToPage(
-                                context,DailyReadingsPage());
+                                context,DaySelection());
                           }
                           break;
 
