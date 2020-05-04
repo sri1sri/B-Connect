@@ -99,6 +99,11 @@ class _F_DaySelection extends State<F_DaySelection> {
                    _recentActivities("images/c5.png","BoreWell","TN73BS8121","Approved by Manager",AddVehicleDetails()),
                    _recentActivities("images/c6.png","Pickup Truck","AP38JD3322","Approved by Manager",AddVehicleCountDetails()),
                     _recentActivities("images/inventory.png","Fork Lift","TN66V6571","Approved by Manager",AddVehicleDetails()),
+                    _recentActivities("images/c8.png","Excavtor","TN66V6571","Approved by Manager",AddVehicleDetails()),
+                    _recentActivities("images/c9.png","Goods Truck","AP38JD3322","Approved by Manager",AddVehicleCountDetails()),
+                    _recentActivities("images/c10.png","BoreWell","TN73BS8121","Approved by Manager",AddVehicleDetails()),
+                    _recentActivities("images/c11.png","Pickup Truck","AP38JD3322","Approved by Manager",AddVehicleCountDetails()),
+
 
                     SizedBox(height: 20,),
                   ],
