@@ -55,6 +55,7 @@ dependencies:
   notification_permissions: ^0.4.4
   spring_button: ^1.0.13
   calendar_timeline: 0.4.0
+  material_dropdown_formfield: ^0.1.6
 
 dev_dependencies:
   flutter_test:
@@ -115,6 +116,10 @@ flutter:
     - images/c5.png
     - images/c6.png
     - images/c7.png
+    - images/c8.png
+    - images/c9.png
+    - images/c10.png
+    - images/c11.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

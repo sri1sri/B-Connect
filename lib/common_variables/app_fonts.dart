@@ -27,6 +27,11 @@ var subTitleStyleLight = TextStyle(
     fontFamily: 'Quicksand',
     fontWeight: FontWeight.w700,
     fontSize: 20.0);
+var subTitleStyleLight1 = TextStyle(
+    color: Colors.white,
+    fontFamily: 'Quicksand',
+    fontWeight: FontWeight.w700,
+    fontSize: 18.0);
 
 var statusTracker = TextStyle(
     color: Color(0xFF1F4B6E),
@@ -55,6 +60,11 @@ var descriptionStyleDarkBlur = TextStyle(
     fontFamily: 'Quicksand',
     fontWeight: FontWeight.w800,
     fontSize: 12.0);
+var descriptionStyleDarkBlur1 = TextStyle(
+    color: Colors.black.withOpacity(.5),
+    fontFamily: 'Quicksand',
+    fontWeight: FontWeight.w800,
+    fontSize: 17.0);
 var highlight = TextStyle(
     color: Colors.black.withOpacity(.7),
     fontFamily: 'Quicksand',

@@ -3,6 +3,7 @@ import 'package:bhavani_connect/common_variables/app_fonts.dart';
 import 'package:bhavani_connect/common_widgets/custom_appbar_widget/custom_app_bar.dart';
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
 import 'package:calendar_timeline/calendar_timeline.dart';
+import 'package:material_dropdown_formfield/material_dropdown_formfield.dart';
 import 'package:vector_math/vector_math.dart' as math;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +23,67 @@ class F_AddVehicle extends StatefulWidget {
 }
 
 class _F_AddVehicle extends State<F_AddVehicle> {
+  final _formKey = GlobalKey<FormState>();
+  String _myActivity;
+  String _myActivityResult;
+  FocusNode focusNode = FocusNode();
+  final TextEditingController _sellerNameController = TextEditingController();
+  final FocusNode _sellerNameFocusNode = FocusNode();
+  final TextEditingController _vehicleNumberController = TextEditingController();
+  final FocusNode _vehicleNumbeFocusNode = FocusNode();
+  final TextEditingController _vehicleUnitController = TextEditingController();
+  final FocusNode _vehicleUnityFocusNode = FocusNode();
+  List dataSource = [
+    {
+      "display": "Running",
+      "value": "Running",
+    },
+    {
+      "display": "Climbing",
+      "value": "Climbing",
+    },
+    {
+      "display": "Walking",
+      "value": "Walking",
+    },
+    {
+      "display": "Swimming",
+      "value": "Swimming",
+    },
+    {
+      "display": "Soccer Practice",
+      "value": "Soccer Practice",
+    },
+    {
+      "display": "Baseball Practice",
+      "value": "Baseball Practice",
+    },
+    {
+      "display": "Football Practice",
+      "value": "Football Practice",
+    },
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+    _myActivity = '';
+    _myActivityResult = '';
+    focusNode.addListener(() {
+      focusNode.unfocus(disposition: UnfocusDisposition.previouslyFocusedChild);
+//      focusNode.
+    });
+  }
+
+//  _saveForm() {
+//    var form = formKey.currentState;
+//    if (form.validate()) {
+//      setState(() {
+//        _myActivityResult = _myActivity;
+//      });
+//    }
+//  }
+
 
   var category = [
     "Jcb/Hitachi",
@@ -32,18 +94,25 @@ class _F_AddVehicle extends State<F_AddVehicle> {
     "BoreWell",
     "Pickup Truck",
     "GoodsTruck",
-    "Fork Lift"
+    "Driller",
+    "Crane",
+    "Fork Lift",
+    "Others"
   ];
   List<String> F_image = [
     "images/jcb.png",
     "images/c1.png",
-    "images/c2.png",
+    "images/c9.png",
     "images/c3.png",
     "images/c4.png",
     "images/c5.png",
     "images/c6.png",
     "images/c7.png",
-    "images/inventory.png"
+    "images/c8.png",
+    "images/c10.png",
+    "images/inventory.png",
+    "images/c11.png",
+
 
   ];
 
@@ -69,313 +138,294 @@ class _F_AddVehicle extends State<F_AddVehicle> {
   Widget _buildContent(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body:SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Container(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  IconButton(
-                    icon: Icon(Icons.arrow_back,color: subBackgroundColor,size: 40,),
-                    onPressed: (){
-                      Navigator.pop(context, true);
-                    },
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Text("Add Vehicle",style: bigTitleStyle,),
-                  ),
-                  SizedBox(height: 10,),
-                ],
-              ),
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(120),
+        //preferredSize : Size(double.infinity, 100),
+        child: CustomAppBar(
+          leftActionBar: Container(
+            child: Icon(
+              Icons.arrow_back,
+              size: 40,
+              color: Colors.black38,
             ),
-            Expanded(
-              child: GridView.builder(
-                itemCount: category.length,
-                gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,mainAxisSpacing: 5,crossAxisSpacing: 10
+          ),
+          leftAction: () {
+            Navigator.pop(context, true);
+          },
+          rightActionBar: null,
+          rightAction: () {
+            print('right action bar is pressed in appbar');
+          },
+          primaryText: null,
+          secondaryText: 'Add Vehicle',
+          tabBarWidget: null,
+        ),
+      ),
+      body:SafeArea(
+        child: Form(
+          key: _formKey,
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                SizedBox(height: 10,),
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Text("Vehicle category",style: titleStyle,),
                 ),
-                itemBuilder: (BuildContext context, int index) {
-                  return new GestureDetector(
-                    child: new Card(
-                      elevation: 10.0,
-                      child: new Container(
-                        alignment: Alignment.center,
-                        margin: new EdgeInsets.only(
-                            top: 5.0, bottom: 0.0, left: 0.0, right: 0.0),
-                        child: new Column(
-                          children: <Widget>[
-                            Image.asset(
-                              F_image[index],height: 70,
-                            ),
-                            SizedBox(height: 5,),
-                            new Text(
-                              category[index],
-                              style: descriptionStyle,
-                            ),
+          ExpansionTile(
+            title: Text("Choose the Vehicle",style: descriptionStyleDarkBlur1,),
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Container(
+                  height: 420,
+                  child: Expanded(
+                    child: GridView.builder(
+                      itemCount: category.length,
+                      gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 3,mainAxisSpacing: 5,crossAxisSpacing: 10
+                      ),
+                      itemBuilder: (BuildContext context, int index) {
+                        return new GestureDetector(
+                          child: new Card(
+                            elevation: 10.0,
+                            child: new Container(
+                              alignment: Alignment.center,
+                              margin: new EdgeInsets.only(
+                                  top: 5.0, bottom: 0.0, left: 0.0, right: 0.0),
+                              child: new Column(
+                                children: <Widget>[
+                                  Image.asset(
+                                    F_image[index],height: 70,
+                                  ),
+                                  SizedBox(height: 5,),
+                                  new Text(
+                                    category[index],
+                                    style: descriptionStyle,
+                                  ),
 
-                          ],
+                                ],
+                              ),
+                            ),
+                          ),
+                          onTap: () {
+                            switch (category[index]) {
+                              case 'Jcb/Hitachi':
+                                {
+                                  print("case 1 is selected");
+                                }
+                                break;
+
+                              case 'Tractor':
+                                {
+                                  print("case 2 is selected");
+                                }
+                                break;
+                              case 'Road Roller':
+                                {
+                                  print("case 3 is selected");
+                                }
+                                break;
+
+                              case 'Cement Mixer':
+                                {
+                                  print("case 4 is selected");
+                                }
+                                break;
+
+                              case 'Excavator':
+                                {
+                                  print("case 5 is selected");
+                                }
+                                break;
+                              case 'BoreWell':
+                                {
+                                  print("case 6 is selected");
+                                }
+                                break;
+                              case 'Pickup Truck':
+                                {
+                                  print("case 7 is selected");
+                                }
+                                break;
+                              case 'GoodsTruck':
+                                {
+                                  print("case 8 is selected");
+                                }
+                                break;
+                              case 'Driller':
+                                {
+                                  print("case 9 is selected");
+                                }
+                                break;
+                              case 'Crane':
+                                {
+                                  print("case 10 is selected");
+                                }
+                                break;
+
+                              case 'Fork Lift':
+                                {
+                                  print("case 11 is selected");
+                                }
+                                break;
+                              case 'Others':
+                                {
+                                  print("case 12 is selected");
+                                }
+                                break;
+
+
+                              default:
+                                {}
+                                break;
+                            }
+
+                          },
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              ),
+            ]
+          ),
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("Seller Name",style: titleStyle,),
+                      SizedBox(height: 20,),
+                      TextFormField(
+                        controller: _sellerNameController,
+                        //initialValue: _name,
+                        textInputAction: TextInputAction.done,
+                        obscureText: false,
+                        validator: (value) => value.isNotEmpty ? null : 'company name cant\'t be empty.',
+                        focusNode: _sellerNameFocusNode,
+                       // onSaved: (value) => _name = value,
+                        decoration: new InputDecoration(
+                          prefixIcon: Icon(
+                            Icons.account_box,
+                            color: backgroundColor,
+                          ),
+                          labelText: 'Enter Seller name',
+                          //fillColor: Colors.redAccent,
+                          border: new OutlineInputBorder(
+                            borderRadius: new BorderRadius.circular(5.0),
+                            borderSide: new BorderSide(),
+                          ),
+                        ),
+
+                        keyboardType: TextInputType.text,
+                        style: new TextStyle(
+                          fontFamily: "Poppins",
+                        ),
+                      ),
+                      SizedBox(height: 20,),
+                      Text("Vehicle Number ",style: titleStyle,),
+                      SizedBox(height: 20,),
+                      TextFormField(
+                        controller: _vehicleNumberController,
+                        //initialValue: _name,
+                        textInputAction: TextInputAction.done,
+                        obscureText: false,
+                        validator: (value) => value.isNotEmpty ? null : 'company name cant\'t be empty.',
+                        focusNode: _vehicleNumbeFocusNode,
+                        //onSaved: (value) => _name = value,
+                        decoration: new InputDecoration(
+                          prefixIcon: Icon(
+                            Icons.keyboard,
+                            color: backgroundColor,
+                          ),
+                          labelText: 'Enter Vehicle Number',
+                          //fillColor: Colors.redAccent,
+                          border: new OutlineInputBorder(
+                            borderRadius: new BorderRadius.circular(5.0),
+                            borderSide: new BorderSide(),
+                          ),
+                        ),
+
+                        keyboardType: TextInputType.text,
+                        style: new TextStyle(
+                          fontFamily: "Poppins",
+                        ),
+                      ),
+                      SizedBox(height: 20,),
+                      Text("Vehicle Measure",style: titleStyle,),
+                      SizedBox(height: 20,),
+                      DropDownFormField(
+                        innerBackgroundColor: Colors.white,
+                        wedgeIcon: Icon(Icons.keyboard_arrow_down),
+                        wedgeColor: Colors.grey,
+                        innerTextStyle: descriptionStyleDark,
+                        focusNode: focusNode,
+                        inputDecoration: OutlinedDropDownDecoration(
+                            labelStyle: TextStyle(color: backgroundColor),
+                            labelText: "Select the measure",
+                            borderColor: backgroundColor),
+                        hintText: 'Choose Vehicle Measure',
+                        value: _myActivity,
+                        onSaved: (value) {
+                          setState(() {
+                            _myActivity = value;
+                          });
+                        },
+                        onChanged: (value) {
+                          setState(() {
+                            _myActivity = value;
+                          });
+                        },
+                        dataSource: dataSource,
+                        textField: 'display',
+                        valueField: 'value',
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 20,),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      height: 55,
+                      width: 180,
+                      child: GestureDetector(
+                        onTap: () {
+//                      Navigator.push(
+//                        context,
+//                        MaterialPageRoute(builder: (context) => LoginPage(),),
+//                      );
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: backgroundColor,
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Center(
+                                child: Text(
+                                  "Create",
+                                  style: activeSubTitleStyle,
+                                ),
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     ),
-                    onTap: () {
-                      newEntryDialogue(context);
-
-                    },
-                  );
-                },
-              ),
+                  ],
+                )
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );
   }
 }
 
-
-void newEntryDialogue(BuildContext context,) {
-
-  final _formKey = GlobalKey<FormState>();
-  String _updatedGangName;
-
-  showGeneralDialog(
-      context: context,
-      pageBuilder: (context, anim1, anim2) {},
-      barrierDismissible: true,
-      barrierColor: Colors.black.withOpacity(0.4),
-      barrierLabel: '',
-      transitionBuilder: (context, anim1, anim2, child) {
-        return Transform.rotate(
-          angle: math.radians(anim1.value * 360),
-          child: Opacity(
-            opacity: anim1.value,
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: 0),
-              child: Dialog(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12.0),
-                ),
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20.0),
-                  ),
-                  height: 330.0,
-                  width: 400.0,
-                  child: Stack(
-                    children: <Widget>[
-                      Container(
-                        width: double.infinity,
-                        height: 330,
-                        decoration: BoxDecoration(
-                          color: Colors.grey[100],
-                          borderRadius: BorderRadius.circular(12.0),
-                        ),
-                        child: Container(
-                          child: Padding(
-                            padding: const EdgeInsets.all(15.0),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//                            crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Text("Enter Vehicle Details",style: titleStyle,),
-                                Form(
-                                  key: _formKey,
-                                  child:
-                                  Column(
-                                    children: [
-                                      TextFormField(
-                                        onChanged: (value) => _updatedGangName = value,
-                                        autocorrect: true,
-                                        obscureText: false,
-                                        keyboardType: TextInputType.text,
-                                        keyboardAppearance: Brightness.light,
-                                        autofocus: true,
-                                        cursorColor: backgroundColor,
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          fontSize: 22,
-                                          fontWeight: FontWeight.w600,
-                                        ),
-                                        decoration:  InputDecoration(
-                                          counterStyle: TextStyle(
-                                            // fontFamily: mainFontFamily,
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 18,
-                                          ),
-                                          focusedBorder: UnderlineInputBorder(
-                                            borderSide: const BorderSide(color: Colors.transparent),
-                                          ),
-                                          hintText: "Seller Name",
-                                          hintStyle: TextStyle(
-                                            // fontFamily: mainFontFamily,
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 22,),
-                                          enabledBorder: const OutlineInputBorder(
-                                            borderSide:
-                                            const BorderSide(color: Colors.transparent, width: 0.0),
-                                          ),
-                                        ),
-                                        validator: (value) {
-                                          print(value);
-                                          if (value.isEmpty) {
-                                            return 'Please enter new gang name.';
-                                          }
-                                          return null;
-                                        },
-                                      ),
-                                      TextFormField(
-                                        onChanged: (value) => _updatedGangName = value,
-                                        autocorrect: true,
-                                        obscureText: false,
-                                        keyboardType: TextInputType.text,
-                                        keyboardAppearance: Brightness.light,
-                                        autofocus: true,
-                                        cursorColor: backgroundColor,
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          fontSize: 22,
-                                          fontWeight: FontWeight.w600,
-                                        ),
-                                        decoration:  InputDecoration(
-                                          counterStyle: TextStyle(
-                                            // fontFamily: mainFontFamily,
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 18,
-                                          ),
-                                          focusedBorder: UnderlineInputBorder(
-                                            borderSide: const BorderSide(color: Colors.transparent),
-                                          ),
-                                          hintText: "Vehicle Number",
-                                          hintStyle: TextStyle(
-                                            // fontFamily: mainFontFamily,
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 22,),
-                                          enabledBorder: const OutlineInputBorder(
-                                            borderSide:
-                                            const BorderSide(color: Colors.transparent, width: 0.0),
-                                          ),
-                                        ),
-                                        validator: (value) {
-                                          print(value);
-                                          if (value.isEmpty) {
-                                            return 'Please enter new gang name.';
-                                          }
-                                          return null;
-                                        },
-                                      ),
-                                      TextFormField(
-                                        onChanged: (value) => _updatedGangName = value,
-                                        autocorrect: true,
-                                        obscureText: false,
-                                        keyboardType: TextInputType.text,
-                                        keyboardAppearance: Brightness.light,
-                                        autofocus: true,
-                                        cursorColor: backgroundColor,
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          fontSize: 22,
-                                          fontWeight: FontWeight.w600,
-                                        ),
-                                        decoration:  InputDecoration(
-                                          counterStyle: TextStyle(
-                                            // fontFamily: mainFontFamily,
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 18,
-                                          ),
-                                          focusedBorder: UnderlineInputBorder(
-                                            borderSide: const BorderSide(color: Colors.transparent),
-                                          ),
-                                          hintText: "Vehicle Unit",
-                                          hintStyle: TextStyle(
-                                            // fontFamily: mainFontFamily,
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 22,),
-                                          enabledBorder: const OutlineInputBorder(
-                                            borderSide:
-                                            const BorderSide(color: Colors.transparent, width: 0.0),
-                                          ),
-                                        ),
-                                        validator: (value) {
-                                          print(value);
-                                          if (value.isEmpty) {
-                                            return 'Please enter new gang name.';
-                                          }
-                                          return null;
-                                        },
-                                      ),
-
-                                    ],
-                                  ),
-                                ),
-
-                                Container(
-                                  height: 55,
-                                  width: 180,
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      Navigator.pop(context);
-//                                      final updatedGangDetails  = GangDetails(gangName: _updatedGangName);
-//                                      DBreference.updateGang(updatedGangDetails, gangDetails.gangID);
-//
-//                                      GoToPage(context, LandingPage());
-                                    },
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        color: backgroundColor,
-                                        borderRadius: BorderRadius.circular(10.0),
-                                      ),
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: <Widget>[
-                                          Center(
-                                            child: Text(
-                                              "Create",
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  //fontFamily: mainFontFamily,
-                                                  fontWeight: FontWeight.w600,
-                                                  fontSize: 22,decoration: TextDecoration.none),
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                      Align(
-                        // These values are based on trial & error method
-                        alignment: Alignment(1.05, -1.05),
-                        child: InkWell(
-                          onTap: () {
-                            Navigator.pop(context);
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Colors.grey[200],
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            child: Icon(
-                              Icons.close,
-                              color: Colors.black,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ),
-        );
-      },
-      transitionDuration: Duration(milliseconds: 300));
-}

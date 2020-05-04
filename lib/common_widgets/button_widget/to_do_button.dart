@@ -18,7 +18,7 @@ class ToDoButton extends CustomRaisedButton{
           children: <Widget>[
             Image.asset(assetName),
             Text(text,
-              style: TextStyle(fontSize:17 , fontWeight: FontWeight.w600,fontFamily: 'Quicksand'),
+              style: TextStyle(fontSize:18 , fontWeight: FontWeight.w600,fontFamily: 'Quicksand'),
             ),
             Opacity(
               opacity: 0.0,
