@@ -48,69 +48,65 @@ class _F_DaySelection extends State<F_DaySelection> {
     return Scaffold(
       backgroundColor: Colors.white,
       body:SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Container(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  IconButton(
-                    icon: Icon(Icons.arrow_back,color: subBackgroundColor,size: 40,),
-                    onPressed: (){
-                      Navigator.pop(context, true);
-                    },
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Text("Vehicle Entries",style: bigTitleStyle,),
-                  ),
-                  CalendarTimeline(
-                    initialDate: DateTime.now(),
-                    firstDate: DateTime(2020, 2, 15),
-                    lastDate: DateTime(2040, 11, 20),
-                    onDateSelected: (date) => print(date),
-                    leftMargin: 60,
-                    monthColor: subBackgroundColor,
-                    dayColor: Colors.teal[200],
-                    activeDayColor: Colors.white,
-                    activeBackgroundDayColor: backgroundColor,
-                    dotsColor: Colors.white70,
-                    //selectableDayPredicate: (date) => date.day != 23,
-                  ),
-                  SizedBox(height: 10,),
-                ],
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Container(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    IconButton(
+                      icon: Icon(Icons.arrow_back,color: subBackgroundColor,size: 40,),
+                      onPressed: (){
+                        Navigator.pop(context, true);
+                      },
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Text("Vehicle Entries",style: bigTitleStyle,),
+                    ),
+                    CalendarTimeline(
+                      initialDate: DateTime.now(),
+                      firstDate: DateTime(2020, 2, 15),
+                      lastDate: DateTime(2040, 11, 20),
+                      onDateSelected: (date) => print(date),
+                      leftMargin: 60,
+                      monthColor: subBackgroundColor,
+                      dayColor: Colors.teal[200],
+                      activeDayColor: Colors.white,
+                      activeBackgroundDayColor: backgroundColor,
+                      dotsColor: Colors.white70,
+                      //selectableDayPredicate: (date) => date.day != 23,
+                    ),
+                    SizedBox(height: 10,),
+                  ],
+                ),
               ),
-            ),
-            Container(
-              height: MediaQuery.of(context).size.height/1.53,
-              child: SingleChildScrollView(
-                padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
-                    SizedBox(height: 10,),
                     _recentActivities("images/jcb.png","JCB","TN66V6571","Approved by Manager",AddVehicleDetails()),
                     _recentActivities("images/c1.png","Tractor","TN73BS8121","Approved by Manager",AddVehicleCountDetails()),
                     _recentActivities("images/c9.png","Road Roller","AP38JD3322","Approved by Manager",AddVehicleDetails()),
                     _recentActivities("images/c3.png","Cement Mixer","AP37GG6371","Approved by Manager",AddVehicleCountDetails()),
-                   _recentActivities("images/c4.png","Excavtor","TN66V6571","Approved by Manager",AddVehicleDetails()),
+                    _recentActivities("images/c4.png","Excavtor","TN66V6571","Approved by Manager",AddVehicleDetails()),
                     _recentActivities("images/c7.png","Goods Truck","AP38JD3322","Approved by Manager",AddVehicleCountDetails()),
-                   _recentActivities("images/c5.png","BoreWell","TN73BS8121","Approved by Manager",AddVehicleDetails()),
-                   _recentActivities("images/c6.png","Pickup Truck","AP38JD3322","Approved by Manager",AddVehicleCountDetails()),
+                    _recentActivities("images/c5.png","BoreWell","TN73BS8121","Approved by Manager",AddVehicleDetails()),
+                    _recentActivities("images/c6.png","Pickup Truck","AP38JD3322","Approved by Manager",AddVehicleCountDetails()),
                     _recentActivities("images/inventory.png","Fork Lift","TN66V6571","Approved by Manager",AddVehicleDetails()),
                     _recentActivities("images/c8.png","Excavtor","TN66V6571","Approved by Manager",AddVehicleDetails()),
                     _recentActivities("images/c9.png","Goods Truck","AP38JD3322","Approved by Manager",AddVehicleCountDetails()),
                     _recentActivities("images/c10.png","BoreWell","TN73BS8121","Approved by Manager",AddVehicleDetails()),
                     _recentActivities("images/c11.png","Pickup Truck","AP38JD3322","Approved by Manager",AddVehicleCountDetails()),
-
-
-                    SizedBox(height: 20,),
                   ],
                 ),
               ),
-            )
-          ],
+
+            ],
+          ),
         ),
       ),
       floatingActionButton:  FloatingActionButton(

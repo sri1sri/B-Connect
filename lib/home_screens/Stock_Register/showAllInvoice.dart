@@ -50,59 +50,55 @@ class _F_ShowAllInvoice extends State<F_ShowAllInvoice> {
     return Scaffold(
       backgroundColor: Colors.white,
       body:SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Container(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  IconButton(
-                    icon: Icon(Icons.arrow_back,color: subBackgroundColor,size: 40,),
-                    onPressed: (){
-                      Navigator.pop(context, true);
-                    },
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Text("Stock Register",style: bigTitleStyle,),
-                  ),
-                  CalendarTimeline(
-                    initialDate: DateTime.now(),
-                    firstDate: DateTime(2020, 2, 15),
-                    lastDate: DateTime(2040, 11, 20),
-                    onDateSelected: (date) => print(date),
-                    leftMargin: 60,
-                    monthColor: subBackgroundColor,
-                    dayColor: Colors.teal[200],
-                    activeDayColor: Colors.white,
-                    activeBackgroundDayColor: backgroundColor,
-                    dotsColor: Colors.white70,
-                    //selectableDayPredicate: (date) => date.day != 23,
-                  ),
-                  SizedBox(height: 10,),
-                ],
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Container(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    IconButton(
+                      icon: Icon(Icons.arrow_back,color: subBackgroundColor,size: 40,),
+                      onPressed: (){
+                        Navigator.pop(context, true);
+                      },
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Text("Stock Register",style: bigTitleStyle,),
+                    ),
+                    CalendarTimeline(
+                      initialDate: DateTime.now(),
+                      firstDate: DateTime(2020, 2, 15),
+                      lastDate: DateTime(2040, 11, 20),
+                      onDateSelected: (date) => print(date),
+                      leftMargin: 60,
+                      monthColor: subBackgroundColor,
+                      dayColor: Colors.teal[200],
+                      activeDayColor: Colors.white,
+                      activeBackgroundDayColor: backgroundColor,
+                      dotsColor: Colors.white70,
+                      //selectableDayPredicate: (date) => date.day != 23,
+                    ),
+                    SizedBox(height: 10,),
+                  ],
+                ),
               ),
-            ),
-            Container(
-              height: MediaQuery.of(context).size.height/1.53,
-              child: SingleChildScrollView(
-                padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
-                    SizedBox(height: 10,),
                     _ItemsCard("Vasanth Plastics","23","nos","22/Mar/2020", "PVC Insulation Tapes","₹ 22,231.00"),
                     _ItemsCard("Sri Cements","300","kgs","13/Apr/2020", "Super strong Cements","₹ 50,431.00"),
                     _ItemsCard("Vamsi Steels","45","tons","08/Apr/2020", "8 layer TMT Rods","₹ 32,654.00"),
 
-
-                    SizedBox(height: 20,),
                   ],
                 ),
               ),
-            )
-          ],
+            ],
+          ),
         ),
       ),
       floatingActionButton:  FloatingActionButton(
