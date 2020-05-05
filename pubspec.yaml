@@ -44,7 +44,6 @@ dependencies:
   shimmer: ^1.1.0
   grouped_buttons: ^1.0.4
   flutter_cupertino_date_picker: ^1.0.12
-  dropdown_formfield: ^0.1.1
   dropdownfield: ^1.0.3
   geolocator: ^5.3.1
   geocoder: ^0.2.1
@@ -55,7 +54,7 @@ dependencies:
   notification_permissions: ^0.4.4
   spring_button: ^1.0.13
   calendar_timeline: 0.4.0
-  material_dropdown_formfield: ^0.1.6
+  dropdown_formfield: 0.1.2
 
 dev_dependencies:
   flutter_test:
@@ -120,6 +119,7 @@ flutter:
     - images/c9.png
     - images/c10.png
     - images/c11.png
+    - images/invoice.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

@@ -3,7 +3,7 @@ import 'package:bhavani_connect/common_variables/app_fonts.dart';
 import 'package:bhavani_connect/common_widgets/custom_appbar_widget/custom_app_bar.dart';
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
 import 'package:calendar_timeline/calendar_timeline.dart';
-import 'package:material_dropdown_formfield/material_dropdown_formfield.dart';
+import 'package:dropdown_formfield/dropdown_formfield.dart';
 import 'package:vector_math/vector_math.dart' as math;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -356,31 +356,55 @@ class _F_AddVehicle extends State<F_AddVehicle> {
                       SizedBox(height: 20,),
                       Text("Vehicle Measure",style: titleStyle,),
                       SizedBox(height: 20,),
-                      DropDownFormField(
-                        innerBackgroundColor: Colors.white,
-                        wedgeIcon: Icon(Icons.keyboard_arrow_down),
-                        wedgeColor: Colors.grey,
-                        innerTextStyle: descriptionStyleDark,
-                        focusNode: focusNode,
-                        inputDecoration: OutlinedDropDownDecoration(
-                            labelStyle: TextStyle(color: backgroundColor),
-                            labelText: "Select the measure",
-                            borderColor: backgroundColor),
-                        hintText: 'Choose Vehicle Measure',
-                        value: _myActivity,
-                        onSaved: (value) {
-                          setState(() {
-                            _myActivity = value;
-                          });
-                        },
-                        onChanged: (value) {
-                          setState(() {
-                            _myActivity = value;
-                          });
-                        },
-                        dataSource: dataSource,
-                        textField: 'display',
-                        valueField: 'value',
+                      Container(
+                        padding: EdgeInsets.all(16),
+                        child: DropDownFormField(
+                          titleText: 'Vehicle Measure',
+                          hintText: 'Please choose one',
+                          value: _myActivity,
+                          onSaved: (value) {
+                            setState(() {
+                              _myActivity = value;
+                            });
+                          },
+                          onChanged: (value) {
+                            setState(() {
+                              _myActivity = value;
+                            });
+                          },
+                          dataSource: [
+                            {
+                              "display": "Running",
+                              "value": "Running",
+                            },
+                            {
+                              "display": "Climbing",
+                              "value": "Climbing",
+                            },
+                            {
+                              "display": "Walking",
+                              "value": "Walking",
+                            },
+                            {
+                              "display": "Swimming",
+                              "value": "Swimming",
+                            },
+                            {
+                              "display": "Soccer Practice",
+                              "value": "Soccer Practice",
+                            },
+                            {
+                              "display": "Baseball Practice",
+                              "value": "Baseball Practice",
+                            },
+                            {
+                              "display": "Football Practice",
+                              "value": "Football Practice",
+                            },
+                          ],
+                          textField: 'display',
+                          valueField: 'value',
+                        ),
                       ),
                     ],
                   ),

@@ -393,7 +393,14 @@ packages:
       name: image_picker
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.6.5+3"
+    version: "0.6.6+1"
+  image_picker_platform_interface:
+    dependency: transitive
+    description:
+      name: image_picker_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0"
   intl:
     dependency: "direct main"
     description:
@@ -429,13 +436,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.12.6"
-  material_dropdown_formfield:
-    dependency: "direct main"
-    description:
-      name: material_dropdown_formfield
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.1.6"
   meta:
     dependency: transitive
     description:

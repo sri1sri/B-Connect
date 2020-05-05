@@ -1,8 +1,10 @@
 import 'package:bhavani_connect/common_variables/app_colors.dart';
 import 'package:bhavani_connect/common_variables/app_fonts.dart';
+import 'package:bhavani_connect/common_variables/app_functions.dart';
 import 'package:bhavani_connect/common_widgets/button_widget/to_do_button.dart';
 import 'package:bhavani_connect/common_widgets/custom_appbar_widget/custom_app_bar.dart';
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
+import 'package:bhavani_connect/home_screens/Vehicle_Entry/Add_Vehicle.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:spring_button/spring_button.dart';
@@ -57,9 +59,12 @@ class _F_AddVehicleDetails extends State<F_AddVehicleDetails> {
           leftAction: () {
             Navigator.pop(context, true);
           },
-          rightActionBar: null,
+          rightActionBar: Text("Edit",style: subTitleStyle,),
           rightAction: () {
-            print('right action bar is pressed in appbar');
+            GoToPage(
+                context,
+                AddVehicle(
+                ));
           },
           primaryText: null,
           secondaryText: 'Vehicle Details',

@@ -7,6 +7,7 @@ import 'package:bhavani_connect/common_widgets/platform_alert/platform_alert_dia
 import 'package:bhavani_connect/database_model/employee_details_model.dart';
 import 'package:bhavani_connect/firebase/auth.dart';
 import 'package:bhavani_connect/firebase/database.dart';
+import 'package:bhavani_connect/home_screens/Stock_Register/showAllInvoice.dart';
 import 'package:bhavani_connect/home_screens/Vehicle_Entry/day_selection.dart';
 import 'package:bhavani_connect/home_screens/add_stock_details/add_stock.dart';
 import 'package:bhavani_connect/home_screens/attendance/attendance_page.dart';
@@ -61,7 +62,8 @@ class _F_DashboardState extends State<F_Dashboard> {
     "Inventory",
     "Attendance",
     "Employees",
-    "Vehicle Entries"
+    "Vehicle Entries",
+    "Stock Register"
   ];
   List<String> F_image = [
     "images/Approval.jpg",
@@ -70,7 +72,8 @@ class _F_DashboardState extends State<F_Dashboard> {
     "images/inventory.png",
     "images/Attendance.jpg",
     "images/ManageEmployees.jpg",
-    "images/jcb.png"
+    "images/jcb.png",
+    "images/invoice.png"
   ];
 
   @override
@@ -273,6 +276,12 @@ class _F_DashboardState extends State<F_Dashboard> {
                           {
                             GoToPage(
                                 context,DaySelection());
+                          }
+                          break;
+                        case 'Stock Register':
+                          {
+                            GoToPage(
+                                context,ShowAllInvoice());
                           }
                           break;
 
