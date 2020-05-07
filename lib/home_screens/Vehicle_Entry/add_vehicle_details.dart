@@ -71,7 +71,7 @@ class _F_AddVehicle extends State<F_AddVehicle> {
     _myActivity = '';
     _myActivityResult = '';
     focusNode.addListener(() {
-      focusNode.unfocus(disposition: UnfocusDisposition.previouslyFocusedChild);
+//      focusNode.unfocus(disposition: UnfocusDisposition.previouslyFocusedChild);
 //      focusNode.
     });
   }
