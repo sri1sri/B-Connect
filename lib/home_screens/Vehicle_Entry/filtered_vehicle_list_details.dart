@@ -190,9 +190,12 @@ class _F_VehicleDataList extends State<F_VehicleDataList> {
                             ),
                             DataCell(Container(
                                 height: 50,
+                                width: 150,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10),
-                                  color: Colors.green.withOpacity(0.8),
+                                    color: itemRow.approvalStatus == 'Approved' ? Colors.green.withOpacity(0.8) :
+                                    (itemRow.approvalStatus == 'Pending' ? Colors.orange.withOpacity(0.8) :
+                                    Colors.red.withOpacity(0.8))
                                 ),
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
@@ -284,7 +287,7 @@ var items = <ItemInfo>[
     unitsPerTrip: '3',
     requestedBy: 'Vasanth (Supervisor)',
     approvedBy: 'Srivatsav (Manager)',
-    approvalStatus: 'Approved by Manager',
+    approvalStatus: 'Approved',
   ),
   ItemInfo(
     slno: '2',
@@ -304,7 +307,7 @@ var items = <ItemInfo>[
     unitsPerTrip: '3',
     requestedBy: 'Vasanth (Supervisor)',
     approvedBy: 'Srivatsav (Manager)',
-    approvalStatus: 'Approved by Manager',
+    approvalStatus: 'Declined',
   ),
   ItemInfo(
     slno: '3',
@@ -324,7 +327,7 @@ var items = <ItemInfo>[
     unitsPerTrip: '3',
     requestedBy: 'Vasanth (Supervisor)',
     approvedBy: 'Srivatsav (Manager)',
-    approvalStatus: 'Approved by Manager',
+    approvalStatus: 'Pending',
   ),
   ItemInfo(
     slno: '4',
@@ -344,7 +347,7 @@ var items = <ItemInfo>[
     unitsPerTrip: '3',
     requestedBy: 'Vasanth (Supervisor)',
     approvedBy: 'Srivatsav (Manager)',
-    approvalStatus: 'Approved by Manager',
+    approvalStatus: 'Approved',
   ),
 ];
 

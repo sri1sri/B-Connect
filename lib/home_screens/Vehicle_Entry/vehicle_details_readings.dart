@@ -5,7 +5,7 @@ import 'package:bhavani_connect/common_widgets/button_widget/to_do_button.dart';
 import 'package:bhavani_connect/common_widgets/custom_appbar_widget/custom_app_bar.dart';
 import 'package:bhavani_connect/common_widgets/custom_appbar_widget/custom_app_bar_2.dart';
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
-import 'package:bhavani_connect/home_screens/Vehicle_Entry/Add_Vehicle.dart';
+import 'package:bhavani_connect/home_screens/Vehicle_Entry/add_vehicle_details.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:spring_button/spring_button.dart';
@@ -218,27 +218,27 @@ class _F_AddVehicleDetails extends State<F_AddVehicleDetails> {
                   ),
                 ),
               ),
-              SizedBox(width: 20,),
-              GestureDetector(
-                onTap: (){
-                  endReadingDialogue(context,);
-                },
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                    color: Colors.red.withOpacity(0.8),
-                  ),
-                  height: 35,
-                  width: 80,
-
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text("STOP",style: subTitleStyleLight1,),
-                    ],
-                  ),
-                ),
-              ),
+//              SizedBox(width: 20,),
+//              GestureDetector(
+//                onTap: (){
+//                  endReadingDialogue(context,);
+//                },
+//                child: Container(
+//                  decoration: BoxDecoration(
+//                    borderRadius: BorderRadius.circular(5),
+//                    color: Colors.red.withOpacity(0.8),
+//                  ),
+//                  height: 35,
+//                  width: 80,
+//
+//                  child: Row(
+//                    mainAxisAlignment: MainAxisAlignment.center,
+//                    children: [
+//                      Text("STOP",style: subTitleStyleLight1,),
+//                    ],
+//                  ),
+//                ),
+//              ),
             ],
           ),
         )

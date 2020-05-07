@@ -8,7 +8,7 @@ import 'package:bhavani_connect/database_model/employee_details_model.dart';
 import 'package:bhavani_connect/firebase/auth.dart';
 import 'package:bhavani_connect/firebase/database.dart';
 import 'package:bhavani_connect/home_screens/Stock_Register/showAllInvoice.dart';
-import 'package:bhavani_connect/home_screens/Vehicle_Entry/day_selection.dart';
+import 'package:bhavani_connect/home_screens/Vehicle_Entry/vehicle_list_details.dart';
 import 'package:bhavani_connect/home_screens/add_stock_details/add_stock.dart';
 import 'package:bhavani_connect/home_screens/attendance/attendance_page.dart';
 import 'package:bhavani_connect/home_screens/inventory/inventory_home_page.dart';

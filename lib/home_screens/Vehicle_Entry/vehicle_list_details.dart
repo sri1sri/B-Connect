@@ -4,14 +4,15 @@ import 'package:bhavani_connect/common_variables/app_functions.dart';
 import 'package:bhavani_connect/common_widgets/custom_appbar_widget/custom_app_bar.dart';
 import 'package:bhavani_connect/common_widgets/custom_appbar_widget/custom_app_bar_2.dart';
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
-import 'package:bhavani_connect/home_screens/Vehicle_Entry/Vehicle_Entry_Filter.dart';
-import 'package:bhavani_connect/home_screens/Vehicle_Entry/Vehicle_Reading_Details.dart';
-import 'package:bhavani_connect/home_screens/Vehicle_Entry/Add_Vehicle.dart';
+import 'package:bhavani_connect/home_screens/Vehicle_Entry/Filtered_vehicle_list_details.dart';
+import 'package:bhavani_connect/home_screens/Vehicle_Entry/filter_vehicle_list_details.dart';
+import 'package:bhavani_connect/home_screens/Vehicle_Entry/vehicle_details_readings.dart';
+import 'package:bhavani_connect/home_screens/Vehicle_Entry/add_vehicle_details.dart';
 import 'package:calendar_timeline/calendar_timeline.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'Vehicle_Count_Details.dart';
+import 'vehicle_details_trip.dart';
 
 class DaySelection extends StatelessWidget {
   @override
@@ -204,7 +205,9 @@ class _F_DaySelection extends State<F_DaySelection> {
                               width: 150,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
-                                color: Colors.green.withOpacity(0.8),
+                                color: itemRow.approvalStatus == 'Approved' ? Colors.green.withOpacity(0.8) :
+                                (itemRow.approvalStatus == 'Pending' ? Colors.orange.withOpacity(0.8) :
+                                Colors.red.withOpacity(0.8))
                               ),
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,

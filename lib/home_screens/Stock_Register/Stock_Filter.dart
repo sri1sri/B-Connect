@@ -7,8 +7,8 @@ import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.da
 import 'package:bhavani_connect/home_screens/Stock_Register/AddNewInvoice.dart';
 import 'package:bhavani_connect/home_screens/Stock_Register/Stock_Data_List.dart';
 import 'package:bhavani_connect/home_screens/Stock_Register/detail_description.dart';
-import 'package:bhavani_connect/home_screens/Vehicle_Entry/Vehicle_Reading_Details.dart';
-import 'package:bhavani_connect/home_screens/Vehicle_Entry/Add_Vehicle.dart';
+import 'package:bhavani_connect/home_screens/Vehicle_Entry/vehicle_details_readings.dart';
+import 'package:bhavani_connect/home_screens/Vehicle_Entry/add_vehicle_details.dart';
 import 'package:calendar_timeline/calendar_timeline.dart';
 import 'package:dropdown_formfield/dropdown_formfield.dart';
 import 'package:flutter/cupertino.dart';

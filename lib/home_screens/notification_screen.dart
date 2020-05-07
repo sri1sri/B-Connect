@@ -106,7 +106,7 @@ class _F_NotificationPageState extends State<F_NotificationPage> {
           leftAction: (){
             Navigator.pop(context,true);
           },
-          rightActionBar: Icon(Icons.clear,size: 25,color: Colors.white),
+          //rightActionBar: Icon(Icons.clear,size: 25,color: Colors.white),
           rightAction: (){
             print('right action bar is pressed in appbar');
           },
@@ -124,10 +124,10 @@ class _F_NotificationPageState extends State<F_NotificationPage> {
               child: Column(
                 children: [
                   SizedBox(height: 20,),
-                  _recentActivities("Need Approval For Vehicle", "JCB came to digg the ground"),
-                  _recentActivities("Need Approval For Vehicle", "JCB came to digg the ground"),
-                  _recentActivities("Need Approval For Vehicle", "JCB came to digg the ground"),
-                  _recentActivities("Need Approval For Vehicle", "JCB came to digg the ground"),
+                  _recentActivities("Approval For Vehicle", "JCB came to digg the ground",1),
+                  _recentActivities("Approval For Goods", "Items Added to the goods entry",2),
+                  _recentActivities("Approval For Store", "Items requested in store, need an approval",1),
+                  _recentActivities("Approval For Goods", "Goods created by the security need the approval",2),
                   SizedBox(height: 700,)
 
                 ],
@@ -138,52 +138,94 @@ class _F_NotificationPageState extends State<F_NotificationPage> {
 
     );
   }
-  _recentActivities(String messageTitle, String messageContent)
+  _recentActivities(String messageTitle, String messageContent,int status)
   {
-    return Card(
-      elevation: 2,
-      child: Container(
+    return Container(
+      height: 100,
 
-        child: Padding(
-          padding: const EdgeInsets.all(15.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text(messageTitle,style: descriptionStyleDark1,),
-                        Text(messageContent,style: descriptionStyleDarkBlur2,),
-                      ]
-                  ),
-                ],
+      child: Padding(
+        padding: const EdgeInsets.all(15.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Container(
+              width: 220,
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(messageTitle,style: descriptionStyleDark1,),
+                    SizedBox(height: 5,),
+                    Text(messageContent,style: descriptionStyleDarkBlur3,),
+                  ]
               ),
-              GestureDetector(
-                onTap: (){
+            ),
+            //(employee == null ? "Not updated" : employee.username)
+            status == 1 ? Row(
+              children: [
+                GestureDetector(
+                  onTap: (){
 
-                },
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                    color: Colors.green.withOpacity(0.8),
-                  ),
-                  height: 35,
-                  width: 80,
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      color: Colors.green.withOpacity(0.8),
+                    ),
+                    height: 30,
+                    width: 70,
 
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text("Status",style: subTitleStyleLight1,),
-                    ],
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text("Accept",style: descriptionStyleLite1,),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ],
+                SizedBox(width: 5,),
+                GestureDetector(
+                  onTap: (){
 
-          ),
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      color: Colors.red.withOpacity(0.8),
+                    ),
+                    height: 30,
+                    width: 70,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text("Decline",style: descriptionStyleLite1,),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ) : GestureDetector(
+              onTap: (){
+
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5),
+                  color: backgroundColor.withOpacity(0.8),
+                ),
+                height: 30,
+                width: 70,
+
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text("Status",style: descriptionStyleLite1,),
+                  ],
+                ),
+              ),
+            ),
+          ],
+
         ),
       ),
     );
