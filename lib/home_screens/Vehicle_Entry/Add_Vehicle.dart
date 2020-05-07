@@ -1,6 +1,7 @@
 import 'package:bhavani_connect/common_variables/app_colors.dart';
 import 'package:bhavani_connect/common_variables/app_fonts.dart';
 import 'package:bhavani_connect/common_widgets/custom_appbar_widget/custom_app_bar.dart';
+import 'package:bhavani_connect/common_widgets/custom_appbar_widget/custom_app_bar_2.dart';
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
 import 'package:calendar_timeline/calendar_timeline.dart';
 import 'package:dropdown_formfield/dropdown_formfield.dart';
@@ -31,8 +32,8 @@ class _F_AddVehicle extends State<F_AddVehicle> {
   final FocusNode _sellerNameFocusNode = FocusNode();
   final TextEditingController _vehicleNumberController = TextEditingController();
   final FocusNode _vehicleNumbeFocusNode = FocusNode();
-  final TextEditingController _vehicleUnitController = TextEditingController();
-  final FocusNode _vehicleUnityFocusNode = FocusNode();
+  final TextEditingController _UnitController = TextEditingController();
+  final FocusNode _UnitFocusNode = FocusNode();
   List dataSource = [
     {
       "display": "Running",
@@ -137,314 +138,339 @@ class _F_AddVehicle extends State<F_AddVehicle> {
 
   Widget _buildContent(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: backgroundColor,
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(120),
-        //preferredSize : Size(double.infinity, 100),
-        child: CustomAppBar(
-          leftActionBar: Container(
-            child: Icon(
-              Icons.arrow_back,
-              size: 40,
-              color: Colors.black38,
+        preferredSize:
+        Size.fromHeight(70),
+        child: CustomAppBarDark(
+          leftActionBar: Icon(Icons.arrow_back_ios,size: 25,color: Colors.white,),
+          leftAction: (){
+            Navigator.pop(context,true);
+          },
+          rightActionBar: Container(
+            padding: EdgeInsets.only(top: 10),
+            child: InkWell(
+                child: Icon(Icons.more_vert,
+                  color: backgroundColor,
+                  size: 30,
+                ),
+                onTap: () {
+//                  Navigator.push(
+//                    context,
+//                    MaterialPageRoute(
+//                        builder: (context) => SettingsPage() ),
+//                  );
+                }
             ),
           ),
-          leftAction: () {
-            Navigator.pop(context, true);
-          },
-          rightActionBar: null,
-          rightAction: () {
+          rightAction: (){
             print('right action bar is pressed in appbar');
           },
-          primaryText: null,
-          secondaryText: 'Add Vehicle',
+          primaryText: 'Add vehicle',
           tabBarWidget: null,
         ),
       ),
-      body:SafeArea(
-        child: Form(
-          key: _formKey,
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                SizedBox(height: 10,),
+      body:ClipRRect(
+        borderRadius: BorderRadius.only(
+            topRight: Radius.circular(50.0),
+            topLeft: Radius.circular(50.0)),
+        child: Container(
+          color: Colors.white,
+          child: Form(
+            key: _formKey,
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  SizedBox(height: 30,),
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Text("Vehicle category",style: titleStyle,),
+                  ),
+            ExpansionTile(
+              title: Text("Choose the Vehicle",style: descriptionStyleDarkBlur1,),
+              children: [
                 Padding(
                   padding: const EdgeInsets.all(10.0),
-                  child: Text("Vehicle category",style: titleStyle,),
-                ),
-          ExpansionTile(
-            title: Text("Choose the Vehicle",style: descriptionStyleDarkBlur1,),
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Container(
-                  height: 420,
-                  child: Expanded(
-                    child: GridView.builder(
-                      itemCount: category.length,
-                      gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 3,mainAxisSpacing: 5,crossAxisSpacing: 10
-                      ),
-                      itemBuilder: (BuildContext context, int index) {
-                        return new GestureDetector(
-                          child: new Card(
-                            elevation: 10.0,
-                            child: new Container(
-                              alignment: Alignment.center,
-                              margin: new EdgeInsets.only(
-                                  top: 5.0, bottom: 0.0, left: 0.0, right: 0.0),
-                              child: new Column(
-                                children: <Widget>[
-                                  Image.asset(
-                                    F_image[index],height: 70,
-                                  ),
-                                  SizedBox(height: 5,),
-                                  new Text(
-                                    category[index],
-                                    style: descriptionStyle,
-                                  ),
+                  child: Container(
+                    height: 420,
+                    child: Expanded(
+                      child: GridView.builder(
+                        itemCount: category.length,
+                        gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 3,mainAxisSpacing: 5,crossAxisSpacing: 10
+                        ),
+                        itemBuilder: (BuildContext context, int index) {
+                          return new GestureDetector(
+                            child: new Card(
+                              elevation: 10.0,
+                              child: new Container(
+                                alignment: Alignment.center,
+                                margin: new EdgeInsets.only(
+                                    top: 5.0, bottom: 0.0, left: 0.0, right: 0.0),
+                                child: new Column(
+                                  children: <Widget>[
+                                    Image.asset(
+                                      F_image[index],height: 70,
+                                    ),
+                                    SizedBox(height: 5,),
+                                    new Text(
+                                      category[index],
+                                      style: descriptionStyle,
+                                    ),
 
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
-                          onTap: () {
-                            switch (category[index]) {
-                              case 'Jcb/Hitachi':
-                                {
-                                  print("case 1 is selected");
-                                }
-                                break;
+                            onTap: () {
+                              switch (category[index]) {
+                                case 'Jcb/Hitachi':
+                                  {
+                                    print("case 1 is selected");
+                                  }
+                                  break;
 
-                              case 'Tractor':
-                                {
-                                  print("case 2 is selected");
-                                }
-                                break;
-                              case 'Road Roller':
-                                {
-                                  print("case 3 is selected");
-                                }
-                                break;
+                                case 'Tractor':
+                                  {
+                                    print("case 2 is selected");
+                                  }
+                                  break;
+                                case 'Road Roller':
+                                  {
+                                    print("case 3 is selected");
+                                  }
+                                  break;
 
-                              case 'Cement Mixer':
-                                {
-                                  print("case 4 is selected");
-                                }
-                                break;
+                                case 'Cement Mixer':
+                                  {
+                                    print("case 4 is selected");
+                                  }
+                                  break;
 
-                              case 'Excavator':
-                                {
-                                  print("case 5 is selected");
-                                }
-                                break;
-                              case 'BoreWell':
-                                {
-                                  print("case 6 is selected");
-                                }
-                                break;
-                              case 'Pickup Truck':
-                                {
-                                  print("case 7 is selected");
-                                }
-                                break;
-                              case 'GoodsTruck':
-                                {
-                                  print("case 8 is selected");
-                                }
-                                break;
-                              case 'Driller':
-                                {
-                                  print("case 9 is selected");
-                                }
-                                break;
-                              case 'Crane':
-                                {
-                                  print("case 10 is selected");
-                                }
-                                break;
+                                case 'Excavator':
+                                  {
+                                    print("case 5 is selected");
+                                  }
+                                  break;
+                                case 'BoreWell':
+                                  {
+                                    print("case 6 is selected");
+                                  }
+                                  break;
+                                case 'Pickup Truck':
+                                  {
+                                    print("case 7 is selected");
+                                  }
+                                  break;
+                                case 'GoodsTruck':
+                                  {
+                                    print("case 8 is selected");
+                                  }
+                                  break;
+                                case 'Driller':
+                                  {
+                                    print("case 9 is selected");
+                                  }
+                                  break;
+                                case 'Crane':
+                                  {
+                                    print("case 10 is selected");
+                                  }
+                                  break;
 
-                              case 'Fork Lift':
-                                {
-                                  print("case 11 is selected");
-                                }
-                                break;
-                              case 'Others':
-                                {
-                                  print("case 12 is selected");
-                                }
-                                break;
+                                case 'Fork Lift':
+                                  {
+                                    print("case 11 is selected");
+                                  }
+                                  break;
+                                case 'Others':
+                                  {
+                                    print("case 12 is selected");
+                                  }
+                                  break;
 
 
-                              default:
-                                {}
-                                break;
-                            }
+                                default:
+                                  {}
+                                  break;
+                              }
 
-                          },
-                        );
-                      },
+                            },
+                          );
+                        },
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ]
-          ),
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text("Seller Name",style: titleStyle,),
-                      SizedBox(height: 20,),
-                      TextFormField(
-                        controller: _sellerNameController,
-                        //initialValue: _name,
-                        textInputAction: TextInputAction.done,
-                        obscureText: false,
-                        validator: (value) => value.isNotEmpty ? null : 'company name cant\'t be empty.',
-                        focusNode: _sellerNameFocusNode,
-                       // onSaved: (value) => _name = value,
-                        decoration: new InputDecoration(
-                          prefixIcon: Icon(
-                            Icons.account_box,
-                            color: backgroundColor,
+              ]
+            ),
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("Seller Name",style: titleStyle,),
+                        SizedBox(height: 20,),
+                        TextFormField(
+                          controller: _sellerNameController,
+                          //initialValue: _name,
+                          textInputAction: TextInputAction.done,
+                          obscureText: false,
+                          validator: (value) => value.isNotEmpty ? null : 'company name cant\'t be empty.',
+                          focusNode: _sellerNameFocusNode,
+                         // onSaved: (value) => _name = value,
+                          decoration: new InputDecoration(
+                            prefixIcon: Icon(
+                              Icons.account_box,
+                              color: backgroundColor,
+                            ),
+                            labelText: 'Enter Dealer name',
+                            //fillColor: Colors.redAccent,
+                            border: new OutlineInputBorder(
+                              borderRadius: new BorderRadius.circular(5.0),
+                              borderSide: new BorderSide(),
+                            ),
                           ),
-                          labelText: 'Enter Seller name',
-                          //fillColor: Colors.redAccent,
-                          border: new OutlineInputBorder(
-                            borderRadius: new BorderRadius.circular(5.0),
-                            borderSide: new BorderSide(),
-                          ),
-                        ),
 
-                        keyboardType: TextInputType.text,
-                        style: new TextStyle(
-                          fontFamily: "Poppins",
-                        ),
-                      ),
-                      SizedBox(height: 20,),
-                      Text("Vehicle Number ",style: titleStyle,),
-                      SizedBox(height: 20,),
-                      TextFormField(
-                        controller: _vehicleNumberController,
-                        //initialValue: _name,
-                        textInputAction: TextInputAction.done,
-                        obscureText: false,
-                        validator: (value) => value.isNotEmpty ? null : 'company name cant\'t be empty.',
-                        focusNode: _vehicleNumbeFocusNode,
-                        //onSaved: (value) => _name = value,
-                        decoration: new InputDecoration(
-                          prefixIcon: Icon(
-                            Icons.keyboard,
-                            color: backgroundColor,
-                          ),
-                          labelText: 'Enter Vehicle Number',
-                          //fillColor: Colors.redAccent,
-                          border: new OutlineInputBorder(
-                            borderRadius: new BorderRadius.circular(5.0),
-                            borderSide: new BorderSide(),
+                          keyboardType: TextInputType.text,
+                          style: new TextStyle(
+                            fontFamily: "Poppins",
                           ),
                         ),
+                        SizedBox(height: 20,),
+                        Text("Vehicle Number ",style: titleStyle,),
+                        SizedBox(height: 20,),
+                        TextFormField(
+                          controller: _vehicleNumberController,
+                          //initialValue: _name,
+                          textInputAction: TextInputAction.done,
+                          obscureText: false,
+                          validator: (value) => value.isNotEmpty ? null : 'company name cant\'t be empty.',
+                          focusNode: _vehicleNumbeFocusNode,
+                          //onSaved: (value) => _name = value,
+                          decoration: new InputDecoration(
+                            prefixIcon: Icon(
+                              Icons.keyboard,
+                              color: backgroundColor,
+                            ),
+                            labelText: 'Enter Vehicle Number',
+                            //fillColor: Colors.redAccent,
+                            border: new OutlineInputBorder(
+                              borderRadius: new BorderRadius.circular(5.0),
+                              borderSide: new BorderSide(),
+                            ),
+                          ),
 
-                        keyboardType: TextInputType.text,
-                        style: new TextStyle(
-                          fontFamily: "Poppins",
+                          keyboardType: TextInputType.text,
+                          style: new TextStyle(
+                            fontFamily: "Poppins",
+                          ),
                         ),
-                      ),
-                      SizedBox(height: 20,),
-                      Text("Vehicle Measure",style: titleStyle,),
-                      SizedBox(height: 20,),
-                      Container(
-                        padding: EdgeInsets.all(16),
-                        child: DropDownFormField(
-                          titleText: 'Vehicle Measure',
-                          hintText: 'Please choose one',
-                          value: _myActivity,
-                          onSaved: (value) {
-                            setState(() {
-                              _myActivity = value;
-                            });
-                          },
-                          onChanged: (value) {
-                            setState(() {
-                              _myActivity = value;
-                            });
-                          },
-                          dataSource: [
-                            {
-                              "display": "Running",
-                              "value": "Running",
-                            },
-                            {
-                              "display": "Climbing",
-                              "value": "Climbing",
-                            },
-                            {
-                              "display": "Walking",
-                              "value": "Walking",
-                            },
-                            {
-                              "display": "Swimming",
-                              "value": "Swimming",
-                            },
-                            {
-                              "display": "Soccer Practice",
-                              "value": "Soccer Practice",
-                            },
-                            {
-                              "display": "Baseball Practice",
-                              "value": "Baseball Practice",
-                            },
-                            {
-                              "display": "Football Practice",
-                              "value": "Football Practice",
-                            },
-                          ],
-                          textField: 'display',
-                          valueField: 'value',
+                        SizedBox(height: 20,),
+                        Text("Units per Trip",style: titleStyle,),
+                        SizedBox(height: 20,),
+                        TextFormField(
+                          controller: _UnitController,
+                          //initialValue: _name,
+                          textInputAction: TextInputAction.done,
+                          obscureText: false,
+                          validator: (value) => value.isNotEmpty ? null : 'Units per Trip cant\'t be empty.',
+                          focusNode: _UnitFocusNode,
+                          //onSaved: (value) => _name = value,
+                          decoration: new InputDecoration(
+                            prefixIcon: Icon(
+                              Icons.track_changes,
+                              color: backgroundColor,
+                            ),
+                            labelText: 'Enter Units per Trip',
+                            //fillColor: Colors.redAccent,
+                            border: new OutlineInputBorder(
+                              borderRadius: new BorderRadius.circular(5.0),
+                              borderSide: new BorderSide(),
+                            ),
+                          ),
+
+                          keyboardType: TextInputType.number,
+                          style: new TextStyle(
+                            fontFamily: "Poppins",
+                          ),
                         ),
-                      ),
-                    ],
+                        SizedBox(height: 20,),
+                        Text("Vehicle Type",style: titleStyle,),
+                        SizedBox(height: 20,),
+                        Container(
+                          padding: EdgeInsets.all(0),
+                          child: DropDownFormField(
+                            titleText: 'Vehicle Type',
+                            hintText: 'Please choose one',
+                            value: _myActivity,
+                            onSaved: (value) {
+                              setState(() {
+                                _myActivity = value;
+                              });
+                            },
+                            onChanged: (value) {
+                              setState(() {
+                                _myActivity = value;
+                              });
+                            },
+                            dataSource: [
+                              {
+                                "display": "Trips",
+                                "value": "Trips",
+                              },
+                              {
+                                "display": "Readings",
+                                "value": "Readings",
+                              },
+                            ],
+                            textField: 'display',
+                            valueField: 'value',
+                          ),
+                        ),
+                        SizedBox(height: 20,),
+                      ],
+                    ),
                   ),
-                ),
-                SizedBox(height: 20,),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      height: 55,
-                      width: 180,
-                      child: GestureDetector(
-                        onTap: () {
+                  SizedBox(height: 20,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        height: 55,
+                        width: 180,
+                        child: GestureDetector(
+                          onTap: () {
 //                      Navigator.push(
 //                        context,
 //                        MaterialPageRoute(builder: (context) => LoginPage(),),
 //                      );
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: backgroundColor,
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Center(
-                                child: Text(
-                                  "Create",
-                                  style: activeSubTitleStyle,
-                                ),
-                              )
-                            ],
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: backgroundColor,
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Center(
+                                  child: Text(
+                                    "Create",
+                                    style: activeSubTitleStyle,
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
-                )
-              ],
+                    ],
+                  ),
+                  SizedBox(height: 300,),
+                ],
+              ),
             ),
           ),
         ),

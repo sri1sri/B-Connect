@@ -1,5 +1,7 @@
+import 'package:bhavani_connect/common_variables/app_colors.dart';
 import 'package:bhavani_connect/common_variables/app_fonts.dart';
 import 'package:bhavani_connect/common_widgets/custom_appbar_widget/custom_app_bar.dart';
+import 'package:bhavani_connect/common_widgets/custom_appbar_widget/custom_app_bar_2.dart';
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
@@ -95,121 +97,90 @@ class _F_NotificationPageState extends State<F_NotificationPage> {
 
   Widget _buildContent(BuildContext context) {
     return Scaffold(
+      backgroundColor: backgroundColor,
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(140),
-        child: CustomAppBar(
-          leftActionBar: Container(
-            child: Icon(
-              Icons.arrow_back,
-              size: 40,
-              color: Colors.black38,
-            ),
-          ),
-          leftAction: () {
-            Navigator.pop(context, true);
+        preferredSize:
+        Size.fromHeight(70),
+        child: CustomAppBarDark(
+          leftActionBar: Icon(Icons.arrow_back_ios,size: 25,color: Colors.white,),
+          leftAction: (){
+            Navigator.pop(context,true);
           },
-          rightActionBar: Padding(
-            padding: const EdgeInsets.only(top:15.0,),
-            child: Container(
-                child: FlatButton(
-                  onPressed: () {
-                    print('clearing notification');
-                  },
-                  child: Text(
-                    "Clear",
-                    style: subTitleStyle,
-                  ),
-                )),
-          ),
-          rightAction: () {
+          rightActionBar: Icon(Icons.clear,size: 25,color: Colors.white),
+          rightAction: (){
             print('right action bar is pressed in appbar');
           },
-          primaryText: null,
-          secondaryText: 'Notifications',
+          primaryText: 'Notifications',
           tabBarWidget: null,
         ),
       ),
-      body: ListView.builder(
-        itemCount: null == _messages ? 0 : _messages.length,
-        itemBuilder: (context,index){
-          return Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Card(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0),
-              ),
-              color: Colors.white,
-              elevation: 10,
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+      body: ClipRRect(
+        borderRadius: BorderRadius.only(
+            topRight: Radius.circular(50.0),
+            topLeft: Radius.circular(50.0)),
+        child: Container(
+          color: Colors.white,
+          child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  SizedBox(height: 20,),
+                  _recentActivities("Need Approval For Vehicle", "JCB came to digg the ground"),
+                  _recentActivities("Need Approval For Vehicle", "JCB came to digg the ground"),
+                  _recentActivities("Need Approval For Vehicle", "JCB came to digg the ground"),
+                  _recentActivities("Need Approval For Vehicle", "JCB came to digg the ground"),
+                  SizedBox(height: 700,)
 
-                  children: <Widget>[
-                    SizedBox(height: 10,),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Column(
-                            children: <Widget>[
-
-                              Text(_messages[index].title == null ? 'this is sample message' : _messages[index].title,style: descriptionStyle,),
-                              SizedBox(height: 10,),
-                              Text(_messages[index].message == null ? 'this is sample message' : _messages[index].message,style: descriptionStyleDark,),
-                              SizedBox(height: 10,),
-                              Text(_messages[index].body == null ? 'this is sample message' : _messages[index].body,style: descriptionStyleDarkBlur,),
-                              SizedBox(height: 10,),
-                            ]
-                        ),
-                      ],
-                    ),
-
-                    SizedBox(height: 10,),
-                  ],
-
-                ),
-              ),
-            ),
-          );
-        },
-
+                ],
+              )
+          ),
+        ),
       ),
 
     );
   }
-  _recentActivities(String messageTitle, String messageContent,String dateTime)
+  _recentActivities(String messageTitle, String messageContent)
   {
-    return Container(
+    return Card(
+      elevation: 2,
+      child: Container(
 
-      child: Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-        color: Colors.white,
-        elevation: 10,
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-
+        child: Padding(
+          padding: const EdgeInsets.all(15.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              SizedBox(height: 10,),
               Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-
-                        Text(messageTitle,style: descriptionStyle,),
-                        SizedBox(height: 10,),
-                        Text(messageContent,style: descriptionStyleDark,),
-                        SizedBox(height: 10,),
-                        Text(dateTime,style: descriptionStyleDarkBlur,),
-                        SizedBox(height: 10,),
+                        Text(messageTitle,style: descriptionStyleDark1,),
+                        Text(messageContent,style: descriptionStyleDarkBlur2,),
                       ]
                   ),
                 ],
               ),
+              GestureDetector(
+                onTap: (){
 
-              SizedBox(height: 10,),
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5),
+                    color: Colors.green.withOpacity(0.8),
+                  ),
+                  height: 35,
+                  width: 80,
+
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text("Status",style: subTitleStyleLight1,),
+                    ],
+                  ),
+                ),
+              ),
             ],
 
           ),
