@@ -1,4 +1,4 @@
-import 'package:firebase_messaging/firebase_messaging.dart';
+//import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:notification_permissions/notification_permissions.dart';
@@ -11,15 +11,15 @@ import 'home_screens/home_page.dart';
 
 class LandingPage extends StatelessWidget {
 
-  var _firebaseMessaging = FirebaseMessaging();
+//  var _firebaseMessaging = FirebaseMessaging();
 
   @override
   Widget build(BuildContext context) {
 
-    _firebaseMessaging.requestNotificationPermissions();
-    _firebaseMessaging.getToken().then((token){
-      DEVICE_TOKEN = token;
-    });
+//    _firebaseMessaging.requestNotificationPermissions();
+//    _firebaseMessaging.getToken().then((token){
+//      DEVICE_TOKEN = token;
+//    });
 
     final auth = Provider.of<AuthBase>(context, listen: false);
 

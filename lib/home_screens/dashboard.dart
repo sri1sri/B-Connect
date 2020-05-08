@@ -15,7 +15,7 @@ import 'package:bhavani_connect/home_screens/inventory/inventory_home_page.dart'
 import 'package:bhavani_connect/home_screens/manage_goods/goods_approvals.dart';
 import 'package:bhavani_connect/home_screens/notification_screen.dart';
 import 'package:bhavani_connect/home_screens/store/store_screen.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
+//import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -76,24 +76,24 @@ class _F_DashboardState extends State<F_Dashboard> {
     "images/invoice.png"
   ];
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    var _firebaseMessaging = FirebaseMessaging();
-
-    _firebaseMessaging.configure(
-      onMessage: (Map<String, dynamic> message) async {
-        print("onMessage: $message");
-      },
-      onLaunch: (Map<String, dynamic> message) async {
-        print("onLaunch: $message");
-      },
-      onResume: (Map<String, dynamic> message) async {
-        print("onResume: $message");
-      },
-    );
-  }
+//  @override
+//  void initState() {
+//    // TODO: implement initState
+//    super.initState();
+//    var _firebaseMessaging = FirebaseMessaging();
+//
+//    _firebaseMessaging.configure(
+//      onMessage: (Map<String, dynamic> message) async {
+//        print("onMessage: $message");
+//      },
+//      onLaunch: (Map<String, dynamic> message) async {
+//        print("onLaunch: $message");
+//      },
+//      onResume: (Map<String, dynamic> message) async {
+//        print("onResume: $message");
+//      },
+//    );
+//  }
 
   @override
   Widget build(BuildContext context) {
