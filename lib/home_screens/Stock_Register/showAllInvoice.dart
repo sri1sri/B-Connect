@@ -2,11 +2,13 @@ import 'package:bhavani_connect/common_variables/app_colors.dart';
 import 'package:bhavani_connect/common_variables/app_fonts.dart';
 import 'package:bhavani_connect/common_variables/app_functions.dart';
 import 'package:bhavani_connect/common_widgets/custom_appbar_widget/custom_app_bar.dart';
+import 'package:bhavani_connect/common_widgets/custom_appbar_widget/custom_app_bar_2.dart';
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
 import 'package:bhavani_connect/home_screens/Stock_Register/AddNewInvoice.dart';
+import 'package:bhavani_connect/home_screens/Stock_Register/Stock_Filter.dart';
 import 'package:bhavani_connect/home_screens/Stock_Register/detail_description.dart';
-import 'package:bhavani_connect/home_screens/Vehicle_Entry/Vehicle_Reading_Details.dart';
-import 'package:bhavani_connect/home_screens/Vehicle_Entry/Add_Vehicle.dart';
+import 'package:bhavani_connect/home_screens/Vehicle_Entry/vehicle_details_readings.dart';
+import 'package:bhavani_connect/home_screens/Vehicle_Entry/add_vehicle_details.dart';
 import 'package:calendar_timeline/calendar_timeline.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -48,56 +50,81 @@ class _F_ShowAllInvoice extends State<F_ShowAllInvoice> {
 
   Widget _buildContent(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      body:SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Container(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    IconButton(
-                      icon: Icon(Icons.arrow_back,color: subBackgroundColor,size: 40,),
-                      onPressed: (){
-                        Navigator.pop(context, true);
-                      },
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Text("Stock Register",style: bigTitleStyle,),
-                    ),
-                    CalendarTimeline(
-                      initialDate: DateTime.now(),
-                      firstDate: DateTime(2020, 2, 15),
-                      lastDate: DateTime(2040, 11, 20),
-                      onDateSelected: (date) => print(date),
-                      leftMargin: 60,
-                      monthColor: subBackgroundColor,
-                      dayColor: Colors.teal[200],
-                      activeDayColor: Colors.white,
-                      activeBackgroundDayColor: backgroundColor,
-                      dotsColor: Colors.white70,
-                      //selectableDayPredicate: (date) => date.day != 23,
-                    ),
-                    SizedBox(height: 10,),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    _ItemsCard("Vasanth Plastics","23","nos","22/Mar/2020", "PVC Insulation Tapes","₹ 22,231.00"),
-                    _ItemsCard("Sri Cements","300","kgs","13/Apr/2020", "Super strong Cements","₹ 50,431.00"),
-                    _ItemsCard("Vamsi Steels","45","tons","08/Apr/2020", "8 layer TMT Rods","₹ 32,654.00"),
+      backgroundColor: backgroundColor,
+      appBar: PreferredSize(
+        preferredSize:
+        Size.fromHeight(70),
+        child: CustomAppBarDark(
+          leftActionBar: Icon(Icons.arrow_back_ios,size: 25,color: Colors.white,),
+          leftAction: (){
+            Navigator.pop(context,true);
+          },
+          rightActionBar: Icon(Icons.search,size: 25,color: Colors.white,),
+          rightAction: (){
+            GoToPage(
+                context,
+                StockFilter(
+                ));
+          },
+          primaryText: 'Stock Register',
+          tabBarWidget: null,
+        ),
+      ),
+      body:ClipRRect(
+        borderRadius: BorderRadius.only(
+            topRight: Radius.circular(50.0),
+            topLeft: Radius.circular(50.0)),
+        child: Container(
+          color: Colors.white,
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+//              Container(
+//                child: Column(
+//                  crossAxisAlignment: CrossAxisAlignment.start,
+//                  children: [
+//                    IconButton(
+//                      icon: Icon(Icons.arrow_back,color: subBackgroundColor,size: 40,),
+//                      onPressed: (){
+//                        Navigator.pop(context, true);
+//                      },
+//                    ),
+//                    Padding(
+//                      padding: const EdgeInsets.all(10.0),
+//                      child: Text("Stock Register",style: bigTitleStyle,),
+//                    ),
+//                    CalendarTimeline(
+//                      initialDate: DateTime.now(),
+//                      firstDate: DateTime(2020, 2, 15),
+//                      lastDate: DateTime(2040, 11, 20),
+//                      onDateSelected: (date) => print(date),
+//                      leftMargin: 60,
+//                      monthColor: subBackgroundColor,
+//                      dayColor: Colors.teal[200],
+//                      activeDayColor: Colors.white,
+//                      activeBackgroundDayColor: backgroundColor,
+//                      dotsColor: Colors.white70,
+//                      //selectableDayPredicate: (date) => date.day != 23,
+//                    ),
+//                    SizedBox(height: 10,),
+//                  ],
+//                ),
+//              ),
+                Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      _ItemsCard("Vasanth Plastics","23","nos","22/Mar/2020", "PVC Insulation Tapes","₹ 22,231.00"),
+                      _ItemsCard("Sri Cements","300","kgs","13/Apr/2020", "Super strong Cements","₹ 50,431.00"),
+                      _ItemsCard("Vamsi Steels","45","tons","08/Apr/2020", "8 layer TMT Rods","₹ 32,654.00"),
 
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
