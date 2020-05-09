@@ -48,7 +48,7 @@ dependencies:
   geolocator: ^5.3.1
   geocoder: ^0.2.1
   location: ^2.5.4
-  flutter_open_whatsapp: ^0.1.2
+#  flutter_open_whatsapp: ^0.1.2
   auto_size_text: ^2.1.0
   notification_permissions: ^0.4.4
   spring_button: ^1.0.13

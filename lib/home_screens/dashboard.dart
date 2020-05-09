@@ -9,28 +9,10 @@ import 'package:bhavani_connect/firebase/auth.dart';
 import 'package:bhavani_connect/firebase/database.dart';
 import 'package:bhavani_connect/home_screens/Stock_Register/showAllInvoice.dart';
 import 'package:bhavani_connect/home_screens/Vehicle_Entry/vehicle_list_details.dart';
-import 'package:bhavani_connect/home_screens/add_stock_details/add_stock.dart';
-import 'package:bhavani_connect/home_screens/attendance/attendance_page.dart';
-import 'package:bhavani_connect/home_screens/inventory/inventory_home_page.dart';
-import 'package:bhavani_connect/home_screens/manage_goods/goods_approvals.dart';
 import 'package:bhavani_connect/home_screens/notification_screen.dart';
-import 'package:bhavani_connect/home_screens/store/store_screen.dart';
-//import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'JCB_Entries/daily_readings.dart';
-import 'manage_employees/manage_employees_page.dart';
-
-void GoToPage(BuildContext context, Widget page) {
-  Navigator.of(context).push(
-    MaterialPageRoute<void>(
-      fullscreenDialog: true,
-      builder: (context) => page,
-    ),
-  );
-}
-
 
 class Dashboard extends StatelessWidget {
   Dashboard({@required this.database});
@@ -56,22 +38,22 @@ class F_Dashboard extends StatefulWidget {
 
 class _F_DashboardState extends State<F_Dashboard> {
   var features = [
-    "Approvals",
-    "Add stock",
-    "Store",
-    "Inventory",
-    "Attendance",
-    "Employees",
+//    "Approvals",
+//    "Add stock",
+//    "Store",
+//    "Inventory",
+//    "Attendance",
+//    "Employees",
     "Vehicle Entries",
     "Stock Register"
   ];
   List<String> F_image = [
-    "images/Approval.jpg",
-    "images/Addstock.jpg",
-    "images/store.jpg",
-    "images/inventory.png",
-    "images/Attendance.jpg",
-    "images/ManageEmployees.jpg",
+//    "images/Approval.jpg",
+//    "images/Addstock.jpg",
+//    "images/store.jpg",
+//    "images/inventory.png",
+//    "images/Attendance.jpg",
+//    "images/ManageEmployees.jpg",
     "images/jcb.png",
     "images/invoice.png"
   ];
@@ -213,65 +195,65 @@ class _F_DashboardState extends State<F_Dashboard> {
                     ),
                     onTap: () {
                       switch (features[index]) {
-                        case 'Employees':
-                          {
-                            GoToPage(
-                                context,
-                                ManageEmployeesPage(
-                                  database: widget.database,
-                                  employee: employee,
-                                ));
-                          }
-                          break;
-
-                        case 'Approvals':
-                          {
-                            GoToPage(
-                                context,
-                                GoodsApprovalsPage(
-                                  database: widget.database,
-                                  employee: employee,
-                                ));
-                          }
-                          break;
-                        case 'Store':
-                          {
-                            GoToPage(
-                                context,
-                                StorePage(
-                                  database: widget.database,
-                                  employee: employee,
-                                ));
-                          }
-                          break;
-
-                        case 'Inventory':
-                          {
-                            GoToPage(
-                              context,
-                              InventoryPage(database: widget.database,),
-                            );
-                          }
-                          break;
-
-                        case 'Attendance':
-                          {
-                            GoToPage(
-                              context,
-                              AttendancePage(database: widget.database,),
-                            );
-                          }
-                          break;
-                        case 'Add stock':
-                          {
-                            GoToPage(
-                                context,
-                                AddStock(
-                                  database: widget.database,
-                                  employee: employee,
-                                ));
-                          }
-                          break;
+//                        case 'Employees':
+//                          {
+//                            GoToPage(
+//                                context,
+//                                ManageEmployeesPage(
+//                                  database: widget.database,
+//                                  employee: employee,
+//                                ));
+//                          }
+//                          break;
+//
+//                        case 'Approvals':
+//                          {
+//                            GoToPage(
+//                                context,
+//                                GoodsApprovalsPage(
+//                                  database: widget.database,
+//                                  employee: employee,
+//                                ));
+//                          }
+//                          break;
+//                        case 'Store':
+//                          {
+//                            GoToPage(
+//                                context,
+//                                StorePage(
+//                                  database: widget.database,
+//                                  employee: employee,
+//                                ));
+//                          }
+//                          break;
+//
+//                        case 'Inventory':
+//                          {
+//                            GoToPage(
+//                              context,
+//                              InventoryPage(database: widget.database,),
+//                            );
+//                          }
+//                          break;
+//
+//                        case 'Attendance':
+//                          {
+//                            GoToPage(
+//                              context,
+//                              AttendancePage(database: widget.database,),
+//                            );
+//                          }
+//                          break;
+//                        case 'Add stock':
+//                          {
+//                            GoToPage(
+//                                context,
+//                                AddStock(
+//                                  database: widget.database,
+//                                  employee: employee,
+//                                ));
+//                          }
+//                          break;
                         case 'Vehicle Entries':
                           {
                             GoToPage(
