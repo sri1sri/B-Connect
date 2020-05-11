@@ -29,7 +29,7 @@ class LandingPage extends StatelessWidget {
         if (snapshot.connectionState == ConnectionState.active) {
           User user = snapshot.data;
           if (user == null) {
-            return OnboardingScreen(context: context);
+            return OnboardingScreen();
           }
           return Provider<User>.value(
             value: user,

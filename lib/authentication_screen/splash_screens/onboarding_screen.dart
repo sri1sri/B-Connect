@@ -1,3 +1,4 @@
+import 'package:bhavani_connect/auth/authentication_bloc.dart';
 import 'package:bhavani_connect/authentication_screen/login_screens/login_page.dart';
 import 'package:bhavani_connect/common_variables/app_functions.dart';
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
@@ -6,35 +7,27 @@ import 'package:flutter/services.dart';
 import 'package:bhavani_connect/utilities/my_navigator.dart';
 import 'package:bhavani_connect/common_variables/app_colors.dart';
 import 'package:bhavani_connect/common_variables/app_fonts.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class OnboardingScreen extends StatelessWidget {
-  OnboardingScreen({@required this.context});
 
-  BuildContext context;
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: F_OnboardingScreen(
-        context: context,
-      ),
-    );
-  }
-}
-
-class F_OnboardingScreen extends StatefulWidget {
-  F_OnboardingScreen({@required this.context});
-
-  BuildContext context;
+class OnboardingScreen extends StatefulWidget {
 
   @override
-  _F_OnboardingScreenState createState() => _F_OnboardingScreenState();
+  _OnboardingScreenState createState() => _OnboardingScreenState();
 }
 
-class _F_OnboardingScreenState extends State<F_OnboardingScreen> {
+class _OnboardingScreenState extends State<OnboardingScreen> {
   final int _numPages = 3;
   final PageController _pageController = PageController(initialPage: 0);
   int _currentPage = 0;
+  AuthenticationBloc _authenticationBloc;
+
+
+  @override
+  void initState() {
+    _authenticationBloc = context.bloc<AuthenticationBloc>();
+  }
 
   List<Widget> _buildPageIndicator() {
     List<Widget> list = [];
@@ -76,8 +69,9 @@ class _F_OnboardingScreenState extends State<F_OnboardingScreen> {
                   Container(
                     alignment: Alignment.centerRight,
                     child: FlatButton(
-                      onPressed: () =>
-                          GoToPage(context, LoginPage.create(widget.context)),
+                      onPressed: () => {
+                        _authenticationBloc.gotoLoginPage()
+                      },
                       child: Text(
                         'Skip',
                         style: subTitleStyle,
@@ -237,8 +231,7 @@ class _F_OnboardingScreenState extends State<F_OnboardingScreen> {
                 width: double.infinity,
                 color: Color(0xFF1F4B6E),
                 child: GestureDetector(
-                  onTap: () =>
-                      GoToPage(context, LoginPage.create(widget.context)),
+                  onTap: () => GoToPage(context, LoginPage()),
                   child: Center(
                     child: Padding(
                       padding: EdgeInsets.only(bottom: 10.0),
@@ -269,8 +262,7 @@ class _F_OnboardingScreenState extends State<F_OnboardingScreen> {
                   Container(
                     alignment: Alignment.centerRight,
                     child: FlatButton(
-                      onPressed: () =>
-                          GoToPage(context, LoginPage.create(widget.context)),
+                      onPressed: () => GoToPage(context, LoginPage()),
                       child: Text(
                         'Skip',
                         style: subTitleStyle,
@@ -430,8 +422,7 @@ class _F_OnboardingScreenState extends State<F_OnboardingScreen> {
                 width: double.infinity,
                 color: Color(0xFF1F4B6E),
                 child: GestureDetector(
-                  onTap: () =>
-                      GoToPage(context, LoginPage.create(widget.context)),
+                  onTap: () => GoToPage(context, LoginPage()),
                   child: Center(
                     child: Padding(
                       padding: EdgeInsets.only(bottom: 10.0),
@@ -463,6 +454,7 @@ class _F_OnboardingScreenState extends State<F_OnboardingScreen> {
 //      width = MediaQuery.of(context).size.width/2;
 //      // build big image.
 //    }
+
     return offlineWidget(context);
   }
 

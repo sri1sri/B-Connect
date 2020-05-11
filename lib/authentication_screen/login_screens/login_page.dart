@@ -12,30 +12,10 @@ import 'package:provider/provider.dart';
 class LoginPage extends StatelessWidget {
 
   const LoginPage(
-      {Key key, @required this.manager, @required this.isLoading})
+      {Key key, this.manager, this.isLoading})
       : super(key: key);
   final LoginPageManager manager;
   final bool isLoading;
-
-  static Widget create(BuildContext context) {
-    final auth = Provider.of<AuthBase>(context, listen: false);
-    return ChangeNotifierProvider<ValueNotifier<bool>>(
-      create: (_) => ValueNotifier<bool>(false),
-      child: Consumer<ValueNotifier<bool>>(
-        builder: (_, isLoading, __) =>
-            Provider<LoginPageManager>(
-              create: (_) =>
-                  LoginPageManager(auth: auth, isLoading: isLoading),
-              child: Consumer<LoginPageManager>(
-                builder: (context, manager, _) =>
-                    LoginPage(
-                      manager: manager, isLoading: isLoading.value,
-                    ),
-              ),
-            ),
-      ),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
