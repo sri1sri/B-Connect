@@ -12,7 +12,7 @@ class APIPath {
 
   static String commonVariables() => 'common_variables/6r2stU44qAbxESqfPc2v';
 
-  static String addCart(String CartID) => 'cart/$CartID';
+  static String addCart(String cartID) => 'cart/$cartID';
   static String viewCart() => 'cart/';
 
   static String addInventry(String inventryID) => 'inventry/$inventryID';
