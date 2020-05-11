@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 
 class User {
   User({@required this.uid});
+
   final String uid;
 }
 
@@ -11,20 +12,24 @@ abstract class AuthBase {
 
   Future<User> currentUser();
 
+  Future<FirebaseUser> firebaseUser();
+
   Future<User> signInAnonymously();
 
-  Future<User> verifyPhoneNumber(String phoneNumber);
+  Future<void> verifyPhoneNumber(String phoneNumber);
 
   Future<User> verifyOtp(String smsCode);
 
   Future<void> signOut();
 }
 
-class Auth implements AuthBase {
-  final _firebaseAuth = FirebaseAuth.instance;
-
+class AuthFirebase implements AuthBase {
+  final FirebaseAuth _firebaseAuth;
   String verificationId;
   String phoneNumberWithCode;
+
+  AuthFirebase({FirebaseAuth firebaseAuth})
+      : _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance;
 
   User _userFromFirebase(FirebaseUser user) {
     if (user == null) {
@@ -51,7 +56,7 @@ class Auth implements AuthBase {
   }
 
   @override
-  Future<User> verifyPhoneNumber(String phoneNumber) async {
+  Future<void> verifyPhoneNumber(String phoneNumber) async {
     phoneNumberWithCode = '+91' + phoneNumber;
 
     final PhoneCodeAutoRetrievalTimeout autoRetrieval =
@@ -83,7 +88,7 @@ class Auth implements AuthBase {
       codeSent: smsCodeSent,
       codeAutoRetrievalTimeout: autoRetrieval,
     )
-        .then((user) {
+        .then((user) async {
       print('${this.verificationId} <- verification idd');
     });
   }
@@ -94,14 +99,19 @@ class Auth implements AuthBase {
         verificationId: this.verificationId, smsCode: smsCode);
 
     final authResult =
-    await _firebaseAuth.signInWithCredential(_authCredential);
+        await _firebaseAuth.signInWithCredential(_authCredential);
     print('${authResult.user.uid}<- uid from phone number');
     return _userFromFirebase(authResult.user);
   }
 
   @override
   Future<void> signOut() async {
-
     await _firebaseAuth.signOut();
+  }
+
+  @override
+  Future<FirebaseUser> firebaseUser() async {
+    var user = await _firebaseAuth.currentUser();
+    return user;
   }
 }
