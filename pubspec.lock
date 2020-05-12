@@ -141,6 +141,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.2"
+  dropdown_search:
+    dependency: "direct main"
+    description:
+      name: dropdown_search
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.3.3"
   dropdownfield:
     dependency: "direct main"
     description:
@@ -279,13 +286,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.3.0"
-  flutter_open_whatsapp:
-    dependency: "direct main"
-    description:
-      name: flutter_open_whatsapp
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.1.2"
   flutter_plugin_android_lifecycle:
     dependency: transitive
     description:

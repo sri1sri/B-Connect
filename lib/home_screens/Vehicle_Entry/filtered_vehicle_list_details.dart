@@ -1,10 +1,7 @@
 import 'package:bhavani_connect/common_variables/app_colors.dart';
 import 'package:bhavani_connect/common_variables/app_fonts.dart';
-import 'package:bhavani_connect/common_widgets/custom_appbar_widget/custom_app_bar.dart';
 import 'package:bhavani_connect/common_widgets/custom_appbar_widget/custom_app_bar_2.dart';
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
-import 'package:calendar_timeline/calendar_timeline.dart';
-import 'package:vector_math/vector_math.dart' as math;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

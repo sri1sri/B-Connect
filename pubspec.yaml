@@ -48,12 +48,13 @@ dependencies:
   geolocator: ^5.3.1
   geocoder: ^0.2.1
   location: ^2.5.4
-  flutter_open_whatsapp: ^0.1.2
+#  flutter_open_whatsapp: ^0.1.2
   auto_size_text: ^2.1.0
   notification_permissions: ^0.4.4
   spring_button: ^1.0.13
   calendar_timeline: 0.4.0
   dropdown_formfield: 0.1.2
+  dropdown_search: 0.3.3
 
 dev_dependencies:
   flutter_test:
@@ -119,6 +120,7 @@ flutter:
     - images/c10.png
     - images/c11.png
     - images/invoice.png
+    - images/siteActivity.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
