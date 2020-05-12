@@ -1,3 +1,4 @@
+import 'package:bhavani_connect/auth/bloc.dart';
 import 'package:bhavani_connect/authentication_screen/login_screens/otp_page.dart';
 import 'package:bhavani_connect/common_variables/app_colors.dart';
 import 'package:bhavani_connect/common_variables/app_functions.dart';
@@ -12,6 +13,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
 class PhoneNumberPage extends StatefulWidget {
@@ -22,6 +24,14 @@ class PhoneNumberPage extends StatefulWidget {
 class _PhoneNumberPageState extends State<PhoneNumberPage> {
   final TextEditingController _phoneNumberController = TextEditingController();
   final FocusNode _phoneNumberFocusNode = FocusNode();
+
+  AuthenticationBloc _authenticationBloc;
+
+  @override
+  void initState() {
+    _authenticationBloc = BlocProvider.of<AuthenticationBloc>(context);
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -115,7 +125,9 @@ class _PhoneNumberPageState extends State<PhoneNumberPage> {
                 text: 'Get OTP',
                 textColor: Colors.white,
                 backgroundColor: activeButtonBackgroundColor,
-                onPressed: () {},
+                onPressed: () {
+                  _submit(context);
+                },
               ),
               SizedBox(height: 10.0),
               ToDoButton(
@@ -139,29 +151,26 @@ class _PhoneNumberPageState extends State<PhoneNumberPage> {
       await Firestore.instance
           .collection('employees')
           .where('employee_contact_number',
-              isEqualTo: '+91${_phoneNumberController.value.text}')
+          isEqualTo: '+91${_phoneNumberController.value.text}')
           .snapshots()
-          .listen((data) => {
-                print('data=${data}'),
-                if (data.documents.length == 0)
-                  {
+          .listen((data) =>
+      {
+        print('data=${data}'),
+        if (data.documents.length == 0)
+          {
 //              model.submit(),
-                    GoToPage(
-                        context,
-                        OTPPage(
-                            phoneNo: _phoneNumberController.value.text,
-                            newUser: true)),
-                  }
-                else
-                  {
+            _authenticationBloc.gotoOtpPage(
+                phoneNumber: _phoneNumberController.value.text,
+                isNewUser: true)
+          }
+        else
+          {
 //              model.submit(),
-                    GoToPage(
-                        context,
-                        OTPPage(
-                            phoneNo: _phoneNumberController.value.text,
-                            newUser: false)),
-                  }
-              });
+            _authenticationBloc.gotoOtpPage(
+                phoneNumber: _phoneNumberController.value.text,
+                isNewUser: false),
+          }
+      });
     } on PlatformException catch (e) {
       PlatformExceptionAlertDialog(
         title: 'Phone number failed',

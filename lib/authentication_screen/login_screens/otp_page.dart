@@ -1,67 +1,42 @@
 import 'package:bhavani_connect/authentication_screen/registrtion_screens/sign_up_page.dart';
+import 'package:bhavani_connect/common_variables/app_colors.dart';
+import 'package:bhavani_connect/common_variables/app_fonts.dart';
 import 'package:bhavani_connect/common_variables/app_functions.dart';
 import 'package:bhavani_connect/common_widgets/button_widget/to_do_button.dart';
 import 'package:bhavani_connect/common_widgets/loading_page.dart';
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
-import 'package:bhavani_connect/common_variables/app_fonts.dart';
-import 'package:bhavani_connect/common_variables/app_colors.dart';
 import 'package:bhavani_connect/common_widgets/platform_alert/platform_exception_alert_dialog.dart';
-import 'package:bhavani_connect/firebase/auth.dart';
 import 'package:bhavani_connect/landing_page.dart';
-import 'package:bhavani_connect/models/otp_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:provider/provider.dart';
 
-class OTPPage extends StatelessWidget {
+class OtpArguments {
+  final String phoneNum;
+  final bool isNewUser;
+
+  OtpArguments({this.phoneNum, this.isNewUser});
+}
+
+class OTPPage extends StatefulWidget {
   OTPPage({@required this.phoneNo, @required this.newUser});
-  String phoneNo;
-  bool newUser;
+
+  final String phoneNo;
+  final bool newUser;
 
   @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: F_OTPPage.create(context, phoneNo, newUser),
-    );
-  }
+  _OTPPageState createState() => _OTPPageState();
 }
 
-class F_OTPPage extends StatefulWidget {
-
-  F_OTPPage({@required this.model, @required this.phoneNo, @required this.newUser});
-  final OtpModel model;
-  String phoneNo;
-  bool newUser;
-
-  static Widget create(BuildContext context, String phoneNo, bool newUser) {
-
-    final AuthBase auth = Provider.of<AuthBase>(context);
-    return ChangeNotifierProvider<OtpModel>(
-      create: (context) => OtpModel(auth: auth),
-      child: Consumer<OtpModel>(
-        builder: (context, model, _) => F_OTPPage(model: model, phoneNo: phoneNo, newUser: newUser,),
-      ),
-    );
-  }
-
-  @override
-  _F_OTPPageState createState() => _F_OTPPageState();
-}
-
-class _F_OTPPageState extends State<F_OTPPage> {
-
+class _OTPPageState extends State<OTPPage> {
   final TextEditingController _otpController = TextEditingController();
   final FocusNode _otpFocusNode = FocusNode();
-
-  OtpModel get model => widget.model;
 
   @override
   void dispose() {
     _otpController.dispose();
     super.dispose();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -75,18 +50,14 @@ class _F_OTPPageState extends State<F_OTPPage> {
     );
   }
 
-
-  @override
   Widget _buildContent(BuildContext context) {
     return TransparentLoading(
-      loading: widget.model.isLoading,
+      loading: false,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
           Column(
-            children: <Widget>[
-
-            ],
+            children: <Widget>[],
           ),
           Column(
             children: <Widget>[
@@ -95,7 +66,9 @@ class _F_OTPPageState extends State<F_OTPPage> {
                 style: titleStyle,
                 textAlign: TextAlign.center,
               ),
-              SizedBox(height: 10,),
+              SizedBox(
+                height: 10,
+              ),
               Text(
                 'Enter OTP sent to +91 ${widget.phoneNo}.',
                 style: descriptionStyle,
@@ -104,22 +77,18 @@ class _F_OTPPageState extends State<F_OTPPage> {
             ],
           ),
           Column(
-            children: <Widget>[
-
-            ],
+            children: <Widget>[],
           ),
-
           Column(
             children: <Widget>[
-
               new TextFormField(
                 keyboardType: TextInputType.number,
                 controller: _otpController,
                 textInputAction: TextInputAction.done,
                 obscureText: false,
                 focusNode: _otpFocusNode,
-                onEditingComplete:() =>_submit(),
-                onChanged: model.updateOtp,
+                onEditingComplete: () => _submit(),
+                onChanged: (text) {},
                 decoration: new InputDecoration(
                   prefixIcon: Icon(
                     Icons.lock,
@@ -128,15 +97,13 @@ class _F_OTPPageState extends State<F_OTPPage> {
                   labelText: "Enter OTP",
                   border: new OutlineInputBorder(
                     borderRadius: new BorderRadius.circular(5.0),
-                    borderSide: new BorderSide(
-                    ),
+                    borderSide: new BorderSide(),
                   ),
                 ),
-
                 validator: (val) {
-                  if(val.length==0) {
+                  if (val.length == 0) {
                     return "One Time Password cannot be empty";
-                  }else{
+                  } else {
                     return null;
                   }
                 },
@@ -144,24 +111,21 @@ class _F_OTPPageState extends State<F_OTPPage> {
                   fontFamily: "Poppins",
                 ),
               ),
-
               SizedBox(height: 20.0),
-
               ToDoButton(
                 assetName: 'images/googe-logo.png',
                 text: 'Verify',
                 textColor: Colors.white,
                 backgroundColor: activeButtonBackgroundColor,
-                onPressed: model.canSubmit ? () => _submit() : null,
+                onPressed: _submit,
               ),
-
               SizedBox(height: 10.0),
               ToDoButton(
                 assetName: 'images/googe-logo.png',
                 text: 'Edit phone number',
                 textColor: Colors.black,
                 backgroundColor: Colors.white,
-                onPressed: (){
+                onPressed: () {
                   Navigator.of(context).pop();
                 },
               ),
@@ -177,11 +141,11 @@ class _F_OTPPageState extends State<F_OTPPage> {
     try {
       widget.phoneNo == '8333876209' ? EMPLOYEE_PNO = widget.phoneNo : '';
       print('otp${widget.newUser}');
-      if(widget.newUser){
-        await model.submit();
+      if (widget.newUser) {
+        await _submit();
         GoToPage(context, SignUpPage(phoneNo: widget.phoneNo));
-      }else{
-        await model.submit();
+      } else {
+        await _submit();
         GoToPage(context, LandingPage());
       }
     } on PlatformException catch (e) {
@@ -192,4 +156,3 @@ class _F_OTPPageState extends State<F_OTPPage> {
     }
   }
 }
-
