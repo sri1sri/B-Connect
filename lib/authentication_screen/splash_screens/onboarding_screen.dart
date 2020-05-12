@@ -1,3 +1,4 @@
+import 'package:bhavani_connect/auth/authentication_bloc.dart';
 import 'package:bhavani_connect/authentication_screen/login_screens/login_page.dart';
 import 'package:bhavani_connect/common_variables/app_functions.dart';
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
@@ -6,31 +7,27 @@ import 'package:flutter/services.dart';
 import 'package:bhavani_connect/utilities/my_navigator.dart';
 import 'package:bhavani_connect/common_variables/app_colors.dart';
 import 'package:bhavani_connect/common_variables/app_fonts.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class OnboardingScreen extends StatelessWidget {
-  OnboardingScreen({@required this.context});
-  BuildContext context;
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: F_OnboardingScreen(context: context,),
-    );
-  }
-}
 
-class F_OnboardingScreen extends StatefulWidget {
-  F_OnboardingScreen({@required this.context});
-  BuildContext context;
+class OnboardingScreen extends StatefulWidget {
 
   @override
-  _F_OnboardingScreenState createState() => _F_OnboardingScreenState();
+  _OnboardingScreenState createState() => _OnboardingScreenState();
 }
 
-class _F_OnboardingScreenState extends State<F_OnboardingScreen> {
+class _OnboardingScreenState extends State<OnboardingScreen> {
   final int _numPages = 3;
   final PageController _pageController = PageController(initialPage: 0);
   int _currentPage = 0;
+  AuthenticationBloc _authenticationBloc;
+
+
+  @override
+  void initState() {
+    _authenticationBloc = context.bloc<AuthenticationBloc>();
+  }
 
   List<Widget> _buildPageIndicator() {
     List<Widget> list = [];
@@ -47,211 +44,15 @@ class _F_OnboardingScreenState extends State<F_OnboardingScreen> {
       height: 8.0,
       width: isActive ? 24.0 : 16.0,
       decoration: BoxDecoration(
-        color: isActive ? Color(0xFF1F4B6E) : Color(0xFF1F4B6E).withOpacity(0.3),
+        color:
+            isActive ? Color(0xFF1F4B6E) : Color(0xFF1F4B6E).withOpacity(0.3),
         borderRadius: BorderRadius.all(Radius.circular(12)),
       ),
     );
   }
 
-
-  Widget ContSize(BuildContext context){
-    if(MediaQuery.of(context).size <= const Size( 330,544))
-    {
-      return
-        Scaffold(
-        body: AnnotatedRegion<SystemUiOverlayStyle>(
-          value: SystemUiOverlayStyle.light,
-          child: Container(
-            decoration: BoxDecoration(
-              color: Colors.white,
-            ),
-            child: Padding(
-              padding: EdgeInsets.symmetric(vertical: 20.0), // changed padding from 25 to 0
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  Container(
-                    alignment: Alignment.centerRight,
-                    child: FlatButton(
-                      onPressed: () => GoToPage(context, LoginPage.create(widget.context)),
-                      child: Text(
-                        'Skip',
-                        style: subTitleStyle,
-                      ),
-                    ),
-                  ),
-                  Container(
-                    height: MediaQuery.of(context).size.height - 160,
-                    child: PageView(
-                      physics: ClampingScrollPhysics(),
-                      controller: _pageController,
-                      onPageChanged: (int page) {
-                        setState(() {
-                          _currentPage = page;
-                        });
-                      },
-                      children: <Widget>[
-                        Padding(
-                          padding: EdgeInsets.only(top: 10,left: 10,right: 10),
-
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Center(
-                                child: Image(
-                                  image: AssetImage(
-                                    'images/splash1.jpg',
-                                  ),
-                                  fit: BoxFit.fill,
-                                  height: MediaQuery.of(context).size.height/3,
-                                  width: MediaQuery.of(context).size.height/3,
-                                ),
-                              ),
-
-                              SizedBox(
-                                  height:50),
-                              Text(
-                                'Smart Constructions',
-                                style: titleStyle,
-                              ),
-                              SizedBox(height: 15.0),
-                              Text(
-                                'Introducing smart, secure and advanced techniques into construction for better living.',
-                                style: descriptionStyle,
-                              ),
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(top: 10,left: 10,right: 10),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Center(
-                                child: Image(
-                                  image: AssetImage(
-                                    'images/splash2.jpg',
-                                  ),
-                                  fit: BoxFit.fill,
-                                  height: MediaQuery.of(context).size.height/3,
-                                  width: MediaQuery.of(context).size.height/3,
-                                ),
-                              ),
-                              SizedBox(
-                                  height:50),
-                              Text(
-                                'At your fingertips',
-                                style: titleStyle,
-                              ),
-                              SizedBox(height: 15.0),
-                              Text(
-                                'Monitor and Manage all construction activities at your fingertips',
-                                style: descriptionStyle,
-                              ),
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(top: 10,left: 10,right: 10),
-
-                          child: Column(
-
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Center(
-                                child: Image(
-                                  image: AssetImage(
-                                    'images/splash3.jpg',
-                                  ),
-                                  fit: BoxFit.fill,
-                                  height: MediaQuery.of(context).size.height/3,
-                                  width: MediaQuery.of(context).size.height/3,
-                                ),
-                              ),
-                              SizedBox(
-                                  height:50),
-                              Text(
-                                'Secured Environment',
-                                style: titleStyle,
-                              ),
-                              SizedBox(height: 2.0),
-                              Text(
-                                'your safety is utmost important so feel safe with our advanced security',
-                                style: descriptionStyle,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    height: 10,
-                    child: Row(
-
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: _buildPageIndicator(),
-                    ),
-                  ),
-                  _currentPage != _numPages - 1
-                      ? Expanded(
-                    child: Align(
-                      alignment: FractionalOffset.bottomRight,
-                      child: FlatButton(
-                        onPressed: () {
-                          _pageController.nextPage(
-                            duration: Duration(milliseconds: 500),
-                            curve: Curves.ease,
-                          );
-                        },
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            Text(
-                              'Next',
-                              style: subTitleStyle,
-                            ),
-                            SizedBox(width: 10.0),
-                            Icon(
-                              Icons.arrow_forward,
-                              color: Color(0xFF1F4B6E),
-                              size: 30.0,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  )
-                      : Text(''),
-                ],
-              ),
-            ),
-          ),
-        ),
-        bottomSheet: _currentPage == _numPages - 1
-            ? Container(
-          height: 50.0,
-          width: double.infinity,
-          color: Color(0xFF1F4B6E),
-          child: GestureDetector(
-            onTap: () => GoToPage(context, LoginPage.create(widget.context)),
-            child: Center(
-              child: Padding(
-                padding: EdgeInsets.only(bottom: 10.0),
-                child: Text(
-                  'Get started',
-                  style: activeSubTitleStyle,
-                ),
-              ),
-            ),
-          ),
-        )
-            : Text(''),
-      );
-    }
-    else
-      {
+  Widget ContSize(BuildContext context) {
+    if (MediaQuery.of(context).size <= const Size(330, 544)) {
       return Scaffold(
         body: AnnotatedRegion<SystemUiOverlayStyle>(
           value: SystemUiOverlayStyle.light,
@@ -260,14 +61,17 @@ class _F_OnboardingScreenState extends State<F_OnboardingScreen> {
               color: Colors.white,
             ),
             child: Padding(
-              padding: EdgeInsets.symmetric(vertical: 20.0), // changed padding from 25 to 0
+              padding: EdgeInsets.symmetric(vertical: 20.0),
+              // changed padding from 25 to 0
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
                   Container(
                     alignment: Alignment.centerRight,
                     child: FlatButton(
-                      onPressed: () => GoToPage(context, LoginPage.create(widget.context)),
+                      onPressed: () => {
+                        _authenticationBloc.gotoLoginPage()
+                      },
                       child: Text(
                         'Skip',
                         style: subTitleStyle,
@@ -286,8 +90,8 @@ class _F_OnboardingScreenState extends State<F_OnboardingScreen> {
                       },
                       children: <Widget>[
                         Padding(
-                          padding: EdgeInsets.only(top: 10,left: 10,right: 10),
-
+                          padding:
+                              EdgeInsets.only(top: 10, left: 10, right: 10),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
@@ -297,13 +101,12 @@ class _F_OnboardingScreenState extends State<F_OnboardingScreen> {
                                     'images/splash1.jpg',
                                   ),
                                   fit: BoxFit.fill,
-                                  height: MediaQuery.of(context).size.height/2,
-                                  width: 500.0,
+                                  height:
+                                      MediaQuery.of(context).size.height / 3,
+                                  width: MediaQuery.of(context).size.height / 3,
                                 ),
                               ),
-
-                              SizedBox(
-                                  height:50),
+                              SizedBox(height: 50),
                               Text(
                                 'Smart Constructions',
                                 style: titleStyle,
@@ -317,7 +120,8 @@ class _F_OnboardingScreenState extends State<F_OnboardingScreen> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsets.only(top: 10,left: 10,right: 10),
+                          padding:
+                              EdgeInsets.only(top: 10, left: 10, right: 10),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
@@ -327,12 +131,12 @@ class _F_OnboardingScreenState extends State<F_OnboardingScreen> {
                                     'images/splash2.jpg',
                                   ),
                                   fit: BoxFit.fill,
-                                  height: MediaQuery.of(context).size.height / 2,
-                                  width: 500.0,
+                                  height:
+                                      MediaQuery.of(context).size.height / 3,
+                                  width: MediaQuery.of(context).size.height / 3,
                                 ),
                               ),
-                              SizedBox(
-                                  height:50),
+                              SizedBox(height: 50),
                               Text(
                                 'At your fingertips',
                                 style: titleStyle,
@@ -346,10 +150,9 @@ class _F_OnboardingScreenState extends State<F_OnboardingScreen> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsets.only(top: 10,left: 10,right: 10),
-
+                          padding:
+                              EdgeInsets.only(top: 10, left: 10, right: 10),
                           child: Column(
-
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Center(
@@ -358,12 +161,12 @@ class _F_OnboardingScreenState extends State<F_OnboardingScreen> {
                                     'images/splash3.jpg',
                                   ),
                                   fit: BoxFit.fill,
-                                  height: MediaQuery.of(context).size.height / 2,
-                                  width: 500.0,
+                                  height:
+                                      MediaQuery.of(context).size.height / 3,
+                                  width: MediaQuery.of(context).size.height / 3,
                                 ),
                               ),
-                              SizedBox(
-                                  height:50),
+                              SizedBox(height: 50),
                               Text(
                                 'Secured Environment',
                                 style: titleStyle,
@@ -382,41 +185,40 @@ class _F_OnboardingScreenState extends State<F_OnboardingScreen> {
                   Container(
                     height: 10,
                     child: Row(
-
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: _buildPageIndicator(),
                     ),
                   ),
                   _currentPage != _numPages - 1
                       ? Expanded(
-                    child: Align(
-                      alignment: FractionalOffset.bottomRight,
-                      child: FlatButton(
-                        onPressed: () {
-                          _pageController.nextPage(
-                            duration: Duration(milliseconds: 500),
-                            curve: Curves.ease,
-                          );
-                        },
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            Text(
-                              'Next',
-                              style: subTitleStyle,
+                          child: Align(
+                            alignment: FractionalOffset.bottomRight,
+                            child: FlatButton(
+                              onPressed: () {
+                                _pageController.nextPage(
+                                  duration: Duration(milliseconds: 500),
+                                  curve: Curves.ease,
+                                );
+                              },
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                mainAxisSize: MainAxisSize.min,
+                                children: <Widget>[
+                                  Text(
+                                    'Next',
+                                    style: subTitleStyle,
+                                  ),
+                                  SizedBox(width: 10.0),
+                                  Icon(
+                                    Icons.arrow_forward,
+                                    color: Color(0xFF1F4B6E),
+                                    size: 30.0,
+                                  ),
+                                ],
+                              ),
                             ),
-                            SizedBox(width: 10.0),
-                            Icon(
-                              Icons.arrow_forward,
-                              color: Color(0xFF1F4B6E),
-                              size: 30.0,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  )
+                          ),
+                        )
                       : Text(''),
                 ],
               ),
@@ -425,22 +227,213 @@ class _F_OnboardingScreenState extends State<F_OnboardingScreen> {
         ),
         bottomSheet: _currentPage == _numPages - 1
             ? Container(
-          height: 50.0,
-          width: double.infinity,
-          color: Color(0xFF1F4B6E),
-          child: GestureDetector(
-            onTap: () => GoToPage(context, LoginPage.create(widget.context)),
-            child: Center(
-              child: Padding(
-                padding: EdgeInsets.only(bottom: 10.0),
-                child: Text(
-                  'Get started',
-                  style: activeSubTitleStyle,
+                height: 50.0,
+                width: double.infinity,
+                color: Color(0xFF1F4B6E),
+                child: GestureDetector(
+                  onTap: () => GoToPage(context, LoginPage()),
+                  child: Center(
+                    child: Padding(
+                      padding: EdgeInsets.only(bottom: 10.0),
+                      child: Text(
+                        'Get started',
+                        style: activeSubTitleStyle,
+                      ),
+                    ),
+                  ),
                 ),
+              )
+            : Text(''),
+      );
+    } else {
+      return Scaffold(
+        body: AnnotatedRegion<SystemUiOverlayStyle>(
+          value: SystemUiOverlayStyle.light,
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+            ),
+            child: Padding(
+              padding: EdgeInsets.symmetric(vertical: 20.0),
+              // changed padding from 25 to 0
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  Container(
+                    alignment: Alignment.centerRight,
+                    child: FlatButton(
+                      onPressed: () => GoToPage(context, LoginPage()),
+                      child: Text(
+                        'Skip',
+                        style: subTitleStyle,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    height: MediaQuery.of(context).size.height - 160,
+                    child: PageView(
+                      physics: ClampingScrollPhysics(),
+                      controller: _pageController,
+                      onPageChanged: (int page) {
+                        setState(() {
+                          _currentPage = page;
+                        });
+                      },
+                      children: <Widget>[
+                        Padding(
+                          padding:
+                              EdgeInsets.only(top: 10, left: 10, right: 10),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Center(
+                                child: Image(
+                                  image: AssetImage(
+                                    'images/splash1.jpg',
+                                  ),
+                                  fit: BoxFit.fill,
+                                  height:
+                                      MediaQuery.of(context).size.height / 2,
+                                  width: 500.0,
+                                ),
+                              ),
+                              SizedBox(height: 50),
+                              Text(
+                                'Smart Constructions',
+                                style: titleStyle,
+                              ),
+                              SizedBox(height: 15.0),
+                              Text(
+                                'Introducing smart, secure and advanced techniques into construction for better living.',
+                                style: descriptionStyle,
+                              ),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding:
+                              EdgeInsets.only(top: 10, left: 10, right: 10),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Center(
+                                child: Image(
+                                  image: AssetImage(
+                                    'images/splash2.jpg',
+                                  ),
+                                  fit: BoxFit.fill,
+                                  height:
+                                      MediaQuery.of(context).size.height / 2,
+                                  width: 500.0,
+                                ),
+                              ),
+                              SizedBox(height: 50),
+                              Text(
+                                'At your fingertips',
+                                style: titleStyle,
+                              ),
+                              SizedBox(height: 15.0),
+                              Text(
+                                'Monitor and Manage all construction activities at your fingertips',
+                                style: descriptionStyle,
+                              ),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding:
+                              EdgeInsets.only(top: 10, left: 10, right: 10),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Center(
+                                child: Image(
+                                  image: AssetImage(
+                                    'images/splash3.jpg',
+                                  ),
+                                  fit: BoxFit.fill,
+                                  height:
+                                      MediaQuery.of(context).size.height / 2,
+                                  width: 500.0,
+                                ),
+                              ),
+                              SizedBox(height: 50),
+                              Text(
+                                'Secured Environment',
+                                style: titleStyle,
+                              ),
+                              SizedBox(height: 2.0),
+                              Text(
+                                'your safety is utmost important so feel safe with our advanced security',
+                                style: descriptionStyle,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    height: 10,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: _buildPageIndicator(),
+                    ),
+                  ),
+                  _currentPage != _numPages - 1
+                      ? Expanded(
+                          child: Align(
+                            alignment: FractionalOffset.bottomRight,
+                            child: FlatButton(
+                              onPressed: () {
+                                _pageController.nextPage(
+                                  duration: Duration(milliseconds: 500),
+                                  curve: Curves.ease,
+                                );
+                              },
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                mainAxisSize: MainAxisSize.min,
+                                children: <Widget>[
+                                  Text(
+                                    'Next',
+                                    style: subTitleStyle,
+                                  ),
+                                  SizedBox(width: 10.0),
+                                  Icon(
+                                    Icons.arrow_forward,
+                                    color: Color(0xFF1F4B6E),
+                                    size: 30.0,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        )
+                      : Text(''),
+                ],
               ),
             ),
           ),
-        )
+        ),
+        bottomSheet: _currentPage == _numPages - 1
+            ? Container(
+                height: 50.0,
+                width: double.infinity,
+                color: Color(0xFF1F4B6E),
+                child: GestureDetector(
+                  onTap: () => GoToPage(context, LoginPage()),
+                  child: Center(
+                    child: Padding(
+                      padding: EdgeInsets.only(bottom: 10.0),
+                      child: Text(
+                        'Get started',
+                        style: activeSubTitleStyle,
+                      ),
+                    ),
+                  ),
+                ),
+              )
             : Text(''),
       );
     }
@@ -461,9 +454,11 @@ class _F_OnboardingScreenState extends State<F_OnboardingScreen> {
 //      width = MediaQuery.of(context).size.width/2;
 //      // build big image.
 //    }
+
     return offlineWidget(context);
   }
-  Widget offlineWidget (BuildContext context){
+
+  Widget offlineWidget(BuildContext context) {
     return CustomOfflineWidget(
       onlineChild: Padding(
         padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),

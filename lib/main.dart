@@ -1,32 +1,61 @@
-import 'package:bhavani_connect/landing_page.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'authentication_screen/login_screens/login_page.dart';
+import 'package:bhavani_connect/authentication_screen/login_screens/login_page.dart';
 import 'package:bhavani_connect/authentication_screen/splash_screens/onboarding_screen.dart';
+import 'package:bhavani_connect/base/app_bloc_delegate.dart';
+import 'package:bhavani_connect/home_screens/home_page.dart';
+import 'package:bhavani_connect/splash_page.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'auth/authentication_bloc.dart';
+import 'auth/bloc.dart';
+import 'config/router.dart';
 import 'firebase/auth.dart';
 
-//var routes = <String, WidgetBuilder>{
-//  "/login": (BuildContext context) => LoginPage(),
-//  "/intro": (BuildContext context) => OnboardingScreen(),
-//};
+void main() {
+  final GlobalKey<NavigatorState> _navigatorKey = GlobalKey();
+  BlocSupervisor.delegate = AppBlocDelegate();
+  WidgetsFlutterBinding.ensureInitialized();
+  AuthFirebase authFirebase = AuthFirebase();
+  runApp(BlocProvider(
+    create: (context) =>
+    AuthenticationBloc(authFirebase, _navigatorKey)
+      ..add(AppStarted()),
+    child: MyApp(navigatorKey: _navigatorKey),
+  ));
+}
 
-void main() => runApp(MyApp());
+class MyApp extends StatefulWidget {
+  final GlobalKey<NavigatorState> navigatorKey;
 
-class MyApp extends StatelessWidget {
+  MyApp({this.navigatorKey});
+
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return Provider<AuthBase>(
-      create: (context) => Auth(),
-      child: MaterialApp(
-        title: 'B-Connect',
-        theme: ThemeData(
-          primarySwatch: Colors.blueGrey,
-        ),
-        debugShowCheckedModeBanner: false,
-        home: LandingPage(),
-        //routes: routes
+    return MaterialApp(
+      title: 'B-Connect',
+      theme: ThemeData(
+        primarySwatch: Colors.blueGrey,
       ),
+      debugShowCheckedModeBanner: false,
+      navigatorKey: widget.navigatorKey,
+      onGenerateRoute: Router.generateRoute,
+      home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
+          builder: (context, state) {
+            if (state is Uninitialized) {
+              return OnboardingScreen();
+            } else if (state is Unauthenticated) {
+              return LoginPage();
+            } else if (state is Authenticated) {
+              return HomePage();
+            } else {
+              return SplashPage();
+            }
+          }),
     );
   }
 }

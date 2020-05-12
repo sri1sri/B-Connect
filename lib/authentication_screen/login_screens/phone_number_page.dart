@@ -1,3 +1,4 @@
+import 'package:bhavani_connect/auth/bloc.dart';
 import 'package:bhavani_connect/authentication_screen/login_screens/otp_page.dart';
 import 'package:bhavani_connect/common_variables/app_colors.dart';
 import 'package:bhavani_connect/common_variables/app_functions.dart';
@@ -9,47 +10,28 @@ import 'package:bhavani_connect/common_widgets/platform_alert/platform_exception
 import 'package:bhavani_connect/firebase/auth.dart';
 import 'package:bhavani_connect/models/phone_number_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
-
-class PhoneNumberPage extends StatelessWidget {
+class PhoneNumberPage extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: F_PhoneNumberPage.create(context),
-    );
-  }
+  _PhoneNumberPageState createState() => _PhoneNumberPageState();
 }
 
-class F_PhoneNumberPage extends StatefulWidget {
-  F_PhoneNumberPage({@required this.model});
-  final PhoneNumberModel model;
-
-  static Widget create(BuildContext context) {
-    final AuthBase auth = Provider.of<AuthBase>(context);
-    return ChangeNotifierProvider<PhoneNumberModel>(
-      create: (context) => PhoneNumberModel(auth: auth),
-      child: Consumer<PhoneNumberModel>(
-        builder: (context, model, _) => F_PhoneNumberPage(model: model),
-      ),
-    );
-  }
-
-
-  @override
-  _F_PhoneNumberPageState createState() => _F_PhoneNumberPageState();
-}
-
-class _F_PhoneNumberPageState extends State<F_PhoneNumberPage> {
-
+class _PhoneNumberPageState extends State<PhoneNumberPage> {
   final TextEditingController _phoneNumberController = TextEditingController();
   final FocusNode _phoneNumberFocusNode = FocusNode();
-  PhoneNumberModel get model => widget.model;
 
-  Future<bool> didCheckPhoneNumber;
+  AuthenticationBloc _authenticationBloc;
+
+  @override
+  void initState() {
+    _authenticationBloc = BlocProvider.of<AuthenticationBloc>(context);
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -62,7 +44,7 @@ class _F_PhoneNumberPageState extends State<F_PhoneNumberPage> {
     return offlineWidget(context);
   }
 
-  Widget offlineWidget (BuildContext context){
+  Widget offlineWidget(BuildContext context) {
     return CustomOfflineWidget(
       onlineChild: Padding(
         padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
@@ -74,9 +56,8 @@ class _F_PhoneNumberPageState extends State<F_PhoneNumberPage> {
   }
 
   Widget _buildContent(BuildContext context) {
-
     return TransparentLoading(
-      loading: widget.model.isLoading,
+      loading: false,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
@@ -90,7 +71,9 @@ class _F_PhoneNumberPageState extends State<F_PhoneNumberPage> {
                 style: titleStyle,
                 textAlign: TextAlign.center,
               ),
-              SizedBox(height: 10,),
+              SizedBox(
+                height: 10,
+              ),
               Text(
                 'To create an Account or SignIn \nuse your phone number.',
                 style: descriptionStyle,
@@ -98,7 +81,6 @@ class _F_PhoneNumberPageState extends State<F_PhoneNumberPage> {
               ),
             ],
           ),
-
           Column(
             children: <Widget>[],
           ),
@@ -110,7 +92,7 @@ class _F_PhoneNumberPageState extends State<F_PhoneNumberPage> {
                 obscureText: false,
                 focusNode: _phoneNumberFocusNode,
                 onEditingComplete: () => _submit(context),
-                onChanged: model.updatePhoneNumber,
+                onChanged: (text) {},
                 decoration: new InputDecoration(
                   prefixIcon: Icon(
                     Icons.phone,
@@ -143,7 +125,9 @@ class _F_PhoneNumberPageState extends State<F_PhoneNumberPage> {
                 text: 'Get OTP',
                 textColor: Colors.white,
                 backgroundColor: activeButtonBackgroundColor,
-                onPressed: model.canSubmit ? () => _submit(context) : null,
+                onPressed: () {
+                  _submit(context);
+                },
               ),
               SizedBox(height: 10.0),
               ToDoButton(
@@ -151,9 +135,9 @@ class _F_PhoneNumberPageState extends State<F_PhoneNumberPage> {
                 text: 'back',
                 textColor: Colors.black,
                 backgroundColor: Colors.white,
-               onPressed: (){
-                 Navigator.of(context).pop();
-               },
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
               ),
             ],
           ),
@@ -162,28 +146,31 @@ class _F_PhoneNumberPageState extends State<F_PhoneNumberPage> {
     );
   }
 
-
   Future<void> _submit(BuildContext context) async {
     try {
-        await Firestore.instance
-            .collection('employees')
-            .where('employee_contact_number',
-            isEqualTo: '+91${_phoneNumberController.value.text}')
-            .snapshots()
-            .listen((data) => {
-          print('data=${data}'),
-
-          if (data.documents.length == 0)
-            {
-              model.submit(),
-              GoToPage(context, OTPPage(phoneNo: _phoneNumberController.value.text, newUser: true)),
-            }
-          else
-            {
-              model.submit(),
-              GoToPage(context, OTPPage(phoneNo: _phoneNumberController.value.text, newUser: false)),
-            }
-        });
+      await Firestore.instance
+          .collection('employees')
+          .where('employee_contact_number',
+          isEqualTo: '+91${_phoneNumberController.value.text}')
+          .snapshots()
+          .listen((data) =>
+      {
+        print('data=${data}'),
+        if (data.documents.length == 0)
+          {
+//              model.submit(),
+            _authenticationBloc.gotoOtpPage(
+                phoneNumber: _phoneNumberController.value.text,
+                isNewUser: true)
+          }
+        else
+          {
+//              model.submit(),
+            _authenticationBloc.gotoOtpPage(
+                phoneNumber: _phoneNumberController.value.text,
+                isNewUser: false),
+          }
+      });
     } on PlatformException catch (e) {
       PlatformExceptionAlertDialog(
         title: 'Phone number failed',
