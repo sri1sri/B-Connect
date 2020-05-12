@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'auth/authentication_bloc.dart';
 import 'auth/bloc.dart';
+import 'config/router.dart';
 import 'firebase/auth.dart';
 
 void main() {
@@ -16,12 +17,18 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
   AuthFirebase authFirebase = AuthFirebase();
   runApp(BlocProvider(
-    create: (context) => AuthenticationBloc(authFirebase, _navigatorKey)..add(AppStarted()),
-    child: MyApp(),
+    create: (context) =>
+    AuthenticationBloc(authFirebase, _navigatorKey)
+      ..add(AppStarted()),
+    child: MyApp(navigatorKey: _navigatorKey),
   ));
 }
 
 class MyApp extends StatefulWidget {
+  final GlobalKey<NavigatorState> navigatorKey;
+
+  MyApp({this.navigatorKey});
+
   @override
   _MyAppState createState() => _MyAppState();
 }
@@ -35,18 +42,20 @@ class _MyAppState extends State<MyApp> {
         primarySwatch: Colors.blueGrey,
       ),
       debugShowCheckedModeBanner: false,
+      navigatorKey: widget.navigatorKey,
+      onGenerateRoute: Router.generateRoute,
       home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
           builder: (context, state) {
-        if (state is Uninitialized) {
-          return OnboardingScreen();
-        } else if (state is Unauthenticated) {
-          return LoginPage();
-        } else if (state is Authenticated) {
-          return HomePage();
-        } else {
-          return SplashPage();
-        }
-      }),
+            if (state is Uninitialized) {
+              return OnboardingScreen();
+            } else if (state is Unauthenticated) {
+              return LoginPage();
+            } else if (state is Authenticated) {
+              return HomePage();
+            } else {
+              return SplashPage();
+            }
+          }),
     );
   }
 }
