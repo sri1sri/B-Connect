@@ -160,7 +160,12 @@ class _F_AddStockScreen extends State<F_AddStockScreen> {
       case 'Category':
         return 'Category Details';
         break;
-
+      case 'Sub Category':
+        return 'Sub Category Details';
+        break;
+      case 'Units':
+        return 'Unit Details';
+        break;
       case 'Dealer':
         return 'Dealer Details';
         break;

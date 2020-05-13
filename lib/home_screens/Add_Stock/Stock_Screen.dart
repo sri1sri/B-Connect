@@ -28,16 +28,20 @@ class _F_StockScreen extends State<F_StockScreen> {
   var Stock = [
     "Item",
     "Category",
+    "Sub Category",
     "Dealer",
     "Role",
     "Construction Site",
+    "Units"
   ];
   List<String> F_image = [
     "images/s1.png",
     "images/s2.png",
+    "images/s6.png",
     "images/s3.png",
     "images/s4.png",
     "images/s5.png",
+    "images/s7.png",
   ];
   @override
   Widget build(BuildContext context) {
@@ -92,7 +96,7 @@ class _F_StockScreen extends State<F_StockScreen> {
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Container(
-                    height: 500,
+                    height: 600,
                     child: Expanded(
                       child: GridView.builder(
                         itemCount: Stock.length,
