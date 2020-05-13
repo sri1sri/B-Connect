@@ -85,11 +85,68 @@ class _F_ActivityDetailDescription extends State<F_ActivityDetailDescription> {
                               subtext("Category", "Iron/Steels"),
                               subtext("Sub Category", "8Thread Tmt rods"),
                               subtext("Uom", "tons"),
-                              subtext("Yesterday's Progress", "40"),
-                              subtext("Total Progress", "100"),
                               Divider(
                                 thickness: 1,
-                                color: Colors.black54,
+                                color: Colors.black45,
+                              ),
+                              SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                child: DataTable(
+                                  onSelectAll: (b) {},
+                                  sortAscending: true,
+                                  showCheckboxColumn: false,
+                                  dataRowHeight: 70.0,
+                                  columns: <DataColumn>[
+                                    DataColumn(label: Text("S.No.",style: subTitleStyle1,)),
+                                    DataColumn(label: Text("Date",style: subTitleStyle1,)),
+                                    DataColumn(label: Text("Yesterday’s\nProgress",style: subTitleStyle1,)),
+                                    DataColumn(label: Text("Total\nProgress",style: subTitleStyle1,)),
+                                    DataColumn(label: Text("Added By",style: subTitleStyle1,)),
+                                    DataColumn(label: Text("Remarks",style: subTitleStyle1,)),
+                                  ],
+                                  rows: items
+                                      .map(
+                                        (itemRow) => DataRow(onSelectChanged: (b) {},
+                                      cells: [
+                                        DataCell(
+                                          Text(itemRow.slNo,style:descriptionStyleDark,),
+                                          showEditIcon: false,
+                                          placeholder: false,
+                                        ),
+                                        DataCell(
+                                          Text(itemRow.date,style:descriptionStyleDark,),
+                                          showEditIcon: false,
+                                          placeholder: false,
+                                        ),
+                                        DataCell(
+                                          Text(itemRow.yestProg,style:descriptionStyleDark,),
+                                          showEditIcon: false,
+                                          placeholder: false,
+                                        ),
+                                        DataCell(
+                                          Text(itemRow.totalprog,style:descriptionStyleDark,),
+                                          showEditIcon: false,
+                                          placeholder: false,
+                                        ),
+                                        DataCell(
+                                          Text(itemRow.addedBy,style:descriptionStyleDark,),
+                                          showEditIcon: false,
+                                          placeholder: false,
+                                        ),
+                                        DataCell(
+                                          Text(itemRow.remarks,style:descriptionStyleDark,),
+                                          showEditIcon: false,
+                                          placeholder: false,
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                                      .toList(),
+                                ),
+                              ),
+                              Divider(
+                                thickness: 1,
+                                color: Colors.black45,
                               ),
                               Padding(
                                 padding: EdgeInsets.all(5),
@@ -109,7 +166,14 @@ class _F_ActivityDetailDescription extends State<F_ActivityDetailDescription> {
                       ]
                   )
               )),
-        )
+        ),
+      floatingActionButton:  FloatingActionButton(
+        onPressed: () {
+//
+        },
+        child: Icon(Icons.add),
+        backgroundColor: backgroundColor,
+      ),
     );
   }
 }
@@ -153,3 +217,68 @@ Widget totalsubtext(String _left, String _right) {
 }
 
 
+class ItemInfo {
+  String slNo;
+  String date;
+  String yestProg;
+  String totalprog;
+  String addedBy;
+  String remarks;
+
+  ItemInfo({
+    this.slNo,
+    this.date,
+    this.yestProg,
+    this.totalprog,
+    this.addedBy,
+    this.remarks,
+  });
+}
+
+var items = <ItemInfo>[
+  ItemInfo(
+      slNo: '1',
+      date: '29/Oct/2020',
+      yestProg: "30",
+      totalprog: "220",
+      addedBy: "Manager",
+      remarks: 'Transfer from store to cnstruction Site'
+
+  ),
+  ItemInfo(
+      slNo: '2',
+      date: '29/Oct/2020',
+      yestProg: "30",
+      totalprog: "220",
+      addedBy: "Manager",
+      remarks: 'Transfer from store to cnstruction Site'
+
+  ),
+  ItemInfo(
+      slNo: '3',
+      date: '29/Oct/2020',
+      yestProg: "30",
+      totalprog: "220",
+      addedBy: "Manager",
+      remarks: 'Transfer from store to cnstruction Site'
+
+  ),
+  ItemInfo(
+      slNo: '4',
+      date: '29/Oct/2020',
+      yestProg: "30",
+      totalprog: "220",
+      addedBy: "Manager",
+      remarks: 'Transfer from store to cnstruction Site'
+
+  ),
+  ItemInfo(
+      slNo: '5',
+      date: '29/Oct/2020',
+      yestProg: "30",
+      totalprog: "220",
+      addedBy: "Manager",
+      remarks: 'Transfer from store to cnstruction Site'
+
+  ),
+];

@@ -117,8 +117,8 @@ class _F_PrintActivity extends State<F_PrintActivity> {
                           SizedBox(height: 20,),
                           DropdownSearch(
                               showSelectedItem: true,
-                              maxHeight: 500,
-                              mode: Mode.DIALOG,
+                              maxHeight: 400,
+                              mode: Mode.MENU,
                               items: ["Bhavani Vivan", "Bahavani Aravindham","Bhavani Vivan", "Bahavani Aravindham","Bhavani Vivan", "Bahavani Aravindham",],
                               label: "Construction Site",
                               onChanged: print,
@@ -129,8 +129,8 @@ class _F_PrintActivity extends State<F_PrintActivity> {
                           SizedBox(height: 20,),
                           DropdownSearch(
                               showSelectedItem: true,
-                              maxHeight: 500,
-                              mode: Mode.DIALOG,
+                              maxHeight: 400,
+                              mode: Mode.MENU,
                               items: ["1st", "2nd", "3rd", "4th"],
                               label: "Block",
                               onChanged: print,
@@ -141,8 +141,8 @@ class _F_PrintActivity extends State<F_PrintActivity> {
                           SizedBox(height: 20,),
                           DropdownSearch(
                               showSelectedItem: true,
-                              maxHeight: 500,
-                              mode: Mode.DIALOG,
+                              maxHeight: 400,
+                              mode: Mode.MENU,
                               items: ["Iron", "Steel", "Sand" ,"Cement","Bricks"],
                               label: "Category",
                               onChanged: print,
@@ -153,8 +153,8 @@ class _F_PrintActivity extends State<F_PrintActivity> {
                           SizedBox(height: 20,),
                           DropdownSearch(
                               showSelectedItem: true,
-                              maxHeight: 500,
-                              mode: Mode.DIALOG,
+                              maxHeight: 400,
+                              mode: Mode.MENU,
                               items: ["Vasanth steels", "Sri Cements", "Vamsi Bricks"],
                               label: "Sub Category",
                               onChanged: print,

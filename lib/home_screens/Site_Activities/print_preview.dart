@@ -81,8 +81,6 @@ class _F_PrintPreview extends State<F_PrintPreview> {
                         Text("Plastics",style: descriptionStyleDarkBlur2,),
                         Text(" | ",style: descriptionStyleDarkBlur2,),
                         Text("PVC23 Plastics",style: descriptionStyleDarkBlur2,),
-                        Text(" | ",style: descriptionStyleDarkBlur2,),
-                        Text("20 Nos",style: descriptionStyleDarkBlur2,)
                       ],
                     ),
                   ],
@@ -98,9 +96,13 @@ class _F_PrintPreview extends State<F_PrintPreview> {
                     columns: <DataColumn>[
                       DataColumn(label: Text("S.No.",style: subTitleStyle1,)),
                       DataColumn(label: Text("Date",style: subTitleStyle1,)),
-                      DataColumn(label: Text("Yesterday’s\nProgress",style: subTitleStyle1,)),
-                      DataColumn(label: Text("Total\nProgress",style: subTitleStyle1,)),
-                      DataColumn(label: Text("Added By",style: subTitleStyle1,)),
+                      DataColumn(label: Text("Site",style: subTitleStyle1,)),
+                      DataColumn(label: Text("Block",style: subTitleStyle1,)),
+                      DataColumn(label: Text("Category",style: subTitleStyle1,)),
+                      DataColumn(label: Text("Sub Category",style: subTitleStyle1,)),
+                      DataColumn(label: Text("UOM",style: subTitleStyle1,),),
+                      DataColumn(label: Text("yesterday progress",style: subTitleStyle1,),),
+                      DataColumn(label: Text("Total Progress",style: subTitleStyle1,)),
                       DataColumn(label: Text("Remarks",style: subTitleStyle1,)),
                     ],
                     rows: items
@@ -118,17 +120,37 @@ class _F_PrintPreview extends State<F_PrintPreview> {
                             placeholder: false,
                           ),
                           DataCell(
-                            Text(itemRow.yestProg,style:descriptionStyleDark,),
+                            Text(itemRow.site,style:descriptionStyleDark,),
                             showEditIcon: false,
                             placeholder: false,
                           ),
                           DataCell(
-                            Text(itemRow.totalprog,style:descriptionStyleDark,),
+                            Text(itemRow.block,style:descriptionStyleDark,),
                             showEditIcon: false,
                             placeholder: false,
                           ),
                           DataCell(
-                            Text(itemRow.addedBy,style:descriptionStyleDark,),
+                            Text(itemRow.category,style:descriptionStyleDark,),
+                            showEditIcon: false,
+                            placeholder: false,
+                          ),
+                          DataCell(
+                            Text(itemRow.subCategory,style:descriptionStyleDark,),
+                            showEditIcon: false,
+                            placeholder: false,
+                          ),
+                          DataCell(
+                            Text(itemRow.uom,style:descriptionStyleDark,),
+                            showEditIcon: false,
+                            placeholder: false,
+                          ),
+                          DataCell(
+                            Text(itemRow.yesterdayProg,style:descriptionStyleDark,),
+                            showEditIcon: false,
+                            placeholder: false,
+                          ),
+                          DataCell(
+                            Text(itemRow.totalProg,style:descriptionStyleDark,),
                             showEditIcon: false,
                             placeholder: false,
                           ),
@@ -156,17 +178,25 @@ class _F_PrintPreview extends State<F_PrintPreview> {
 class ItemInfo {
   String slNo;
   String date;
-  String yestProg;
-  String totalprog;
-  String addedBy;
+  String site;
+  String block;
+  String category;
+  String uom;
+  String subCategory;
+  String yesterdayProg;
+  String totalProg;
   String remarks;
 
   ItemInfo({
     this.slNo,
     this.date,
-    this.yestProg,
-    this.totalprog,
-    this.addedBy,
+    this.site,
+    this.category,
+    this.uom,
+    this.block,
+    this.subCategory,
+    this.yesterdayProg,
+    this.totalProg,
     this.remarks,
   });
 }
@@ -175,48 +205,69 @@ var items = <ItemInfo>[
   ItemInfo(
       slNo: '1',
       date: '29/Oct/2020',
-      yestProg: "30",
-      totalprog: "220",
-      addedBy: "Manager",
+      site: 'Bhavani Vivan',
+      block: "8th",
+      category: 'Iron/Steel',
+      subCategory: 'TMT rod',
+      uom: 'Tons',
+      yesterdayProg: "20",
+      totalProg: "60",
       remarks: 'Transfer from store to cnstruction Site'
 
   ),
   ItemInfo(
       slNo: '2',
       date: '29/Oct/2020',
-      yestProg: "30",
-      totalprog: "220",
-      addedBy: "Manager",
+      site: 'Bhavani Vivan',
+      block: "8th",
+      category: 'Iron/Steel',
+      subCategory: 'TMT rod',
+      uom: 'Tons',
+      yesterdayProg: "20",
+      totalProg: "60",
       remarks: 'Transfer from store to cnstruction Site'
 
   ),
   ItemInfo(
       slNo: '3',
       date: '29/Oct/2020',
-      yestProg: "30",
-      totalprog: "220",
-      addedBy: "Manager",
+      site: 'Bhavani Vivan',
+      block: "8th",
+      category: 'Iron/Steel',
+      subCategory: 'TMT rod',
+      uom: 'Tons',
+      yesterdayProg: "20",
+      totalProg: "60",
+      remarks: 'Transfer from store to cnstruction Site'
+
+  ),
+  ItemInfo(
+      slNo: '3',
+      date: '29/Oct/2020',
+      site: 'Bhavani Vivan',
+      block: "8th",
+      category: 'Iron/Steel',
+      subCategory: 'TMT rod',
+      uom: 'Tons',
+      yesterdayProg: "20",
+      totalProg: "60",
       remarks: 'Transfer from store to cnstruction Site'
 
   ),
   ItemInfo(
       slNo: '4',
       date: '29/Oct/2020',
-      yestProg: "30",
-      totalprog: "220",
-      addedBy: "Manager",
+      site: 'Bhavani Vivan',
+      block: "8th",
+      category: 'Iron/Steel',
+      subCategory: 'TMT rod',
+      uom: 'Tons',
+      yesterdayProg: "20",
+      totalProg: "60",
       remarks: 'Transfer from store to cnstruction Site'
 
   ),
-  ItemInfo(
-      slNo: '5',
-      date: '29/Oct/2020',
-      yestProg: "30",
-      totalprog: "220",
-      addedBy: "Manager",
-      remarks: 'Transfer from store to cnstruction Site'
 
-  ),
 ];
 
 
