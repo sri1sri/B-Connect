@@ -1,34 +1,48 @@
 import 'package:bhavani_connect/common_variables/app_colors.dart';
 import 'package:bhavani_connect/common_variables/app_fonts.dart';
+import 'package:bhavani_connect/common_variables/app_functions.dart';
 import 'package:bhavani_connect/common_widgets/custom_appbar_widget/custom_app_bar.dart';
 import 'package:bhavani_connect/common_widgets/custom_appbar_widget/custom_app_bar_2.dart';
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
+import 'package:bhavani_connect/home_screens/Concrete_Entries/Entry_description.dart';
+import 'package:bhavani_connect/home_screens/Concrete_Entries/Print_entries.dart';
+import 'package:bhavani_connect/home_screens/Concrete_Entries/add_concrete_entry.dart';
+import 'package:bhavani_connect/home_screens/Site_Activities/add_Site_Activity.dart';
+import 'package:bhavani_connect/home_screens/Site_Activities/detail_description.dart';
+import 'package:bhavani_connect/home_screens/Site_Activities/print_Activity.dart';
+import 'package:bhavani_connect/home_screens/Site_Activities/search_Activity.dart';
+import 'package:bhavani_connect/home_screens/Stock_Register/AddNewInvoice.dart';
+import 'package:bhavani_connect/home_screens/Stock_Register/Stock_Filter.dart';
+import 'package:bhavani_connect/home_screens/Stock_Register/detail_description.dart';
+import 'package:bhavani_connect/home_screens/Vehicle_Entry/vehicle_details_readings.dart';
+import 'package:bhavani_connect/home_screens/Vehicle_Entry/add_vehicle_details.dart';
 import 'package:calendar_timeline/calendar_timeline.dart';
-import 'package:vector_math/vector_math.dart' as math;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class PrintPreview extends StatelessWidget {
-@override
-Widget build(BuildContext context) {
-  return Container(
-    child: F_PrintPreview(),
-  );
-}
-}
 
-class F_PrintPreview extends StatefulWidget {
+
+class ConcreteEntries extends StatelessWidget {
   @override
-  _F_PrintPreview createState() => _F_PrintPreview();
+  Widget build(BuildContext context) {
+    return Container(
+      child: F_ConcreteEntries(),
+    );
+  }
 }
 
-class _F_PrintPreview extends State<F_PrintPreview> {
+class F_ConcreteEntries extends StatefulWidget {
+  @override
+  _F_ConcreteEntries createState() => _F_ConcreteEntries();
+}
+
+class _F_ConcreteEntries extends State<F_ConcreteEntries> {
+  int _n = 0;
   @override
   Widget build(BuildContext context) {
     return offlineWidget(context);
 
   }
-
 
   Widget offlineWidget (BuildContext context){
     return CustomOfflineWidget(
@@ -52,11 +66,14 @@ class _F_PrintPreview extends State<F_PrintPreview> {
           leftAction: (){
             Navigator.pop(context,true);
           },
-          rightActionBar: Icon(Icons.print,size: 25,color: Colors.white),
+          rightActionBar: Icon(Icons.print,size: 25,color: Colors.white,),
           rightAction: (){
-            print('right action bar is pressed in appbar');
+            GoToPage(
+                context,
+                PrintEntries(
+                ));
           },
-          primaryText: 'Print Preview',
+          primaryText: 'Concrete Entries',
           tabBarWidget: null,
         ),
       ),
@@ -71,23 +88,8 @@ class _F_PrintPreview extends State<F_PrintPreview> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 SizedBox(height: 20,),
-                Column(
-                  children: [
-                    Text("21 October to 30 November",style: subTitleStyleDark1,),
-                    SizedBox(height: 5,),
-                    Text("Bhavani Vivan (Block-1)",style: descriptionStyleDarkBlur2,),
-                    SizedBox(height: 5,),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text("Plastics",style: descriptionStyleDarkBlur2,),
-                        Text(" | ",style: descriptionStyleDarkBlur2,),
-                        Text("231 PVC Plastics",style: descriptionStyleDarkBlur2,),
-                      ],
-                    ),
-                  ],
-                ),
-                SizedBox(height: 40,),
+                Text("23 October 2020",style: subTitleStyleDark1,),
+                SizedBox(height: 20,),
                 SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: DataTable(
@@ -98,18 +100,18 @@ class _F_PrintPreview extends State<F_PrintPreview> {
                     columns: <DataColumn>[
                       DataColumn(label: Text("S.No.",style: subTitleStyle1,)),
                       DataColumn(label: Text("Date",style: subTitleStyle1,)),
-                      DataColumn(label: Text("Site",style: subTitleStyle1,)),
+                      DataColumn(label: Text("Concrete Type",style: subTitleStyle1,)),
+                      DataColumn(label: Text("Construction Site",style: subTitleStyle1,)),
                       DataColumn(label: Text("Block",style: subTitleStyle1,)),
-                      DataColumn(label: Text("Category",style: subTitleStyle1,)),
-                      DataColumn(label: Text("Sub Category",style: subTitleStyle1,)),
-                      DataColumn(label: Text("UOM",style: subTitleStyle1,),),
-                      DataColumn(label: Text("yesterday progress",style: subTitleStyle1,),),
+                      DataColumn(label: Text("Yesterday's Progress",style: subTitleStyle1,)),
                       DataColumn(label: Text("Total Progress",style: subTitleStyle1,)),
                       DataColumn(label: Text("Remarks",style: subTitleStyle1,)),
                     ],
                     rows: items
                         .map(
-                          (itemRow) => DataRow(onSelectChanged: (b) {},
+                          (itemRow) => DataRow(onSelectChanged: (b) {GoToPage(
+                          context,
+                              EntryDescription());},
                         cells: [
                           DataCell(
                             Text(itemRow.slNo,style:descriptionStyleDark,),
@@ -118,6 +120,11 @@ class _F_PrintPreview extends State<F_PrintPreview> {
                           ),
                           DataCell(
                             Text(itemRow.date,style:descriptionStyleDark,),
+                            showEditIcon: false,
+                            placeholder: false,
+                          ),
+                          DataCell(
+                            Text(itemRow.concreteType,style:descriptionStyleDark,),
                             showEditIcon: false,
                             placeholder: false,
                           ),
@@ -132,22 +139,7 @@ class _F_PrintPreview extends State<F_PrintPreview> {
                             placeholder: false,
                           ),
                           DataCell(
-                            Text(itemRow.category,style:descriptionStyleDark,),
-                            showEditIcon: false,
-                            placeholder: false,
-                          ),
-                          DataCell(
-                            Text(itemRow.subCategory,style:descriptionStyleDark,),
-                            showEditIcon: false,
-                            placeholder: false,
-                          ),
-                          DataCell(
-                            Text(itemRow.uom,style:descriptionStyleDark,),
-                            showEditIcon: false,
-                            placeholder: false,
-                          ),
-                          DataCell(
-                            Text(itemRow.yesterdayProg,style:descriptionStyleDark,),
+                            Text(itemRow.yestProg,style:descriptionStyleDark,),
                             showEditIcon: false,
                             placeholder: false,
                           ),
@@ -173,6 +165,16 @@ class _F_PrintPreview extends State<F_PrintPreview> {
           ),
         ),
       ),
+      floatingActionButton:  FloatingActionButton(
+        onPressed: () {
+          GoToPage(
+              context,
+              AddConcreteEntry(
+              ));
+        },
+        child: Icon(Icons.add),
+        backgroundColor: backgroundColor,
+      ),
     );
   }
 }
@@ -182,10 +184,8 @@ class ItemInfo {
   String date;
   String site;
   String block;
-  String category;
-  String uom;
-  String subCategory;
-  String yesterdayProg;
+  String concreteType;
+  String yestProg;
   String totalProg;
   String remarks;
 
@@ -193,11 +193,9 @@ class ItemInfo {
     this.slNo,
     this.date,
     this.site,
-    this.category,
-    this.uom,
     this.block,
-    this.subCategory,
-    this.yesterdayProg,
+    this.concreteType,
+    this.yestProg,
     this.totalProg,
     this.remarks,
   });
@@ -208,11 +206,9 @@ var items = <ItemInfo>[
       slNo: '1',
       date: '29/Oct/2020',
       site: 'Bhavani Vivan',
+      concreteType: "Strong Cement",
       block: "8th",
-      category: 'Iron/Steel',
-      subCategory: 'TMT rod',
-      uom: 'Tons',
-      yesterdayProg: "20",
+      yestProg: "30",
       totalProg: "60",
       remarks: 'Transfer from store to cnstruction Site'
 
@@ -222,10 +218,8 @@ var items = <ItemInfo>[
       date: '29/Oct/2020',
       site: 'Bhavani Vivan',
       block: "8th",
-      category: 'Iron/Steel',
-      subCategory: 'TMT rod',
-      uom: 'Tons',
-      yesterdayProg: "20",
+      concreteType: "Strong Cement",
+      yestProg: "30",
       totalProg: "60",
       remarks: 'Transfer from store to cnstruction Site'
 
@@ -235,10 +229,8 @@ var items = <ItemInfo>[
       date: '29/Oct/2020',
       site: 'Bhavani Vivan',
       block: "8th",
-      category: 'Iron/Steel',
-      subCategory: 'TMT rod',
-      uom: 'Tons',
-      yesterdayProg: "20",
+      concreteType: "Strong Cement",
+      yestProg: "30",
       totalProg: "60",
       remarks: 'Transfer from store to cnstruction Site'
 
@@ -248,10 +240,8 @@ var items = <ItemInfo>[
       date: '29/Oct/2020',
       site: 'Bhavani Vivan',
       block: "8th",
-      category: 'Iron/Steel',
-      subCategory: 'TMT rod',
-      uom: 'Tons',
-      yesterdayProg: "20",
+      concreteType: "Strong Cement",
+      yestProg: "30",
       totalProg: "60",
       remarks: 'Transfer from store to cnstruction Site'
 
@@ -261,15 +251,11 @@ var items = <ItemInfo>[
       date: '29/Oct/2020',
       site: 'Bhavani Vivan',
       block: "8th",
-      category: 'Iron/Steel',
-      subCategory: 'TMT rod',
-      uom: 'Tons',
-      yesterdayProg: "20",
+      concreteType: "Strong Cement",
+      yestProg: "30",
       totalProg: "60",
       remarks: 'Transfer from store to cnstruction Site'
 
   ),
 
 ];
-
-

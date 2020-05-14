@@ -7,6 +7,8 @@ import 'package:bhavani_connect/common_widgets/platform_alert/platform_alert_dia
 import 'package:bhavani_connect/database_model/employee_details_model.dart';
 import 'package:bhavani_connect/firebase/auth.dart';
 import 'package:bhavani_connect/firebase/database.dart';
+import 'package:bhavani_connect/home_screens/Concrete_Entries/Concrete_HomePage.dart';
+import 'package:bhavani_connect/home_screens/Labour_Report/Daily_labour_Report.dart';
 import 'package:bhavani_connect/home_screens/Site_Activities/site_Activities_HomePage.dart';
 import 'package:bhavani_connect/home_screens/Stock_Register/showAllInvoice.dart';
 import 'package:bhavani_connect/home_screens/Vehicle_Entry/vehicle_list_details.dart';
@@ -47,7 +49,9 @@ class _F_DashboardState extends State<F_Dashboard> {
 //    "Employees",
     "Vehicle Entries",
     "Stock Register",
-    "Site Activities"
+    "Site Activities",
+    "Concrete Entries",
+    "Labour Report"
   ];
   List<String> F_image = [
 //    "images/Approval.jpg",
@@ -58,7 +62,9 @@ class _F_DashboardState extends State<F_Dashboard> {
 //    "images/ManageEmployees.jpg",
     "images/jcb.png",
     "images/invoice.png",
-    "images/siteActivity.png"
+    "images/siteActivity.png",
+    "images/Concrete.png",
+    "images/LabourReport.png",
   ];
 
 //  @override
@@ -273,6 +279,18 @@ class _F_DashboardState extends State<F_Dashboard> {
                           {
                             GoToPage(
                                 context,SiteActivities());
+                          }
+                          break;
+                        case 'Concrete Entries':
+                          {
+                            GoToPage(
+                                context,ConcreteEntries());
+                          }
+                          break;
+                        case 'Labour Report':
+                          {
+                            GoToPage(
+                                context,LabourEntries());
                           }
                           break;
 

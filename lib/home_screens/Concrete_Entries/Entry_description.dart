@@ -10,21 +10,21 @@ import 'package:bhavani_connect/home_screens/Stock_Register/AddNewInvoice.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class ActivityDetailDescription extends StatelessWidget {
+class EntryDescription extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: F_ActivityDetailDescription(),
+      child: F_EntryDescription(),
     );
   }
 }
 
-class F_ActivityDetailDescription extends StatefulWidget {
+class F_EntryDescription extends StatefulWidget {
   @override
-  _F_ActivityDetailDescription createState() => _F_ActivityDetailDescription();
+  _F_EntryDescription createState() => _F_EntryDescription();
 }
 
-class _F_ActivityDetailDescription extends State<F_ActivityDetailDescription> {
+class _F_EntryDescription extends State<F_EntryDescription> {
   @override
   Widget build(BuildContext context) {
     return offlineWidget(context);
@@ -53,7 +53,7 @@ class _F_ActivityDetailDescription extends State<F_ActivityDetailDescription> {
             leftAction: (){
               Navigator.pop(context,true);
             },
-            primaryText: 'Activity Details',
+            primaryText: 'Entry Details',
             tabBarWidget: null,
           ),
         ),
@@ -73,12 +73,11 @@ class _F_ActivityDetailDescription extends State<F_ActivityDetailDescription> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              subtext("Date", "29/Oct/2020"),
+                              subtext("Created On", "29/Oct/2020"),
+                              subtext("Created By", "Vasanth (Manager)"),
                               subtext("Site", "Bhavani Vivan"),
                               subtext("Block", "2nd"),
-                              subtext("Category", "Iron/Steels"),
-                              subtext("Sub Category", "8Thread Tmt rods"),
-                              subtext("Uom", "tons"),
+                              subtext("Concrete Type", "Super Strong"),
                               Divider(
                                 thickness: 1,
                                 color: Colors.black45,

@@ -8,21 +8,21 @@ import 'package:vector_math/vector_math.dart' as math;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class PrintPreview extends StatelessWidget {
-@override
-Widget build(BuildContext context) {
-  return Container(
-    child: F_PrintPreview(),
-  );
-}
-}
-
-class F_PrintPreview extends StatefulWidget {
+class PrintPreviewLabour extends StatelessWidget {
   @override
-  _F_PrintPreview createState() => _F_PrintPreview();
+  Widget build(BuildContext context) {
+    return Container(
+      child: F_PrintPreviewLabour(),
+    );
+  }
 }
 
-class _F_PrintPreview extends State<F_PrintPreview> {
+class F_PrintPreviewLabour extends StatefulWidget {
+  @override
+  _F_PrintPreviewLabour createState() => _F_PrintPreviewLabour();
+}
+
+class _F_PrintPreviewLabour extends State<F_PrintPreviewLabour> {
   @override
   Widget build(BuildContext context) {
     return offlineWidget(context);
@@ -80,9 +80,9 @@ class _F_PrintPreview extends State<F_PrintPreview> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text("Plastics",style: descriptionStyleDarkBlur2,),
+                        Text("Self Employees",style: descriptionStyleDarkBlur2,),
                         Text(" | ",style: descriptionStyleDarkBlur2,),
-                        Text("231 PVC Plastics",style: descriptionStyleDarkBlur2,),
+                        Text("Vasanth Agencies",style: descriptionStyleDarkBlur2,),
                       ],
                     ),
                   ],
@@ -98,14 +98,12 @@ class _F_PrintPreview extends State<F_PrintPreview> {
                     columns: <DataColumn>[
                       DataColumn(label: Text("S.No.",style: subTitleStyle1,)),
                       DataColumn(label: Text("Date",style: subTitleStyle1,)),
-                      DataColumn(label: Text("Site",style: subTitleStyle1,)),
+                      DataColumn(label: Text("Labour Type",style: subTitleStyle1,)),
+                      DataColumn(label: Text("Construction Site",style: subTitleStyle1,)),
                       DataColumn(label: Text("Block",style: subTitleStyle1,)),
-                      DataColumn(label: Text("Category",style: subTitleStyle1,)),
-                      DataColumn(label: Text("Sub Category",style: subTitleStyle1,)),
-                      DataColumn(label: Text("UOM",style: subTitleStyle1,),),
-                      DataColumn(label: Text("yesterday progress",style: subTitleStyle1,),),
-                      DataColumn(label: Text("Total Progress",style: subTitleStyle1,)),
-                      DataColumn(label: Text("Remarks",style: subTitleStyle1,)),
+                      DataColumn(label: Text("Dealer Name",style: subTitleStyle1,)),
+                      DataColumn(label: Text("No. of People ",style: subTitleStyle1,)),
+                      DataColumn(label: Text("Propose",style: subTitleStyle1,)),
                     ],
                     rows: items
                         .map(
@@ -122,6 +120,11 @@ class _F_PrintPreview extends State<F_PrintPreview> {
                             placeholder: false,
                           ),
                           DataCell(
+                            Text(itemRow.labourType,style:descriptionStyleDark,),
+                            showEditIcon: false,
+                            placeholder: false,
+                          ),
+                          DataCell(
                             Text(itemRow.site,style:descriptionStyleDark,),
                             showEditIcon: false,
                             placeholder: false,
@@ -132,32 +135,17 @@ class _F_PrintPreview extends State<F_PrintPreview> {
                             placeholder: false,
                           ),
                           DataCell(
-                            Text(itemRow.category,style:descriptionStyleDark,),
+                            Text(itemRow.dealerName,style:descriptionStyleDark,),
                             showEditIcon: false,
                             placeholder: false,
                           ),
                           DataCell(
-                            Text(itemRow.subCategory,style:descriptionStyleDark,),
+                            Text(itemRow.noofPeople,style:descriptionStyleDark,),
                             showEditIcon: false,
                             placeholder: false,
                           ),
                           DataCell(
-                            Text(itemRow.uom,style:descriptionStyleDark,),
-                            showEditIcon: false,
-                            placeholder: false,
-                          ),
-                          DataCell(
-                            Text(itemRow.yesterdayProg,style:descriptionStyleDark,),
-                            showEditIcon: false,
-                            placeholder: false,
-                          ),
-                          DataCell(
-                            Text(itemRow.totalProg,style:descriptionStyleDark,),
-                            showEditIcon: false,
-                            placeholder: false,
-                          ),
-                          DataCell(
-                            Text(itemRow.remarks,style:descriptionStyleDark,),
+                            Text(itemRow.purpose,style:descriptionStyleDark,),
                             showEditIcon: false,
                             placeholder: false,
                           ),
@@ -182,24 +170,20 @@ class ItemInfo {
   String date;
   String site;
   String block;
-  String category;
-  String uom;
-  String subCategory;
-  String yesterdayProg;
-  String totalProg;
-  String remarks;
+  String labourType;
+  String dealerName;
+  String noofPeople;
+  String purpose;
 
   ItemInfo({
     this.slNo,
     this.date,
     this.site,
-    this.category,
-    this.uom,
     this.block,
-    this.subCategory,
-    this.yesterdayProg,
-    this.totalProg,
-    this.remarks,
+    this.labourType,
+    this.dealerName,
+    this.noofPeople,
+    this.purpose,
   });
 }
 
@@ -209,12 +193,10 @@ var items = <ItemInfo>[
       date: '29/Oct/2020',
       site: 'Bhavani Vivan',
       block: "8th",
-      category: 'Iron/Steel',
-      subCategory: 'TMT rod',
-      uom: 'Tons',
-      yesterdayProg: "20",
-      totalProg: "60",
-      remarks: 'Transfer from store to cnstruction Site'
+      labourType: "Self employees",
+      dealerName: "Vasanth Agencies",
+      noofPeople: "20",
+      purpose: "Plumbing"
 
   ),
   ItemInfo(
@@ -222,12 +204,10 @@ var items = <ItemInfo>[
       date: '29/Oct/2020',
       site: 'Bhavani Vivan',
       block: "8th",
-      category: 'Iron/Steel',
-      subCategory: 'TMT rod',
-      uom: 'Tons',
-      yesterdayProg: "20",
-      totalProg: "60",
-      remarks: 'Transfer from store to cnstruction Site'
+      labourType: "Out Sourcing employees",
+      dealerName: "Vasanth Agencies",
+      noofPeople: "20",
+      purpose: "Plumbing"
 
   ),
   ItemInfo(
@@ -235,12 +215,10 @@ var items = <ItemInfo>[
       date: '29/Oct/2020',
       site: 'Bhavani Vivan',
       block: "8th",
-      category: 'Iron/Steel',
-      subCategory: 'TMT rod',
-      uom: 'Tons',
-      yesterdayProg: "20",
-      totalProg: "60",
-      remarks: 'Transfer from store to cnstruction Site'
+      labourType: "Self employees",
+      dealerName: "Vasanth Agencies",
+      noofPeople: "20",
+      purpose: "Plumbing"
 
   ),
   ItemInfo(
@@ -248,12 +226,10 @@ var items = <ItemInfo>[
       date: '29/Oct/2020',
       site: 'Bhavani Vivan',
       block: "8th",
-      category: 'Iron/Steel',
-      subCategory: 'TMT rod',
-      uom: 'Tons',
-      yesterdayProg: "20",
-      totalProg: "60",
-      remarks: 'Transfer from store to cnstruction Site'
+      labourType: "Out Sourcing employees",
+      dealerName: "Vasanth Agencies",
+      noofPeople: "20",
+      purpose: "Plumbing"
 
   ),
   ItemInfo(
@@ -261,15 +237,11 @@ var items = <ItemInfo>[
       date: '29/Oct/2020',
       site: 'Bhavani Vivan',
       block: "8th",
-      category: 'Iron/Steel',
-      subCategory: 'TMT rod',
-      uom: 'Tons',
-      yesterdayProg: "20",
-      totalProg: "60",
-      remarks: 'Transfer from store to cnstruction Site'
+      labourType: "Self employees",
+      dealerName: "Vasanth Agencies",
+      noofPeople: "20",
+      purpose: "Plumbing"
 
   ),
 
 ];
-
-

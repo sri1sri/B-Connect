@@ -8,21 +8,21 @@ import 'package:vector_math/vector_math.dart' as math;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class PrintPreview extends StatelessWidget {
-@override
-Widget build(BuildContext context) {
-  return Container(
-    child: F_PrintPreview(),
-  );
-}
-}
-
-class F_PrintPreview extends StatefulWidget {
+class PrintPreviewConcrete extends StatelessWidget {
   @override
-  _F_PrintPreview createState() => _F_PrintPreview();
+  Widget build(BuildContext context) {
+    return Container(
+      child: F_PrintPreviewConcrete(),
+    );
+  }
 }
 
-class _F_PrintPreview extends State<F_PrintPreview> {
+class F_PrintPreviewConcrete extends StatefulWidget {
+  @override
+  _F_PrintPreviewConcrete createState() => _F_PrintPreviewConcrete();
+}
+
+class _F_PrintPreviewConcrete extends State<F_PrintPreviewConcrete> {
   @override
   Widget build(BuildContext context) {
     return offlineWidget(context);
@@ -75,14 +75,12 @@ class _F_PrintPreview extends State<F_PrintPreview> {
                   children: [
                     Text("21 October to 30 November",style: subTitleStyleDark1,),
                     SizedBox(height: 5,),
-                    Text("Bhavani Vivan (Block-1)",style: descriptionStyleDarkBlur2,),
-                    SizedBox(height: 5,),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text("Plastics",style: descriptionStyleDarkBlur2,),
+                        Text("Bhavani Vivan (Block-1)",style: descriptionStyleDarkBlur2,),
                         Text(" | ",style: descriptionStyleDarkBlur2,),
-                        Text("231 PVC Plastics",style: descriptionStyleDarkBlur2,),
+                        Text("SuperStrong",style: descriptionStyleDarkBlur2,),
                       ],
                     ),
                   ],
@@ -98,12 +96,9 @@ class _F_PrintPreview extends State<F_PrintPreview> {
                     columns: <DataColumn>[
                       DataColumn(label: Text("S.No.",style: subTitleStyle1,)),
                       DataColumn(label: Text("Date",style: subTitleStyle1,)),
-                      DataColumn(label: Text("Site",style: subTitleStyle1,)),
+                      DataColumn(label: Text("Concrete Type",style: subTitleStyle1,)),
+                      DataColumn(label: Text("Construction Site",style: subTitleStyle1,)),
                       DataColumn(label: Text("Block",style: subTitleStyle1,)),
-                      DataColumn(label: Text("Category",style: subTitleStyle1,)),
-                      DataColumn(label: Text("Sub Category",style: subTitleStyle1,)),
-                      DataColumn(label: Text("UOM",style: subTitleStyle1,),),
-                      DataColumn(label: Text("yesterday progress",style: subTitleStyle1,),),
                       DataColumn(label: Text("Total Progress",style: subTitleStyle1,)),
                       DataColumn(label: Text("Remarks",style: subTitleStyle1,)),
                     ],
@@ -122,32 +117,17 @@ class _F_PrintPreview extends State<F_PrintPreview> {
                             placeholder: false,
                           ),
                           DataCell(
+                            Text(itemRow.concType,style:descriptionStyleDark,),
+                            showEditIcon: false,
+                            placeholder: false,
+                          ),
+                          DataCell(
                             Text(itemRow.site,style:descriptionStyleDark,),
                             showEditIcon: false,
                             placeholder: false,
                           ),
                           DataCell(
                             Text(itemRow.block,style:descriptionStyleDark,),
-                            showEditIcon: false,
-                            placeholder: false,
-                          ),
-                          DataCell(
-                            Text(itemRow.category,style:descriptionStyleDark,),
-                            showEditIcon: false,
-                            placeholder: false,
-                          ),
-                          DataCell(
-                            Text(itemRow.subCategory,style:descriptionStyleDark,),
-                            showEditIcon: false,
-                            placeholder: false,
-                          ),
-                          DataCell(
-                            Text(itemRow.uom,style:descriptionStyleDark,),
-                            showEditIcon: false,
-                            placeholder: false,
-                          ),
-                          DataCell(
-                            Text(itemRow.yesterdayProg,style:descriptionStyleDark,),
                             showEditIcon: false,
                             placeholder: false,
                           ),
@@ -182,10 +162,7 @@ class ItemInfo {
   String date;
   String site;
   String block;
-  String category;
-  String uom;
-  String subCategory;
-  String yesterdayProg;
+  String concType;
   String totalProg;
   String remarks;
 
@@ -193,11 +170,8 @@ class ItemInfo {
     this.slNo,
     this.date,
     this.site,
-    this.category,
-    this.uom,
+    this.concType,
     this.block,
-    this.subCategory,
-    this.yesterdayProg,
     this.totalProg,
     this.remarks,
   });
@@ -209,10 +183,7 @@ var items = <ItemInfo>[
       date: '29/Oct/2020',
       site: 'Bhavani Vivan',
       block: "8th",
-      category: 'Iron/Steel',
-      subCategory: 'TMT rod',
-      uom: 'Tons',
-      yesterdayProg: "20",
+      concType: "Super Strong",
       totalProg: "60",
       remarks: 'Transfer from store to cnstruction Site'
 
@@ -222,10 +193,7 @@ var items = <ItemInfo>[
       date: '29/Oct/2020',
       site: 'Bhavani Vivan',
       block: "8th",
-      category: 'Iron/Steel',
-      subCategory: 'TMT rod',
-      uom: 'Tons',
-      yesterdayProg: "20",
+      concType: "Super Strong",
       totalProg: "60",
       remarks: 'Transfer from store to cnstruction Site'
 
@@ -235,10 +203,7 @@ var items = <ItemInfo>[
       date: '29/Oct/2020',
       site: 'Bhavani Vivan',
       block: "8th",
-      category: 'Iron/Steel',
-      subCategory: 'TMT rod',
-      uom: 'Tons',
-      yesterdayProg: "20",
+      concType: "Super Strong",
       totalProg: "60",
       remarks: 'Transfer from store to cnstruction Site'
 
@@ -248,10 +213,7 @@ var items = <ItemInfo>[
       date: '29/Oct/2020',
       site: 'Bhavani Vivan',
       block: "8th",
-      category: 'Iron/Steel',
-      subCategory: 'TMT rod',
-      uom: 'Tons',
-      yesterdayProg: "20",
+      concType: "Super Strong",
       totalProg: "60",
       remarks: 'Transfer from store to cnstruction Site'
 
@@ -261,10 +223,7 @@ var items = <ItemInfo>[
       date: '29/Oct/2020',
       site: 'Bhavani Vivan',
       block: "8th",
-      category: 'Iron/Steel',
-      subCategory: 'TMT rod',
-      uom: 'Tons',
-      yesterdayProg: "20",
+      concType: "Super Strong",
       totalProg: "60",
       remarks: 'Transfer from store to cnstruction Site'
 
