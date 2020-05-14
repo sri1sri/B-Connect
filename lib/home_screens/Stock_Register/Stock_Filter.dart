@@ -1,16 +1,9 @@
 import 'package:bhavani_connect/common_variables/app_colors.dart';
 import 'package:bhavani_connect/common_variables/app_fonts.dart';
-import 'package:bhavani_connect/common_variables/app_functions.dart';
-import 'package:bhavani_connect/common_widgets/custom_appbar_widget/custom_app_bar.dart';
 import 'package:bhavani_connect/common_widgets/custom_appbar_widget/custom_app_bar_2.dart';
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
-import 'package:bhavani_connect/home_screens/Stock_Register/AddNewInvoice.dart';
 import 'package:bhavani_connect/home_screens/Stock_Register/Stock_Data_List.dart';
-import 'package:bhavani_connect/home_screens/Stock_Register/detail_description.dart';
-import 'package:bhavani_connect/home_screens/Vehicle_Entry/vehicle_details_readings.dart';
-import 'package:bhavani_connect/home_screens/Vehicle_Entry/add_vehicle_details.dart';
-import 'package:calendar_timeline/calendar_timeline.dart';
-import 'package:dropdown_formfield/dropdown_formfield.dart';
+import 'package:dropdown_search/dropdownSearch.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -65,18 +58,8 @@ class _F_StockFilter extends State<F_StockFilter> {
       });
     }
   }
-  String _SellerName;
-  String _ItemName;
 
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController _sellerNameController = TextEditingController();
-  final FocusNode _sellerNameFocusNode = FocusNode();
-  final TextEditingController _itemNameController = TextEditingController();
-  final FocusNode _itemNameFocusNode = FocusNode();
-  final TextEditingController _fromDateController = TextEditingController();
-  final FocusNode _fromDateFocusNode = FocusNode();
-  final TextEditingController _toDateController = TextEditingController();
-  final FocusNode _toDateFocusNode = FocusNode();
   int _n = 0;
   @override
   Widget build(BuildContext context) {
@@ -136,105 +119,41 @@ class _F_StockFilter extends State<F_StockFilter> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text("Seller Name",style: titleStyle,),
+                              Text("Dealer Name",style: titleStyle,),
                               SizedBox(height: 15,),
-                              DropDownFormField(
-                                titleText: 'Seller Name',
-                                hintText: 'Please choose one',
-                                value: _SellerName,
-                                onSaved: (value) {
-                                  setState(() {
-                                    _SellerName = value;
-                                  });
-                                },
-                                onChanged: (value) {
-                                  setState(() {
-                                    _SellerName = value;
-                                  });
-                                },
-                                dataSource: [
-                                  {
-                                    "display": "Running",
-                                    "value": "Running",
-                                  },
-                                  {
-                                    "display": "Climbing",
-                                    "value": "Climbing",
-                                  },
-                                  {
-                                    "display": "Walking",
-                                    "value": "Walking",
-                                  },
-                                  {
-                                    "display": "Swimming",
-                                    "value": "Swimming",
-                                  },
-                                  {
-                                    "display": "Soccer Practice",
-                                    "value": "Soccer Practice",
-                                  },
-                                  {
-                                    "display": "Baseball Practice",
-                                    "value": "Baseball Practice",
-                                  },
-                                  {
-                                    "display": "Football Practice",
-                                    "value": "Football Practice",
-                                  },
-                                ],
-                                textField: 'display',
-                                valueField: 'value',
-                              ),
+                              DropdownSearch(
+                                  showSelectedItem: true,
+                                  maxHeight: 200,
+                                  mode: Mode.MENU,
+                                  items: ["Vasanth steels", "Sri Cements", "Vamsi Bricks"],
+                                  label: "Dealer Name",
+                                  onChanged: print,
+                                  selectedItem: "Choose Dealer Name",
+                                  showSearchBox: true),
+                              SizedBox(height: 20,),
+                              Text("Category",style: titleStyle,),
+                              SizedBox(height: 15,),
+                              DropdownSearch(
+                                  showSelectedItem: true,
+                                  maxHeight: 200,
+                                  mode: Mode.MENU,
+                                  items: ["Iron", "Steel", "woods","Cement"],
+                                  label: "Category",
+                                  onChanged: print,
+                                  selectedItem: "Choose Category",
+                                  showSearchBox: true),
                               SizedBox(height: 20,),
                               Text("Item Name",style: titleStyle,),
                               SizedBox(height: 15,),
-                              DropDownFormField(
-                                titleText: 'Seller Name',
-                                hintText: 'Please choose one',
-                                value: _ItemName,
-                                onSaved: (value) {
-                                  setState(() {
-                                    _ItemName = value;
-                                  });
-                                },
-                                onChanged: (value) {
-                                  setState(() {
-                                    _ItemName = value;
-                                  });
-                                },
-                                dataSource: [
-                                  {
-                                    "display": "Running",
-                                    "value": "Running",
-                                  },
-                                  {
-                                    "display": "Climbing",
-                                    "value": "Climbing",
-                                  },
-                                  {
-                                    "display": "Walking",
-                                    "value": "Walking",
-                                  },
-                                  {
-                                    "display": "Swimming",
-                                    "value": "Swimming",
-                                  },
-                                  {
-                                    "display": "Soccer Practice",
-                                    "value": "Soccer Practice",
-                                  },
-                                  {
-                                    "display": "Baseball Practice",
-                                    "value": "Baseball Practice",
-                                  },
-                                  {
-                                    "display": "Football Practice",
-                                    "value": "Football Practice",
-                                  },
-                                ],
-                                textField: 'display',
-                                valueField: 'value',
-                              ),
+                              DropdownSearch(
+                                  showSelectedItem: true,
+                                  maxHeight: 200,
+                                  mode: Mode.MENU,
+                                  items: ["Pvc plastic pipes", "8 thread TMT rods", "28 logs of wooden tile"],
+                                  label: "Item Name",
+                                  onChanged: print,
+                                  selectedItem: "Choose Item Name",
+                                  showSearchBox: true),
                               SizedBox(height: 20,),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -312,10 +231,10 @@ class _F_StockFilter extends State<F_StockFilter> {
                               width: 180,
                               child: GestureDetector(
                                 onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => StockDataList(),),
-                      );
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) => StockDataList(),),
+                                  );
                                 },
                                 child: Container(
                                   decoration: BoxDecoration(
@@ -352,3 +271,4 @@ class _F_StockFilter extends State<F_StockFilter> {
     );
   }
 }
+

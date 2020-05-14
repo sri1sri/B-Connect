@@ -1,7 +1,6 @@
 import 'package:bhavani_connect/common_variables/app_colors.dart';
 import 'package:bhavani_connect/common_variables/app_fonts.dart';
 import 'package:bhavani_connect/common_variables/app_functions.dart';
-import 'package:bhavani_connect/common_widgets/custom_appbar_widget/custom_app_bar.dart';
 import 'package:bhavani_connect/common_widgets/custom_appbar_widget/custom_app_bar_2.dart';
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
 import 'package:bhavani_connect/home_screens/Stock_Register/AddNewInvoice.dart';
@@ -42,7 +41,7 @@ class _F_DetailDescription extends State<F_DetailDescription> {
 
   Widget _buildContent(BuildContext context) {
     return Scaffold(
-      backgroundColor: backgroundColor,
+        backgroundColor: backgroundColor,
         appBar: PreferredSize(
           preferredSize:
           Size.fromHeight(70),
@@ -62,61 +61,63 @@ class _F_DetailDescription extends State<F_DetailDescription> {
             tabBarWidget: null,
           ),
         ),
-      body:ClipRRect(
-        borderRadius: BorderRadius.only(
-            topRight: Radius.circular(50.0),
-            topLeft: Radius.circular(50.0)),
-        child: Container(
-            color: Colors.white,
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                SizedBox(height: 20,),
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
+        body:ClipRRect(
+          borderRadius: BorderRadius.only(
+              topRight: Radius.circular(50.0),
+              topLeft: Radius.circular(50.0)),
+          child: Container(
+              color: Colors.white,
+              child: SingleChildScrollView(
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      subtext("Date", "29/Oct/2020"),
-                      subtext("Item\nDescription", "28 Tons of TMT rods"),
-                      subtext("Uom", "tons"),
-                      subtext("Supplier name", "Vasanth Steels"),
-                      subtext("Invoice No.\n& Date", "63746 - 29/Oct/2020"),
-                      subtext("Received Quantity", "440"),
-                      subtext("Issued Quantity", "340"),
-                      subtext("Balance Quantity", "100"),
-                      subtext("Rate", "₹4732.00"),
-                      subtext("Sub Total", "₹4732.00"),
-                      subtext("GST Amount", "₹222.00"),
-                      Divider(
-                        thickness: 1,
-                        color: Colors.black54,
-                      ),
-                      totalsubtext("Total Amount","₹33,732.00"),
-                      Divider(
-                        thickness: 1,
-                        color: Colors.black54,
-                      ),
-                      Padding(
-                        padding: EdgeInsets.all(5),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text("Remarks:",style: subTitleStyle ,),
-                            SizedBox(height: 5,),
-                            Text("Transfer from store to construction site",style: descriptionStyleDarkBlur1,)
-                          ],
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        SizedBox(height: 20,),
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              subtext("Date", "29/Oct/2020"),
+                              subtext("Site", "Bhavani Vivan"),
+                              subtext("Item\nDescription", "28 Tons of TMT rods"),
+                              subtext("Category", "Iron/Steel"),
+                              subtext("Uom", "tons"),
+                              subtext("Supplier name", "Vasanth Steels"),
+                              subtext("Invoice No.\n& Date", "63746 - 29/Oct/2020"),
+                              subtext("Received Quantity", "440"),
+                              subtext("Issued Quantity", "340"),
+                              subtext("Balance Quantity", "100"),
+                              subtext("Rate", "₹4732.00"),
+                              subtext("Sub Total", "₹4732.00"),
+                              subtext("GST Amount", "₹222.00"),
+                              Divider(
+                                thickness: 1,
+                                color: Colors.black54,
+                              ),
+                              totalsubtext("Total Amount","₹33,732.00"),
+                              Divider(
+                                thickness: 1,
+                                color: Colors.black54,
+                              ),
+                              Padding(
+                                padding: EdgeInsets.all(5),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text("Remarks:",style: subTitleStyle ,),
+                                    SizedBox(height: 5,),
+                                    Text("Transfer from store to construction site",style: descriptionStyleDarkBlur1,)
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-              ],
-            ),
-    ),
-                SizedBox(height: 150,),
-    ]
-    )
-    )),
-      )
+                        SizedBox(height: 150,),
+                      ]
+                  )
+              )),
+        )
     );
   }
 }
@@ -158,5 +159,4 @@ Widget totalsubtext(String _left, String _right) {
     ),
   );
 }
-
 

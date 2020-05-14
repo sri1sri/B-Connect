@@ -1,10 +1,7 @@
 import 'package:bhavani_connect/common_variables/app_colors.dart';
 import 'package:bhavani_connect/common_variables/app_fonts.dart';
-import 'package:bhavani_connect/common_widgets/custom_appbar_widget/custom_app_bar.dart';
 import 'package:bhavani_connect/common_widgets/custom_appbar_widget/custom_app_bar_2.dart';
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
-import 'package:calendar_timeline/calendar_timeline.dart';
-import 'package:vector_math/vector_math.dart' as math;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -23,8 +20,6 @@ class F_StockDataList extends StatefulWidget {
 }
 
 class _F_StockDataList extends State<F_StockDataList> {
-  var dts = DTS();
-  int _rowPerPage = PaginatedDataTable.defaultRowsPerPage;
   @override
   Widget build(BuildContext context) {
     return offlineWidget(context);
@@ -69,51 +64,144 @@ class _F_StockDataList extends State<F_StockDataList> {
           color: Colors.white,
           child: SingleChildScrollView(
             child: Column(
-              children: [
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
                 SizedBox(height: 20,),
-                PaginatedDataTable(
-                  header: Column(
-                    children: [
-                      Text("23 Mar to 29 April",style: subTitleStyleDark1,),
-                      SizedBox(height: 5,),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text("Vasanth Steels",style: descriptionStyleDarkBlur2,),
-                          Text(" | ",style: descriptionStyleDarkBlur2,),
-                          Text("PVC23 Plastics",style: descriptionStyleDarkBlur2,)
+                Column(
+                  children: [
+                    Text("23 Mar to 29 April",style: subTitleStyleDark1,),
+                    SizedBox(height: 5,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text("Vasanth Steels",style: descriptionStyleDarkBlur2,),
+                        Text(" | ",style: descriptionStyleDarkBlur2,),
+                        Text("PVC23 Plastics",style: descriptionStyleDarkBlur2,),
+                        Text(" | ",style: descriptionStyleDarkBlur2,),
+                        Text("Plastics",style: descriptionStyleDarkBlur2,)
+                      ],
+                    ),
+                  ],
+                ),
+                SizedBox(height: 20,),
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: DataTable(
+                    onSelectAll: (b) {},
+                    sortAscending: true,
+                    showCheckboxColumn: false,
+                    dataRowHeight: 70.0,
+                    columns: <DataColumn>[
+                      DataColumn(label: Text("S.No.",style: subTitleStyle1,)),
+                      DataColumn(label: Text("Date",style: subTitleStyle1,)),
+                      DataColumn(label: Text("Site",style: subTitleStyle1,)),
+                      DataColumn(label: Text("Item Description",style: subTitleStyle1,)),
+                      DataColumn(label: Text("Category",style: subTitleStyle1,)),
+                      DataColumn(label: Text("Uom",style: subTitleStyle1,)),
+                      DataColumn(label: Text("Dealer Name",style: subTitleStyle1,),),
+                      DataColumn(label: Text("Invoice No. & Date",style: subTitleStyle1,),),
+                      DataColumn(label: Text("Received Quantity",style: subTitleStyle1,)),
+                      DataColumn(label: Text("Issued Quantity",style: subTitleStyle1,)),
+                      DataColumn(label: Text("Balance Quantity",style: subTitleStyle1,)),
+                      DataColumn(label: Text("Rate",style: subTitleStyle1,)),
+                      DataColumn(label: Text("Sub Total",style: subTitleStyle1,)),
+                      DataColumn(label: Text("GST Amount",style: subTitleStyle1,)),
+                      DataColumn(label: Text("Total Amount",style: subTitleStyle1,)),
+                      DataColumn(label: Text("Remarks",style: subTitleStyle1,)),
+                    ],
+                    rows: items
+                        .map(
+                          (itemRow) => DataRow(onSelectChanged: (b) {},
+                        cells: [
+                          DataCell(
+                            Text(itemRow.slNo,style:descriptionStyleDark,),
+                            showEditIcon: false,
+                            placeholder: false,
+                          ),
+                          DataCell(
+                            Text(itemRow.date,style:descriptionStyleDark,),
+                            showEditIcon: false,
+                            placeholder: false,
+                          ),
+                          DataCell(
+                            Text(itemRow.site,style:descriptionStyleDark,),
+                            showEditIcon: false,
+                            placeholder: false,
+                          ),
+                          DataCell(
+                            Text(itemRow.itemDescription,style:descriptionStyleDark,),
+                            showEditIcon: false,
+                            placeholder: false,
+                          ),
+                          DataCell(
+                            Text(itemRow.category,style:descriptionStyleDark,),
+                            showEditIcon: false,
+                            placeholder: false,
+                          ),
+                          DataCell(
+                            Text(itemRow.umo,style:descriptionStyleDark,),
+                            showEditIcon: false,
+                            placeholder: false,
+                          ),
+                          DataCell(
+                            Text(itemRow.supplierName,style:descriptionStyleDark,),
+                            showEditIcon: false,
+                            placeholder: false,
+                          ),
+                          DataCell(
+                            Text(itemRow.invoiceNo,style:descriptionStyleDark,),
+                            showEditIcon: false,
+                            placeholder: false,
+                          ),
+                          DataCell(
+                            Text(itemRow.receivedQty,style:descriptionStyleDark,),
+                            showEditIcon: false,
+                            placeholder: false,
+                          ),
+                          DataCell(
+                            Text(itemRow.issuedQty,style:descriptionStyleDark,),
+                            showEditIcon: false,
+                            placeholder: false,
+                          ),
+                          DataCell(
+                            Text(itemRow.balanceQty,style:descriptionStyleDark,),
+                            showEditIcon: false,
+                            placeholder: false,
+                          ),
+                          DataCell(
+                            Text(itemRow.rate,style:descriptionStyleDark,),
+                            showEditIcon: false,
+                            placeholder: false,
+                          ),
+                          DataCell(
+                            Text(itemRow.subTotal,style:descriptionStyleDark,),
+                            showEditIcon: false,
+                            placeholder: false,
+                          ),
+                          DataCell(
+                            Text(itemRow.gstAmount,style:descriptionStyleDark,),
+                            showEditIcon: false,
+                            placeholder: false,
+                          ),
+                          DataCell(
+                            Text(itemRow.totalAmt,style:descriptionStyleDark,),
+                            showEditIcon: false,
+                            placeholder: false,
+                          ),
+                          DataCell(
+                            Text(itemRow.remarks,style:descriptionStyleDark,),
+                            showEditIcon: false,
+                            placeholder: false,
+                          ),
                         ],
                       ),
-                    ],
+                    )
+                        .toList(),
                   ),
-                  dataRowHeight: 70.0,
-                  columns: [
-                    DataColumn(label: Text("Date",style: subTitleStyle1,)),
-                    DataColumn(label: Text("Item Description",style: subTitleStyle1,),),
-                    DataColumn(label: Text("Uom",style: subTitleStyle1,)),
-                    DataColumn(label: Text("Supplier Name",style: subTitleStyle1,)),
-                    DataColumn(label: Text("Invoice No. & Date",style: subTitleStyle1,)),
-                    DataColumn(label: Text("Received Quantity",style: subTitleStyle1,)),
-                    DataColumn(label: Text("Issued Quantity",style: subTitleStyle1,)),
-                    DataColumn(label: Text("Balance Quantity",style: subTitleStyle1,)),
-                    DataColumn(label: Text("Rate",style: subTitleStyle1,)),
-                    DataColumn(label: Text("Sub Total",style: subTitleStyle1,)),
-                    DataColumn(label: Text("GST",style: subTitleStyle1,)),
-                    DataColumn(label: Text("Total Amount (Including GST)",style: subTitleStyle1,)),
-                    DataColumn(label: Text("Remarks",style: subTitleStyle1,)),
-                  ],
-                  source: dts,
-                  onRowsPerPageChanged: (r){
-                    setState(() {
-                      _rowPerPage = r;
-                    });
-                  },
-                  rowsPerPage: _rowPerPage,
                 ),
-                SizedBox(height: 300,)
-
+                SizedBox(height: 500,)
               ],
-            )
+            ),
           ),
         ),
       ),
@@ -121,37 +209,138 @@ class _F_StockDataList extends State<F_StockDataList> {
   }
 }
 
-class DTS extends DataTableSource{
-  @override
-  DataRow getRow(int index) {
-    return DataRow.byIndex(index:index,cells: [
-      DataCell(Text("03/01/202$index",style:descriptionStyleDark,)),
-      DataCell(Text("PVC pipes & Plasters",style:descriptionStyleDark,)),
-      DataCell(Text("Nos",style:descriptionStyleDark,)),
-      DataCell(Text("Vasanth Pastics",style:descriptionStyleDark,)),
-      DataCell(Text("2424-24/02/2020",style:descriptionStyleDark,)),
-      DataCell(Text("800",style:descriptionStyleDark,)),
-      DataCell(Text("650",style:descriptionStyleDark,)),
-      DataCell(Text("150",style:descriptionStyleDark,)),
-      DataCell(Text("₹4,732.00",style:descriptionStyleDark,)),
-      DataCell(Text("₹4,722.00",style:descriptionStyleDark,)),
-      DataCell(Text("₹732.00",style:descriptionStyleDark,)),
-      DataCell(Text("₹24,732.00",style:descriptionStyleDark,)),
-      DataCell(Text("Transfer from store to construction site",style:descriptionStyleDark,)),
-    ]);
-  }
+class ItemInfo {
+  String slNo;
+  String date;
+  String site;
+  String itemDescription;
+  String category;
+  String umo;
+  String supplierName;
+  String invoiceNo;
+  String receivedQty;
+  String issuedQty;
+  String balanceQty;
+  String rate;
+  String subTotal;
+  String gstAmount;
+  String totalAmt;
+  String remarks;
 
-  @override
-  // TODO: implement isRowCountApproximate
-  bool get isRowCountApproximate => true;
-
-  @override
-  // TODO: implement rowCount
-  int get rowCount => 100;
-
-  @override
-  // TODO: implement selectedRowCount
-  int get selectedRowCount => 0;
-
+  ItemInfo({
+    this.slNo,
+    this.date,
+    this.site,
+    this.itemDescription,
+    this.category,
+    this.umo,
+    this.supplierName,
+    this.invoiceNo,
+    this.receivedQty,
+    this.issuedQty,
+    this.balanceQty,
+    this.rate,
+    this.subTotal,
+    this.gstAmount,
+    this.totalAmt,
+    this.remarks,
+  });
 }
 
+var items = <ItemInfo>[
+  ItemInfo(
+      slNo: '1',
+      date: '29/Oct/2020',
+      site: 'Bhavani Vivan',
+      itemDescription: '28 Tons of TMT rods',
+      category: 'Iron/Steel',
+      umo: 'Tons',
+      supplierName: 'Vasanth Steels',
+      invoiceNo: '54569 - 29/Oct/2020',
+      receivedQty: '440',
+      issuedQty: '340',
+      balanceQty: '100',
+      rate:'₹4732.00',
+      subTotal: '₹4732.00',
+      gstAmount: '₹32.00',
+      totalAmt: '₹34,732.00',
+      remarks: 'Transfer from store to cnstruction Site'
+
+  ),
+  ItemInfo(
+      slNo: '2',
+      date: '29/Oct/2020',
+      site: 'Bhavani Vivan',
+      itemDescription: '28 Tons of TMT rods',
+      category: 'Iron/Steel',
+      umo: 'Tons',
+      supplierName: 'Vasanth Steels',
+      invoiceNo: '54569 - 29/Oct/2020',
+      receivedQty: '440',
+      issuedQty: '340',
+      balanceQty: '100',
+      rate:'₹4732.00',
+      subTotal: '₹4732.00',
+      gstAmount: '₹32.00',
+      totalAmt: '₹34,732.00',
+      remarks: 'Transfer from store to cnstruction Site'
+
+  ),
+  ItemInfo(
+      slNo: '3',
+      date: '29/Oct/2020',
+      site: 'Bhavani Vivan',
+      itemDescription: '28 Tons of TMT rods',
+      category: 'Iron/Steel',
+      umo: 'Tons',
+      supplierName: 'Vasanth Steels',
+      invoiceNo: '54569 - 29/Oct/2020',
+      receivedQty: '440',
+      issuedQty: '340',
+      balanceQty: '100',
+      rate:'₹4732.00',
+      subTotal: '₹4732.00',
+      gstAmount: '₹32.00',
+      totalAmt: '₹34,732.00',
+      remarks: 'Transfer from store to cnstruction Site'
+
+  ),
+  ItemInfo(
+      slNo: '4',
+      date: '29/Oct/2020',
+      site: 'Bhavani Vivan',
+      itemDescription: '28 Tons of TMT rods',
+      category: 'Iron/Steel',
+      umo: 'Tons',
+      supplierName: 'Vasanth Steels',
+      invoiceNo: '54569 - 29/Oct/2020',
+      receivedQty: '440',
+      issuedQty: '340',
+      balanceQty: '100',
+      rate:'₹4732.00',
+      subTotal: '₹4732.00',
+      gstAmount: '₹32.00',
+      totalAmt: '₹34,732.00',
+      remarks: 'Transfer from store to cnstruction Site'
+
+  ),
+  ItemInfo(
+      slNo: '5',
+      date: '29/Oct/2020',
+      site: 'Bhavani Vivan',
+      itemDescription: '28 Tons of TMT rods',
+      category: 'Iron/Steel',
+      umo: 'Tons',
+      supplierName: 'Vasanth Steels',
+      invoiceNo: '54569 - 29/Oct/2020',
+      receivedQty: '440',
+      issuedQty: '340',
+      balanceQty: '100',
+      rate:'₹4732.00',
+      subTotal: '₹4732.00',
+      gstAmount: '₹32.00',
+      totalAmt: '₹34,732.00',
+      remarks: 'Transfer from store to cnstruction Site'
+
+  ),
+];
