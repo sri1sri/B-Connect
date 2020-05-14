@@ -56,126 +56,135 @@ class _PhoneNumberPageState extends State<PhoneNumberPage> {
   }
 
   Widget _buildContent(BuildContext context) {
-    return TransparentLoading(
-      loading: false,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: <Widget>[
-          Column(
-            children: <Widget>[],
-          ),
-          Column(
-            children: <Widget>[
-              Text(
-                'Enter Mobile Number',
-                style: titleStyle,
-                textAlign: TextAlign.center,
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Text(
-                'To create an Account or SignIn \nuse your phone number.',
-                style: descriptionStyle,
-                textAlign: TextAlign.center,
-              ),
-            ],
-          ),
-          Column(
-            children: <Widget>[],
-          ),
-          Column(
-            children: <Widget>[
-              new TextFormField(
-                controller: _phoneNumberController,
-                textInputAction: TextInputAction.done,
-                obscureText: false,
-                focusNode: _phoneNumberFocusNode,
-                onEditingComplete: () => _submit(context),
-                onChanged: (text) {},
-                decoration: new InputDecoration(
-                  prefixIcon: Icon(
-                    Icons.phone,
-                    color: backgroundColor,
-                  ),
-                  labelText: "Enter your mobile no.",
-                  //fillColor: Colors.redAccent,
-                  border: new OutlineInputBorder(
-                    borderRadius: new BorderRadius.circular(5.0),
-                    borderSide: new BorderSide(),
-                  ),
+    return BlocListener<AuthenticationBloc, AuthenticationState>(
+      listener: (BuildContext context, AuthenticationState state) {
+        if (state is PhoneNumberVerified)
+          context.bloc<AuthenticationBloc>().gotoOtpPage(
+              phoneNumber: state.phoneNumber, isNewUser: state.isNewUser);
+      },
+      child: BlocBuilder<AuthenticationBloc, AuthenticationState>(
+        builder: (BuildContext context, state) {
+          bool isLoading = state is PhoneNumberLoading;
+          return TransparentLoading(
+            loading: isLoading,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: <Widget>[
+                Column(
+                  children: <Widget>[],
                 ),
-                validator: (val) {
-                  if (val.length == 0) {
-                    return "Phone number cannot be empty";
-                  } else if (val.length == 10) {
-                    return null;
-                  } else {
-                    return "Phone number you entered is invalid.";
-                  }
-                },
-                keyboardType: TextInputType.phone,
-                style: new TextStyle(
-                  fontFamily: "Poppins",
+                Column(
+                  children: <Widget>[
+                    Text(
+                      'Enter Mobile Number',
+                      style: titleStyle,
+                      textAlign: TextAlign.center,
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      'To create an Account or SignIn \nuse your phone number.',
+                      style: descriptionStyle,
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
                 ),
-              ),
-              SizedBox(height: 20.0),
-              ToDoButton(
-                assetName: 'images/googl-logo.png',
-                text: 'Get OTP',
-                textColor: Colors.white,
-                backgroundColor: activeButtonBackgroundColor,
-                onPressed: () {
-                  _submit(context);
-                },
-              ),
-              SizedBox(height: 10.0),
-              ToDoButton(
-                assetName: 'images/googl-logo.png',
-                text: 'back',
-                textColor: Colors.black,
-                backgroundColor: Colors.white,
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-            ],
-          ),
-        ],
+                Column(
+                  children: <Widget>[],
+                ),
+                Column(
+                  children: <Widget>[
+                    new TextFormField(
+                      controller: _phoneNumberController,
+                      textInputAction: TextInputAction.done,
+                      obscureText: false,
+                      focusNode: _phoneNumberFocusNode,
+                      onEditingComplete: () => _submit(context,
+                          phoneNumber: _phoneNumberController?.value?.text),
+                      onChanged: (text) {},
+                      decoration: new InputDecoration(
+                        prefixIcon: Icon(
+                          Icons.phone,
+                          color: backgroundColor,
+                        ),
+                        labelText: "Enter your mobile no.",
+                        //fillColor: Colors.redAccent,
+                        border: new OutlineInputBorder(
+                          borderRadius: new BorderRadius.circular(5.0),
+                          borderSide: new BorderSide(),
+                        ),
+                      ),
+                      validator: (val) {
+                        if (val.length == 0) {
+                          return "Phone number cannot be empty";
+                        } else if (val.length == 10) {
+                          return null;
+                        } else {
+                          return "Phone number you entered is invalid.";
+                        }
+                      },
+                      keyboardType: TextInputType.phone,
+                      style: new TextStyle(
+                        fontFamily: "Poppins",
+                      ),
+                    ),
+                    SizedBox(height: 20.0),
+                    ToDoButton(
+                      assetName: 'images/googl-logo.png',
+                      text: 'Get OTP',
+                      textColor: Colors.white,
+                      backgroundColor: activeButtonBackgroundColor,
+                      onPressed: () {
+                        _submit(context,
+                            phoneNumber: _phoneNumberController.value.text);
+                      },
+                    ),
+                    SizedBox(height: 10.0),
+                    ToDoButton(
+                      assetName: 'images/googl-logo.png',
+                      text: 'back',
+                      textColor: Colors.black,
+                      backgroundColor: Colors.white,
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          );
+        },
       ),
     );
   }
 
-  Future<void> _submit(BuildContext context) async {
+  Future<void> _submit(BuildContext context, {String phoneNumber}) async {
     try {
-      await Firestore.instance
+      Firestore.instance
           .collection('employees')
           .where('employee_contact_number',
-          isEqualTo: '+91${_phoneNumberController.value.text}')
+              isEqualTo: '+91${_phoneNumberController.value.text}')
           .snapshots()
-          .listen((data) =>
-      {
-        print('data=${data}'),
-        if (data.documents.length == 0)
-          {
-//              model.submit(),
-            _authenticationBloc.gotoOtpPage(
-                phoneNumber: _phoneNumberController.value.text,
-                isNewUser: true)
-          }
-        else
-          {
-//              model.submit(),
-            _authenticationBloc.gotoOtpPage(
-                phoneNumber: _phoneNumberController.value.text,
-                isNewUser: false),
-          }
-      });
+          .listen((data) => onData(data, phoneNumber: phoneNumber));
     } on PlatformException catch (e) {
       PlatformExceptionAlertDialog(
         title: 'Phone number failed',
         exception: e,
       ).show(context);
+    }
+  }
+
+  onData(QuerySnapshot data, {String phoneNumber}) {
+    if (data.documents.length == 0) {
+      context
+          .bloc<AuthenticationBloc>()
+          .add(SubmitPhoneNumber(phoneNumber: phoneNumber, isNewUser: true));
+    } else {
+      context
+          .bloc<AuthenticationBloc>()
+          .add(SubmitPhoneNumber(phoneNumber: phoneNumber, isNewUser: false));
     }
   }
 }

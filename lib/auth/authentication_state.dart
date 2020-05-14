@@ -12,3 +12,20 @@ class Authenticated extends AuthenticationState {}
 class Unauthenticated extends AuthenticationState {}
 
 class Loading extends AuthenticationState {}
+
+class Verified extends AuthenticationState {}
+
+class OtpVerified extends AuthenticationState {}
+
+class PhoneNumberVerified extends AuthenticationState {
+  final String phoneNumber;
+  final bool isNewUser;
+
+  PhoneNumberVerified({this.phoneNumber, this.isNewUser});
+}
+
+class UnVerified extends AuthenticationState {}
+
+class OtpStateLoading extends AuthenticationState {}
+
+class PhoneNumberLoading extends AuthenticationState {}

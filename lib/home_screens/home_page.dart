@@ -1,14 +1,18 @@
+import 'package:bhavani_connect/auth/bloc.dart';
+import 'package:bhavani_connect/dashboard/dashboard_bloc.dart';
+import 'package:bhavani_connect/dashboard/dashboard_extras.dart';
+import 'package:bhavani_connect/dashboard/dashboard_page.dart';
 import 'package:bhavani_connect/firebase/database.dart';
-import 'package:bhavani_connect/home_screens/dashboard.dart';
 import 'package:bhavani_connect/home_screens/profile.dart';
+import 'package:bhavani_connect/landing/landing_bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
 import 'package:bhavani_connect/common_widgets/navigationBar.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -28,6 +32,13 @@ class F_HomePage extends StatefulWidget {
 
 class _F_HomePageState extends State<F_HomePage> {
   int currentIndex = 0;
+  AuthenticationBloc authenticationBloc;
+
+  @override
+  void initState() {
+    authenticationBloc = this.context.bloc<AuthenticationBloc>();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,17 +58,17 @@ class _F_HomePageState extends State<F_HomePage> {
 
   Widget _buildContent(BuildContext context) {
     Widget child;
-    final database = Provider.of<Database>(context, listen: false);
+//    final database = Provider.of<Database>(context, listen: false);
 
     switch (currentIndex) {
       case 0:
-        child = Dashboard(
-          database: database,
+        child = BlocProvider(
+          create: (context) => DashboardBloc(authenticationBloc: this.context.bloc<AuthenticationBloc>()),
+          child: DashboardPage(),
         );
         break;
       case 1:
-        child = ProfilePage(
-            database: database);
+        child = ProfilePage();
         break;
     }
     return Scaffold(
@@ -69,9 +80,10 @@ class _F_HomePageState extends State<F_HomePage> {
         showElevation: true,
         itemCornerRadius: 8,
         curve: Curves.easeInBack,
-        onItemSelected: (index) => setState(() {
-          currentIndex = index;
-        }),
+        onItemSelected: (index) =>
+            setState(() {
+              currentIndex = index;
+            }),
         items: [
           BottomNavyBarItem(
             icon: Icon(Icons.dashboard),

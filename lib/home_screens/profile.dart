@@ -25,22 +25,17 @@ Future<void> _signOut(BuildContext context) async {
 
 
 class ProfilePage extends StatelessWidget {
-  ProfilePage({@required this.database});
-  Database database;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: F_ProfilePage(
-          database: database),
+      child: F_ProfilePage(),
     );
   }
 }
 
 class F_ProfilePage extends StatefulWidget {
-  F_ProfilePage({@required this.database});
-  Database database;
-  String employeeName ;
+  String employeeName  = 'Test';
 
   @override
   _F_ProfilePageState createState() => _F_ProfilePageState();
@@ -101,11 +96,6 @@ class _F_ProfilePageState extends State<F_ProfilePage> {
   }
 
   Widget _buildContent(BuildContext context) {
-    return StreamBuilder<EmployeeDetails>(
-        stream: widget.database.readEmployee(EMPLOYEE_ID),
-        builder: (context, snapshot) {
-          final employee = snapshot.data;
-
           return SingleChildScrollView(
             child: Center(
               child:
@@ -151,14 +141,18 @@ class _F_ProfilePageState extends State<F_ProfilePage> {
                                                 height: 70,
                                               ),
                                               Text(
-                                                 (employee == null ? "" : employee.username),
+//                                                 (employee == null ? "" : employee.username),
+                                                'test',
+
                                                 style: titleStyle,
                                               ),
                                               SizedBox(
                                                 height: 5,
                                               ),
                                               Text(
-                                                (employee == null ? "" : employee.phoneNumber),
+//                                                (employee == null ? "" : employee.phoneNumber),
+                                                'test',
+
                                                 style: descriptionStyleDark,
                                               ),
                                               SizedBox(
@@ -180,7 +174,9 @@ class _F_ProfilePageState extends State<F_ProfilePage> {
                                                         height: 5,
                                                       ),
                                                       Text(
-                                                          (employee == null ? "" : employee.role),
+//                                                          (employee == null ? "" : employee.role),
+                                                          'test',
+
                                                           style:
                                                           descriptionStyleDark),
                                                     ],
@@ -238,14 +234,15 @@ class _F_ProfilePageState extends State<F_ProfilePage> {
                                   right: 120.0,
                                   top: 30.0,
                                   bottom: 230.0,
-                                  child: (employee == null ? "" : employee.employeeImagePath) == null ? CircleAvatar(
+                                  child:true ? CircleAvatar(
                                     radius: 30.0,
                                     backgroundColor: Colors.grey[200],
                                   ) : CircleAvatar(
                                     radius: 30.0,
                                     backgroundColor: Colors.grey[200],
                                     backgroundImage:
-                                        NetworkImage((employee == null ? "" : employee.employeeImagePath)),
+//                                        NetworkImage((employee == null ? "" : employee.employeeImagePath)),
+                                        NetworkImage(''),
                                   ),
                                 ),
                               ]),
@@ -279,7 +276,9 @@ class _F_ProfilePageState extends State<F_ProfilePage> {
                                   height: 5,
                                 ),
                                 Text(
-                                  '${getDate((employee == null ? 0 : employee.dateOfBirth.seconds))}',
+//                                  '${getDate((employee == null ? 0 : employee.dateOfBirth.seconds))}',
+                                  'test',
+
                                   style: subTitleStyle,
                                 ),
                                 SizedBox(
@@ -290,8 +289,10 @@ class _F_ProfilePageState extends State<F_ProfilePage> {
                                   height: 5,
                                 ),
                                 Text(
-                                  (employee == null ? "" : employee.gender),
+//                                  (employee == null ? "" : employee.gender),
                                   //'${employee.employeeGender}',
+                                  'test',
+
                                   style: subTitleStyle,
                                 ),
                                 SizedBox(
@@ -302,7 +303,9 @@ class _F_ProfilePageState extends State<F_ProfilePage> {
                                   height: 5,
                                 ),
                                 Text(
-                                  '${getDate((employee == null ? 0 : employee.joinedDate.seconds))}',
+//                                  '${getDate((employee == null ? 0 : employee.joinedDate.seconds))}',
+                                  'test',
+
                                   style: subTitleStyle,
                                 ),
                                 SizedBox(
@@ -313,7 +316,8 @@ class _F_ProfilePageState extends State<F_ProfilePage> {
                                   height: 5,
                                 ),
                                 Text(
-                                  'Not Menttioned${(employee == null ? "" : employee.latitude)}',
+//                                  'Not Menttioned${(employee == null ? "" : employee.latitude)}',
+                                  'test',
                                   style: subTitleStyle,
                                 ),
                               ]),
@@ -329,6 +333,5 @@ class _F_ProfilePageState extends State<F_ProfilePage> {
               ),
             ),
           );
-        });
   }
 }

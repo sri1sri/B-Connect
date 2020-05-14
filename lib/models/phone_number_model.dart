@@ -20,7 +20,7 @@ class PhoneNumberModel with PhoneNumberValidator, ChangeNotifier {
   Future <void> submit() async {
     updateWith(submitted: true, isLoading: true);
     try {
-      print('${phoneNumber} <- number');
+      print('$phoneNumber <- number');
       await auth.verifyPhoneNumber(phoneNumber);
     } catch (e) {
       rethrow;

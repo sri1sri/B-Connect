@@ -1,25 +1,29 @@
+import 'package:bhavani_connect/auth/bloc.dart';
 import 'package:bhavani_connect/common_widgets/custom_appbar_widget/custom_app_bar.dart';
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
 import 'package:bhavani_connect/common_widgets/platform_alert/platform_alert_dialog.dart';
 import 'package:bhavani_connect/firebase/auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'Settings_Options/how_to_use.dart';
 import 'Settings_Options/privacy_policy.dart';
 import 'Settings_Options/terms_conditions.dart';
 
-Future<void> _signOut(BuildContext context) async {
+Future<void> _signOut(BuildContext context, AuthenticationBloc authenticationBloc) async {
   try {
-    final auth = Provider.of<AuthBase>(context, listen: false);
-    await auth.signOut();
+//    final auth = Provider.of<AuthBase>(context, listen: false);
+//    await auth.signOut();
+//     AuthenticationBloc auth =  BlocProvider.of<AuthenticationBloc>(context);
+    authenticationBloc.signOut();
     Navigator.of(context).pop();
   } catch (e) {
     print(e.toString());
   }
 }
 
-Future<void> _confirmSignOut(BuildContext context) async {
+Future<void> _confirmSignOut(BuildContext context, AuthenticationBloc authenticationBloc) async {
   final didRequestSignOut = await PlatformAlertDialog(
     title: 'Logout',
     content: 'Are you sure that you want to logout?',
@@ -27,12 +31,11 @@ Future<void> _confirmSignOut(BuildContext context) async {
     cancelActionText: 'Cancel',
   ).show(context);
   if (didRequestSignOut == true) {
-    _signOut(context);
+    _signOut(context, authenticationBloc);
   }
 }
 
 class SettingsPage extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -42,27 +45,32 @@ class SettingsPage extends StatelessWidget {
 }
 
 class F_SettingsPage extends StatefulWidget {
-
   @override
   _F_SettingsPageState createState() => _F_SettingsPageState();
 }
 
 class _F_SettingsPageState extends State<F_SettingsPage> {
+  AuthenticationBloc _authenticationBloc;
+
+  @override
+  void initState() {
+    _authenticationBloc = context.bloc<AuthenticationBloc>();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return offlineWidget( context );
+    return offlineWidget(context);
   }
 
   Widget offlineWidget(BuildContext context) {
     return CustomOfflineWidget(
       onlineChild: Padding(
-        padding: const EdgeInsets.fromLTRB( 0,0,0,0 ),
+        padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
         child: Scaffold(
           backgroundColor: Colors.white,
-
-          appBar:
-          PreferredSize(
-            preferredSize: Size.fromHeight( 119 ),
+          appBar: PreferredSize(
+            preferredSize: Size.fromHeight(119),
             child: CustomAppBar(
               leftActionBar: Container(
                 child: Icon(
@@ -75,16 +83,18 @@ class _F_SettingsPageState extends State<F_SettingsPage> {
                 Navigator.pop(context, true);
               },
               rightActionBar: Padding(
-                padding: const EdgeInsets.only(top:15.0,),
+                padding: const EdgeInsets.only(
+                  top: 15.0,
+                ),
                 child: Container(
                     child: FlatButton(
-                      onPressed: () {
-                        print('clearing notification');
-                      },
-                      child: Text(
-                        "",
-                      ),
-                    )),
+                  onPressed: () {
+                    print('clearing notification');
+                  },
+                  child: Text(
+                    "",
+                  ),
+                )),
               ),
               rightAction: () {
                 print('right action bar is pressed in appbar');
@@ -94,56 +104,49 @@ class _F_SettingsPageState extends State<F_SettingsPage> {
               tabBarWidget: null,
             ),
           ),
-          body: _buildContent( context ),
+          body: _buildContent(context),
         ),
       ),
-
     );
   }
 
   Widget _buildContent(BuildContext context) {
     return SingleChildScrollView(
       child: Center(
-
-        child:
-        Column(
+        child: Column(
           children: <Widget>[
             Container(
               child: Padding(
-                padding: EdgeInsets.fromLTRB( 10,0,10,0 ),
+                padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
                 child: Column(
-
                   children: <Widget>[
-                    SizedBox( height: 5.0 ),
-                    _reportAnIssue( ),
-                    _howToUse( ),
-                    _privacyPolicy( ),
-                    _termsAndConditions( ),
+                    SizedBox(height: 5.0),
+                    _reportAnIssue(),
+                    _howToUse(),
+                    _privacyPolicy(),
+                    _termsAndConditions(),
                   ],
                 ),
               ),
             ),
             Container(
               child: Padding(
-                padding: EdgeInsets.fromLTRB( 30,20,30,20 ),
+                padding: EdgeInsets.fromLTRB(30, 20, 30, 20),
                 child: Column(
-
                   children: <Widget>[
-
                     RaisedButton(
-                      onPressed: () => _confirmSignOut( context ),
+                      onPressed: () => _confirmSignOut(context, _authenticationBloc),
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular( 80.0 ) ),
-                      padding: const EdgeInsets.all( 0.0 ),
+                          borderRadius: BorderRadius.circular(80.0)),
+                      padding: const EdgeInsets.all(0.0),
                       child: Ink(
                         decoration: const BoxDecoration(
-                          color: Color( 0xFF1F4B6E ),
-                          borderRadius: BorderRadius.all( Radius.circular(
-                              10 ) ),
+                          color: Color(0xFF1F4B6E),
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
                         ),
                         child: Container(
-                          constraints: const BoxConstraints( minWidth: 88.0,
-                              minHeight: 50.0 ),
+                          constraints: const BoxConstraints(
+                              minWidth: 88.0, minHeight: 50.0),
                           // min sizes for Material buttons
                           alignment: Alignment.center,
                           child: Text(
@@ -159,7 +162,9 @@ class _F_SettingsPageState extends State<F_SettingsPage> {
                         ),
                       ),
                     ),
-                    SizedBox( height: 10, ),
+                    SizedBox(
+                      height: 10,
+                    ),
                     Text(
                       'Version 1.0.0',
                       style: TextStyle(
@@ -169,8 +174,6 @@ class _F_SettingsPageState extends State<F_SettingsPage> {
                         fontWeight: FontWeight.w600,
                       ),
                     ),
-
-
                   ],
                 ),
               ),
@@ -185,10 +188,10 @@ class _F_SettingsPageState extends State<F_SettingsPage> {
     return Container(
       width: double.infinity,
       child: FlatButton(
-        onPressed: () => print( 'Report an Issue Button Pressed' ),
-        padding: EdgeInsets.all( 15.0 ),
+        onPressed: () => print('Report an Issue Button Pressed'),
+        padding: EdgeInsets.all(15.0),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular( 0.0 ),
+          borderRadius: BorderRadius.circular(0.0),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -196,7 +199,8 @@ class _F_SettingsPageState extends State<F_SettingsPage> {
           children: <Widget>[
             Column(
               children: <Widget>[
-                Text( 'Report an Issue',
+                Text(
+                  'Report an Issue',
                   style: TextStyle(
                     color: Colors.black87,
                     letterSpacing: 1.5,
@@ -207,7 +211,6 @@ class _F_SettingsPageState extends State<F_SettingsPage> {
                   ),
                 ),
               ],
-
             ),
             Column(
               children: <Widget>[
@@ -217,14 +220,10 @@ class _F_SettingsPageState extends State<F_SettingsPage> {
                   size: 30,
                 ),
               ],
-
             ),
-
           ],
-
         ),
       ),
-
     );
   }
 
@@ -235,13 +234,12 @@ class _F_SettingsPageState extends State<F_SettingsPage> {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(
-                builder: (context) => PrivacyPolicy( ) ),
+            MaterialPageRoute(builder: (context) => PrivacyPolicy()),
           );
         },
-        padding: EdgeInsets.all( 15.0 ),
+        padding: EdgeInsets.all(15.0),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular( 0.0 ),
+          borderRadius: BorderRadius.circular(0.0),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -249,7 +247,8 @@ class _F_SettingsPageState extends State<F_SettingsPage> {
           children: <Widget>[
             Column(
               children: <Widget>[
-                Text( 'Privacy Policy',
+                Text(
+                  'Privacy Policy',
                   style: TextStyle(
                     color: Colors.black87,
                     letterSpacing: 1.5,
@@ -260,7 +259,6 @@ class _F_SettingsPageState extends State<F_SettingsPage> {
                   ),
                 ),
               ],
-
             ),
             Column(
               children: <Widget>[
@@ -270,14 +268,10 @@ class _F_SettingsPageState extends State<F_SettingsPage> {
                   size: 30,
                 ),
               ],
-
             ),
-
           ],
-
         ),
       ),
-
     );
   }
 
@@ -285,19 +279,15 @@ class _F_SettingsPageState extends State<F_SettingsPage> {
     return Container(
       width: double.infinity,
       child: FlatButton(
-
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(
-                builder: (context) => HowToUse( ) ),
+            MaterialPageRoute(builder: (context) => HowToUse()),
           );
         },
-
-        padding: EdgeInsets.all( 15.0 ),
-
+        padding: EdgeInsets.all(15.0),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular( 0.0 ),
+          borderRadius: BorderRadius.circular(0.0),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -305,8 +295,8 @@ class _F_SettingsPageState extends State<F_SettingsPage> {
           children: <Widget>[
             Column(
               children: <Widget>[
-
-                Text( 'How To Use',
+                Text(
+                  'How To Use',
                   style: TextStyle(
                     color: Colors.black87,
                     letterSpacing: 1.5,
@@ -317,7 +307,6 @@ class _F_SettingsPageState extends State<F_SettingsPage> {
                   ),
                 ),
               ],
-
             ),
             Column(
               children: <Widget>[
@@ -327,14 +316,10 @@ class _F_SettingsPageState extends State<F_SettingsPage> {
                   size: 30,
                 ),
               ],
-
             ),
-
           ],
-
         ),
       ),
-
     );
   }
 
@@ -345,14 +330,12 @@ class _F_SettingsPageState extends State<F_SettingsPage> {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(
-                builder: (context) => TermsAndServices( ) ),
+            MaterialPageRoute(builder: (context) => TermsAndServices()),
           );
         },
-        padding: EdgeInsets.all( 15.0 ),
-
+        padding: EdgeInsets.all(15.0),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular( 0.0 ),
+          borderRadius: BorderRadius.circular(0.0),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -360,8 +343,8 @@ class _F_SettingsPageState extends State<F_SettingsPage> {
           children: <Widget>[
             Column(
               children: <Widget>[
-
-                Text( 'Terms & Conditions',
+                Text(
+                  'Terms & Conditions',
                   style: TextStyle(
                     color: Colors.black87,
                     letterSpacing: 1.5,
@@ -372,7 +355,6 @@ class _F_SettingsPageState extends State<F_SettingsPage> {
                   ),
                 ),
               ],
-
             ),
             Column(
               children: <Widget>[
@@ -382,14 +364,10 @@ class _F_SettingsPageState extends State<F_SettingsPage> {
                   size: 30,
                 ),
               ],
-
             ),
-
           ],
-
         ),
       ),
-
     );
   }
 }

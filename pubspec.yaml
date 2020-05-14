@@ -30,6 +30,7 @@ dependencies:
   #Bloc pattern
   bloc: ^4.0.0
   flutter_bloc: ^4.0.0
+  sealed_flutter_bloc: ^4.0.0
   fluro: ^1.6.3
 
   firebase_auth: 0.15.4
