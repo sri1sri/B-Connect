@@ -1,36 +1,43 @@
 import 'package:bhavani_connect/common_variables/app_colors.dart';
 import 'package:bhavani_connect/common_variables/app_fonts.dart';
-import 'package:bhavani_connect/common_widgets/custom_appbar_widget/custom_app_bar.dart';
 import 'package:bhavani_connect/common_widgets/custom_appbar_widget/custom_app_bar_2.dart';
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
-import 'package:calendar_timeline/calendar_timeline.dart';
+import 'package:bhavani_connect/database_model/vehicle_category.dart';
+import 'package:bhavani_connect/database_model/vehicle_type.dart';
+import 'package:bhavani_connect/vehicle/add/add_vehicle_extras.dart';
+import 'package:bhavani_connect/vehicle/vehicle_const.dart';
 import 'package:dropdown_formfield/dropdown_formfield.dart';
-import 'package:vector_math/vector_math.dart' as math;
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sealed_flutter_bloc/sealed_flutter_bloc.dart';
+import 'add_vehicle_bloc.dart';
 
-class AddVehicle extends StatelessWidget {
+// Uncomment if you use injector package.
+// import 'package:my_app/framework/di/injector.dart';
+
+class AddVehiclePage extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: F_AddVehicle(),
-    );
+  State<StatefulWidget> createState() {
+    return AddVehiclePageState();
   }
 }
 
-class F_AddVehicle extends StatefulWidget {
-  @override
-  _F_AddVehicle createState() => _F_AddVehicle();
-}
+class AddVehiclePageState extends State<AddVehiclePage> {
+  // Insert into injector file if you use it.
+  // injector.map<AddVehicleBloc>((i) => AddVehicleBloc(i.get<Repository>()), isSingleton: true);
 
-class _F_AddVehicle extends State<F_AddVehicle> {
+  // Uncomment if you use injector.
+  // final _bloc = injector.get<AddVehicleBloc>();
+
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
   final _formKey = GlobalKey<FormState>();
-  String _myActivity;
+  String _myActivityVehicleType;
   String _myActivityResult;
   FocusNode focusNode = FocusNode();
   final TextEditingController _sellerNameController = TextEditingController();
   final FocusNode _sellerNameFocusNode = FocusNode();
-  final TextEditingController _vehicleNumberController = TextEditingController();
+  final TextEditingController _vehicleNumberController =
+      TextEditingController();
   final FocusNode _vehicleNumbeFocusNode = FocusNode();
   final TextEditingController _UnitController = TextEditingController();
   final FocusNode _UnitFocusNode = FocusNode();
@@ -68,66 +75,24 @@ class _F_AddVehicle extends State<F_AddVehicle> {
   @override
   void initState() {
     super.initState();
-    _myActivity = '';
-    _myActivityResult = '';
-    focusNode.addListener(() {
-      focusNode.unfocus(disposition: UnfocusDisposition.previouslyFocusedChild);
-//      focusNode.
-    });
   }
 
-//  _saveForm() {
-//    var form = formKey.currentState;
-//    if (form.validate()) {
-//      setState(() {
-//        _myActivityResult = _myActivity;
-//      });
-//    }
-//  }
+  @override
+  void dispose() {
+    super.dispose();
+  }
 
-
-  var category = [
-    "Jcb/Hitachi",
-    "Tractor",
-    "Road Roller",
-    "Cement Mixer",
-    "Excavator",
-    "BoreWell",
-    "Pickup Truck",
-    "GoodsTruck",
-    "Driller",
-    "Crane",
-    "Fork Lift",
-    "Others"
-  ];
-  List<String> F_image = [
-    "images/jcb.png",
-    "images/c1.png",
-    "images/c9.png",
-    "images/c3.png",
-    "images/c4.png",
-    "images/c5.png",
-    "images/c6.png",
-    "images/c7.png",
-    "images/c8.png",
-    "images/c10.png",
-    "images/inventory.png",
-    "images/c11.png",
-  ];
-
-
-  int _n = 0;
   @override
   Widget build(BuildContext context) {
     return offlineWidget(context);
-
   }
 
-  Widget offlineWidget (BuildContext context){
+  Widget offlineWidget(BuildContext context) {
     return CustomOfflineWidget(
       onlineChild: Padding(
         padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
         child: Scaffold(
+          key: _scaffoldKey,
           body: _buildContent(context),
         ),
       ),
@@ -135,20 +100,51 @@ class _F_AddVehicle extends State<F_AddVehicle> {
   }
 
   Widget _buildContent(BuildContext context) {
+    return SealedBlocBuilder7<
+        AddVehicleBloc,
+        AddVehicleState,
+        Initial,
+        Loading,
+        LoadingInit,
+        Success,
+        SuccessInit,
+        Failure,
+        FailureInit>(builder: (context, states) {
+      return states(
+        (Initial initial) => Center(child: CircularProgressIndicator()),
+        (Loading loading) => Center(child: CircularProgressIndicator()),
+        (LoadingInit loadingInit) => Center(child: CircularProgressIndicator()),
+        (Success success) => Center(child: Text('Saved')),
+        (SuccessInit successInit) => initWidget(
+            vehicleCateList: successInit.vehicleCateList,
+            vehicleTypeList: successInit.vehicleTypeList),
+        (Failure failure) => Center(child: CircularProgressIndicator()),
+        (FailureInit failureInit) => Center(child: CircularProgressIndicator()),
+      );
+    });
+  }
+
+  initWidget(
+      {List<VehicleCategory> vehicleCateList,
+      List<VehicleType> vehicleTypeList}) {
     return Scaffold(
       backgroundColor: backgroundColor,
       appBar: PreferredSize(
-        preferredSize:
-        Size.fromHeight(70),
+        preferredSize: Size.fromHeight(70),
         child: CustomAppBarDark(
-          leftActionBar: Icon(Icons.arrow_back_ios,size: 25,color: Colors.white,),
-          leftAction: (){
-            Navigator.pop(context,true);
+          leftActionBar: Icon(
+            Icons.arrow_back_ios,
+            size: 25,
+            color: Colors.white,
+          ),
+          leftAction: () {
+            Navigator.pop(context, true);
           },
           rightActionBar: Container(
             padding: EdgeInsets.only(top: 10),
             child: InkWell(
-                child: Icon(Icons.more_vert,
+                child: Icon(
+                  Icons.more_vert,
                   color: backgroundColor,
                   size: 30,
                 ),
@@ -158,20 +154,18 @@ class _F_AddVehicle extends State<F_AddVehicle> {
 //                    MaterialPageRoute(
 //                        builder: (context) => SettingsPage() ),
 //                  );
-                }
-            ),
+                }),
           ),
-          rightAction: (){
+          rightAction: () {
             print('right action bar is pressed in appbar');
           },
           primaryText: 'Add vehicle',
           tabBarWidget: null,
         ),
       ),
-      body:ClipRRect(
+      body: ClipRRect(
         borderRadius: BorderRadius.only(
-            topRight: Radius.circular(50.0),
-            topLeft: Radius.circular(50.0)),
+            topRight: Radius.circular(50.0), topLeft: Radius.circular(50.0)),
         child: Container(
           color: Colors.white,
           child: Form(
@@ -180,13 +174,21 @@ class _F_AddVehicle extends State<F_AddVehicle> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  SizedBox(height: 30,),
+                  SizedBox(
+                    height: 30,
+                  ),
                   Padding(
                     padding: const EdgeInsets.all(10.0),
-                    child: Text("Vehicle category",style: titleStyle,),
+                    child: Text(
+                      "Vehicle category",
+                      style: titleStyle,
+                    ),
                   ),
                   ExpansionTile(
-                      title: Text("Choose the Vehicle",style: descriptionStyleDarkBlur1,),
+                      title: Text(
+                        "Choose the Vehicle",
+                        style: descriptionStyleDarkBlur1,
+                      ),
                       children: [
                         Padding(
                           padding: const EdgeInsets.all(10.0),
@@ -194,106 +196,53 @@ class _F_AddVehicle extends State<F_AddVehicle> {
                             height: 420,
                             child: Expanded(
                               child: GridView.builder(
-                                itemCount: category.length,
-                                gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: 3,mainAxisSpacing: 5,crossAxisSpacing: 10
-                                ),
+                                itemCount: vehicleCateList.length,
+                                gridDelegate:
+                                    new SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 3,
+                                        mainAxisSpacing: 5,
+                                        crossAxisSpacing: 10),
                                 itemBuilder: (BuildContext context, int index) {
                                   return new GestureDetector(
                                     child: new Card(
                                       elevation: 10.0,
                                       child: new Container(
                                         alignment: Alignment.center,
-                                        margin: new EdgeInsets.only(
-                                            top: 5.0, bottom: 0.0, left: 0.0, right: 0.0),
-                                        child: new Column(
-                                          children: <Widget>[
-                                            Image.asset(
-                                              F_image[index],height: 70,
-                                            ),
-                                            SizedBox(height: 5,),
-                                            new Text(
-                                              category[index],
-                                              style: descriptionStyle,
-                                            ),
-
-                                          ],
+                                        decoration: BoxDecoration(
+                                            color: (vehicleCateList[index]
+                                                    .hasSelected)
+                                                ? Colors.grey
+                                                : Colors.white),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: new Column(
+                                            children: <Widget>[
+                                              Image.network(
+                                                vehicleCateList[index].image,
+                                                height: 70,
+                                                cacheHeight: 70,
+                                                cacheWidth: 70,
+                                              ),
+                                              SizedBox(
+                                                height: 5,
+                                              ),
+                                              new Text(
+                                                vehicleCateList[index].name,
+                                                style: descriptionStyle,
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                       ),
                                     ),
                                     onTap: () {
-                                      switch (category[index]) {
-                                        case 'Jcb/Hitachi':
-                                          {
-                                            print("case 1 is selected");
-                                          }
-                                          break;
-
-                                        case 'Tractor':
-                                          {
-                                            print("case 2 is selected");
-                                          }
-                                          break;
-                                        case 'Road Roller':
-                                          {
-                                            print("case 3 is selected");
-                                          }
-                                          break;
-
-                                        case 'Cement Mixer':
-                                          {
-                                            print("case 4 is selected");
-                                          }
-                                          break;
-
-                                        case 'Excavator':
-                                          {
-                                            print("case 5 is selected");
-                                          }
-                                          break;
-                                        case 'BoreWell':
-                                          {
-                                            print("case 6 is selected");
-                                          }
-                                          break;
-                                        case 'Pickup Truck':
-                                          {
-                                            print("case 7 is selected");
-                                          }
-                                          break;
-                                        case 'GoodsTruck':
-                                          {
-                                            print("case 8 is selected");
-                                          }
-                                          break;
-                                        case 'Driller':
-                                          {
-                                            print("case 9 is selected");
-                                          }
-                                          break;
-                                        case 'Crane':
-                                          {
-                                            print("case 10 is selected");
-                                          }
-                                          break;
-
-                                        case 'Fork Lift':
-                                          {
-                                            print("case 11 is selected");
-                                          }
-                                          break;
-                                        case 'Others':
-                                          {
-                                            print("case 12 is selected");
-                                          }
-                                          break;
-
-
-                                        default:
-                                          {}
-                                          break;
-                                      }
-
+                                      setState(() {
+                                        vehicleCateList.forEach((element) {
+                                          element.hasSelected = false;
+                                        });
+                                        vehicleCateList[index].hasSelected =
+                                            true;
+                                      });
                                     },
                                   );
                                 },
@@ -301,21 +250,27 @@ class _F_AddVehicle extends State<F_AddVehicle> {
                             ),
                           ),
                         ),
-                      ]
-                  ),
+                      ]),
                   Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("Seller Name",style: titleStyle,),
-                        SizedBox(height: 20,),
+                        Text(
+                          "Seller Name",
+                          style: titleStyle,
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
                         TextFormField(
                           controller: _sellerNameController,
                           //initialValue: _name,
                           textInputAction: TextInputAction.done,
                           obscureText: false,
-                          validator: (value) => value.isNotEmpty ? null : 'company name cant\'t be empty.',
+                          validator: (value) => value.isNotEmpty
+                              ? null
+                              : 'company name cant\'t be empty.',
                           focusNode: _sellerNameFocusNode,
                           // onSaved: (value) => _name = value,
                           decoration: new InputDecoration(
@@ -336,15 +291,24 @@ class _F_AddVehicle extends State<F_AddVehicle> {
                             fontFamily: "Poppins",
                           ),
                         ),
-                        SizedBox(height: 20,),
-                        Text("Vehicle Number ",style: titleStyle,),
-                        SizedBox(height: 20,),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Text(
+                          "Vehicle Number ",
+                          style: titleStyle,
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
                         TextFormField(
                           controller: _vehicleNumberController,
                           //initialValue: _name,
                           textInputAction: TextInputAction.done,
                           obscureText: false,
-                          validator: (value) => value.isNotEmpty ? null : 'company name cant\'t be empty.',
+                          validator: (value) => value.isNotEmpty
+                              ? null
+                              : 'company name cant\'t be empty.',
                           focusNode: _vehicleNumbeFocusNode,
                           //onSaved: (value) => _name = value,
                           decoration: new InputDecoration(
@@ -365,15 +329,24 @@ class _F_AddVehicle extends State<F_AddVehicle> {
                             fontFamily: "Poppins",
                           ),
                         ),
-                        SizedBox(height: 20,),
-                        Text("Units per Trip",style: titleStyle,),
-                        SizedBox(height: 20,),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Text(
+                          "Units per Trip",
+                          style: titleStyle,
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
                         TextFormField(
                           controller: _UnitController,
                           //initialValue: _name,
                           textInputAction: TextInputAction.done,
                           obscureText: false,
-                          validator: (value) => value.isNotEmpty ? null : 'Units per Trip cant\'t be empty.',
+                          validator: (value) => value.isNotEmpty
+                              ? null
+                              : 'Units per Trip cant\'t be empty.',
                           focusNode: _UnitFocusNode,
                           //onSaved: (value) => _name = value,
                           decoration: new InputDecoration(
@@ -394,44 +367,51 @@ class _F_AddVehicle extends State<F_AddVehicle> {
                             fontFamily: "Poppins",
                           ),
                         ),
-                        SizedBox(height: 20,),
-                        Text("Vehicle Type",style: titleStyle,),
-                        SizedBox(height: 20,),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Text(
+                          "Vehicle Type",
+                          style: titleStyle,
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
                         Container(
                           padding: EdgeInsets.all(0),
                           child: DropDownFormField(
                             titleText: 'Vehicle Type',
                             hintText: 'Please choose one',
-                            value: _myActivity,
+                            value: _myActivityVehicleType,
+                            validator: (value) => value?.isNotEmpty == true
+                                ? null
+                                : 'Please select vehicle type.',
                             onSaved: (value) {
                               setState(() {
-                                _myActivity = value;
+                                _myActivityVehicleType = value;
                               });
                             },
                             onChanged: (value) {
                               setState(() {
-                                _myActivity = value;
+                                _myActivityVehicleType = value;
                               });
                             },
-                            dataSource: [
-                              {
-                                "display": "Trips",
-                                "value": "Trips",
-                              },
-                              {
-                                "display": "Readings",
-                                "value": "Readings",
-                              },
-                            ],
-                            textField: 'display',
-                            valueField: 'value',
+                            dataSource: vehicleTypeList
+                                .map((e) => {'name': e.name, 'id': e.id})
+                                .toList(),
+                            textField: 'name',
+                            valueField: 'id',
                           ),
                         ),
-                        SizedBox(height: 20,),
+                        SizedBox(
+                          height: 20,
+                        ),
                       ],
                     ),
                   ),
-                  SizedBox(height: 20,),
+                  SizedBox(
+                    height: 20,
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -440,10 +420,29 @@ class _F_AddVehicle extends State<F_AddVehicle> {
                         width: 180,
                         child: GestureDetector(
                           onTap: () {
-//                      Navigator.push(
-//                        context,
-//                        MaterialPageRoute(builder: (context) => LoginPage(),),
-//                      );
+                            bool isVehicleTypeSelected = vehicleCateList
+                                    .where((element) => element.hasSelected) !=
+                                null;
+                            if (_formKey.currentState.validate() &&
+                                isVehicleTypeSelected) {
+                              var vehicleCateSelected = vehicleCateList
+                                  .where((element) => element.hasSelected)
+                                  .first;
+                              var vehicleTypeSelected = vehicleTypeList
+                                  .where((element) =>
+                                      element.id == _myActivityVehicleType)
+                                  .first;
+                              context.bloc<AddVehicleBloc>().add(SubmitVehicle(
+                                  vehicleCateSelected: vehicleCateSelected,
+                                  dealerName: _sellerNameController.value.text,
+                                  vehicleNo:
+                                      _vehicleNumberController.value.text,
+                                  unitPerTrip: _UnitController.value.text,
+                                  vehicleTypeSelected: vehicleTypeSelected));
+                              final snackBar =
+                                  SnackBar(content: Text('Processing Data'));
+                              _scaffoldKey.currentState.showSnackBar(snackBar);
+                            }
                           },
                           child: Container(
                             decoration: BoxDecoration(
@@ -466,7 +465,9 @@ class _F_AddVehicle extends State<F_AddVehicle> {
                       ),
                     ],
                   ),
-                  SizedBox(height: 300,),
+                  SizedBox(
+                    height: 300,
+                  ),
                 ],
               ),
             ),
@@ -475,6 +476,4 @@ class _F_AddVehicle extends State<F_AddVehicle> {
       ),
     );
   }
-
 }
-

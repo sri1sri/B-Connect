@@ -3,8 +3,10 @@ import 'package:bhavani_connect/dashboard/dashboard_bloc.dart';
 import 'package:bhavani_connect/dashboard/dashboard_extras.dart';
 import 'package:bhavani_connect/dashboard/dashboard_page.dart';
 import 'package:bhavani_connect/firebase/database.dart';
-import 'package:bhavani_connect/home_screens/profile.dart';
 import 'package:bhavani_connect/landing/landing_bloc.dart';
+import 'package:bhavani_connect/profile/profile_bloc.dart';
+import 'package:bhavani_connect/profile/profile_extras.dart';
+import 'package:bhavani_connect/profile/profile_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
@@ -68,7 +70,10 @@ class _F_HomePageState extends State<F_HomePage> {
         );
         break;
       case 1:
-        child = ProfilePage();
+        child = BlocProvider(
+          create: (context) => ProfileBloc(authenticationBloc: this.context.bloc<AuthenticationBloc>())..add(ProfileLoadEmployee()),
+          child: ProfilePage(),
+        );
         break;
     }
     return Scaffold(

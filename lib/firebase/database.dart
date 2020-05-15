@@ -9,7 +9,9 @@ import 'package:bhavani_connect/database_model/item_inventry_model.dart';
 import 'package:bhavani_connect/database_model/items_entry_model.dart';
 import 'package:bhavani_connect/database_model/notification_model.dart';
 import 'package:bhavani_connect/database_model/order_details_model.dart';
+import 'package:bhavani_connect/database_model/vehicle_category.dart';
 import 'package:bhavani_connect/database_model/vehicle_model.dart';
+import 'package:bhavani_connect/database_model/vehicle_type.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
@@ -104,6 +106,12 @@ abstract class Database {
   Stream<List<Attendance>> readAllAttendance();
 
   Stream<List<Vehicle>> readAllVehicle();
+
+  Future<void> addVehicle(Vehicle vehicle, String vehicleId);
+
+  Stream<List<VehicleCategory>> readAllVehicleCategory();
+
+  Stream<List<VehicleType>> readAllVehicleType();
 }
 
 class FirestoreDatabase implements Database {
@@ -433,5 +441,26 @@ class FirestoreDatabase implements Database {
   Stream<List<Vehicle>> readAllVehicle() => _service.collectionStream(
         path: APIPath.viewVehicle(),
         builder: (data, documentId) => Vehicle.fromMap(data, documentId),
+      );
+
+  @override
+  Future<void> addVehicle(Vehicle vehicle, String vehicleId) async =>
+      await _service.setData(
+        path: APIPath.addVehicle(vehicleId),
+        data: vehicle.toMap(),
+      );
+
+  @override
+  Stream<List<VehicleCategory>> readAllVehicleCategory() =>
+      _service.collectionStream(
+        path: APIPath.viewVehicleCategory(),
+        builder: (data, documentId) =>
+            VehicleCategory.fromMap(data, documentId),
+      );
+
+  @override
+  Stream<List<VehicleType>> readAllVehicleType() => _service.collectionStream(
+        path: APIPath.viewVehicleType(),
+        builder: (data, documentId) => VehicleType.fromMap(data, documentId),
       );
 }

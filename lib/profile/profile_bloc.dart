@@ -1,23 +1,21 @@
 import 'dart:async';
-import 'package:bhavani_connect/auth/authentication_bloc.dart';
+import 'package:bhavani_connect/auth/bloc.dart';
 import 'package:bhavani_connect/common_variables/app_functions.dart';
 import 'package:bhavani_connect/database_model/employee_details_model.dart';
-import 'package:bhavani_connect/landing/landing_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'profile_extras.dart';
 
-import 'dashboard_extras.dart';
-
-class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
+class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   AuthenticationBloc authenticationBloc;
 
-  DashboardBloc({this.authenticationBloc});
+  ProfileBloc({this.authenticationBloc});
 
   @override
-  DashboardState get initialState => DashboardState.initial();
+  ProfileState get initialState => ProfileState.initial();
 
   @override
-  Stream<DashboardState> mapEventToState(DashboardEvent event) async* {
-    if (event is LoadEmployee) {
+  Stream<ProfileState> mapEventToState(ProfileEvent event) async* {
+    if (event is ProfileLoadEmployee) {
       final employeeDetails = EmployeeDetails(deviceToken: DEVICE_TOKEN);
       authenticationBloc.fireStoreDatabase.updateEmployeeDetails(
           employeeDetails, authenticationBloc.fireStoreDatabase.uid);
@@ -27,7 +25,7 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
         add(MapEmployeeToState(employeeDetails: event));
       });
     } else if (event is MapEmployeeToState) {
-      yield DashboardState.success(data: event.employeeDetails);
+      yield ProfileState.success(data: event.employeeDetails);
     }
   }
 }

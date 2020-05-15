@@ -7,6 +7,11 @@ import 'package:bhavani_connect/home_screens/home_page.dart';
 import 'package:bhavani_connect/landing/landing_bloc.dart';
 import 'package:bhavani_connect/landing/landing_extras.dart';
 import 'package:bhavani_connect/landing/landing_page.dart';
+import 'package:bhavani_connect/vehicle/add/add_vehicle_bloc.dart';
+import 'package:bhavani_connect/vehicle/add/add_vehicle_extras.dart';
+import 'package:bhavani_connect/vehicle/add/add_vehicle_page.dart';
+import 'package:bhavani_connect/vehicle/vehicle_bloc.dart';
+import 'package:bhavani_connect/vehicle/vehicle_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
@@ -17,6 +22,7 @@ const String phoneNumberRoute = '/phone_number';
 const String otpRoute = '/otp';
 const String homeRoute = '/home';
 const String vehicleRoute = '/vehicle';
+const String addVehicleRoute = '/add_vehicle';
 
 class Router {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -43,7 +49,19 @@ class Router {
       case homeRoute:
         return MaterialPageRoute(builder: (_) => HomePage());
       case vehicleRoute:
-        return MaterialPageRoute(builder: (_) => VehicleListScreen());
+        return MaterialPageRoute(
+          builder: (context) => BlocProvider(
+            create: (_) => VehicleBloc(),
+            child: VehiclePage(),
+          ),
+        );
+      case addVehicleRoute:
+        return MaterialPageRoute(
+          builder: (context) => BlocProvider(
+            create: (_) => AddVehicleBloc(authenticationBloc: context.bloc<AuthenticationBloc>())..add(InitDataEvent()),
+            child: AddVehiclePage(),
+          ),
+        );
       default:
         return MaterialPageRoute(
             builder: (_) => Scaffold(

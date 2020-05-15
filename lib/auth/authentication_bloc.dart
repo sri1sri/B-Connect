@@ -41,6 +41,14 @@ class AuthenticationBloc
     _navigatorKey.currentState.pushNamed(landingRoute);
   }
 
+  void gotoVehicle(){
+    _navigatorKey.currentState.pushNamed(vehicleRoute);
+  }
+
+  void gotoAddVehicle(){
+    _navigatorKey.currentState.pushNamed(addVehicleRoute);
+  }
+
   @override
   Stream<AuthenticationState> mapEventToState(
     AuthenticationEvent event,
@@ -79,23 +87,4 @@ class AuthenticationBloc
   }
 
   void signOut() => authFirebase.signOut();
-
-//  Future<void> verifyOtp() async {
-//    try {
-//      widget.phoneNo == '8333876209' ? EMPLOYEE_PNO = widget.phoneNo : '';
-//      print('otp${widget.newUser}');
-//      if (widget.newUser) {
-//        await _submit();
-//        GoToPage(context, SignUpPage(phoneNo: widget.phoneNo));
-//      } else {
-//        await _submit();
-//        GoToPage(context, LandingPage());
-//      }
-//    } on PlatformException catch (e) {
-//      PlatformExceptionAlertDialog(
-//        title: 'Otp Verification failed',
-//        exception: e,
-//      ).show(context);
-//    }
-//  }
 }
