@@ -11,6 +11,7 @@ import 'package:bhavani_connect/vehicle/add/add_vehicle_bloc.dart';
 import 'package:bhavani_connect/vehicle/add/add_vehicle_extras.dart';
 import 'package:bhavani_connect/vehicle/add/add_vehicle_page.dart';
 import 'package:bhavani_connect/vehicle/vehicle_bloc.dart';
+import 'package:bhavani_connect/vehicle/vehicle_extras.dart';
 import 'package:bhavani_connect/vehicle/vehicle_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -51,7 +52,7 @@ class Router {
       case vehicleRoute:
         return MaterialPageRoute(
           builder: (context) => BlocProvider(
-            create: (_) => VehicleBloc(),
+            create: (_) => VehicleBloc(authenticationBloc: context.bloc<AuthenticationBloc>())..add(LoadDataEvent()),
             child: VehiclePage(),
           ),
         );

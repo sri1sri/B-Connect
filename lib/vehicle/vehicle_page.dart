@@ -4,12 +4,15 @@ import 'package:bhavani_connect/common_variables/app_fonts.dart';
 import 'package:bhavani_connect/common_variables/app_functions.dart';
 import 'package:bhavani_connect/common_widgets/custom_appbar_widget/custom_app_bar_2.dart';
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
+import 'package:bhavani_connect/database_model/vehicle_model.dart';
 import 'package:bhavani_connect/home_screens/Vehicle_Entry/add_vehicle_details.dart';
 import 'package:bhavani_connect/home_screens/Vehicle_Entry/filter_vehicle_list_details.dart';
 import 'package:bhavani_connect/home_screens/Vehicle_Entry/vehicle_details_readings.dart';
 import 'package:bhavani_connect/home_screens/Vehicle_Entry/vehicle_list_details.dart';
+import 'package:bhavani_connect/vehicle/vehicle_extras.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sealed_flutter_bloc/sealed_flutter_bloc.dart';
 import 'vehicle_bloc.dart';
 
 // Uncomment if you use injector package.
@@ -56,6 +59,19 @@ class VehiclePageState extends State<VehiclePage> {
   }
 
   Widget _buildContent(BuildContext context) {
+    return SealedBlocBuilder4<VehicleBloc, VehicleState, Initial, Loading,
+        Success, Failure>(builder: (context, states) {
+      return states(
+        (Initial initial) => Center(child: CircularProgressIndicator()),
+        (Loading loading) => Center(child: CircularProgressIndicator()),
+        (Success success) => Center(
+            child: _buildBody(context, vehicleList: success.vehicleList)),
+        (Failure failure) => Center(child: CircularProgressIndicator()),
+      );
+    });
+  }
+
+  Widget _buildBody(BuildContext context, {List<Vehicle> vehicleList}) {
     return Scaffold(
       backgroundColor: backgroundColor,
       appBar: PreferredSize(
@@ -93,7 +109,7 @@ class VehiclePageState extends State<VehiclePage> {
                   height: 20,
                 ),
                 Text(
-                  "23 October 2020",
+                  '${(DateTime.parse(vehicleList?.first?.date?.toDate()?.toString() ??  DateTime.now().toString()))}',
                   style: subTitleStyleDark1,
                 ),
                 SizedBox(
@@ -201,7 +217,7 @@ class VehiclePageState extends State<VehiclePage> {
                         style: subTitleStyle1,
                       )),
                     ],
-                    rows: []
+                    rows: vehicleList
                         .map(
                           (itemRow) => DataRow(
                             onSelectChanged: (b) {
@@ -210,7 +226,7 @@ class VehiclePageState extends State<VehiclePage> {
                             cells: [
                               DataCell(
                                 Text(
-                                  itemRow.slno,
+                                  '${vehicleList.indexOf(itemRow) + 1}',
                                   style: descriptionStyleDark,
                                 ),
                                 showEditIcon: false,
@@ -218,7 +234,7 @@ class VehiclePageState extends State<VehiclePage> {
                               ),
                               DataCell(
                                 Text(
-                                  itemRow.date,
+                                  '${(DateTime.parse(itemRow?.date?.toDate()?.toString() ??  DateTime.now().toString()))}',
                                   style: descriptionStyleDark,
                                 ),
                                 showEditIcon: false,
@@ -226,7 +242,7 @@ class VehiclePageState extends State<VehiclePage> {
                               ),
                               DataCell(
                                 Text(
-                                  itemRow.vehicleNo,
+                                  itemRow?.vehicleNo ?? '',
                                   style: descriptionStyleDark,
                                 ),
                                 showEditIcon: false,
@@ -234,7 +250,7 @@ class VehiclePageState extends State<VehiclePage> {
                               ),
                               DataCell(
                                 Text(
-                                  itemRow.site,
+                                  itemRow?.site ?? '',
                                   style: descriptionStyleDark,
                                 ),
                                 showEditIcon: false,
@@ -242,7 +258,7 @@ class VehiclePageState extends State<VehiclePage> {
                               ),
                               DataCell(
                                 Text(
-                                  itemRow.delName,
+                                  itemRow?.sellerName ?? '',
                                   style: descriptionStyleDark,
                                 ),
                                 showEditIcon: false,
@@ -251,19 +267,19 @@ class VehiclePageState extends State<VehiclePage> {
                               DataCell(Column(
                                 children: [
                                   Image.asset(
-                                    itemRow.imgCate,
+                                    itemRow?.imgCate ?? '',
                                     height: 60,
                                     width: 60,
                                   ),
                                   Text(
-                                    itemRow.nameCat,
+                                    itemRow?.categoryId ?? '',
                                     style: descriptionStyleDark,
                                   )
                                 ],
                               )),
                               DataCell(
                                 Text(
-                                  itemRow.vehicleType,
+                                  itemRow?.vehicleTypeId ?? '',
                                   style: descriptionStyleDark,
                                 ),
                                 showEditIcon: false,
@@ -271,7 +287,7 @@ class VehiclePageState extends State<VehiclePage> {
                               ),
                               DataCell(
                                 Text(
-                                  itemRow.startTime,
+                                  itemRow?.startTime ?? '',
                                   style: descriptionStyleDark,
                                 ),
                                 showEditIcon: false,
@@ -279,7 +295,7 @@ class VehiclePageState extends State<VehiclePage> {
                               ),
                               DataCell(
                                 Text(
-                                  itemRow.startRead,
+                                  itemRow?.startRead ?? '',
                                   style: descriptionStyleDark,
                                 ),
                                 showEditIcon: false,
@@ -287,7 +303,7 @@ class VehiclePageState extends State<VehiclePage> {
                               ),
                               DataCell(
                                 Text(
-                                  itemRow.endTime,
+                                  itemRow?.endTime ?? '',
                                   style: descriptionStyleDark,
                                 ),
                                 showEditIcon: false,
@@ -295,7 +311,7 @@ class VehiclePageState extends State<VehiclePage> {
                               ),
                               DataCell(
                                 Text(
-                                  itemRow.endRead,
+                                  itemRow?.endRead ?? '',
                                   style: descriptionStyleDark,
                                 ),
                                 showEditIcon: false,
@@ -303,7 +319,7 @@ class VehiclePageState extends State<VehiclePage> {
                               ),
                               DataCell(
                                 Text(
-                                  itemRow.totalTime,
+                                  itemRow?.totalTime ?? '',
                                   style: descriptionStyleDark,
                                 ),
                                 showEditIcon: false,
@@ -311,7 +327,7 @@ class VehiclePageState extends State<VehiclePage> {
                               ),
                               DataCell(
                                 Text(
-                                  itemRow.totalRead,
+                                  itemRow?.totalRead ?? '',
                                   style: descriptionStyleDark,
                                 ),
                                 showEditIcon: false,
@@ -319,7 +335,7 @@ class VehiclePageState extends State<VehiclePage> {
                               ),
                               DataCell(
                                 Text(
-                                  itemRow.totalTrips,
+                                  itemRow?.totalTrips ?? '',
                                   style: descriptionStyleDark,
                                 ),
                                 showEditIcon: false,
@@ -327,7 +343,7 @@ class VehiclePageState extends State<VehiclePage> {
                               ),
                               DataCell(
                                 Text(
-                                  itemRow.unitsPerTrip,
+                                  itemRow?.unitsPerTrip ?? '',
                                   style: descriptionStyleDark,
                                 ),
                                 showEditIcon: false,
@@ -335,7 +351,7 @@ class VehiclePageState extends State<VehiclePage> {
                               ),
                               DataCell(
                                 Text(
-                                  itemRow.requestedBy,
+                                  itemRow?.requestedByUserId ?? '',
                                   style: descriptionStyleDark,
                                 ),
                                 showEditIcon: false,
@@ -343,7 +359,7 @@ class VehiclePageState extends State<VehiclePage> {
                               ),
                               DataCell(
                                 Text(
-                                  itemRow.approvedBy,
+                                  itemRow?.approvedByUserId ?? '',
                                   style: descriptionStyleDark,
                                 ),
                                 showEditIcon: false,
@@ -366,7 +382,7 @@ class VehiclePageState extends State<VehiclePage> {
                                       Padding(
                                         padding: const EdgeInsets.all(10.0),
                                         child: Text(
-                                          itemRow.approvalStatus,
+                                          itemRow?.approvalStatus ?? '',
                                           style: subTitleStyleLight1,
                                         ),
                                       )
