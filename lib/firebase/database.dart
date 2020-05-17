@@ -31,7 +31,8 @@ abstract class Database {
 
   Stream<EmployeeDetails> currentUserDetails();
 
-  Future<void> setNotification(NotificationModel notificationEntry);
+  Future<void> setNotification(
+      NotificationModel notificationEntry, String documentId);
 
   Stream<List<GoodsEntry>> readGoodsEntries(String queryKey);
 
@@ -127,6 +128,14 @@ abstract class Database {
   Stream<List<VehicleTripRecord>> readTripRecordMaxRound(String documentId);
 
   Stream<List<VehicleTripRecord>> readTripRecordBy(String documentId);
+
+  Stream<List<Vehicle>> filterVehicleList(
+      {String sellerName,
+      String siteName,
+      Timestamp dateFrom,
+      Timestamp dateTo});
+
+  Stream<List<NotificationModel>> readAllNotification();
 }
 
 class FirestoreDatabase implements Database {
@@ -174,9 +183,10 @@ class FirestoreDatabase implements Database {
       );
 
   @override
-  Future<void> setNotification(NotificationModel notificationEntry) async =>
+  Future<void> setNotification(
+          NotificationModel notificationEntry, String documentId) async =>
       await _service.setData(
-        path: APIPath.notification(DateTime.now().toString()),
+        path: APIPath.notification(documentId),
         data: notificationEntry.toMap(),
       );
 
@@ -513,7 +523,10 @@ class FirestoreDatabase implements Database {
   Stream<List<VehicleTripRecord>> readTripRecordMaxRound(documentId) =>
       _service.collectionStream(
         path: APIPath.readAllTripRecord(),
-        queryBuilder: (query) => query.where('vehicle_id', whereIn: [documentId]).orderBy('round', descending: true).limit(1),
+        queryBuilder: (query) => query
+            .where('vehicle_id', whereIn: [documentId])
+            .orderBy('round', descending: true)
+            .limit(1),
         builder: (data, documentId) =>
             VehicleTripRecord.fromMap(data, documentId),
       );
@@ -522,8 +535,30 @@ class FirestoreDatabase implements Database {
   Stream<List<VehicleTripRecord>> readTripRecordBy(documentId) =>
       _service.collectionStream(
         path: APIPath.readAllTripRecord(),
-        queryBuilder: (query) => query.where('vehicle_id', whereIn: [documentId]),
+        queryBuilder: (query) =>
+            query.where('vehicle_id', whereIn: [documentId]),
         builder: (data, documentId) =>
             VehicleTripRecord.fromMap(data, documentId),
+      );
+
+  @override
+  Stream<List<Vehicle>> filterVehicleList(
+          {String sellerName,
+          String siteName,
+          Timestamp dateFrom,
+          Timestamp dateTo}) =>
+      _service.collectionStream(
+        path: APIPath.viewVehicle(),
+        queryBuilder: (query) =>
+            query.where('seller_name', isEqualTo: sellerName),
+        builder: (data, documentId) => Vehicle.fromMap(data, documentId),
+      );
+
+  @override
+  Stream<List<NotificationModel>> readAllNotification() =>
+      _service.collectionStream(
+        path: APIPath.notificationList(),
+        builder: (data, documentId) =>
+            NotificationModel.fromMap(data, documentId),
       );
 }

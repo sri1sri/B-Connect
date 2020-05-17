@@ -98,7 +98,7 @@ class VehiclePageState extends State<VehiclePage> {
             color: Colors.white,
           ),
           rightAction: () {
-            GoToPage(context, VehicleFilter());
+            context.bloc<AuthenticationBloc>().gotoFilterVehicle();
           },
           primaryText: 'Vehicle Entries',
         ),
@@ -459,7 +459,7 @@ class VehiclePageState extends State<VehiclePage> {
   }
 
   bool _hasShowAddVehicleButton(String role) {
-    switch (role.toLowerCase()) {
+    switch (role) {
       case EmployeeDetails.roleSecurity:
         return true;
         break;

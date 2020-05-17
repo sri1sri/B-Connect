@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class EmployeeDetails{
-  static const roleOwner= "Owner";
+class EmployeeDetails {
+  static const roleOwner = "Owner";
   static const roleNotAssigned = "Not assigned";
   static const roleSecurity = "Security";
   static const roleManager = "Manager";
@@ -23,7 +23,7 @@ class EmployeeDetails{
     this.empty,
     this.employeeImagePath,
     this.deviceToken,
-
+    this.firebaseToken,
   });
 
   final String username;
@@ -36,14 +36,14 @@ class EmployeeDetails{
   final String role;
   final String employeeImagePath;
   final String deviceToken;
+   String firebaseToken;
 
   final String employeeID;
   final Null empty;
 
-
-
-  factory EmployeeDetails.fromMap(Map<String, dynamic> data, String documentID){
-    if(data == null){
+  factory EmployeeDetails.fromMap(
+      Map<String, dynamic> data, String documentID) {
+    if (data == null) {
       return null;
     }
     final String employeeID = documentID;
@@ -58,9 +58,9 @@ class EmployeeDetails{
     final String role = data['employee_role'];
     final String employeeImagePath = data['employee_image_path'];
     final String deviceToken = data['device_token'];
+    final String firebaseToken = data['firebase_token'];
 
     final Null empty = data['empty'];
-
 
     return EmployeeDetails(
       username: username,
@@ -73,25 +73,26 @@ class EmployeeDetails{
       role: role,
       employeeID: employeeID,
       employeeImagePath: employeeImagePath,
-      deviceToken:deviceToken,
+      deviceToken: deviceToken,
+      firebaseToken: firebaseToken,
       empty: empty,
-
     );
   }
 
-  Map<String, dynamic> toMap(){
+  Map<String, dynamic> toMap() {
     return {
-      username != null ? 'employee_name': 'empty' : username,
-      phoneNumber != null ? 'employee_contact_number':'empty' :  phoneNumber,
-      gender != null ? 'employee_gender': 'empty' : gender,
-      dateOfBirth != null ? 'employee_date_of_birth': 'empty' : dateOfBirth,
-      joinedDate != null ? 'employee_join_date': 'empty' : joinedDate,
-      latitude != null ? 'employee_latitude': 'empty' : latitude,
-      longitude != null ? 'employee_longitude': 'empty' : longitude,
-      role != null ? 'employee_role': 'empty' : role,
-      deviceToken != null ? 'device_token': 'empty' : deviceToken,
-      employeeImagePath != null ? 'employee_image_path': 'empty' : employeeImagePath,
+      username != null ? 'employee_name' : 'empty': username,
+      phoneNumber != null ? 'employee_contact_number' : 'empty': phoneNumber,
+      gender != null ? 'employee_gender' : 'empty': gender,
+      dateOfBirth != null ? 'employee_date_of_birth' : 'empty': dateOfBirth,
+      joinedDate != null ? 'employee_join_date' : 'empty': joinedDate,
+      latitude != null ? 'employee_latitude' : 'empty': latitude,
+      longitude != null ? 'employee_longitude' : 'empty': longitude,
+      role != null ? 'employee_role' : 'empty': role,
+      deviceToken != null ? 'device_token' : 'empty': deviceToken,
+      firebaseToken != null ? 'firebase_token' : 'empty': firebaseToken,
+      employeeImagePath != null ? 'employee_image_path' : 'empty':
+          employeeImagePath,
     };
   }
-
 }

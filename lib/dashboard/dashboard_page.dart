@@ -71,15 +71,11 @@ class DashboardPageState extends State<DashboardPage> {
                           size: 30,
                         ),
                         onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => NotificationPage()),
-                          );
+                          context.bloc<AuthenticationBloc>().gotoNotification();
                         }),
                   ),
                   rightAction: () {
-                    GoToPage(context, NotificationPage());
+                    context.bloc<AuthenticationBloc>().gotoNotification();
                   },
                   secondaryText: 'Welcome to B-Connect',
                   primaryText:

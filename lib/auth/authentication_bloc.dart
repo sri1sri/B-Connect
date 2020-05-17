@@ -3,9 +3,13 @@ import 'package:bhavani_connect/authentication_screen/login_screens/otp_page.dar
 import 'package:bhavani_connect/config/router.dart';
 import 'package:bhavani_connect/database_model/vehicle_model.dart';
 import 'package:bhavani_connect/database_model/vehicle_type.dart';
+import 'package:bhavani_connect/filter/vehicle_result/vehicle_result_extras.dart'
+    as vehicleResultExtra;
 import 'package:bhavani_connect/firebase/auth.dart';
 import 'package:bhavani_connect/firebase/database.dart';
 import 'package:bhavani_connect/vehicle/vehicle_extras.dart' as vehicleExtra;
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import './bloc.dart';
@@ -52,6 +56,22 @@ class AuthenticationBloc
     _navigatorKey.currentState.pushNamed(addVehicleRoute);
   }
 
+  void gotoVehicleResult(
+      {String sellerName,
+      String siteName,
+      DateTime dateFrom,
+      DateTime dateTo}) {
+    vehicleResultExtra.FilterVehicleResultArguments arguments =
+        vehicleResultExtra.FilterVehicleResultArguments(
+      sellerName: sellerName,
+      siteName: siteName,
+      dateFrom: Timestamp.fromDate(dateFrom),
+      dateTo: Timestamp.fromDate(dateTo),
+    );
+    _navigatorKey.currentState
+        .pushNamed(filterVehicleResultRoute, arguments: arguments);
+  }
+
   void gotoVehicleDetail({Vehicle vehicle}) {
     switch (vehicle.vehicleTypeId) {
       case VehicleType.vehicleTypeTrip:
@@ -63,6 +83,18 @@ class AuthenticationBloc
             arguments: vehicleExtra.VehicleDetailArguments(vehicle: vehicle));
         break;
     }
+  }
+
+  void gotoFilterVehicle() {
+    _navigatorKey.currentState.pushNamed(filterVehicleRoute);
+  }
+
+  void gotoNotification() {
+    _navigatorKey.currentState.pushNamed(notificationRoute);
+  }
+
+  void pop() {
+    _navigatorKey.currentState.pop();
   }
 
   @override
@@ -104,4 +136,12 @@ class AuthenticationBloc
   }
 
   void signOut() => authFirebase.signOut();
+
+  void saveFirebaseToken() async {
+    String token = await FirebaseMessaging().getToken();
+    fireStoreDatabase.currentUserDetails().listen((event) {
+      event.firebaseToken = token;
+      fireStoreDatabase.updateEmployeeDetails(event, event.employeeID);
+    });
+  }
 }

@@ -14,6 +14,8 @@ class APIPath {
   static String notification(String notificationID) =>
       'notifications/$notificationID';
 
+  static String notificationList() => 'notifications/';
+
   static String commonVariables() => 'common_variables/6r2stU44qAbxESqfPc2v';
 
   static String addCart(String cartID) => 'cart/$cartID';
@@ -45,7 +47,8 @@ class APIPath {
 
   static String addVehicle(String vehicleID) => 'vehicle/$vehicleID';
 
-  static String addTripRecord(String tripRecordId) => 'vehicle_trip_record/$tripRecordId';
+  static String addTripRecord(String tripRecordId) =>
+      'vehicle_trip_record/$tripRecordId';
 
   static String readAllTripRecord() => 'vehicle_trip_record/';
 }

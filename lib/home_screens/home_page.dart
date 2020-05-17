@@ -4,6 +4,7 @@ import 'package:bhavani_connect/dashboard/dashboard_extras.dart';
 import 'package:bhavani_connect/dashboard/dashboard_page.dart';
 import 'package:bhavani_connect/firebase/database.dart';
 import 'package:bhavani_connect/landing/landing_bloc.dart';
+import 'package:bhavani_connect/main.dart';
 import 'package:bhavani_connect/profile/profile_bloc.dart';
 import 'package:bhavani_connect/profile/profile_extras.dart';
 import 'package:bhavani_connect/profile/profile_page.dart';
@@ -117,22 +118,14 @@ class _F_HomePageState extends State<F_HomePage> {
       onMessage: (Map<String, dynamic> message) async {
         print("onMessage: $message");
       },
+      onBackgroundMessage: myBackgroundMessageHandler,
       onLaunch: (Map<String, dynamic> message) async {
         print("onLaunch: $message");
       },
       onResume: (Map<String, dynamic> message) async {
-        print("onResume: $message");
+        context.bloc<AuthenticationBloc>().gotoNotification();
       },
     );
-    _firebaseMessaging.requestNotificationPermissions(
-        const IosNotificationSettings(
-            sound: true, badge: true, alert: true, provisional: true));
-    _firebaseMessaging.onIosSettingsRegistered
-        .listen((IosNotificationSettings settings) {
-      print("Settings registered: $settings");
-    });
-    _firebaseMessaging.getToken().then((String token) {
-      print(token);
-    });
+    context.bloc<AuthenticationBloc>().saveFirebaseToken();
   }
 }

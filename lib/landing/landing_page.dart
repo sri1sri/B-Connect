@@ -35,8 +35,8 @@ class LandingPageState extends State<LandingPage> {
     return BlocListener<LandingBloc, LandingState>(
         listener: (BuildContext context, LandingState state) {},
         child: Scaffold(
-            body: Stack(
-          children: <Widget>[CircularProgressIndicator()],
+            body: Center(
+          child: CircularProgressIndicator(),
         )));
   }
 }
