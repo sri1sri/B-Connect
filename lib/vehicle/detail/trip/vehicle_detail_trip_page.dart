@@ -1,40 +1,58 @@
 import 'package:bhavani_connect/common_variables/app_colors.dart';
 import 'package:bhavani_connect/common_variables/app_fonts.dart';
-import 'package:bhavani_connect/common_variables/app_functions.dart';
-import 'package:bhavani_connect/common_widgets/button_widget/to_do_button.dart';
-import 'package:bhavani_connect/common_widgets/custom_appbar_widget/custom_app_bar.dart';
 import 'package:bhavani_connect/common_widgets/custom_appbar_widget/custom_app_bar_2.dart';
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
-import 'package:bhavani_connect/home_screens/Vehicle_Entry/add_vehicle_details.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:bhavani_connect/database_model/vehicle_model.dart';
+import 'package:bhavani_connect/database_model/vehicle_trip_record.dart';
+import 'package:bhavani_connect/utilities/date_time.dart';
+import 'package:bhavani_connect/vehicle/detail/trip/vehicle_detail_trip_extras.dart';
+import 'package:bhavani_connect/vehicle/vehicle_extras.dart' as vehicleExtra;
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
-import 'package:spring_button/spring_button.dart';
-import 'package:vector_math/vector_math.dart' as math;
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class AddVehicleCountDetails extends StatelessWidget {
+import 'vehicle_detail_trip_bloc.dart';
+
+// Uncomment if you use injector package.
+// import 'package:my_app/framework/di/injector.dart';
+
+class VehicleDetailTripPage extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: F_AddVehicleCountDetails(),
-    );
+  State<StatefulWidget> createState() {
+    return VehicleDetailTripPageState();
   }
 }
 
-class F_AddVehicleCountDetails extends StatefulWidget {
-  @override
-  _F_AddVehicleCountDetails createState() => _F_AddVehicleCountDetails();
-}
+class VehicleDetailTripPageState extends State<VehicleDetailTripPage> {
+  // Insert into injector file if you use it.
+  // injector.map<VehicleDetailTripBloc>((i) => VehicleDetailTripBloc(i.get<Repository>()), isSingleton: true);
 
-class _F_AddVehicleCountDetails extends State<F_AddVehicleCountDetails> {
+  // Uncomment if you use injector.
+  // final _bloc = injector.get<VehicleDetailTripBloc>();
+
   final List time = [
     DateTime.now().toIso8601String(),
   ];
-  int _n = 0;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return offlineWidget(context);
+    return BlocListener<VehicleDetailTripBloc, VehicleDetailTripState>(
+      listener: (BuildContext context, VehicleDetailTripState state) {},
+      child: BlocBuilder<VehicleDetailTripBloc, VehicleDetailTripState>(
+        builder: (BuildContext context, VehicleDetailTripState state) {
+          return offlineWidget(context);
+        },
+      ),
+    );
   }
 
   Widget offlineWidget(BuildContext context) {
@@ -42,13 +60,26 @@ class _F_AddVehicleCountDetails extends State<F_AddVehicleCountDetails> {
       onlineChild: Padding(
         padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
         child: Scaffold(
-          body: _buildContent(context),
-        ),
+            body: BlocListener<VehicleDetailTripBloc, VehicleDetailTripState>(
+          listener: (BuildContext context, VehicleDetailTripState state) {},
+          child: BlocBuilder<VehicleDetailTripBloc, VehicleDetailTripState>(
+            builder: (BuildContext context, VehicleDetailTripState state) {
+              if (state is Success) {
+                return _buildContent(context,
+                    vehicle: state.vehicle,
+                    tripRecordList: state.tripRecordList);
+              } else {
+                return Center(child: CircularProgressIndicator());
+              }
+            },
+          ),
+        )),
       ),
     );
   }
 
-  Widget _buildContent(BuildContext context) {
+  Widget _buildContent(BuildContext context,
+      {Vehicle vehicle, List<VehicleTripRecord> tripRecordList}) {
     return Scaffold(
         backgroundColor: backgroundColor,
         appBar: PreferredSize(
@@ -119,56 +150,22 @@ class _F_AddVehicleCountDetails extends State<F_AddVehicleCountDetails> {
                               style: subTitleStyle,
                             )),
                           ],
-                          rows: [
-                            DataRow(
-                              cells: [
-                                DataCell(Text(
-                                  '  1',
-                                  style: descriptionStyleDark,
-                                )),
-                                DataCell(Text(
-                                  '10.30am',
-                                  style: descriptionStyleDark,
-                                )),
-                              ],
-                            ),
-                            DataRow(
-                              cells: [
-                                DataCell(Text(
-                                  '  2',
-                                  style: descriptionStyleDark,
-                                )),
-                                DataCell(Text(
-                                  '02.13pm',
-                                  style: descriptionStyleDark,
-                                )),
-                              ],
-                            ),
-                            DataRow(
-                              cells: [
-                                DataCell(Text(
-                                  '  3',
-                                  style: descriptionStyleDark,
-                                )),
-                                DataCell(Text(
-                                  '04.23pm',
-                                  style: descriptionStyleDark,
-                                )),
-                              ],
-                            ),
-                            DataRow(
-                              cells: [
-                                DataCell(Text(
-                                  '  4',
-                                  style: descriptionStyleDark,
-                                )),
-                                DataCell(Text(
-                                  '05.34pm',
-                                  style: descriptionStyleDark,
-                                )),
-                              ],
-                            ),
-                          ]),
+                          rows: tripRecordList
+                              ?.map(
+                                (e) => DataRow(
+                                  cells: [
+                                    DataCell(Text(
+                                      '${e?.round ?? '-'}',
+                                      style: descriptionStyleDark,
+                                    )),
+                                    DataCell(Text(
+                                      '${hhmmFormatDate(timestamp: e.time.toDate())}',
+                                      style: descriptionStyleDark,
+                                    )),
+                                  ],
+                                ),
+                              )
+                              ?.toList()),
                     ),
                   ),
                   SizedBox(
@@ -219,11 +216,14 @@ class _F_AddVehicleCountDetails extends State<F_AddVehicleCountDetails> {
                                   style: descriptionStyleDark,
                                 )),
                                 DataCell(Text(
-                                  'Vasanth (Supervisor)',
+                                  vehicleExtra.parseRequest(
+                                      vehicle.requestedByUserId,
+                                      vehicle.requestedByUserName,
+                                      vehicle.requestedByUserRole),
                                   style: descriptionStyleDark,
                                 )),
                                 DataCell(Text(
-                                  '10.30am',
+                                  '${formatDateRow(timestamp: vehicle?.dateRequest?.toDate())}',
                                   style: descriptionStyleDark,
                                 )),
                               ],
@@ -235,11 +235,14 @@ class _F_AddVehicleCountDetails extends State<F_AddVehicleCountDetails> {
                                   style: descriptionStyleDark,
                                 )),
                                 DataCell(Text(
-                                  'Srivatsav (Manager)',
+                                  vehicleExtra.parseApproval(
+                                      vehicle.approvedByUserId,
+                                      vehicle.approvedByUserName,
+                                      vehicle.approvedByUserRole),
                                   style: descriptionStyleDark,
                                 )),
                                 DataCell(Text(
-                                  '05.23pm',
+                                  '${formatDateRow(timestamp: vehicle?.dateApproval?.toDate())}',
                                   style: descriptionStyleDark,
                                 )),
                               ],
@@ -279,7 +282,7 @@ class _F_AddVehicleCountDetails extends State<F_AddVehicleCountDetails> {
                             height: 5,
                           ),
                           Text(
-                            "Vasanth transport",
+                            '${vehicle.sellerName}',
                             style: descriptionStyleDark,
                           ),
                           SizedBox(
@@ -293,7 +296,7 @@ class _F_AddVehicleCountDetails extends State<F_AddVehicleCountDetails> {
                             height: 5,
                           ),
                           Text(
-                            "TN66V6571",
+                            '${vehicle.vehicleNo}',
                             style: descriptionStyleDark,
                           ),
                         ],
@@ -315,7 +318,11 @@ class _F_AddVehicleCountDetails extends State<F_AddVehicleCountDetails> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  context
+                      .bloc<VehicleDetailTripBloc>()
+                      .add(TripRecord(documentId: vehicle.documentId));
+                },
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5),
@@ -345,26 +352,4 @@ class _F_AddVehicleCountDetails extends State<F_AddVehicleCountDetails> {
       time.length;
     });
   }
-}
-
-Widget timeCard(BuildContext context, int count, String time) {
-  return Padding(
-    padding: EdgeInsets.all(10),
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text(
-          "$count",
-          style: descriptionStyleDark,
-        ),
-        SizedBox(
-          width: 150,
-        ),
-        Text(
-          time,
-          style: descriptionStyleDark,
-        ),
-      ],
-    ),
-  );
 }

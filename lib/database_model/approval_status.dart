@@ -1,25 +1,26 @@
 import 'package:flutter/foundation.dart';
 
-class VehicleType {
-  static const vehicleTypeReading = 'reading';
-  static const vehicleTypeTrip = 'trip';
+class ApprovalStatus {
+  static const approvalPending = 0;
+  static const approvalApproved = 1;
+  static const approvalDecline = 2;
 
-  VehicleType({@required this.id, @required this.name});
+  ApprovalStatus({@required this.id, @required this.name});
 
   final String id;
   final String name;
 
-  factory VehicleType.fromMap(Map<String, dynamic> data, String documentID) {
+  factory ApprovalStatus.fromMap(Map<String, dynamic> data, String documentID) {
     if (data == null) {
       return null;
     }
 
-    final String vehicleId = documentID;
+    final String approvalDocumentId = documentID;
 
     final String id = data['id'];
     final String name = data['name'];
 
-    return VehicleType(
+    return ApprovalStatus(
       id: id,
       name: name,
     );

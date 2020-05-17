@@ -39,7 +39,7 @@ class FirestoreService {
     if (queryBuilder != null) {
       query = queryBuilder(query);
     }
-    print('query : ${query}');
+    print('query : ${query.toString()}');
     final Stream<QuerySnapshot> snapshots = query.snapshots();
     return snapshots.map((snapshot) {
       final result = snapshot.documents

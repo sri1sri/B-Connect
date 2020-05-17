@@ -27,11 +27,68 @@ class VehicleBloc extends Bloc<VehicleEvent, VehicleState> {
     _streamSubscriptionVehicle = authenticationBloc.fireStoreDatabase
         .readAllVehicle()
         .listen((vehicleList) {
-      add(MapVehicleToState(vehicleList: vehicleList));
+      authenticationBloc.fireStoreDatabase
+          .readAllVehicleCategory()
+          .listen((vehicleCate) {
+        vehicleList.forEach((vehicleListElement) {
+          vehicleCate.forEach((vehicleCateElement) {
+            if (vehicleListElement.categoryId == vehicleCateElement.id) {
+              vehicleList[vehicleList.indexOf(vehicleListElement)]
+                  .categoryName = vehicleCateElement.name;
+              vehicleList[vehicleList.indexOf(vehicleListElement)]
+                  .categoryImage = vehicleCateElement.image;
+            }
+          });
+        });
+        authenticationBloc.fireStoreDatabase
+            .readAllVehicleType()
+            .listen((vehicleType) {
+          vehicleList.forEach((vehicleListElement) {
+            vehicleType.forEach((vehicleTypeElement) {
+              if (vehicleListElement.vehicleTypeId == vehicleTypeElement.id) {
+                vehicleList[vehicleList.indexOf(vehicleListElement)]
+                    .vehicleTypeName = vehicleTypeElement.name;
+              }
+            });
+          });
+          authenticationBloc.fireStoreDatabase
+              .readEmployees()
+              .listen((employeeList) {
+            vehicleList.forEach((vehicleListElement) {
+              employeeList.forEach((employeeElement) {
+                if (vehicleListElement.requestedByUserId ==
+                    employeeElement.employeeID) {
+                  vehicleList[vehicleList.indexOf(vehicleListElement)]
+                      .requestedByUserName = employeeElement.username;
+                  vehicleList[vehicleList.indexOf(vehicleListElement)]
+                      .requestedByUserRole = employeeElement.role;
+                }
+                if (vehicleListElement.approvedByUserId ==
+                    employeeElement.employeeID) {
+                  vehicleList[vehicleList.indexOf(vehicleListElement)]
+                      .approvedByUserName = employeeElement.username;
+                  vehicleList[vehicleList.indexOf(vehicleListElement)]
+                      .approvedByUserRole = employeeElement.role;
+                }
+              });
+            });
+            authenticationBloc.fireStoreDatabase
+                .currentUserDetails()
+                .listen((employee) {
+              add(MapVehicleToState(
+                  vehicleList: vehicleList, employee: employee));
+            });
+          });
+        });
+      });
     });
   }
 
   Stream<VehicleState> _mapUpdateVehicle(MapVehicleToState event) async* {
-    yield VehicleState.success(vehicleList: event.vehicleList);
+    yield VehicleState.success(vehicleList: event.vehicleList, employee: event.employee);
+  }
+
+  void closeStream() {
+    _streamSubscriptionVehicle?.cancel();
   }
 }

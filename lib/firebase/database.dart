@@ -11,7 +11,10 @@ import 'package:bhavani_connect/database_model/notification_model.dart';
 import 'package:bhavani_connect/database_model/order_details_model.dart';
 import 'package:bhavani_connect/database_model/vehicle_category.dart';
 import 'package:bhavani_connect/database_model/vehicle_model.dart';
+import 'package:bhavani_connect/database_model/vehicle_trip_record.dart';
 import 'package:bhavani_connect/database_model/vehicle_type.dart';
+import 'package:bhavani_connect/vehicle/detail/trip/vehicle_detail_trip_extras.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
@@ -109,9 +112,21 @@ abstract class Database {
 
   Future<void> addVehicle(Vehicle vehicle, String vehicleId);
 
+  Stream<Vehicle> readVehicle(String documentId);
+
+  Future<void> updateVehicle(Vehicle vehicle, String vehicleId);
+
   Stream<List<VehicleCategory>> readAllVehicleCategory();
 
   Stream<List<VehicleType>> readAllVehicleType();
+
+  Future<void> addTripRecord(VehicleTripRecord tripRecord, String tripRecordId);
+
+  Stream<List<VehicleTripRecord>> readAllTripRecord();
+
+  Stream<List<VehicleTripRecord>> readTripRecordMaxRound(String documentId);
+
+  Stream<List<VehicleTripRecord>> readTripRecordBy(String documentId);
 }
 
 class FirestoreDatabase implements Database {
@@ -462,5 +477,53 @@ class FirestoreDatabase implements Database {
   Stream<List<VehicleType>> readAllVehicleType() => _service.collectionStream(
         path: APIPath.viewVehicleType(),
         builder: (data, documentId) => VehicleType.fromMap(data, documentId),
+      );
+
+  @override
+  Future<void> updateVehicle(Vehicle vehicle, String documentId) async {
+    await _service.updateData(
+      path: APIPath.updateVehicle(documentId: documentId),
+      data: vehicle.toMap(),
+    );
+  }
+
+  @override
+  Stream<Vehicle> readVehicle(String documentId) => _service.documentStream(
+        path: APIPath.viewVehicleDetail(documentId),
+        builder: (data, documentId) => Vehicle.fromMap(data, documentId),
+      );
+
+  @override
+  Future<void> addTripRecord(
+          VehicleTripRecord tripRecord, String tripRecordId) async =>
+      await _service.setData(
+        path: APIPath.addTripRecord(tripRecordId),
+        data: tripRecord.toMap(),
+      );
+
+  @override
+  Stream<List<VehicleTripRecord>> readAllTripRecord() =>
+      _service.collectionStream(
+        path: APIPath.readAllTripRecord(),
+        builder: (data, documentId) =>
+            VehicleTripRecord.fromMap(data, documentId),
+      );
+
+  @override
+  Stream<List<VehicleTripRecord>> readTripRecordMaxRound(documentId) =>
+      _service.collectionStream(
+        path: APIPath.readAllTripRecord(),
+        queryBuilder: (query) => query.where('vehicle_id', whereIn: [documentId]).orderBy('round', descending: true).limit(1),
+        builder: (data, documentId) =>
+            VehicleTripRecord.fromMap(data, documentId),
+      );
+
+  @override
+  Stream<List<VehicleTripRecord>> readTripRecordBy(documentId) =>
+      _service.collectionStream(
+        path: APIPath.readAllTripRecord(),
+        queryBuilder: (query) => query.where('vehicle_id', whereIn: [documentId]),
+        builder: (data, documentId) =>
+            VehicleTripRecord.fromMap(data, documentId),
       );
 }

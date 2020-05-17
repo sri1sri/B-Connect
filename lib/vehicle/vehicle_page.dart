@@ -4,11 +4,14 @@ import 'package:bhavani_connect/common_variables/app_fonts.dart';
 import 'package:bhavani_connect/common_variables/app_functions.dart';
 import 'package:bhavani_connect/common_widgets/custom_appbar_widget/custom_app_bar_2.dart';
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
+import 'package:bhavani_connect/database_model/approval_status.dart';
+import 'package:bhavani_connect/database_model/employee_details_model.dart';
 import 'package:bhavani_connect/database_model/vehicle_model.dart';
 import 'package:bhavani_connect/home_screens/Vehicle_Entry/add_vehicle_details.dart';
 import 'package:bhavani_connect/home_screens/Vehicle_Entry/filter_vehicle_list_details.dart';
 import 'package:bhavani_connect/home_screens/Vehicle_Entry/vehicle_details_readings.dart';
 import 'package:bhavani_connect/home_screens/Vehicle_Entry/vehicle_list_details.dart';
+import 'package:bhavani_connect/utilities/date_time.dart';
 import 'package:bhavani_connect/vehicle/vehicle_extras.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -39,6 +42,8 @@ class VehiclePageState extends State<VehiclePage> {
 
   @override
   void dispose() {
+    context.bloc<VehicleBloc>().closeStream();
+    context.bloc<VehicleBloc>().close();
     super.dispose();
   }
 
@@ -65,13 +70,15 @@ class VehiclePageState extends State<VehiclePage> {
         (Initial initial) => Center(child: CircularProgressIndicator()),
         (Loading loading) => Center(child: CircularProgressIndicator()),
         (Success success) => Center(
-            child: _buildBody(context, vehicleList: success.vehicleList)),
+            child: _buildBody(context,
+                vehicleList: success.vehicleList, employee: success.employee)),
         (Failure failure) => Center(child: CircularProgressIndicator()),
       );
     });
   }
 
-  Widget _buildBody(BuildContext context, {List<Vehicle> vehicleList}) {
+  Widget _buildBody(BuildContext context,
+      {List<Vehicle> vehicleList, EmployeeDetails employee}) {
     return Scaffold(
       backgroundColor: backgroundColor,
       appBar: PreferredSize(
@@ -109,7 +116,7 @@ class VehiclePageState extends State<VehiclePage> {
                   height: 20,
                 ),
                 Text(
-                  '${(DateTime.parse(vehicleList?.first?.date?.toDate()?.toString() ??  DateTime.now().toString()))}',
+                  '${dMyyyyFormatDate(timestamp: DateTime.now())}',
                   style: subTitleStyleDark1,
                 ),
                 SizedBox(
@@ -221,7 +228,9 @@ class VehiclePageState extends State<VehiclePage> {
                         .map(
                           (itemRow) => DataRow(
                             onSelectChanged: (b) {
-                              GoToPage(context, AddVehicleDetails());
+                              context
+                                  .bloc<AuthenticationBloc>()
+                                  .gotoVehicleDetail(vehicle: itemRow);
                             },
                             cells: [
                               DataCell(
@@ -234,7 +243,7 @@ class VehiclePageState extends State<VehiclePage> {
                               ),
                               DataCell(
                                 Text(
-                                  '${(DateTime.parse(itemRow?.date?.toDate()?.toString() ??  DateTime.now().toString()))}',
+                                  '${(formatDateRow(timestamp: itemRow?.date?.toDate()))}',
                                   style: descriptionStyleDark,
                                 ),
                                 showEditIcon: false,
@@ -250,7 +259,7 @@ class VehiclePageState extends State<VehiclePage> {
                               ),
                               DataCell(
                                 Text(
-                                  itemRow?.site ?? '',
+                                  itemRow?.site ?? '-',
                                   style: descriptionStyleDark,
                                 ),
                                 showEditIcon: false,
@@ -266,20 +275,20 @@ class VehiclePageState extends State<VehiclePage> {
                               ),
                               DataCell(Column(
                                 children: [
-                                  Image.asset(
-                                    itemRow?.imgCate ?? '',
+                                  Image.network(
+                                    itemRow?.categoryImage ?? '',
                                     height: 60,
                                     width: 60,
                                   ),
                                   Text(
-                                    itemRow?.categoryId ?? '',
+                                    itemRow?.categoryName ?? '',
                                     style: descriptionStyleDark,
                                   )
                                 ],
                               )),
                               DataCell(
                                 Text(
-                                  itemRow?.vehicleTypeId ?? '',
+                                  itemRow?.vehicleTypeName ?? '',
                                   style: descriptionStyleDark,
                                 ),
                                 showEditIcon: false,
@@ -287,7 +296,8 @@ class VehiclePageState extends State<VehiclePage> {
                               ),
                               DataCell(
                                 Text(
-                                  itemRow?.startTime ?? '',
+                                  hhmmFormatDate(
+                                      timestamp: itemRow?.startTime?.toDate()),
                                   style: descriptionStyleDark,
                                 ),
                                 showEditIcon: false,
@@ -295,7 +305,7 @@ class VehiclePageState extends State<VehiclePage> {
                               ),
                               DataCell(
                                 Text(
-                                  itemRow?.startRead ?? '',
+                                  itemRow?.startRead ?? '-',
                                   style: descriptionStyleDark,
                                 ),
                                 showEditIcon: false,
@@ -303,7 +313,8 @@ class VehiclePageState extends State<VehiclePage> {
                               ),
                               DataCell(
                                 Text(
-                                  itemRow?.endTime ?? '',
+                                  hhmmFormatDate(
+                                      timestamp: itemRow?.endTime?.toDate()),
                                   style: descriptionStyleDark,
                                 ),
                                 showEditIcon: false,
@@ -311,7 +322,7 @@ class VehiclePageState extends State<VehiclePage> {
                               ),
                               DataCell(
                                 Text(
-                                  itemRow?.endRead ?? '',
+                                  itemRow?.endRead ?? '-',
                                   style: descriptionStyleDark,
                                 ),
                                 showEditIcon: false,
@@ -319,7 +330,7 @@ class VehiclePageState extends State<VehiclePage> {
                               ),
                               DataCell(
                                 Text(
-                                  itemRow?.totalTime ?? '',
+                                  itemRow?.totalTime ?? '-',
                                   style: descriptionStyleDark,
                                 ),
                                 showEditIcon: false,
@@ -327,7 +338,7 @@ class VehiclePageState extends State<VehiclePage> {
                               ),
                               DataCell(
                                 Text(
-                                  itemRow?.totalRead ?? '',
+                                  itemRow?.totalRead ?? '-',
                                   style: descriptionStyleDark,
                                 ),
                                 showEditIcon: false,
@@ -335,7 +346,7 @@ class VehiclePageState extends State<VehiclePage> {
                               ),
                               DataCell(
                                 Text(
-                                  itemRow?.totalTrips ?? '',
+                                  itemRow?.totalTrips ?? '-',
                                   style: descriptionStyleDark,
                                 ),
                                 showEditIcon: false,
@@ -343,7 +354,7 @@ class VehiclePageState extends State<VehiclePage> {
                               ),
                               DataCell(
                                 Text(
-                                  itemRow?.unitsPerTrip ?? '',
+                                  itemRow?.unitsPerTrip ?? '-',
                                   style: descriptionStyleDark,
                                 ),
                                 showEditIcon: false,
@@ -351,7 +362,10 @@ class VehiclePageState extends State<VehiclePage> {
                               ),
                               DataCell(
                                 Text(
-                                  itemRow?.requestedByUserId ?? '',
+                                  parseRequest(
+                                      itemRow?.requestedByUserId,
+                                      itemRow?.requestedByUserName,
+                                      itemRow?.requestedByUserRole),
                                   style: descriptionStyleDark,
                                 ),
                                 showEditIcon: false,
@@ -359,7 +373,10 @@ class VehiclePageState extends State<VehiclePage> {
                               ),
                               DataCell(
                                 Text(
-                                  itemRow?.approvedByUserId ?? '',
+                                  parseApproval(
+                                      itemRow?.approvedByUserId,
+                                      itemRow?.approvedByUserName,
+                                      itemRow?.approvedByUserRole),
                                   style: descriptionStyleDark,
                                 ),
                                 showEditIcon: false,
@@ -370,19 +387,16 @@ class VehiclePageState extends State<VehiclePage> {
                                   width: 150,
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(10),
-                                      color: itemRow.approvalStatus ==
-                                              'Approved'
-                                          ? Colors.green.withOpacity(0.8)
-                                          : (itemRow.approvalStatus == 'Pending'
-                                              ? Colors.orange.withOpacity(0.8)
-                                              : Colors.red.withOpacity(0.8))),
+                                      color: _parseColorApproval(
+                                          itemRow?.approvalStatus)),
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Padding(
                                         padding: const EdgeInsets.all(10.0),
                                         child: Text(
-                                          itemRow?.approvalStatus ?? '',
+                                          _parseStringApproval(
+                                              itemRow?.approvalStatus),
                                           style: subTitleStyleLight1,
                                         ),
                                       )
@@ -402,13 +416,56 @@ class VehiclePageState extends State<VehiclePage> {
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          context.bloc<AuthenticationBloc>().gotoAddVehicle();
-        },
-        child: Icon(Icons.add),
-        backgroundColor: backgroundColor,
-      ),
+      floatingActionButton: _hasShowAddVehicleButton(employee.role)
+          ? FloatingActionButton(
+              onPressed: () {
+                context.bloc<AuthenticationBloc>().gotoAddVehicle();
+              },
+              child: Icon(Icons.add),
+              backgroundColor: backgroundColor,
+            )
+          : Container(),
     );
+  }
+
+  Color _parseColorApproval(int approvalStatus) {
+    switch (approvalStatus) {
+      case ApprovalStatus.approvalPending:
+        return Colors.orange.withOpacity(0.8);
+        break;
+      case ApprovalStatus.approvalApproved:
+        return Colors.green.withOpacity(0.8);
+        break;
+      case ApprovalStatus.approvalDecline:
+        return Colors.red.withOpacity(0.8);
+        break;
+    }
+    return Colors.orange.withOpacity(0.8);
+  }
+
+  String _parseStringApproval(int approvalStatus) {
+    switch (approvalStatus) {
+      case ApprovalStatus.approvalPending:
+        return 'Pending';
+        break;
+      case ApprovalStatus.approvalApproved:
+        return 'Approved';
+        break;
+      case ApprovalStatus.approvalDecline:
+        return 'Decline';
+        break;
+    }
+    return 'Pending';
+  }
+
+  bool _hasShowAddVehicleButton(String role) {
+    switch (role.toLowerCase()) {
+      case EmployeeDetails.roleSecurity:
+        return true;
+        break;
+      default:
+        return false;
+        break;
+    }
   }
 }

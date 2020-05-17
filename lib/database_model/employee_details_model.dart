@@ -1,5 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+
 class EmployeeDetails{
+  static const roleOwner= "Owner";
+  static const roleNotAssigned = "Not assigned";
+  static const roleSecurity = "Security";
+  static const roleManager = "Manager";
+  static const roleSupervisor = "Supervisor";
+  static const roleStoreManager = "Store Manager";
+  static const roleAccountant = "Accountant";
+  static const roleSiteEngineer = "Site engineer";
+
   EmployeeDetails({
     this.username,
     this.phoneNumber,

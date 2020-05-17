@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bhavani_connect/auth/bloc.dart';
+import 'package:bhavani_connect/database_model/employee_details_model.dart';
 import 'package:bhavani_connect/database_model/vehicle_category.dart';
 import 'package:bhavani_connect/database_model/vehicle_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -32,9 +33,15 @@ class AddVehicleBloc extends Bloc<AddVehicleEvent, AddVehicleState> {
       yield* _mapLoadVehicleInitToState(event);
     } else if (event is SubmitVehicle) {
       yield AddVehicleState.loading();
-      Vehicle vehicleEntity = mapEventToVehicle(event);
+      authenticationBloc.fireStoreDatabase
+          .currentUserDetails()
+          .listen((employee) {
+        Vehicle vehicleEntity = mapEventToVehicle(event, employee);
+        add(SubmitVehicleLast(vehicleEntity));
+      });
+    } else if (event is SubmitVehicleLast) {
       await authenticationBloc.fireStoreDatabase
-          .addVehicle(vehicleEntity, Uuid().v1());
+          .addVehicle(event.vehicleEntity, Uuid().v1());
       yield AddVehicleState.success();
     }
   }
@@ -68,14 +75,30 @@ class AddVehicleBloc extends Bloc<AddVehicleEvent, AddVehicleState> {
         vehicleCateList: event.vehicleCate, vehicleTypeList: event.vehicleType);
   }
 
-  Vehicle mapEventToVehicle(SubmitVehicle event) {
+  Vehicle mapEventToVehicle(SubmitVehicle event, EmployeeDetails employee) {
     return Vehicle(
         categoryId: event.vehicleCateSelected.id,
+        categoryName: event.vehicleCateSelected.name,
+        categoryImage: event.vehicleCateSelected.image,
         sellerName: event.dealerName,
         vehicleNo: event.vehicleNo,
         unitsPerTrip: event.unitPerTrip,
         vehicleTypeId: event.vehicleTypeSelected.id,
-        requestedByUserId: authenticationBloc.fireStoreDatabase.uid,
-        date: Timestamp.now());
+        vehicleTypeName: event.vehicleTypeSelected.name,
+        requestedByUserId: employee.employeeID,
+        requestedByUserName: employee.username,
+        requestedByUserRole: employee.role,
+        date: Timestamp.now(),
+        dateRequest: Timestamp.now());
   }
+}
+
+class SubmitVehicleLast extends AddVehicleEvent {
+  final Vehicle vehicleEntity;
+
+  SubmitVehicleLast(this.vehicleEntity);
+
+  @override
+  // TODO: implement props
+  List<Object> get props => throw UnimplementedError();
 }

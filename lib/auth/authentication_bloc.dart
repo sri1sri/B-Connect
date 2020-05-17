@@ -1,9 +1,12 @@
 import 'dart:async';
 import 'package:bhavani_connect/authentication_screen/login_screens/otp_page.dart';
 import 'package:bhavani_connect/config/router.dart';
+import 'package:bhavani_connect/database_model/vehicle_model.dart';
+import 'package:bhavani_connect/database_model/vehicle_type.dart';
 import 'package:bhavani_connect/firebase/auth.dart';
 import 'package:bhavani_connect/firebase/database.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:bhavani_connect/vehicle/vehicle_extras.dart' as vehicleExtra;
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import './bloc.dart';
 
@@ -34,19 +37,32 @@ class AuthenticationBloc
   }
 
   void gotoHomePage() {
-    _navigatorKey.currentState.pushNamed(homeRoute);
+    _navigatorKey.currentState.pushReplacementNamed(homeRoute);
   }
 
   void gotoLandingPage() {
-    _navigatorKey.currentState.pushNamed(landingRoute);
+    _navigatorKey.currentState.pushReplacementNamed(landingRoute);
   }
 
-  void gotoVehicle(){
+  void gotoVehicle() {
     _navigatorKey.currentState.pushNamed(vehicleRoute);
   }
 
-  void gotoAddVehicle(){
+  void gotoAddVehicle() {
     _navigatorKey.currentState.pushNamed(addVehicleRoute);
+  }
+
+  void gotoVehicleDetail({Vehicle vehicle}) {
+    switch (vehicle.vehicleTypeId) {
+      case VehicleType.vehicleTypeTrip:
+        _navigatorKey.currentState.pushNamed(detailVehicleTripRoute,
+            arguments: vehicleExtra.VehicleDetailArguments(vehicle: vehicle));
+        break;
+      default:
+        _navigatorKey.currentState.pushNamed(detailVehicleReadingRoute,
+            arguments: vehicleExtra.VehicleDetailArguments(vehicle: vehicle));
+        break;
+    }
   }
 
   @override
@@ -76,7 +92,8 @@ class AuthenticationBloc
     if (event is SubmitPhoneNumber) {
       yield PhoneNumberLoading();
       await authFirebase.verifyPhoneNumber(event.phoneNumber);
-      yield PhoneNumberVerified(phoneNumber: event.phoneNumber, isNewUser: event.isNewUser);
+      yield PhoneNumberVerified(
+          phoneNumber: event.phoneNumber, isNewUser: event.isNewUser);
     }
 
     if (event is SubmitOpt) {

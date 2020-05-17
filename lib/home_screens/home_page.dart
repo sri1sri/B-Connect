@@ -7,6 +7,7 @@ import 'package:bhavani_connect/landing/landing_bloc.dart';
 import 'package:bhavani_connect/profile/profile_bloc.dart';
 import 'package:bhavani_connect/profile/profile_extras.dart';
 import 'package:bhavani_connect/profile/profile_page.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
@@ -24,6 +25,7 @@ class HomePage extends StatelessWidget {
 }
 
 class F_HomePage extends StatefulWidget {
+
   F_HomePage({Key key, this.title}) : super(key: key);
 
   final String title;
@@ -33,6 +35,8 @@ class F_HomePage extends StatefulWidget {
 }
 
 class _F_HomePageState extends State<F_HomePage> {
+  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+
   int currentIndex = 0;
   AuthenticationBloc authenticationBloc;
 
@@ -40,6 +44,7 @@ class _F_HomePageState extends State<F_HomePage> {
   void initState() {
     authenticationBloc = this.context.bloc<AuthenticationBloc>();
     super.initState();
+    initFcm();
   }
 
   @override
@@ -105,5 +110,29 @@ class _F_HomePageState extends State<F_HomePage> {
         ],
       ),
     );
+  }
+
+  void initFcm() {
+    _firebaseMessaging.configure(
+      onMessage: (Map<String, dynamic> message) async {
+        print("onMessage: $message");
+      },
+      onLaunch: (Map<String, dynamic> message) async {
+        print("onLaunch: $message");
+      },
+      onResume: (Map<String, dynamic> message) async {
+        print("onResume: $message");
+      },
+    );
+    _firebaseMessaging.requestNotificationPermissions(
+        const IosNotificationSettings(
+            sound: true, badge: true, alert: true, provisional: true));
+    _firebaseMessaging.onIosSettingsRegistered
+        .listen((IosNotificationSettings settings) {
+      print("Settings registered: $settings");
+    });
+    _firebaseMessaging.getToken().then((String token) {
+      print(token);
+    });
   }
 }
