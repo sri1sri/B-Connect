@@ -57,7 +57,7 @@ class AuthFirebase implements AuthBase {
 
   @override
   Future<void> verifyPhoneNumber(String phoneNumber, {Function success, Function failed}) async {
-    phoneNumberWithCode = '+84' + phoneNumber;
+    phoneNumberWithCode = '+91' + phoneNumber;
 
     final PhoneCodeAutoRetrievalTimeout autoRetrieval =
         (String verificationId) {

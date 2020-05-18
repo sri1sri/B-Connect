@@ -13,6 +13,7 @@ import 'package:bhavani_connect/home_screens/Vehicle_Entry/vehicle_details_readi
 import 'package:bhavani_connect/home_screens/Vehicle_Entry/vehicle_list_details.dart';
 import 'package:bhavani_connect/utilities/date_time.dart';
 import 'package:bhavani_connect/vehicle/vehicle_extras.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sealed_flutter_bloc/sealed_flutter_bloc.dart';
@@ -330,7 +331,7 @@ class VehiclePageState extends State<VehiclePage> {
                               ),
                               DataCell(
                                 Text(
-                                  itemRow?.totalTime ?? '-',
+                                  _parseTotalTiming(itemRow?.startTime, itemRow?.endTime),
                                   style: descriptionStyleDark,
                                 ),
                                 showEditIcon: false,
@@ -338,7 +339,7 @@ class VehiclePageState extends State<VehiclePage> {
                               ),
                               DataCell(
                                 Text(
-                                  itemRow?.totalRead ?? '-',
+                                  _parseTotalReading(itemRow?.startRead, itemRow?.endRead),
                                   style: descriptionStyleDark,
                                 ),
                                 showEditIcon: false,
@@ -466,6 +467,20 @@ class VehiclePageState extends State<VehiclePage> {
       default:
         return false;
         break;
+    }
+  }
+
+  String _parseTotalTiming(Timestamp startTime, Timestamp endTime) {
+    if(startTime == null || endTime == null) return '-';
+    else {
+      return hhmmFormatOnly(timestamp: Timestamp.fromMillisecondsSinceEpoch((endTime.millisecondsSinceEpoch - startTime.millisecondsSinceEpoch)).toDate());
+    }
+  }
+
+  String _parseTotalReading(String startRead, String endRead) {
+    if(startRead == null || endRead == null) return '-';
+    else {
+      return (int.parse(startRead) - int.parse(endRead)).toString();
     }
   }
 }

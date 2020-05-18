@@ -164,13 +164,5 @@ class _OTPPageState extends State<OTPPage> {
         otp: _otpController.text,
         phoneNo: widget.phoneNo,
         isNewUser: widget.newUser));
-//    if (widget.newUser) {
-//      context
-//          .bloc<AuthenticationBloc>().gotoSignUp(phoneNumber: widget.phoneNo);
-//    } else {
-//      context
-//          .bloc<AuthenticationBloc>()
-//          .add(SubmitOpt(otp: _otpController.text));
-//    }
   }
 }

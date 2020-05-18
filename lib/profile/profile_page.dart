@@ -228,7 +228,7 @@ class ProfilePageState extends State<ProfilePage> {
                             right: 120.0,
                             top: 30.0,
                             bottom: 230.0,
-                            child: employee.employeeImagePath == null
+                            child: employee?.employeeImagePath == null
                                 ? CircleAvatar(
                                     radius: 30.0,
                                     backgroundColor: Colors.grey[200],

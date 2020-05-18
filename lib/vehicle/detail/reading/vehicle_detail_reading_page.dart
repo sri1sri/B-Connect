@@ -233,7 +233,7 @@ class VehicleDetailReadingPageState extends State<VehicleDetailReadingPage> {
                                 style: descriptionStyleDark,
                               )),
                               DataCell(Text(
-                                '${formatDateRow(timestamp: vehicle?.dateRequest?.toDate())}',
+                                '${dMyyyyFormatDate(timestamp: vehicle?.dateRequest?.toDate())}',
                                 style: descriptionStyleDark,
                               )),
                             ],
@@ -252,7 +252,7 @@ class VehicleDetailReadingPageState extends State<VehicleDetailReadingPage> {
                                 style: descriptionStyleDark,
                               )),
                               DataCell(Text(
-                                '${formatDateRow(timestamp: vehicle?.dateApproval?.toDate())}',
+                                '${dMyyyyFormatDate(timestamp: vehicle?.dateApproval?.toDate())}',
                                 style: descriptionStyleDark,
                               )),
                             ],
@@ -307,6 +307,20 @@ class VehicleDetailReadingPageState extends State<VehicleDetailReadingPage> {
                         ),
                         Text(
                           '${vehicle.vehicleNo}',
+                          style: descriptionStyleDark,
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        Text(
+                          "Units per",
+                          style: subTitleStyle,
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Text(
+                          '${vehicle.unitsPerTrip}',
                           style: descriptionStyleDark,
                         ),
                       ],

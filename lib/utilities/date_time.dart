@@ -10,7 +10,7 @@ String yyyyMdhmFormatDate({DateTime timestamp}){
 }
 
 String dMyyyyhmFormatDate({DateTime timestamp}){
-  DateFormat dateFormat = DateFormat("dd-MM-yyy hh:mm");
+  DateFormat dateFormat = DateFormat("dd-MM-yyy hh:mm a");
   return timestamp != null ? dateFormat.format(timestamp) : '-';
 }
 
@@ -26,5 +26,10 @@ String dMyyyyFormatDate({DateTime timestamp}){
 
 String hhmmFormatDate({DateTime timestamp}){
   DateFormat dateFormat = DateFormat("hh:mm a");
+  return timestamp != null ? dateFormat.format(timestamp) : '-';
+}
+
+String hhmmFormatOnly({DateTime timestamp}){
+  DateFormat dateFormat = DateFormat("hh:mm");
   return timestamp != null ? dateFormat.format(timestamp) : '-';
 }
