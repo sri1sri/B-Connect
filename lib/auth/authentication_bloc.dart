@@ -9,6 +9,7 @@ import 'package:bhavani_connect/firebase/auth.dart';
 import 'package:bhavani_connect/firebase/database.dart';
 import 'package:bhavani_connect/vehicle/vehicle_extras.dart' as vehicleExtra;
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -41,7 +42,7 @@ class AuthenticationBloc
   }
 
   void gotoHomePage() {
-    _navigatorKey.currentState.pushReplacementNamed(homeRoute);
+    _navigatorKey.currentState.pushNamed(homeRoute);
   }
 
   void gotoLandingPage() {
@@ -93,6 +94,11 @@ class AuthenticationBloc
     _navigatorKey.currentState.pushNamed(notificationRoute);
   }
 
+  void gotoSignUp({String phoneNumber}) {
+    OtpArguments otpArguments = OtpArguments(phoneNum: phoneNumber);
+    _navigatorKey.currentState.pushNamed(signUpRoute, arguments: otpArguments);
+  }
+
   void pop() {
     _navigatorKey.currentState.pop();
   }
@@ -123,15 +129,37 @@ class AuthenticationBloc
 
     if (event is SubmitPhoneNumber) {
       yield PhoneNumberLoading();
-      await authFirebase.verifyPhoneNumber(event.phoneNumber);
+      await authFirebase.verifyPhoneNumber(event.phoneNumber,
+          success: (AuthCredential auth) {
+        print('Verified');
+        add(VerifyPhoneSuccess(
+            phoneNumber: event.phoneNumber, isNewUser: event.isNewUser));
+      }, failed: (AuthException auth) {
+        print('Failed');
+        add(VerifyPhoneFailed());
+      }).then((value) => add(VerifyPhoneSuccess(
+          phoneNumber: event.phoneNumber, isNewUser: event.isNewUser)));
+    } else if (event is VerifyPhoneSuccess) {
       yield PhoneNumberVerified(
           phoneNumber: event.phoneNumber, isNewUser: event.isNewUser);
+    } else if (event is VerifyPhoneFailed) {
+      yield PhoneNumberVerifyFailed();
     }
 
     if (event is SubmitOpt) {
       yield OtpStateLoading();
       await authFirebase.verifyOtp(event.otp);
+      if (event.isNewUser) {
+        this.add(OtpVerifiedNewUserEvent(phoneNo: event.phoneNo));
+      } else {
+        this.add(OtpVerifiedEvent());
+      }
+    } else if (event is OtpVerifiedEvent) {
       yield OtpVerified();
+    } else if (event is OtpVerifyError) {
+      yield OtpVerifyErrorState(ex: event.ex);
+    } else if (event is OtpVerifiedNewUserEvent) {
+      gotoSignUp(phoneNumber: event.phoneNo);
     }
   }
 

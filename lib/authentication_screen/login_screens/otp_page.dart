@@ -61,6 +61,11 @@ class _OTPPageState extends State<OTPPage> {
         listener: (BuildContext context, state) {
       if (state is OtpVerified) {
         context.bloc<AuthenticationBloc>().gotoLandingPage();
+      } else if (state is OtpVerifyErrorState) {
+        PlatformExceptionAlertDialog(
+          title: 'Something went wrong.',
+          exception: state.ex,
+        ).show(context);
       }
     }, child: BlocBuilder<AuthenticationBloc, AuthenticationState>(
       builder: (BuildContext context, state) {
@@ -101,9 +106,7 @@ class _OTPPageState extends State<OTPPage> {
                     textInputAction: TextInputAction.done,
                     obscureText: false,
                     focusNode: _otpFocusNode,
-                    onEditingComplete: () => context
-                        .bloc<AuthenticationBloc>()
-                        .add(SubmitOpt(otp: _otpController.text)),
+                    onEditingComplete: () => _submitOtp(context),
                     onChanged: (text) {},
                     decoration: new InputDecoration(
                       prefixIcon: Icon(
@@ -134,9 +137,7 @@ class _OTPPageState extends State<OTPPage> {
                     textColor: Colors.white,
                     backgroundColor: activeButtonBackgroundColor,
                     onPressed: () {
-                      context
-                          .bloc<AuthenticationBloc>()
-                          .add(SubmitOpt(otp: _otpController.text));
+                      _submitOtp(context);
                     },
                   ),
                   SizedBox(height: 10.0),
@@ -156,5 +157,20 @@ class _OTPPageState extends State<OTPPage> {
         );
       },
     ));
+  }
+
+  void _submitOtp(BuildContext context) {
+    context.bloc<AuthenticationBloc>().add(SubmitOpt(
+        otp: _otpController.text,
+        phoneNo: widget.phoneNo,
+        isNewUser: widget.newUser));
+//    if (widget.newUser) {
+//      context
+//          .bloc<AuthenticationBloc>().gotoSignUp(phoneNumber: widget.phoneNo);
+//    } else {
+//      context
+//          .bloc<AuthenticationBloc>()
+//          .add(SubmitOpt(otp: _otpController.text));
+//    }
   }
 }

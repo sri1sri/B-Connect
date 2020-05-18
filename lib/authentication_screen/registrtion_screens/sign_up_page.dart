@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:bhavani_connect/auth/authentication_bloc.dart';
 import 'package:bhavani_connect/common_variables/app_colors.dart';
 import 'package:bhavani_connect/common_variables/app_fonts.dart';
 import 'package:bhavani_connect/common_variables/app_functions.dart';
@@ -17,51 +18,28 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
-class SignUpPage extends StatelessWidget {
-  SignUpPage({@required this.phoneNo});
-  String phoneNo;
+class SignUpPage extends StatefulWidget {
+  final String phoneNo;
+
+  SignUpPage(this.phoneNo);
 
   @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: F_SignUpPage.create(context, phoneNo),
-    );
-  }
+  SignUpPageState createState() => SignUpPageState();
 }
 
-class F_SignUpPage extends StatefulWidget {
-  F_SignUpPage({this.model, @required this.phoneNo});
-  final SignUpModel model;
-  String phoneNo;
-
-
-
-  static Widget create(BuildContext context, String phoneNo) {
-    final AuthBase auth = Provider.of<AuthBase>(context);
-
-    return ChangeNotifierProvider<SignUpModel>(
-      create: (context) => SignUpModel(auth: auth),
-      child: Consumer<SignUpModel>(
-        builder: (context, model, _) => F_SignUpPage(model: model, phoneNo: phoneNo),
-      ),
-    );
-  }
-  @override
-  _F_SignUpPageState createState() => _F_SignUpPageState();
-}
-
-class _F_SignUpPageState extends State<F_SignUpPage> {
-
+class SignUpPageState extends State<SignUpPage> {
   File _profilePic;
   DateTime selectedDate = DateTime.now();
   var customFormat = DateFormat("dd MMMM yyyy 'at' HH:mm:ss 'UTC+5:30'");
   var customFormat2 = DateFormat("dd MMMM yyyy");
 
-  final FirebaseStorage _storage = FirebaseStorage(storageBucket: 'gs://bconnect-9d1b5.appspot.com/');
+  final FirebaseStorage _storage =
+      FirebaseStorage(storageBucket: 'gs://bconnect-9d1b5.appspot.com/');
   StorageUploadTask _uploadTask;
   String _profilePicPathURL;
 
@@ -77,12 +55,12 @@ class _F_SignUpPageState extends State<F_SignUpPage> {
 
   Future<Null> showPicker(BuildContext context) async {
     final DateTime picked = await showDatePicker(
-        context: context,
-        initialDate: DateTime(2010),
-        firstDate: DateTime(1930),
-        lastDate: DateTime(2010),
+      context: context,
+      initialDate: DateTime(2010),
+      firstDate: DateTime(1930),
+      lastDate: DateTime(2010),
     );
-    if (picked != null){
+    if (picked != null) {
       setState(() {
         print(customFormat.format(picked));
         selectedDate = picked;
@@ -92,8 +70,6 @@ class _F_SignUpPageState extends State<F_SignUpPage> {
 
   final TextEditingController _usernameController = TextEditingController();
   final FocusNode _usernameFocusNode = FocusNode();
-
-  SignUpModel get model => widget.model;
 
   @override
   void dispose() {
@@ -108,7 +84,7 @@ class _F_SignUpPageState extends State<F_SignUpPage> {
     return offlineWidget(context);
   }
 
-  Widget offlineWidget (BuildContext context){
+  Widget offlineWidget(BuildContext context) {
     return CustomOfflineWidget(
       onlineChild: Padding(
         padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
@@ -119,16 +95,16 @@ class _F_SignUpPageState extends State<F_SignUpPage> {
     );
   }
 
-  Future<void> _captureImage() async{
+  Future<void> _captureImage() async {
     File profileImage = await ImagePicker.pickImage(source: IMAGE_SOURCE);
-setState(() {
-  _profilePic = profileImage;
-  print(_profilePic);
-});
+    setState(() {
+      _profilePic = profileImage;
+      print(_profilePic);
+    });
   }
 
-  Widget signupContent(Widget signInBtn){
-   return SingleChildScrollView(
+  Widget signUpContent(BuildContext buildContext, Widget signInBtn) {
+    return SingleChildScrollView(
       child: Container(
         color: Colors.white,
         child: Column(
@@ -136,7 +112,9 @@ setState(() {
           children: <Widget>[
             Column(
               children: <Widget>[
-                SizedBox(height: 50,),
+                SizedBox(
+                  height: 50,
+                ),
               ],
             ),
             Column(
@@ -146,7 +124,9 @@ setState(() {
                   style: titleStyle,
                   textAlign: TextAlign.center,
                 ),
-                SizedBox(height: 20,),
+                SizedBox(
+                  height: 20,
+                ),
                 Text(
                   'To create an Account enter your name and date of birth.',
                   style: descriptionStyle,
@@ -154,44 +134,49 @@ setState(() {
                 ),
               ],
             ),
-            SizedBox(height: 20,),
-
+            SizedBox(
+              height: 20,
+            ),
             Column(
               children: <Widget>[
-                GestureDetector(onTap: _captureImage,
-                    child: _profilePic == null ?
-                    Container(
-                      width: 120,
-                      height: 120,
-                      child: Padding(
-                        padding: const EdgeInsets.only(top:50,left: 25),
-                        child: Text('Add Photo',style: descriptionStyle,),
-                      ),
-                      decoration: BoxDecoration(
-                        color: Colors.grey[100],
-                        shape: BoxShape.circle,),
-                    )
-                        :
-                    Container(
-                      width: 120,
-                      height: 120,
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          image: DecorationImage(
-                            image: FileImage(_profilePic),  // here add your image file path
-                            fit: BoxFit.fill,
+                GestureDetector(
+                    onTap: _captureImage,
+                    child: _profilePic == null
+                        ? Container(
+                            width: 120,
+                            height: 120,
+                            child: Padding(
+                              padding: const EdgeInsets.only(top: 50, left: 25),
+                              child: Text(
+                                'Add Photo',
+                                style: descriptionStyle,
+                              ),
+                            ),
+                            decoration: BoxDecoration(
+                              color: Colors.grey[100],
+                              shape: BoxShape.circle,
+                            ),
+                          )
+                        : Container(
+                            width: 120,
+                            height: 120,
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                image: DecorationImage(
+                                  image: FileImage(_profilePic),
+                                  // here add your image file path
+                                  fit: BoxFit.fill,
+                                )),
                           )),
-                    )),
-
                 SizedBox(height: 40.0),
-
                 new TextFormField(
                   controller: _usernameController,
                   textInputAction: TextInputAction.done,
                   obscureText: false,
                   focusNode: _usernameFocusNode,
-                  onEditingComplete: () => _imageUpload(),
-                  onChanged: model.updateUsername,
+                  onEditingComplete: () => _imageUpload(context),
+//                  onChanged: model.updateUsername,
+                  onChanged: (value) {},
                   decoration: new InputDecoration(
                     prefixIcon: Icon(
                       Icons.account_circle,
@@ -204,9 +189,9 @@ setState(() {
                     ),
                   ),
                   validator: (val) {
-                    if(val.length==0) {
+                    if (val.length == 0) {
                       return "Username cannot be empty";
-                    }else{
+                    } else {
                       return null;
                     }
                   },
@@ -215,65 +200,56 @@ setState(() {
                     fontFamily: "Poppins",
                   ),
                 ),
-
                 SizedBox(height: 20.0),
-
                 Padding(
-                  padding: EdgeInsets.only(top: 0,bottom: 10),
+                  padding: EdgeInsets.only(top: 0, bottom: 10),
                   child: Container(
-
                     child: RaisedButton(
-
                       color: Colors.white,
                       child: Container(
                         height: 60,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
-
-                            children: <Widget>[
-                              Text(
-                                'Select your date of birth.',
-                                style: descriptionStyle,
-                                textAlign: TextAlign.center,
-                              ),
-                              Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Container(
-                                child: Row(
-                                  children: <Widget>[
-                                    Icon(
-                                      Icons.date_range,
-                                      size: 18.0,
-                                      color: backgroundColor,
-                                    ),
-                                    SizedBox(width: 10,),
-                                    Text(
-                                        '${customFormat2.format(selectedDate)}',
-                                        style: subTitleStyle
-                                    ),
-                                  ],
+                          children: <Widget>[
+                            Text(
+                              'Select your date of birth.',
+                              style: descriptionStyle,
+                              textAlign: TextAlign.center,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Container(
+                                  child: Row(
+                                    children: <Widget>[
+                                      Icon(
+                                        Icons.date_range,
+                                        size: 18.0,
+                                        color: backgroundColor,
+                                      ),
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                      Text(
+                                          '${customFormat2.format(selectedDate)}',
+                                          style: subTitleStyle),
+                                    ],
+                                  ),
                                 ),
-                              ),
-
-                              Text(
-                                  'Change',
-                                  style: subTitleStyle
-                              ),
-                            ],
-                          ),
-                              SizedBox(width: 10,),
+                                Text('Change', style: subTitleStyle),
+                              ],
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
                           ],
                         ),
                       ),
                       onPressed: () => showPicker(context),
-
                     ),
                   ),
-
                 ),
                 SizedBox(height: 15.0),
-
                 signInBtn,
               ],
             ),
@@ -283,48 +259,45 @@ setState(() {
     );
   }
 
-
-
-  Widget _buildContent(BuildContext context) {
-
+  Widget _buildContent(BuildContext buildContext) {
     if (_uploadTask != null) {
       return StreamBuilder<StorageTaskEvent>(
-          stream: _uploadTask.events == null ? null :_uploadTask.events,
+          stream: _uploadTask.events == null ? null : _uploadTask.events,
           builder: (context, snapshot) {
             var event = snapshot?.data?.snapshot;
 
-            _progressValue =
-            event != null ? event.bytesTransferred / event.totalByteCount : 0;
+            _progressValue = event != null
+                ? event.bytesTransferred / event.totalByteCount
+                : 0;
 
-            return signupContent(
+            return signUpContent(
+              context,
               Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                LinearProgressIndicator(
-                  value: _progressValue,
-                ),
-                Text('${(_progressValue * 100).round()}%'),
-              ],
-            ),
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  LinearProgressIndicator(
+                    value: _progressValue,
+                  ),
+                  Text('${(_progressValue * 100).round()}%'),
+                ],
+              ),
             );
-          }
+          });
+    } else {
+      return signUpContent(
+        buildContext,
+        ToDoButton(
+          assetName: 'images/googl-logo.png',
+          text: 'Register',
+          textColor: Colors.white,
+          backgroundColor: activeButtonBackgroundColor,
+          onPressed: () => _imageUpload(context), // check can summit
+        ),
       );
-    }else{
-      return signupContent(
-          ToDoButton(
-            assetName: 'images/googl-logo.png',
-            text: 'Register',
-            textColor: Colors.white,
-            backgroundColor: activeButtonBackgroundColor,
-            onPressed: model.canSubmit ? () => _imageUpload() : null,
-          ),
-      );
-
     }
   }
 
-  Future<void> _submit(String path) async {
-
+  Future<void> _submit(BuildContext buildContext, String path) async {
     try {
       FirebaseUser user = await FirebaseAuth.instance.currentUser();
       final employeeDetails = EmployeeDetails(
@@ -344,8 +317,8 @@ setState(() {
         path: APIPath.employeeDetails(user.uid),
         data: employeeDetails.toMap(),
       );
-      GoToPage(context, LandingPage());
-
+      BlocProvider.of<AuthenticationBloc>(buildContext).pop();
+      BlocProvider.of<AuthenticationBloc>(buildContext).gotoLandingPage();
     } on PlatformException catch (e) {
       PlatformExceptionAlertDialog(
         title: 'Something went wrong.',
@@ -354,23 +327,23 @@ setState(() {
     }
   }
 
-  void _imageUpload() async {
+  void _imageUpload(BuildContext context) async {
     _loading = !_loading;
-    if (_profilePic != null ) {
+    if (_profilePic != null) {
       String _profilePicPath = 'profile_pic_images/${DateTime.now()}.png';
       setState(() {
         _uploadTask =
             _storage.ref().child(_profilePicPath).putFile(_profilePic);
       });
       _profilePicPathURL = await (await _storage
-          .ref()
-          .child(_profilePicPath)
-          .putFile(_profilePic)
-          .onComplete)
+              .ref()
+              .child(_profilePicPath)
+              .putFile(_profilePic)
+              .onComplete)
           .ref
           .getDownloadURL();
 
-      _submit(_profilePicPathURL);
+      _submit(context, _profilePicPathURL);
     }
   }
 }

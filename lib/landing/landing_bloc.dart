@@ -24,7 +24,8 @@ class LandingBloc extends Bloc<LandingEvent, LandingState> {
   @override
   Stream<LandingState> mapEventToState(LandingEvent event) async* {
     if (event is LandingInitData) {
-      initFireBaseDatabase().then((value) => bloc.gotoHomePage());
+      await initFireBaseDatabase();
+      bloc.gotoHomePage();
     }
   }
 

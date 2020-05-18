@@ -41,7 +41,6 @@ android/local\.properties
 \.flutter-plugins
 \.packages
 pubspec\.lock
-android/
 ios/
 \.DS_Store
 *.lock

@@ -2,6 +2,7 @@ import 'package:bhavani_connect/auth/authentication_bloc.dart';
 import 'package:bhavani_connect/authentication_screen/login_screens/login_page.dart';
 import 'package:bhavani_connect/authentication_screen/login_screens/otp_page.dart';
 import 'package:bhavani_connect/authentication_screen/login_screens/phone_number_page.dart';
+import 'package:bhavani_connect/authentication_screen/registrtion_screens/sign_up_page.dart';
 import 'package:bhavani_connect/filter/vehicle/filter_vehicle_bloc.dart';
 import 'package:bhavani_connect/filter/vehicle/filter_vehicle_extras.dart';
 import 'package:bhavani_connect/filter/vehicle/filter_vehicle_page.dart';
@@ -36,6 +37,7 @@ import 'package:provider/provider.dart';
 
 const String landingRoute = '/landing_page';
 const String loginRoute = '/login';
+const String signUpRoute = '/sign_up';
 const String phoneNumberRoute = '/phone_number';
 const String otpRoute = '/otp';
 const String homeRoute = '/home';
@@ -60,6 +62,9 @@ class Router {
         );
       case loginRoute:
         return MaterialPageRoute(builder: (_) => LoginPage());
+      case signUpRoute:
+        final OtpArguments args = settings.arguments;
+        return MaterialPageRoute(builder: (_) => SignUpPage(args.phoneNum));
       case phoneNumberRoute:
         return MaterialPageRoute(builder: (_) => PhoneNumberPage());
       case otpRoute:

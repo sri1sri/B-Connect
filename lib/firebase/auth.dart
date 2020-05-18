@@ -16,7 +16,7 @@ abstract class AuthBase {
 
   Future<User> signInAnonymously();
 
-  Future<void> verifyPhoneNumber(String phoneNumber);
+  Future<void> verifyPhoneNumber(String phoneNumber, {Function success, Function failed});
 
   Future<User> verifyOtp(String smsCode);
 
@@ -56,8 +56,8 @@ class AuthFirebase implements AuthBase {
   }
 
   @override
-  Future<void> verifyPhoneNumber(String phoneNumber) async {
-    phoneNumberWithCode = '+91' + phoneNumber;
+  Future<void> verifyPhoneNumber(String phoneNumber, {Function success, Function failed}) async {
+    phoneNumberWithCode = '+84' + phoneNumber;
 
     final PhoneCodeAutoRetrievalTimeout autoRetrieval =
         (String verificationId) {
@@ -70,7 +70,7 @@ class AuthFirebase implements AuthBase {
     };
 
     final PhoneVerificationCompleted verifiedSuccess = (AuthCredential auth) {
-      print('Verified');
+      print('Verified ');
     };
 
     final PhoneVerificationFailed verifiedFailed = (AuthException exception) {
@@ -83,14 +83,11 @@ class AuthFirebase implements AuthBase {
         .verifyPhoneNumber(
       phoneNumber: this.phoneNumberWithCode,
       timeout: Duration(seconds: 60),
-      verificationCompleted: verifiedSuccess,
-      verificationFailed: verifiedFailed,
+      verificationCompleted: success,
+      verificationFailed: failed,
       codeSent: smsCodeSent,
       codeAutoRetrievalTimeout: autoRetrieval,
-    )
-        .then((user) async {
-      print('${this.verificationId} <- verification idd');
-    });
+    );
   }
 
   @override

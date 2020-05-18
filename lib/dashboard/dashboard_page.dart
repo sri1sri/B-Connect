@@ -79,7 +79,7 @@ class DashboardPageState extends State<DashboardPage> {
                   },
                   secondaryText: 'Welcome to B-Connect',
                   primaryText:
-                  'Hello ${success.data.username}(${success.data.role}),',
+                  'Hello ${success?.data?.username ?? ''}(${success?.data?.role}),',
                 ),
               ),
               bottomSheet:

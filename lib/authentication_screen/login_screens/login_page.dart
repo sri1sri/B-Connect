@@ -75,7 +75,7 @@ class _LoginPageState extends State<LoginPage> {
                 text: 'Don\'t have an Account? Sign Up',
                 textColor: inActiveButtonTextColor,
                 backgroundColor: inActiveButtonBackgroundColor,
-                onPressed: () => GoToPage(context, PhoneNumberPage()),
+                onPressed: () => _authenticationBloc.gotoPhoneNumberPage(),
               ),
             ],
           ),

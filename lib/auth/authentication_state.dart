@@ -24,6 +24,8 @@ class PhoneNumberVerified extends AuthenticationState {
   PhoneNumberVerified({this.phoneNumber, this.isNewUser});
 }
 
+class PhoneNumberVerifyFailed extends AuthenticationState {}
+
 class UnVerified extends AuthenticationState {}
 
 class OtpStateLoading extends AuthenticationState {}

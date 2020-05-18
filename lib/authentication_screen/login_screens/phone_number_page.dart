@@ -6,6 +6,7 @@ import 'package:bhavani_connect/common_widgets/button_widget/to_do_button.dart';
 import 'package:bhavani_connect/common_widgets/loading_page.dart';
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
 import 'package:bhavani_connect/common_variables/app_fonts.dart';
+import 'package:bhavani_connect/common_widgets/platform_alert/platform_alert_dialog.dart';
 import 'package:bhavani_connect/common_widgets/platform_alert/platform_exception_alert_dialog.dart';
 import 'package:bhavani_connect/firebase/auth.dart';
 import 'package:bhavani_connect/models/phone_number_model.dart';
@@ -25,11 +26,8 @@ class _PhoneNumberPageState extends State<PhoneNumberPage> {
   final TextEditingController _phoneNumberController = TextEditingController();
   final FocusNode _phoneNumberFocusNode = FocusNode();
 
-  AuthenticationBloc _authenticationBloc;
-
   @override
   void initState() {
-    _authenticationBloc = BlocProvider.of<AuthenticationBloc>(context);
     super.initState();
   }
 
@@ -58,9 +56,16 @@ class _PhoneNumberPageState extends State<PhoneNumberPage> {
   Widget _buildContent(BuildContext context) {
     return BlocListener<AuthenticationBloc, AuthenticationState>(
       listener: (BuildContext context, AuthenticationState state) {
-        if (state is PhoneNumberVerified)
+        if (state is PhoneNumberVerified) {
           context.bloc<AuthenticationBloc>().gotoOtpPage(
               phoneNumber: state.phoneNumber, isNewUser: state.isNewUser);
+        } else if (state is PhoneNumberVerifyFailed) {
+          PlatformAlertDialog(
+            title: 'Logout',
+            content: 'Are you sure that you want to logout?',
+            defaultActionText: 'Close',
+          ).show(context);
+        }
       },
       child: BlocBuilder<AuthenticationBloc, AuthenticationState>(
         builder: (BuildContext context, state) {

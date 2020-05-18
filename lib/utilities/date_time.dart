@@ -25,6 +25,6 @@ String dMyyyyFormatDate({DateTime timestamp}){
 }
 
 String hhmmFormatDate({DateTime timestamp}){
-  DateFormat dateFormat = DateFormat("hh:mm");
+  DateFormat dateFormat = DateFormat("hh:mm a");
   return timestamp != null ? dateFormat.format(timestamp) : '-';
 }
