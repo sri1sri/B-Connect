@@ -71,13 +71,6 @@ class _F_StockScreen extends State<F_StockScreen> {
           leftAction: (){
             Navigator.pop(context,true);
           },
-          rightActionBar: Icon(Icons.search,size: 25,color: Colors.white,),
-          rightAction: (){
-//            GoToPage(
-//                context,
-//                StockFilter(
-//                ));
-          },
           primaryText: 'Add Stock Details',
           tabBarWidget: null,
         ),
