@@ -473,14 +473,28 @@ class VehiclePageState extends State<VehiclePage> {
   String _parseTotalTiming(Timestamp startTime, Timestamp endTime) {
     if(startTime == null || endTime == null) return '-';
     else {
-      return hhmmFormatOnly(timestamp: Timestamp.fromMillisecondsSinceEpoch((endTime.millisecondsSinceEpoch - startTime.millisecondsSinceEpoch)).toDate());
+      Timestamp xxx = Timestamp.fromMillisecondsSinceEpoch(endTime.millisecondsSinceEpoch - startTime.millisecondsSinceEpoch);
+      print('xxxx $xxx ${endTime.toDate().millisecondsSinceEpoch - startTime.toDate().millisecondsSinceEpoch}');
+//      return hhmmFormatOnly(timestamp: xxx.toDate());
+      return _printDuration(Duration(milliseconds: endTime.toDate().millisecondsSinceEpoch - startTime.toDate().millisecondsSinceEpoch));
     }
   }
 
   String _parseTotalReading(String startRead, String endRead) {
     if(startRead == null || endRead == null) return '-';
     else {
-      return (int.parse(startRead) - int.parse(endRead)).toString();
+      return (int.parse(endRead) - int.parse(startRead)).toString();
     }
+  }
+
+  String _printDuration(Duration duration) {
+    String twoDigits(int n) {
+      if (n >= 10) return "$n";
+      return "0$n";
+    }
+
+    String twoDigitMinutes = twoDigits(duration.inMinutes.remainder(60));
+    String twoDigitSeconds = twoDigits(duration.inSeconds.remainder(60));
+    return "${twoDigits(duration.inHours)}:$twoDigitMinutes:$twoDigitSeconds";
   }
 }
