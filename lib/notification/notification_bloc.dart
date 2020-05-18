@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:bhavani_connect/auth/authentication_bloc.dart';
 import 'package:bhavani_connect/database_model/approval_status.dart';
 import 'package:bloc/bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'notification_extras.dart';
 
 class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
@@ -33,6 +34,7 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
           vehicle.approvedByUserId = user.employeeID;
           vehicle.approvedByUserName = user.username;
           vehicle.approvedByUserRole = user.role;
+          vehicle.dateApproval = Timestamp.now();
           authenticationBloc.fireStoreDatabase
               .updateVehicle(vehicle, vehicle.documentId);
 
@@ -52,6 +54,7 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
           vehicle.approvedByUserId = user.employeeID;
           vehicle.approvedByUserName = user.username;
           vehicle.approvedByUserRole = user.role;
+          vehicle.dateApproval = Timestamp.now();
           authenticationBloc.fireStoreDatabase
               .updateVehicle(vehicle, vehicle.documentId);
 

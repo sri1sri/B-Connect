@@ -2,6 +2,7 @@ import 'package:bhavani_connect/common_variables/app_colors.dart';
 import 'package:bhavani_connect/common_variables/app_fonts.dart';
 import 'package:bhavani_connect/common_widgets/custom_appbar_widget/custom_app_bar_2.dart';
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
+import 'package:bhavani_connect/database_model/approval_status.dart';
 import 'package:bhavani_connect/database_model/vehicle_model.dart';
 import 'package:bhavani_connect/utilities/date_time.dart';
 import 'package:bhavani_connect/vehicle/detail/reading/vehicle_detail_reading_extras.dart';
@@ -336,47 +337,52 @@ class VehicleDetailReadingPageState extends State<VehicleDetailReadingPage> {
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: buildButtonState(context, vehicle),
+      floatingActionButton: (vehicle.approvalStatus == null ||
+              vehicle.approvalStatus == ApprovalStatus.approvalPending)
+          ? null
+          : buildButtonState(context, vehicle),
     );
   }
 }
 
 Widget buildButtonState(BuildContext context, Vehicle vehicle) {
-  return (vehicle.startTime != null && vehicle.endTime != null) ? Container() : Padding(
-    padding: const EdgeInsets.all(40.0),
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        GestureDetector(
-          onTap: () {
-            if (vehicle.startTime == null)
-              startReadingDialogue(context, vehicle: vehicle);
-            else
-              endReadingDialogue(context, vehicle: vehicle);
-          },
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(5),
-              color: (vehicle.startTime == null)
-                  ? Colors.green.withOpacity(0.8)
-                  : Colors.red.withOpacity(0.8),
-            ),
-            height: 35,
-            width: 80,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  '${vehicle.startTime == null ? 'START' : 'STOP'}',
-                  style: subTitleStyleLight1,
+  return (vehicle.startTime != null && vehicle.endTime != null)
+      ? Container()
+      : Padding(
+          padding: const EdgeInsets.all(40.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              GestureDetector(
+                onTap: () {
+                  if (vehicle.startTime == null)
+                    startReadingDialogue(context, vehicle: vehicle);
+                  else
+                    endReadingDialogue(context, vehicle: vehicle);
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5),
+                    color: (vehicle.startTime == null)
+                        ? Colors.green.withOpacity(0.8)
+                        : Colors.red.withOpacity(0.8),
+                  ),
+                  height: 35,
+                  width: 80,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        '${vehicle.startTime == null ? 'START' : 'STOP'}',
+                        style: subTitleStyleLight1,
+                      ),
+                    ],
+                  ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-        ),
-      ],
-    ),
-  );
+        );
 }
 
 void startReadingDialogue(BuildContext contextDialog, {Vehicle vehicle}) {
@@ -662,7 +668,11 @@ void endReadingDialogue(BuildContext buildContext, {Vehicle vehicle}) {
                                   child: GestureDetector(
                                     onTap: () {
                                       if (_formKey.currentState.validate()) {
-                                        buildContext.bloc<VehicleDetailReadingBloc>().add(StopReading(vehicle: vehicle, odoReading: _updatedGangName));
+                                        buildContext
+                                            .bloc<VehicleDetailReadingBloc>()
+                                            .add(StopReading(
+                                                vehicle: vehicle,
+                                                odoReading: _updatedGangName));
                                         Navigator.pop(context);
                                       }
                                     },

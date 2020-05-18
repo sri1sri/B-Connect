@@ -7,6 +7,8 @@ import 'profile_extras.dart';
 
 class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   AuthenticationBloc authenticationBloc;
+  StreamSubscription _streamSubscriptionReadEmployee;
+
 
   ProfileBloc({this.authenticationBloc});
 
@@ -19,12 +21,14 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       final employeeDetails = EmployeeDetails(deviceToken: DEVICE_TOKEN);
       authenticationBloc.fireStoreDatabase.updateEmployeeDetails(
           employeeDetails, authenticationBloc.fireStoreDatabase.uid);
-      authenticationBloc.fireStoreDatabase
+      _streamSubscriptionReadEmployee?.cancel();
+      _streamSubscriptionReadEmployee = authenticationBloc.fireStoreDatabase
           .readEmployeeDetails()
           .listen((event) {
         add(MapEmployeeToState(employeeDetails: event));
       });
     } else if (event is MapEmployeeToState) {
+      _streamSubscriptionReadEmployee?.cancel();
       yield ProfileState.success(data: event.employeeDetails);
     }
   }

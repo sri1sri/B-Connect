@@ -10,6 +10,7 @@ import 'package:bhavani_connect/utilities/date_time.dart';
 import 'package:bhavani_connect/vehicle/vehicle_extras.dart' as vehicleExtras;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sealed_flutter_bloc/sealed_flutter_bloc.dart';
 
 import 'vehicle_result_bloc.dart';
@@ -95,7 +96,7 @@ class VehicleResultPageState extends State<VehicleResultPage> {
         }));
   }
 
-  _bodySuccess(context,
+  _bodySuccess(buildContext,
       {List<Vehicle> vehicleList,
       String sellerName,
       String siteName,
@@ -228,9 +229,7 @@ class VehicleResultPageState extends State<VehicleResultPage> {
                     .map(
                       (itemRow) => DataRow(
                         onSelectChanged: (b) {
-                          context
-                              .bloc<AuthenticationBloc>()
-                              .gotoVehicleDetail(vehicle: itemRow);
+                          BlocProvider.of<AuthenticationBloc>(buildContext).gotoVehicleDetail(vehicle: itemRow);
                         },
                         cells: [
                           DataCell(

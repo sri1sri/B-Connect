@@ -55,15 +55,14 @@ class VehicleDetailTripBloc
         });
       });
     } else if (event is MapVehicleToState) {
-      event.tripRecordList.sort((a,b) => a.round.compareTo(b.round));
+      event.tripRecordList.sort((a, b) => a.round.compareTo(b.round));
       yield Success(
           vehicle: event.vehicle, tripRecordList: event.tripRecordList);
     } else if (event is TripRecord) {
       _listenAllTripRecord = authenticationBloc.fireStoreDatabase
           .readAllTripRecord()
           .listen((allRecord) {
-        add(LoadedTripRecord(
-            allTripRecord: allRecord, documentId: event.documentId));
+        add(LoadedTripRecord(allTripRecord: allRecord, vehicle: event.vehicle));
       });
     } else if (event is LoadedTripRecord) {
       _listenAllTripRecord?.cancel();
@@ -71,10 +70,10 @@ class VehicleDetailTripBloc
       int currentRound = 0;
       var listRecord = event.allTripRecord;
       List<VehicleTripRecord> tmpList = [];
-      tmpList.addAll(
-          listRecord.where((element) => event.documentId == element.vehicleId));
+      tmpList.addAll(listRecord
+          .where((element) => event.vehicle.documentId == element.vehicleId));
       if (tmpList != null && tmpList.length > 0) {
-        tmpList.sort((a,b) => a.round.compareTo(b.round));
+        tmpList.sort((a, b) => a.round.compareTo(b.round));
         currentRound = tmpList?.last?.round;
       }
       currentRound++;
@@ -83,10 +82,13 @@ class VehicleDetailTripBloc
               id: Uuid().v1(),
               round: currentRound,
               time: Timestamp.now(),
-              vehicleId: event?.documentId),
+              vehicleId: event?.vehicle?.documentId),
           Uuid().v1());
+      event?.vehicle?.totalTrips = (tmpList.length + 1).toString();
+      await authenticationBloc.fireStoreDatabase
+          .updateVehicle(event.vehicle, event.vehicle.documentId);
       try {
-        add(UpdatedEvent(documentId: event.documentId));
+        add(UpdatedEvent(documentId: event.vehicle.documentId));
       } catch (e) {}
     }
   }

@@ -327,7 +327,7 @@ class VehicleDetailTripPageState extends State<VehicleDetailTripPage> {
           ),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        floatingActionButton: (vehicle.approvalStatus ==
+        floatingActionButton: (vehicle.approvalStatus == null || vehicle.approvalStatus ==
                 ApprovalStatus.approvalPending)
             ? null
             : Padding(
@@ -339,7 +339,7 @@ class VehicleDetailTripPageState extends State<VehicleDetailTripPage> {
                       onTap: () {
                         context
                             .bloc<VehicleDetailTripBloc>()
-                            .add(TripRecord(documentId: vehicle.documentId));
+                            .add(TripRecord(vehicle: vehicle));
                       },
                       child: Container(
                         decoration: BoxDecoration(

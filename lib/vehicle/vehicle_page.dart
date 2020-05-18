@@ -347,7 +347,7 @@ class VehiclePageState extends State<VehiclePage> {
                               ),
                               DataCell(
                                 Text(
-                                  itemRow?.totalTrips ?? '-',
+                                  '${itemRow?.totalTrips ?? '-'}',
                                   style: descriptionStyleDark,
                                 ),
                                 showEditIcon: false,
@@ -355,7 +355,7 @@ class VehiclePageState extends State<VehiclePage> {
                               ),
                               DataCell(
                                 Text(
-                                  itemRow?.unitsPerTrip ?? '-',
+                                  '${itemRow?.unitsPerTrip ?? '-'}',
                                   style: descriptionStyleDark,
                                 ),
                                 showEditIcon: false,

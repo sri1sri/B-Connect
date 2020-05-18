@@ -6,6 +6,10 @@ import 'vehicle_result_extras.dart';
 class VehicleResultBloc extends Bloc<VehicleResultEvent, VehicleResultState> {
   final AuthenticationBloc authenticationBloc;
   StreamSubscription _streamSubscriptionVehicle;
+  StreamSubscription _streamVehicleCategory;
+  StreamSubscription _streamVehicleType;
+  StreamSubscription _streamReadEmployee;
+  StreamSubscription _streamReadCurrentUser;
 
   VehicleResultBloc({this.authenticationBloc});
 
@@ -15,15 +19,24 @@ class VehicleResultBloc extends Bloc<VehicleResultEvent, VehicleResultState> {
   @override
   Stream<VehicleResultState> mapEventToState(VehicleResultEvent event) async* {
     if (event is InitDataVehicleResultEvent) {
+      cancelStreamSubs();
       yield* _mapLoadVehicleToState(event);
     } else if (event is MapVehicleToState) {
+      cancelStreamSubs();
       yield* _mapUpdateVehicle(event);
     }
   }
 
+  void cancelStreamSubs(){
+    _streamSubscriptionVehicle?.cancel();
+    _streamVehicleCategory?.cancel();
+    _streamVehicleType?.cancel();
+    _streamReadEmployee?.cancel();
+    _streamReadCurrentUser?.cancel();
+  }
+
   Stream<VehicleResultState> _mapLoadVehicleToState(
       InitDataVehicleResultEvent event) async* {
-    _streamSubscriptionVehicle?.cancel();
     _streamSubscriptionVehicle = authenticationBloc.fireStoreDatabase
         .filterVehicleList(
             sellerName: event.sellerName,
@@ -31,7 +44,7 @@ class VehicleResultBloc extends Bloc<VehicleResultEvent, VehicleResultState> {
             dateFrom: event.dateFrom,
             dateTo: event.dateTo)
         .listen((vehicleList) {
-      authenticationBloc.fireStoreDatabase
+      _streamVehicleCategory = authenticationBloc.fireStoreDatabase
           .readAllVehicleCategory()
           .listen((vehicleCate) {
         vehicleList.forEach((vehicleListElement) {
@@ -44,7 +57,7 @@ class VehicleResultBloc extends Bloc<VehicleResultEvent, VehicleResultState> {
             }
           });
         });
-        authenticationBloc.fireStoreDatabase
+        _streamVehicleType = authenticationBloc.fireStoreDatabase
             .readAllVehicleType()
             .listen((vehicleType) {
           vehicleList.forEach((vehicleListElement) {
@@ -55,7 +68,7 @@ class VehicleResultBloc extends Bloc<VehicleResultEvent, VehicleResultState> {
               }
             });
           });
-          authenticationBloc.fireStoreDatabase
+          _streamReadEmployee = authenticationBloc.fireStoreDatabase
               .readEmployees()
               .listen((employeeList) {
             vehicleList.forEach((vehicleListElement) {
@@ -76,7 +89,7 @@ class VehicleResultBloc extends Bloc<VehicleResultEvent, VehicleResultState> {
                 }
               });
             });
-            authenticationBloc.fireStoreDatabase
+            _streamReadCurrentUser = authenticationBloc.fireStoreDatabase
                 .currentUserDetails()
                 .listen((employee) {
               add(MapVehicleToState(

@@ -6,9 +6,9 @@ import 'package:flutter/foundation.dart';
 abstract class VehicleDetailTripEvent extends Equatable {}
 
 class TripRecord extends VehicleDetailTripEvent {
-  final String documentId;
+  final Vehicle vehicle;
 
-  TripRecord({this.documentId});
+  TripRecord({this.vehicle});
 
   @override
   // TODO: implement props
@@ -18,9 +18,9 @@ class TripRecord extends VehicleDetailTripEvent {
 class LoadedTripRecord extends VehicleDetailTripEvent {
   final List<VehicleTripRecord> allTripRecord;
 
-  final String documentId;
+  final Vehicle vehicle;
 
-  LoadedTripRecord({this.allTripRecord, this.documentId});
+  LoadedTripRecord({this.allTripRecord, this.vehicle});
 
   @override
   // TODO: implement props

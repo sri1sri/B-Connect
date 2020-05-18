@@ -79,7 +79,6 @@ class VehicleBloc extends Bloc<VehicleEvent, VehicleState> {
                 .listen((employee) {
               add(MapVehicleToState(
                   vehicleList: vehicleList, employee: employee));
-              _streamSubscriptionVehicle.cancel();
             });
           });
         });
