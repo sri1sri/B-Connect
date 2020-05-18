@@ -77,6 +77,7 @@ class VehicleBloc extends Bloc<VehicleEvent, VehicleState> {
                 .listen((employee) {
               add(MapVehicleToState(
                   vehicleList: vehicleList, employee: employee));
+              _streamSubscriptionVehicle.cancel();
             });
           });
         });
@@ -85,7 +86,8 @@ class VehicleBloc extends Bloc<VehicleEvent, VehicleState> {
   }
 
   Stream<VehicleState> _mapUpdateVehicle(MapVehicleToState event) async* {
-    yield VehicleState.success(vehicleList: event.vehicleList, employee: event.employee);
+    yield VehicleState.success(
+        vehicleList: event.vehicleList, employee: event.employee);
   }
 
   void closeStream() {

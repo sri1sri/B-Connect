@@ -9,6 +9,7 @@ import 'dashboard_extras.dart';
 
 class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
   AuthenticationBloc authenticationBloc;
+  StreamSubscription _streamSubscriptionReadEmployee;
 
   DashboardBloc({this.authenticationBloc});
 
@@ -19,14 +20,16 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
   Stream<DashboardState> mapEventToState(DashboardEvent event) async* {
     if (event is LoadEmployee) {
       final employeeDetails = EmployeeDetails(deviceToken: DEVICE_TOKEN);
+      _streamSubscriptionReadEmployee?.cancel();
       authenticationBloc.fireStoreDatabase.updateEmployeeDetails(
           employeeDetails, authenticationBloc.fireStoreDatabase.uid);
-      authenticationBloc.fireStoreDatabase
+      _streamSubscriptionReadEmployee = authenticationBloc.fireStoreDatabase
           .readEmployeeDetails()
           .listen((event) {
         add(MapEmployeeToState(employeeDetails: event));
       });
     } else if (event is MapEmployeeToState) {
+      _streamSubscriptionReadEmployee?.cancel();
       yield DashboardState.success(data: event.employeeDetails);
     }
   }
