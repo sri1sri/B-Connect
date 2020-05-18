@@ -60,6 +60,7 @@ class _OTPPageState extends State<OTPPage> {
     return BlocListener<AuthenticationBloc, AuthenticationState>(
         listener: (BuildContext context, state) {
       if (state is OtpVerified) {
+        context.bloc<AuthenticationBloc>().pop();
         context.bloc<AuthenticationBloc>().gotoLandingPage();
       } else if (state is OtpVerifyErrorState) {
         PlatformExceptionAlertDialog(

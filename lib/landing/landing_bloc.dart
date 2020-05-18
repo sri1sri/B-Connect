@@ -25,6 +25,7 @@ class LandingBloc extends Bloc<LandingEvent, LandingState> {
   Stream<LandingState> mapEventToState(LandingEvent event) async* {
     if (event is LandingInitData) {
       await initFireBaseDatabase();
+      bloc.pop();
       bloc.gotoHomePage();
     }
   }

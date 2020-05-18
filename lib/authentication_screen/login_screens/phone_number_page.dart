@@ -61,8 +61,8 @@ class _PhoneNumberPageState extends State<PhoneNumberPage> {
               phoneNumber: state.phoneNumber, isNewUser: state.isNewUser);
         } else if (state is PhoneNumberVerifyFailed) {
           PlatformAlertDialog(
-            title: 'Logout',
-            content: 'Are you sure that you want to logout?',
+            title: 'Error!',
+            content: 'Something wrong.',
             defaultActionText: 'Close',
           ).show(context);
         }

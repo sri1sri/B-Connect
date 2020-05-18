@@ -17,7 +17,6 @@ Future<void> _signOut(BuildContext context, AuthenticationBloc authenticationBlo
 //    await auth.signOut();
 //     AuthenticationBloc auth =  BlocProvider.of<AuthenticationBloc>(context);
     authenticationBloc.signOut();
-    Navigator.of(context).pop();
   } catch (e) {
     print(e.toString());
   }

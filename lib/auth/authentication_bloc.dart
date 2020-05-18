@@ -42,11 +42,11 @@ class AuthenticationBloc
   }
 
   void gotoHomePage() {
-    _navigatorKey.currentState.pushNamed(homeRoute);
+    _navigatorKey.currentState.pushNamedAndRemoveUntil(homeRoute, (route) => false);
   }
 
   void gotoLandingPage() {
-    _navigatorKey.currentState.pushReplacementNamed(landingRoute);
+    _navigatorKey.currentState.pushNamed(landingRoute);
   }
 
   void gotoVehicle() {
@@ -111,6 +111,7 @@ class AuthenticationBloc
       final bool hasToken = await authFirebase.firebaseUser() != null;
 
       if (hasToken) {
+        pop();
         gotoLandingPage();
       } else {
         yield Unauthenticated();
@@ -163,7 +164,10 @@ class AuthenticationBloc
     }
   }
 
-  void signOut() => authFirebase.signOut();
+  void signOut() async{
+    await authFirebase.signOut();
+    _navigatorKey.currentState.pushNamedAndRemoveUntil(loginRoute, (route) => false);
+  }
 
   void saveFirebaseToken() async {
     String token = await FirebaseMessaging().getToken();
