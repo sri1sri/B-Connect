@@ -2,6 +2,7 @@ import 'package:bhavani_connect/common_variables/app_colors.dart';
 import 'package:bhavani_connect/common_variables/app_fonts.dart';
 import 'package:bhavani_connect/common_widgets/custom_appbar_widget/custom_app_bar_2.dart';
 import 'package:bhavani_connect/common_widgets/offline_widgets/offline_widget.dart';
+import 'package:bhavani_connect/database_model/approval_status.dart';
 import 'package:bhavani_connect/database_model/vehicle_model.dart';
 import 'package:bhavani_connect/database_model/vehicle_trip_record.dart';
 import 'package:bhavani_connect/utilities/date_time.dart';
@@ -326,38 +327,41 @@ class VehicleDetailTripPageState extends State<VehicleDetailTripPage> {
           ),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        floatingActionButton: Padding(
-          padding: const EdgeInsets.all(40.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              GestureDetector(
-                onTap: () {
-                  context
-                      .bloc<VehicleDetailTripBloc>()
-                      .add(TripRecord(documentId: vehicle.documentId));
-                },
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                    color: Colors.green.withOpacity(0.8),
-                  ),
-                  height: 35,
-                  width: 80,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "ADD",
-                        style: subTitleStyleLight1,
+        floatingActionButton: (vehicle.approvalStatus ==
+                ApprovalStatus.approvalPending)
+            ? null
+            : Padding(
+                padding: const EdgeInsets.all(40.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    GestureDetector(
+                      onTap: () {
+                        context
+                            .bloc<VehicleDetailTripBloc>()
+                            .add(TripRecord(documentId: vehicle.documentId));
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5),
+                          color: Colors.green.withOpacity(0.8),
+                        ),
+                        height: 35,
+                        width: 80,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "ADD",
+                              style: subTitleStyleLight1,
+                            ),
+                          ],
+                        ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-              ),
-            ],
-          ),
-        ));
+              ));
   }
 
   void addItem() {

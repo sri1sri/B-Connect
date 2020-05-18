@@ -111,6 +111,8 @@ abstract class Database {
 
   Stream<List<Vehicle>> readAllVehicle();
 
+  Stream<List<Vehicle>> readAllVehicleToday({DateTime date});
+
   Future<void> addVehicle(Vehicle vehicle, String vehicleId);
 
   Stream<Vehicle> readVehicle(String documentId);
@@ -465,6 +467,16 @@ class FirestoreDatabase implements Database {
   @override
   Stream<List<Vehicle>> readAllVehicle() => _service.collectionStream(
         path: APIPath.viewVehicle(),
+        builder: (data, documentId) => Vehicle.fromMap(data, documentId),
+      );
+
+  @override
+  Stream<List<Vehicle>> readAllVehicleToday({DateTime date}) =>
+      _service.collectionStream(
+        path: APIPath.viewVehicle(),
+        queryBuilder: (query) => query.where('date',
+            isGreaterThanOrEqualTo:
+                DateTime(date.year, date.month, date.day, 0, 0)).where('date', isLessThanOrEqualTo: DateTime(date.year, date.month, date.day, 23, 59, 59)),
         builder: (data, documentId) => Vehicle.fromMap(data, documentId),
       );
 

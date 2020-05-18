@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:bhavani_connect/auth/authentication_bloc.dart';
 import 'package:bhavani_connect/database_model/vehicle_model.dart';
 import 'package:bloc/bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'vehicle_extras.dart';
 
 class VehicleBloc extends Bloc<VehicleEvent, VehicleState> {
@@ -23,9 +24,10 @@ class VehicleBloc extends Bloc<VehicleEvent, VehicleState> {
   }
 
   Stream<VehicleState> _mapLoadVehicleToState() async* {
+
     _streamSubscriptionVehicle?.cancel();
     _streamSubscriptionVehicle = authenticationBloc.fireStoreDatabase
-        .readAllVehicle()
+        .readAllVehicleToday(date: DateTime.now())
         .listen((vehicleList) {
       authenticationBloc.fireStoreDatabase
           .readAllVehicleCategory()

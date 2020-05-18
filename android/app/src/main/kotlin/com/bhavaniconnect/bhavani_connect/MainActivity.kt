@@ -11,11 +11,11 @@ import io.flutter.plugins.firebasemessaging.FlutterFirebaseMessagingService
 class MainActivity : FlutterActivity(), PluginRegistry.PluginRegistrantCallback {
     override fun configureFlutterEngine(@NonNull flutterEngine: FlutterEngine) {
         GeneratedPluginRegistrant.registerWith(flutterEngine);
-//        flutterEngine.plugins.add(FirebaseMessagingPlugin());
+        flutterEngine.plugins.add(FirebaseMessagingPlugin());
     }
 
     override fun registerWith(registry: PluginRegistry) {
-//        FirebaseCloudMessagingPluginRegistrant.registerWith(registry)
+        FirebaseCloudMessagingPluginRegistrant.registerWith(registry)
     }
 
 }

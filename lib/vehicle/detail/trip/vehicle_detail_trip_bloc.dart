@@ -55,7 +55,7 @@ class VehicleDetailTripBloc
         });
       });
     } else if (event is MapVehicleToState) {
-//      event.tripRecordList.sort((a,b) => a.round.compareTo(b.round));
+      event.tripRecordList.sort((a,b) => a.round.compareTo(b.round));
       yield Success(
           vehicle: event.vehicle, tripRecordList: event.tripRecordList);
     } else if (event is TripRecord) {
