@@ -41,6 +41,25 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
               event.notificationModel, event.notificationModel.notificationID);
         });
       });
-    } else if (event is DeclineEvent) {}
+    } else if (event is DeclineEvent) {
+      authenticationBloc.fireStoreDatabase
+          .readVehicle(event.notificationModel.itemEntryID)
+          .listen((vehicle) {
+        authenticationBloc.fireStoreDatabase
+            .currentUserDetails()
+            .listen((user) {
+          vehicle.approvalStatus = ApprovalStatus.approvalApproved;
+          vehicle.approvedByUserId = user.employeeID;
+          vehicle.approvedByUserName = user.username;
+          vehicle.approvedByUserRole = user.role;
+          authenticationBloc.fireStoreDatabase
+              .updateVehicle(vehicle, vehicle.documentId);
+
+          event.notificationModel.status = ApprovalStatus.approvalDecline;
+          authenticationBloc.fireStoreDatabase.updateNotification(
+              event.notificationModel, event.notificationModel.notificationID);
+        });
+      });
+    }
   }
 }
