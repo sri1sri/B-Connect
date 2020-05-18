@@ -130,7 +130,7 @@ class _F_AddInvoice extends State<F_AddInvoice> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("Date",style: titleStyle,),
+                          Text("Purchased Date",style: titleStyle,),
                           SizedBox(height: 20,),
                           GestureDetector(
                             onTap: () => showPickerFrom(context),
@@ -200,75 +200,33 @@ class _F_AddInvoice extends State<F_AddInvoice> {
                               selectedItem: "Choose Dealer Name",
                               showSearchBox: true),
                           SizedBox(height: 20,),
-                          Text("Invoice No. and Date",style: titleStyle,),
+                          Text("Invoice No.",style: titleStyle,),
                           SizedBox(height: 20,),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Container(
-                                width: MediaQuery.of(context).size.width / 2 - 25,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: <Widget>[
-                                    TextFormField(
-                                      controller: _invoiceDateController,
-                                      //initialValue: _name,
-                                      textInputAction: TextInputAction.done,
-                                      obscureText: false,
-                                      validator: (value) => value.isNotEmpty ? null : 'Invoice No. and Date cant\'t be empty.',
-                                      focusNode: _invoiceDateFocusNode,
-                                      //onSaved: (value) => _name = value,
-                                      decoration: new InputDecoration(
-                                        prefixIcon: Icon(
-                                          Icons.featured_play_list,
-                                          color: backgroundColor,
-                                        ),
-                                        labelText: 'Enter Invoice No. and Date',
-                                        //fillColor: Colors.redAccent,
-                                        border: new OutlineInputBorder(
-                                          borderRadius: new BorderRadius.circular(5.0),
-                                          borderSide: new BorderSide(),
-                                        ),
-                                      ),
-
-                                      keyboardType: TextInputType.text,
-                                      style: new TextStyle(
-                                        fontFamily: "Poppins",
-                                      ),
-                                    ),
-
-                                  ],
-                                ),
+                          TextFormField(
+                            controller: _invoiceDateController,
+                            //initialValue: _name,
+                            textInputAction: TextInputAction.done,
+                            obscureText: false,
+                            validator: (value) => value.isNotEmpty ? null : 'Invoice No. Quantity cant\'t be empty.',
+                            focusNode: _invoiceDateFocusNode,
+                            // onSaved: (value) => _name = value,
+                            decoration: new InputDecoration(
+                              prefixIcon: Icon(
+                                Icons.blur_linear,
+                                color: backgroundColor,
                               ),
-                              SizedBox(width: 10,),
-                              Container(
-                                width: MediaQuery.of(context).size.width / 2 - 25,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: <Widget>[
-                                    GestureDetector(
-                                      onTap: () => showPickerTo(context),
-                                      child: Container(
-                                        child: Row(
-                                          children: <Widget>[
-                                            Icon(
-                                              Icons.date_range,
-                                              size: 18.0,
-                                              color: backgroundColor,
-                                            ),
-                                            SizedBox(width: 10,),
-                                            Text(
-                                                '${customFormat2.format(selectedDateInvoice)}',
-                                                style: subTitleStyle
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                              labelText: 'Enter Invoice No.',
+                              //fillColor: Colors.redAccent,
+                              border: new OutlineInputBorder(
+                                borderRadius: new BorderRadius.circular(5.0),
+                                borderSide: new BorderSide(),
                               ),
-                            ],
+                            ),
+
+                            keyboardType: TextInputType.text,
+                            style: new TextStyle(
+                              fontFamily: "Poppins",
+                            ),
                           ),
                           SizedBox(height: 20,),
                           Text("Received Quantity",style: titleStyle,),

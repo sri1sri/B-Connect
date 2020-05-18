@@ -53,6 +53,7 @@ class _F_SiteActivities extends State<F_SiteActivities> {
   }
 
   Widget _buildContent(BuildContext context) {
+    var size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: backgroundColor,
       appBar: PreferredSize(
@@ -147,90 +148,9 @@ class _F_SiteActivities extends State<F_SiteActivities> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 SizedBox(height: 20,),
-                Text("23 October 2020",style: subTitleStyleDark1,),
-                SizedBox(height: 20,),
-                SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: DataTable(
-                    onSelectAll: (b) {},
-                    sortAscending: true,
-                    showCheckboxColumn: false,
-                    dataRowHeight: 70.0,
-                    columns: <DataColumn>[
-                      DataColumn(label: Text("S.No.",style: subTitleStyle1,)),
-                      DataColumn(label: Text("Date",style: subTitleStyle1,)),
-                      DataColumn(label: Text("Site",style: subTitleStyle1,)),
-                      DataColumn(label: Text("Block",style: subTitleStyle1,)),
-                      DataColumn(label: Text("Category",style: subTitleStyle1,)),
-                      DataColumn(label: Text("Sub Category",style: subTitleStyle1,)),
-                      DataColumn(label: Text("UOM",style: subTitleStyle1,),),
-                      DataColumn(label: Text("yesterday progress",style: subTitleStyle1,),),
-                      DataColumn(label: Text("Total Progress",style: subTitleStyle1,)),
-                      DataColumn(label: Text("Remarks",style: subTitleStyle1,)),
-                    ],
-                    rows: items
-                        .map(
-                          (itemRow) => DataRow(onSelectChanged: (b) {GoToPage(
-                          context,
-                              ActivityDetailDescription());},
-                        cells: [
-                          DataCell(
-                            Text(itemRow.slNo,style:descriptionStyleDark,),
-                            showEditIcon: false,
-                            placeholder: false,
-                          ),
-                          DataCell(
-                            Text(itemRow.date,style:descriptionStyleDark,),
-                            showEditIcon: false,
-                            placeholder: false,
-                          ),
-                          DataCell(
-                            Text(itemRow.site,style:descriptionStyleDark,),
-                            showEditIcon: false,
-                            placeholder: false,
-                          ),
-                          DataCell(
-                            Text(itemRow.block,style:descriptionStyleDark,),
-                            showEditIcon: false,
-                            placeholder: false,
-                          ),
-                          DataCell(
-                            Text(itemRow.category,style:descriptionStyleDark,),
-                            showEditIcon: false,
-                            placeholder: false,
-                          ),
-                          DataCell(
-                            Text(itemRow.subCategory,style:descriptionStyleDark,),
-                            showEditIcon: false,
-                            placeholder: false,
-                          ),
-                          DataCell(
-                            Text(itemRow.uom,style:descriptionStyleDark,),
-                            showEditIcon: false,
-                            placeholder: false,
-                          ),
-                          DataCell(
-                            Text(itemRow.yesterdayProg,style:descriptionStyleDark,),
-                            showEditIcon: false,
-                            placeholder: false,
-                          ),
-                          DataCell(
-                            Text(itemRow.totalProg,style:descriptionStyleDark,),
-                            showEditIcon: false,
-                            placeholder: false,
-                          ),
-                          DataCell(
-                            Text(itemRow.remarks,style:descriptionStyleDark,),
-                            showEditIcon: false,
-                            placeholder: false,
-                          ),
-                        ],
-                      ),
-                    )
-                        .toList(),
-                  ),
-                ),
-                SizedBox(height: 500,)
+
+                SiteActivity(size, context,"29 Oct 2020","Bhavani Vivan","28 Tons of TMT rods with steel blend.","Iron/Steel","2A","90"),
+                SizedBox(height: 600,)
               ],
             ),
           ),
@@ -253,6 +173,7 @@ class _F_SiteActivities extends State<F_SiteActivities> {
 class ItemInfo {
   String slNo;
   String date;
+  String createdBy;
   String site;
   String block;
   String category;
@@ -264,6 +185,7 @@ class ItemInfo {
 
   ItemInfo({
     this.slNo,
+    this.createdBy,
     this.date,
     this.site,
     this.category,
@@ -279,6 +201,7 @@ class ItemInfo {
 var items = <ItemInfo>[
   ItemInfo(
       slNo: '1',
+      createdBy: "Vasanth (Manager)",
       date: '29/Oct/2020',
       site: 'Bhavani Vivan',
       block: "8th",
@@ -294,6 +217,7 @@ var items = <ItemInfo>[
       slNo: '2',
       date: '29/Oct/2020',
       site: 'Bhavani Vivan',
+      createdBy: "Vasanth (Manager)",
       block: "8th",
       category: 'Iron/Steel',
       subCategory: 'TMT rod',
@@ -306,6 +230,7 @@ var items = <ItemInfo>[
   ItemInfo(
       slNo: '3',
       date: '29/Oct/2020',
+      createdBy: "Vasanth (Manager)",
       site: 'Bhavani Vivan',
       block: "8th",
       category: 'Iron/Steel',
@@ -320,6 +245,7 @@ var items = <ItemInfo>[
       slNo: '3',
       date: '29/Oct/2020',
       site: 'Bhavani Vivan',
+      createdBy: "Vasanth (Manager)",
       block: "8th",
       category: 'Iron/Steel',
       subCategory: 'TMT rod',
@@ -331,6 +257,7 @@ var items = <ItemInfo>[
   ),
   ItemInfo(
       slNo: '4',
+      createdBy: "Vasanth (Manager)",
       date: '29/Oct/2020',
       site: 'Bhavani Vivan',
       block: "8th",
@@ -344,3 +271,101 @@ var items = <ItemInfo>[
   ),
 
 ];
+
+
+Widget SiteActivity(Size size, BuildContext context,String date,String site,String description,String category,String block,String total)
+{
+  return  GestureDetector(
+    onTap: (){
+      GoToPage(context,ActivityDetailDescription());
+    },
+    child: Padding(
+      padding: const EdgeInsets.only(right:15.0,left: 15,top: 20),
+      child: Container(
+        width: double.infinity,
+        height: 210,
+        child: Stack(
+          children: <Widget>[
+            Positioned(
+              right:15,
+              top: 0,
+              child:Text(
+                  date,
+                  style: descriptionStyleDarkBlur3
+              ),
+            ),
+            Positioned(
+              bottom: 0,
+              left: 0,
+              right: 0,
+              child: Container(
+                padding: EdgeInsets.only(
+                  left: 24,
+                  top: 24,
+                  right: size.width * .35,
+                ),
+                height: 185,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: Color(0xFFEAEAEA).withOpacity(.45),
+                  borderRadius: BorderRadius.circular(29),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                        site,
+                        style: subTitleStyle1
+                    ),
+                    SizedBox(height: 10),
+                    Text(
+                      "Block: $block",
+                      style: descriptionStyleDarkBlur1,
+                    ),
+                    SizedBox(height: 10),
+                    Expanded(
+                      child: Text(
+                          description,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: subTitleStyleDark1
+                      ),
+                    ),
+                    Text(
+                        category,
+                        style: subTitleStyle
+                    ),
+                    SizedBox(height: 10),
+                  ],
+                ),
+              ),
+            ),
+            Positioned(
+              bottom: 0,
+              right: 0,
+              child: SizedBox(
+                height: 50,
+                width: size.width * .40,
+                child: Container(
+                  alignment: Alignment.center,
+                  padding: EdgeInsets.symmetric(vertical: 10),
+                  decoration: BoxDecoration(
+                    color: backgroundColor,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(24),
+                      bottomRight: Radius.circular(24),
+                    ),
+                  ),
+                  child: Text(
+                      "Progress: $total",
+                      style: subTitleStyleLight
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
+}

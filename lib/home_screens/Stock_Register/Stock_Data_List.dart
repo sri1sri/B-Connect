@@ -93,13 +93,15 @@ class _F_StockDataList extends State<F_StockDataList> {
                     dataRowHeight: 70.0,
                     columns: <DataColumn>[
                       DataColumn(label: Text("S.No.",style: subTitleStyle1,)),
-                      DataColumn(label: Text("Date",style: subTitleStyle1,)),
+                      DataColumn(label: Text("Created On",style: subTitleStyle1,)),
+                      DataColumn(label: Text("Created By",style: subTitleStyle1,)),
+                      DataColumn(label: Text("Purchased Date",style: subTitleStyle1,)),
                       DataColumn(label: Text("Site",style: subTitleStyle1,)),
                       DataColumn(label: Text("Item Description",style: subTitleStyle1,)),
                       DataColumn(label: Text("Category",style: subTitleStyle1,)),
                       DataColumn(label: Text("Uom",style: subTitleStyle1,)),
                       DataColumn(label: Text("Dealer Name",style: subTitleStyle1,),),
-                      DataColumn(label: Text("Invoice No. & Date",style: subTitleStyle1,),),
+                      DataColumn(label: Text("Invoice No.",style: subTitleStyle1,),),
                       DataColumn(label: Text("Received Quantity",style: subTitleStyle1,)),
                       DataColumn(label: Text("Issued Quantity",style: subTitleStyle1,)),
                       DataColumn(label: Text("Balance Quantity",style: subTitleStyle1,)),
@@ -115,6 +117,16 @@ class _F_StockDataList extends State<F_StockDataList> {
                         cells: [
                           DataCell(
                             Text(itemRow.slNo,style:descriptionStyleDark,),
+                            showEditIcon: false,
+                            placeholder: false,
+                          ),
+                          DataCell(
+                            Text(itemRow.createdOn,style:descriptionStyleDark,),
+                            showEditIcon: false,
+                            placeholder: false,
+                          ),
+                          DataCell(
+                            Text(itemRow.createdBy,style:descriptionStyleDark,),
                             showEditIcon: false,
                             placeholder: false,
                           ),
@@ -211,6 +223,8 @@ class _F_StockDataList extends State<F_StockDataList> {
 
 class ItemInfo {
   String slNo;
+  String createdOn;
+  String createdBy;
   String date;
   String site;
   String itemDescription;
@@ -229,6 +243,8 @@ class ItemInfo {
 
   ItemInfo({
     this.slNo,
+    this.createdOn,
+    this.createdBy,
     this.date,
     this.site,
     this.itemDescription,
@@ -250,13 +266,15 @@ class ItemInfo {
 var items = <ItemInfo>[
   ItemInfo(
       slNo: '1',
+      createdOn: '03/Nov/2020',
+      createdBy: "Vasanth (Manager)",
       date: '29/Oct/2020',
       site: 'Bhavani Vivan',
       itemDescription: '28 Tons of TMT rods',
       category: 'Iron/Steel',
       umo: 'Tons',
       supplierName: 'Vasanth Steels',
-      invoiceNo: '54569 - 29/Oct/2020',
+      invoiceNo: '54569',
       receivedQty: '440',
       issuedQty: '340',
       balanceQty: '100',
@@ -269,13 +287,15 @@ var items = <ItemInfo>[
   ),
   ItemInfo(
       slNo: '2',
+      createdOn: '03/Nov/2020',
       date: '29/Oct/2020',
+      createdBy: "Vasanth (Manager)",
       site: 'Bhavani Vivan',
       itemDescription: '28 Tons of TMT rods',
       category: 'Iron/Steel',
       umo: 'Tons',
       supplierName: 'Vasanth Steels',
-      invoiceNo: '54569 - 29/Oct/2020',
+      invoiceNo: '54569',
       receivedQty: '440',
       issuedQty: '340',
       balanceQty: '100',
@@ -288,13 +308,15 @@ var items = <ItemInfo>[
   ),
   ItemInfo(
       slNo: '3',
+      createdOn: '03/Nov/2020',
       date: '29/Oct/2020',
       site: 'Bhavani Vivan',
       itemDescription: '28 Tons of TMT rods',
       category: 'Iron/Steel',
+      createdBy: "Vasanth (Manager)",
       umo: 'Tons',
       supplierName: 'Vasanth Steels',
-      invoiceNo: '54569 - 29/Oct/2020',
+      invoiceNo: '54569',
       receivedQty: '440',
       issuedQty: '340',
       balanceQty: '100',
@@ -307,13 +329,15 @@ var items = <ItemInfo>[
   ),
   ItemInfo(
       slNo: '4',
+      createdOn: '03/Nov/2020',
       date: '29/Oct/2020',
       site: 'Bhavani Vivan',
       itemDescription: '28 Tons of TMT rods',
       category: 'Iron/Steel',
       umo: 'Tons',
+      createdBy: "Vasanth (Manager)",
       supplierName: 'Vasanth Steels',
-      invoiceNo: '54569 - 29/Oct/2020',
+      invoiceNo: '54569',
       receivedQty: '440',
       issuedQty: '340',
       balanceQty: '100',
@@ -326,13 +350,15 @@ var items = <ItemInfo>[
   ),
   ItemInfo(
       slNo: '5',
+      createdOn: '03/Nov/2020',
       date: '29/Oct/2020',
       site: 'Bhavani Vivan',
       itemDescription: '28 Tons of TMT rods',
       category: 'Iron/Steel',
       umo: 'Tons',
       supplierName: 'Vasanth Steels',
-      invoiceNo: '54569 - 29/Oct/2020',
+      invoiceNo: '54569',
+      createdBy: "Vasanth (Manager)",
       receivedQty: '440',
       issuedQty: '340',
       balanceQty: '100',

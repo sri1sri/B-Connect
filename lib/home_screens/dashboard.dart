@@ -7,6 +7,7 @@ import 'package:bhavani_connect/common_widgets/platform_alert/platform_alert_dia
 import 'package:bhavani_connect/database_model/employee_details_model.dart';
 import 'package:bhavani_connect/firebase/auth.dart';
 import 'package:bhavani_connect/firebase/database.dart';
+import 'package:bhavani_connect/home_screens/Add_Stock/Stock_Screen.dart';
 import 'package:bhavani_connect/home_screens/Concrete_Entries/Concrete_HomePage.dart';
 import 'package:bhavani_connect/home_screens/Labour_Report/Daily_labour_Report.dart';
 import 'package:bhavani_connect/home_screens/Site_Activities/site_Activities_HomePage.dart';
@@ -42,7 +43,7 @@ class F_Dashboard extends StatefulWidget {
 class _F_DashboardState extends State<F_Dashboard> {
   var features = [
 //    "Approvals",
-//    "Add stock",
+    "Add stock",
 //    "Store",
 //    "Inventory",
 //    "Attendance",
@@ -55,7 +56,7 @@ class _F_DashboardState extends State<F_Dashboard> {
   ];
   List<String> F_image = [
 //    "images/Approval.jpg",
-//    "images/Addstock.jpg",
+    "images/Addstock.jpg",
 //    "images/store.jpg",
 //    "images/inventory.png",
 //    "images/Attendance.jpg",
@@ -253,16 +254,14 @@ class _F_DashboardState extends State<F_Dashboard> {
 //                            );
 //                          }
 //                          break;
-//                        case 'Add stock':
-//                          {
-//                            GoToPage(
-//                                context,
-//                                AddStock(
-//                                  database: widget.database,
-//                                  employee: employee,
-//                                ));
-//                          }
-//                          break;
+                        case 'Add stock':
+                          {
+                            GoToPage(
+                                context,
+                                StockScreen(
+                                ));
+                          }
+                          break;
                         case 'Vehicle Entries':
                           {
                             GoToPage(

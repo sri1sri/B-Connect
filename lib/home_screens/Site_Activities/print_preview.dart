@@ -97,7 +97,8 @@ class _F_PrintPreview extends State<F_PrintPreview> {
                     dataRowHeight: 70.0,
                     columns: <DataColumn>[
                       DataColumn(label: Text("S.No.",style: subTitleStyle1,)),
-                      DataColumn(label: Text("Date",style: subTitleStyle1,)),
+                      DataColumn(label: Text("Created On",style: subTitleStyle1,)),
+                      DataColumn(label: Text("Created By",style: subTitleStyle1,)),
                       DataColumn(label: Text("Site",style: subTitleStyle1,)),
                       DataColumn(label: Text("Block",style: subTitleStyle1,)),
                       DataColumn(label: Text("Category",style: subTitleStyle1,)),
@@ -118,6 +119,11 @@ class _F_PrintPreview extends State<F_PrintPreview> {
                           ),
                           DataCell(
                             Text(itemRow.date,style:descriptionStyleDark,),
+                            showEditIcon: false,
+                            placeholder: false,
+                          ),
+                          DataCell(
+                            Text(itemRow.createdBy,style:descriptionStyleDark,),
                             showEditIcon: false,
                             placeholder: false,
                           ),
@@ -179,6 +185,7 @@ class _F_PrintPreview extends State<F_PrintPreview> {
 
 class ItemInfo {
   String slNo;
+  String createdBy;
   String date;
   String site;
   String block;
@@ -191,6 +198,7 @@ class ItemInfo {
 
   ItemInfo({
     this.slNo,
+    this.createdBy,
     this.date,
     this.site,
     this.category,
@@ -207,6 +215,7 @@ var items = <ItemInfo>[
   ItemInfo(
       slNo: '1',
       date: '29/Oct/2020',
+      createdBy: "Vasanth (Manager)",
       site: 'Bhavani Vivan',
       block: "8th",
       category: 'Iron/Steel',
@@ -220,6 +229,7 @@ var items = <ItemInfo>[
   ItemInfo(
       slNo: '2',
       date: '29/Oct/2020',
+      createdBy: "Vasanth (Manager)",
       site: 'Bhavani Vivan',
       block: "8th",
       category: 'Iron/Steel',
@@ -234,6 +244,7 @@ var items = <ItemInfo>[
       slNo: '3',
       date: '29/Oct/2020',
       site: 'Bhavani Vivan',
+      createdBy: "Vasanth (Manager)",
       block: "8th",
       category: 'Iron/Steel',
       subCategory: 'TMT rod',
@@ -246,6 +257,7 @@ var items = <ItemInfo>[
   ItemInfo(
       slNo: '3',
       date: '29/Oct/2020',
+      createdBy: "Vasanth (Manager)",
       site: 'Bhavani Vivan',
       block: "8th",
       category: 'Iron/Steel',
@@ -259,6 +271,7 @@ var items = <ItemInfo>[
   ItemInfo(
       slNo: '4',
       date: '29/Oct/2020',
+      createdBy: "Vasanth (Manager)",
       site: 'Bhavani Vivan',
       block: "8th",
       category: 'Iron/Steel',

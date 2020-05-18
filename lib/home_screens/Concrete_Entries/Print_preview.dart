@@ -95,8 +95,9 @@ class _F_PrintPreviewConcrete extends State<F_PrintPreviewConcrete> {
                     dataRowHeight: 70.0,
                     columns: <DataColumn>[
                       DataColumn(label: Text("S.No.",style: subTitleStyle1,)),
-                      DataColumn(label: Text("Date",style: subTitleStyle1,)),
                       DataColumn(label: Text("Concrete Type",style: subTitleStyle1,)),
+                      DataColumn(label: Text("Created On",style: subTitleStyle1,)),
+                      DataColumn(label: Text("Created By",style: subTitleStyle1,)),
                       DataColumn(label: Text("Construction Site",style: subTitleStyle1,)),
                       DataColumn(label: Text("Block",style: subTitleStyle1,)),
                       DataColumn(label: Text("Total Progress",style: subTitleStyle1,)),
@@ -112,12 +113,17 @@ class _F_PrintPreviewConcrete extends State<F_PrintPreviewConcrete> {
                             placeholder: false,
                           ),
                           DataCell(
+                            Text(itemRow.concType,style:descriptionStyleDark,),
+                            showEditIcon: false,
+                            placeholder: false,
+                          ),
+                          DataCell(
                             Text(itemRow.date,style:descriptionStyleDark,),
                             showEditIcon: false,
                             placeholder: false,
                           ),
                           DataCell(
-                            Text(itemRow.concType,style:descriptionStyleDark,),
+                            Text(itemRow.createdBy,style:descriptionStyleDark,),
                             showEditIcon: false,
                             placeholder: false,
                           ),
@@ -162,13 +168,16 @@ class ItemInfo {
   String date;
   String site;
   String block;
+  String createdBy;
   String concType;
   String totalProg;
   String remarks;
 
   ItemInfo({
+
     this.slNo,
     this.date,
+    this.createdBy,
     this.site,
     this.concType,
     this.block,
@@ -180,6 +189,7 @@ class ItemInfo {
 var items = <ItemInfo>[
   ItemInfo(
       slNo: '1',
+      createdBy: "Vasanth (Manager)",
       date: '29/Oct/2020',
       site: 'Bhavani Vivan',
       block: "8th",
@@ -190,6 +200,7 @@ var items = <ItemInfo>[
   ),
   ItemInfo(
       slNo: '2',
+      createdBy: "Vasanth (Manager)",
       date: '29/Oct/2020',
       site: 'Bhavani Vivan',
       block: "8th",
@@ -200,6 +211,7 @@ var items = <ItemInfo>[
   ),
   ItemInfo(
       slNo: '3',
+      createdBy: "Vasanth (Manager)",
       date: '29/Oct/2020',
       site: 'Bhavani Vivan',
       block: "8th",
@@ -210,6 +222,7 @@ var items = <ItemInfo>[
   ),
   ItemInfo(
       slNo: '3',
+      createdBy: "Vasanth (Manager)",
       date: '29/Oct/2020',
       site: 'Bhavani Vivan',
       block: "8th",
@@ -220,6 +233,7 @@ var items = <ItemInfo>[
   ),
   ItemInfo(
       slNo: '4',
+      createdBy: "Vasanth (Manager)",
       date: '29/Oct/2020',
       site: 'Bhavani Vivan',
       block: "8th",

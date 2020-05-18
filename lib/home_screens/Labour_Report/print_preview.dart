@@ -97,7 +97,8 @@ class _F_PrintPreviewLabour extends State<F_PrintPreviewLabour> {
                     dataRowHeight: 70.0,
                     columns: <DataColumn>[
                       DataColumn(label: Text("S.No.",style: subTitleStyle1,)),
-                      DataColumn(label: Text("Date",style: subTitleStyle1,)),
+                      DataColumn(label: Text("Created On",style: subTitleStyle1,)),
+                      DataColumn(label: Text("Created By",style: subTitleStyle1,)),
                       DataColumn(label: Text("Labour Type",style: subTitleStyle1,)),
                       DataColumn(label: Text("Construction Site",style: subTitleStyle1,)),
                       DataColumn(label: Text("Block",style: subTitleStyle1,)),
@@ -116,6 +117,11 @@ class _F_PrintPreviewLabour extends State<F_PrintPreviewLabour> {
                           ),
                           DataCell(
                             Text(itemRow.date,style:descriptionStyleDark,),
+                            showEditIcon: false,
+                            placeholder: false,
+                          ),
+                          DataCell(
+                            Text(itemRow.createdBy,style:descriptionStyleDark,),
                             showEditIcon: false,
                             placeholder: false,
                           ),
@@ -174,8 +180,10 @@ class ItemInfo {
   String dealerName;
   String noofPeople;
   String purpose;
+  String createdBy;
 
   ItemInfo({
+    this.createdBy,
     this.slNo,
     this.date,
     this.site,
@@ -196,6 +204,7 @@ var items = <ItemInfo>[
       labourType: "Self employees",
       dealerName: "Vasanth Agencies",
       noofPeople: "20",
+      createdBy: "Vasanth (Manager)",
       purpose: "Plumbing"
 
   ),
@@ -207,6 +216,7 @@ var items = <ItemInfo>[
       labourType: "Out Sourcing employees",
       dealerName: "Vasanth Agencies",
       noofPeople: "20",
+      createdBy: "Vasanth (Manager)",
       purpose: "Plumbing"
 
   ),
@@ -218,6 +228,7 @@ var items = <ItemInfo>[
       labourType: "Self employees",
       dealerName: "Vasanth Agencies",
       noofPeople: "20",
+      createdBy: "Vasanth (Manager)",
       purpose: "Plumbing"
 
   ),
@@ -225,6 +236,7 @@ var items = <ItemInfo>[
       slNo: '3',
       date: '29/Oct/2020',
       site: 'Bhavani Vivan',
+      createdBy: "Vasanth (Manager)",
       block: "8th",
       labourType: "Out Sourcing employees",
       dealerName: "Vasanth Agencies",
@@ -234,6 +246,7 @@ var items = <ItemInfo>[
   ),
   ItemInfo(
       slNo: '4',
+      createdBy: "Vasanth (Manager)",
       date: '29/Oct/2020',
       site: 'Bhavani Vivan',
       block: "8th",

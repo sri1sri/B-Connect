@@ -77,13 +77,15 @@ class _F_DetailDescription extends State<F_DetailDescription> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              subtext("Date", "29/Oct/2020"),
+                              subtext("Created On", "03/Nov/2020"),
+                              subtext("Created By", "Vasanth (Manager)"),
+                              subtext("Purchased Date", "29/Oct/2020"),
                               subtext("Site", "Bhavani Vivan"),
                               subtext("Item\nDescription", "28 Tons of TMT rods"),
                               subtext("Category", "Iron/Steel"),
                               subtext("Uom", "tons"),
                               subtext("Supplier name", "Vasanth Steels"),
-                              subtext("Invoice No.\n& Date", "63746 - 29/Oct/2020"),
+                              subtext("Invoice No.", "63746"),
                               subtext("Received Quantity", "440"),
                               subtext("Issued Quantity", "340"),
                               subtext("Balance Quantity", "100"),

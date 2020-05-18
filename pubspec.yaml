@@ -55,6 +55,7 @@ dependencies:
   calendar_timeline: 0.4.0
   dropdown_formfield: 0.1.2
   dropdown_search: 0.3.3
+  flutter_slidable: 0.5.4
 
 dev_dependencies:
   flutter_test:
@@ -123,6 +124,13 @@ flutter:
     - images/siteActivity.png
     - images/Concrete.png
     - images/LabourReport.png
+    - images/s1.png
+    - images/s2.png
+    - images/s3.png
+    - images/s4.png
+    - images/s5.png
+    - images/s6.png
+    - images/s7.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

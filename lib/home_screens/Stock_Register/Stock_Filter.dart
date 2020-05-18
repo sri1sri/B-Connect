@@ -123,7 +123,7 @@ class _F_StockFilter extends State<F_StockFilter> {
                               SizedBox(height: 15,),
                               DropdownSearch(
                                   showSelectedItem: true,
-                                  maxHeight: 200,
+                                  maxHeight: 400,
                                   mode: Mode.MENU,
                                   items: ["Vasanth steels", "Sri Cements", "Vamsi Bricks"],
                                   label: "Dealer Name",
@@ -135,7 +135,7 @@ class _F_StockFilter extends State<F_StockFilter> {
                               SizedBox(height: 15,),
                               DropdownSearch(
                                   showSelectedItem: true,
-                                  maxHeight: 200,
+                                  maxHeight: 400,
                                   mode: Mode.MENU,
                                   items: ["Iron", "Steel", "woods","Cement"],
                                   label: "Category",
@@ -147,7 +147,7 @@ class _F_StockFilter extends State<F_StockFilter> {
                               SizedBox(height: 15,),
                               DropdownSearch(
                                   showSelectedItem: true,
-                                  maxHeight: 200,
+                                  maxHeight: 400,
                                   mode: Mode.MENU,
                                   items: ["Pvc plastic pipes", "8 thread TMT rods", "28 logs of wooden tile"],
                                   label: "Item Name",

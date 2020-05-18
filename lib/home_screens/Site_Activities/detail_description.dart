@@ -73,7 +73,8 @@ class _F_ActivityDetailDescription extends State<F_ActivityDetailDescription> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              subtext("Date", "29/Oct/2020"),
+                              subtext("Created On", "29/Oct/2020"),
+                              subtext("Created By", "Vasanth (Manager)"),
                               subtext("Site", "Bhavani Vivan"),
                               subtext("Block", "2nd"),
                               subtext("Category", "Iron/Steels"),
