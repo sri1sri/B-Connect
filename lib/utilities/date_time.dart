@@ -33,3 +33,8 @@ String hhmmFormatOnly({DateTime timestamp}){
   DateFormat dateFormat = DateFormat("hh:mm");
   return timestamp != null ? dateFormat.format(timestamp) : '-';
 }
+
+String hhmmVehicleDetailFormat({DateTime timestamp}){
+  DateFormat dateFormat = DateFormat("dd MMMM hh:mm");
+  return timestamp != null ? dateFormat.format(timestamp) : '-';
+}

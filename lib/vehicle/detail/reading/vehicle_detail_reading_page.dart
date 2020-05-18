@@ -234,7 +234,7 @@ class VehicleDetailReadingPageState extends State<VehicleDetailReadingPage> {
                                 style: descriptionStyleDark,
                               )),
                               DataCell(Text(
-                                '${dMyyyyFormatDate(timestamp: vehicle?.dateRequest?.toDate())}',
+                                '${hhmmVehicleDetailFormat(timestamp: vehicle?.dateRequest?.toDate())}',
                                 style: descriptionStyleDark,
                               )),
                             ],
@@ -253,7 +253,7 @@ class VehicleDetailReadingPageState extends State<VehicleDetailReadingPage> {
                                 style: descriptionStyleDark,
                               )),
                               DataCell(Text(
-                                '${dMyyyyFormatDate(timestamp: vehicle?.dateApproval?.toDate())}',
+                                '${hhmmVehicleDetailFormat(timestamp: vehicle?.dateApproval?.toDate())}',
                                 style: descriptionStyleDark,
                               )),
                             ],
