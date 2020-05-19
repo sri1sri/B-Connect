@@ -136,7 +136,7 @@ class AuthenticationBloc
         add(VerifyPhoneSuccess(
             phoneNumber: event.phoneNumber, isNewUser: event.isNewUser));
       }, failed: (AuthException auth) {
-        print('Failed');
+        print('Failed ${auth.code} -  ${auth.message}');
         add(VerifyPhoneFailed());
       }).then((value) => add(VerifyPhoneSuccess(
           phoneNumber: event.phoneNumber, isNewUser: event.isNewUser)));

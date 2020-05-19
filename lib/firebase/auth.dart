@@ -61,12 +61,12 @@ class AuthFirebase implements AuthBase {
 
     final PhoneCodeAutoRetrievalTimeout autoRetrieval =
         (String verificationId) {
-      this.verificationId = verificationId;
+          this.verificationId = verificationId;
     };
 
     final PhoneCodeSent smsCodeSent =
         (String verificationId, [int forceCodeResend]) {
-      this.verificationId = verificationId;
+          this.verificationId = verificationId;
     };
 
     final PhoneVerificationCompleted verifiedSuccess = (AuthCredential auth) {
