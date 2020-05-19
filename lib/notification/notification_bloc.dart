@@ -65,7 +65,7 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
             .currentUserDetails()
             .listen((user) {
           _streamReadVehicle?.cancel();
-          vehicle.approvalStatus = ApprovalStatus.approvalApproved;
+          vehicle.approvalStatus = ApprovalStatus.approvalDecline;
           vehicle.approvedByUserId = user.employeeID;
           vehicle.approvedByUserName = user.username;
           vehicle.approvedByUserRole = user.role;

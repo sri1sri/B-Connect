@@ -8,6 +8,7 @@ import 'vehicle_extras.dart';
 class VehicleBloc extends Bloc<VehicleEvent, VehicleState> {
   AuthenticationBloc authenticationBloc;
   StreamSubscription _streamSubscriptionVehicle;
+  StreamSubscription _streamReadCurrentUser;
 
   VehicleBloc({this.authenticationBloc});
 
@@ -73,7 +74,7 @@ class VehicleBloc extends Bloc<VehicleEvent, VehicleState> {
                 }
               });
             });
-            authenticationBloc.fireStoreDatabase
+            _streamReadCurrentUser = authenticationBloc.fireStoreDatabase
                 .currentUserDetails()
                 .listen((employee) {
               add(MapVehicleToState(
@@ -91,6 +92,7 @@ class VehicleBloc extends Bloc<VehicleEvent, VehicleState> {
   }
 
   void closeStream() {
+    _streamReadCurrentUser?.cancel();
     _streamSubscriptionVehicle?.cancel();
   }
 
