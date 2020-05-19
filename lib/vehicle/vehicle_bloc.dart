@@ -24,7 +24,6 @@ class VehicleBloc extends Bloc<VehicleEvent, VehicleState> {
   }
 
   Stream<VehicleState> _mapLoadVehicleToState() async* {
-
     _streamSubscriptionVehicle?.cancel();
     _streamSubscriptionVehicle = authenticationBloc.fireStoreDatabase
         .readAllVehicleToday(date: DateTime.now())
@@ -93,5 +92,11 @@ class VehicleBloc extends Bloc<VehicleEvent, VehicleState> {
 
   void closeStream() {
     _streamSubscriptionVehicle?.cancel();
+  }
+
+  @override
+  Future<void> close() {
+    closeStream();
+    return super.close();
   }
 }

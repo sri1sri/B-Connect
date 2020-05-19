@@ -327,8 +327,8 @@ class VehicleDetailTripPageState extends State<VehicleDetailTripPage> {
           ),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        floatingActionButton: (vehicle.approvalStatus == null || vehicle.approvalStatus ==
-                ApprovalStatus.approvalPending)
+        floatingActionButton: (vehicle.approvalStatus == null ||
+                vehicle.approvalStatus == ApprovalStatus.approvalPending)
             ? null
             : Padding(
                 padding: const EdgeInsets.all(40.0),

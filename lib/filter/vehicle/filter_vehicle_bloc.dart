@@ -6,6 +6,8 @@ import 'filter_vehicle_extras.dart';
 class FilterVehicleBloc extends Bloc<FilterVehicleEvent, FilterVehicleState> {
   AuthenticationBloc authenticationBloc;
 
+  StreamSubscription _streamReadVehicle;
+
   FilterVehicleBloc({this.authenticationBloc});
 
   @override
@@ -15,7 +17,7 @@ class FilterVehicleBloc extends Bloc<FilterVehicleEvent, FilterVehicleState> {
   Stream<FilterVehicleState> mapEventToState(FilterVehicleEvent event) async* {
     if (event is InitDataFilterVehicleEvent) {
       yield FilterVehicleState.loading();
-      authenticationBloc.fireStoreDatabase
+      _streamReadVehicle = authenticationBloc.fireStoreDatabase
           .readAllVehicle()
           .listen((vehicleList) {
         add(MapVehicleToSeller(vehicleList: vehicleList));
@@ -23,5 +25,11 @@ class FilterVehicleBloc extends Bloc<FilterVehicleEvent, FilterVehicleState> {
     } else if (event is MapVehicleToSeller) {
       yield FilterVehicleState.success(vehicleList: event.vehicleList);
     }
+  }
+
+  @override
+  Future<void> close() {
+    _streamReadVehicle.cancel();
+    return super.close();
   }
 }

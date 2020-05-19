@@ -8,15 +8,28 @@ import 'notification_extras.dart';
 class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
   AuthenticationBloc authenticationBloc;
 
+  StreamSubscription _streamReadAll;
+  StreamSubscription _streamReadVehicle;
+  StreamSubscription _streamReadCurrentUser;
+
   NotificationBloc({this.authenticationBloc});
 
   @override
   NotificationState get initialState => NotificationState.loading();
 
   @override
+  Future<void> close() {
+    _streamReadCurrentUser.cancel();
+    _streamReadVehicle.cancel();
+    _streamReadAll.cancel();
+    return super.close();
+  }
+
+  @override
   Stream<NotificationState> mapEventToState(NotificationEvent event) async* {
     if (event is InitDataNotification) {
-      authenticationBloc.fireStoreDatabase
+      _streamReadAll?.cancel();
+      _streamReadAll = authenticationBloc.fireStoreDatabase
           .readAllNotification()
           .listen((event) {
         add(MapNotificationToState(data: event));
@@ -24,12 +37,13 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
     } else if (event is MapNotificationToState) {
       yield NotificationState.success(data: event.data);
     } else if (event is ApproveEvent) {
-      authenticationBloc.fireStoreDatabase
+      _streamReadVehicle = authenticationBloc.fireStoreDatabase
           .readVehicle(event.notificationModel.itemEntryID)
           .listen((vehicle) {
-        authenticationBloc.fireStoreDatabase
+        _streamReadCurrentUser = authenticationBloc.fireStoreDatabase
             .currentUserDetails()
             .listen((user) {
+          _streamReadVehicle?.cancel();
           vehicle.approvalStatus = ApprovalStatus.approvalApproved;
           vehicle.approvedByUserId = user.employeeID;
           vehicle.approvedByUserName = user.username;
@@ -44,12 +58,13 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
         });
       });
     } else if (event is DeclineEvent) {
-      authenticationBloc.fireStoreDatabase
+      _streamReadVehicle = authenticationBloc.fireStoreDatabase
           .readVehicle(event.notificationModel.itemEntryID)
           .listen((vehicle) {
-        authenticationBloc.fireStoreDatabase
+        _streamReadCurrentUser = authenticationBloc.fireStoreDatabase
             .currentUserDetails()
             .listen((user) {
+          _streamReadVehicle?.cancel();
           vehicle.approvalStatus = ApprovalStatus.approvalApproved;
           vehicle.approvedByUserId = user.employeeID;
           vehicle.approvedByUserName = user.username;

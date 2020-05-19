@@ -43,8 +43,6 @@ class VehiclePageState extends State<VehiclePage> {
 
   @override
   void dispose() {
-    context.bloc<VehicleBloc>().closeStream();
-    context.bloc<VehicleBloc>().close();
     super.dispose();
   }
 
