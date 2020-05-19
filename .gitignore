@@ -48,3 +48,10 @@ ios/
 res/values/strings_en.arb
 
 lib/generated/i18n.dart
+
+
+# Gradle generated files
+.gradle/
+.gradle/**
+
+*.bin
