@@ -6,7 +6,6 @@ import 'vehicle_result_extras.dart';
 class VehicleResultBloc extends Bloc<VehicleResultEvent, VehicleResultState> {
   final AuthenticationBloc authenticationBloc;
   StreamSubscription _streamSubscriptionVehicle;
-  StreamSubscription _streamVehicleCategory;
   StreamSubscription _streamVehicleType;
   StreamSubscription _streamReadEmployee;
   StreamSubscription _streamReadCurrentUser;
@@ -27,9 +26,8 @@ class VehicleResultBloc extends Bloc<VehicleResultEvent, VehicleResultState> {
     }
   }
 
-  void cancelStreamSubs(){
+  void cancelStreamSubs() {
     _streamSubscriptionVehicle?.cancel();
-    _streamVehicleCategory?.cancel();
     _streamVehicleType?.cancel();
     _streamReadEmployee?.cancel();
     _streamReadCurrentUser?.cancel();
@@ -44,61 +42,47 @@ class VehicleResultBloc extends Bloc<VehicleResultEvent, VehicleResultState> {
             dateFrom: event.dateFrom,
             dateTo: event.dateTo)
         .listen((vehicleList) {
-      _streamVehicleCategory = authenticationBloc.fireStoreDatabase
-          .readAllVehicleCategory()
-          .listen((vehicleCate) {
+      _streamVehicleType = authenticationBloc.fireStoreDatabase
+          .readAllVehicleType()
+          .listen((vehicleType) {
         vehicleList.forEach((vehicleListElement) {
-          vehicleCate.forEach((vehicleCateElement) {
-            if (vehicleListElement.categoryId == vehicleCateElement.id) {
+          vehicleType.forEach((vehicleTypeElement) {
+            if (vehicleListElement.vehicleTypeId == vehicleTypeElement.id) {
               vehicleList[vehicleList.indexOf(vehicleListElement)]
-                  .categoryName = vehicleCateElement.name;
-              vehicleList[vehicleList.indexOf(vehicleListElement)]
-                  .categoryImage = vehicleCateElement.image;
+                  .vehicleTypeName = vehicleTypeElement.name;
             }
           });
         });
-        _streamVehicleType = authenticationBloc.fireStoreDatabase
-            .readAllVehicleType()
-            .listen((vehicleType) {
+        _streamReadEmployee = authenticationBloc.fireStoreDatabase
+            .readEmployees()
+            .listen((employeeList) {
           vehicleList.forEach((vehicleListElement) {
-            vehicleType.forEach((vehicleTypeElement) {
-              if (vehicleListElement.vehicleTypeId == vehicleTypeElement.id) {
+            employeeList.forEach((employeeElement) {
+              if (vehicleListElement.requestedByUserId ==
+                  employeeElement.employeeID) {
                 vehicleList[vehicleList.indexOf(vehicleListElement)]
-                    .vehicleTypeName = vehicleTypeElement.name;
+                    .requestedByUserName = employeeElement.username;
+                vehicleList[vehicleList.indexOf(vehicleListElement)]
+                    .requestedByUserRole = employeeElement.role;
+              }
+              if (vehicleListElement.approvedByUserId ==
+                  employeeElement.employeeID) {
+                vehicleList[vehicleList.indexOf(vehicleListElement)]
+                    .approvedByUserName = employeeElement.username;
+                vehicleList[vehicleList.indexOf(vehicleListElement)]
+                    .approvedByUserRole = employeeElement.role;
               }
             });
           });
-          _streamReadEmployee = authenticationBloc.fireStoreDatabase
-              .readEmployees()
-              .listen((employeeList) {
-            vehicleList.forEach((vehicleListElement) {
-              employeeList.forEach((employeeElement) {
-                if (vehicleListElement.requestedByUserId ==
-                    employeeElement.employeeID) {
-                  vehicleList[vehicleList.indexOf(vehicleListElement)]
-                      .requestedByUserName = employeeElement.username;
-                  vehicleList[vehicleList.indexOf(vehicleListElement)]
-                      .requestedByUserRole = employeeElement.role;
-                }
-                if (vehicleListElement.approvedByUserId ==
-                    employeeElement.employeeID) {
-                  vehicleList[vehicleList.indexOf(vehicleListElement)]
-                      .approvedByUserName = employeeElement.username;
-                  vehicleList[vehicleList.indexOf(vehicleListElement)]
-                      .approvedByUserRole = employeeElement.role;
-                }
-              });
-            });
-            _streamReadCurrentUser = authenticationBloc.fireStoreDatabase
-                .currentUserDetails()
-                .listen((employee) {
-              add(MapVehicleToState(
-                  vehicleList: vehicleList,
-                  sellerName: event.sellerName,
-                  siteName: event.siteName,
-                  dateFrom: event.dateFrom,
-                  dateTo: event.dateTo));
-            });
+          _streamReadCurrentUser = authenticationBloc.fireStoreDatabase
+              .currentUserDetails()
+              .listen((employee) {
+            add(MapVehicleToState(
+                vehicleList: vehicleList,
+                sellerName: event.sellerName,
+                siteName: event.siteName,
+                dateFrom: event.dateFrom,
+                dateTo: event.dateTo));
           });
         });
       });
@@ -112,9 +96,5 @@ class VehicleResultBloc extends Bloc<VehicleResultEvent, VehicleResultState> {
         siteName: event.siteName,
         dateFrom: event.dateFrom,
         dateTo: event.dateTo);
-  }
-
-  void closeStream() {
-    _streamSubscriptionVehicle?.cancel();
   }
 }

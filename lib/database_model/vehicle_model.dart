@@ -9,9 +9,6 @@ class Vehicle {
   String vehicleNo;
   String site;
   String sellerName;
-  String categoryId;
-  String categoryName;
-  String categoryImage;
   String vehicleTypeId;
   String vehicleTypeName;
   Timestamp startTime;
@@ -39,9 +36,6 @@ class Vehicle {
     this.vehicleNo,
     this.site,
     this.sellerName,
-    this.categoryId,
-    this.categoryName,
-    this.categoryImage,
     this.vehicleTypeId,
     this.vehicleTypeName,
     this.startTime,
@@ -105,9 +99,6 @@ class Vehicle {
       vehicleNo: vehicleNo,
       site: site,
       sellerName: sellerName,
-      categoryId: categoryId,
-      categoryName: categoryName,
-      categoryImage: categoryImage,
       vehicleTypeId: vehicleTypeId,
       vehicleTypeName: vehicleTypeName,
       startTime: startTime,
@@ -137,9 +128,6 @@ class Vehicle {
       vehicleNo != null ? 'vehicle_no' : 'empty': vehicleNo,
       site != null ? 'site' : 'empty': site,
       sellerName != null ? 'seller_name' : 'empty': sellerName,
-      categoryId != null ? 'category_id' : 'empty': categoryId,
-      categoryName != null ? 'category_name' : 'empty': categoryName,
-      categoryImage != null ? 'category_image' : 'empty': categoryImage,
       vehicleTypeId != null ? 'vehicle_type_id' : 'empty': vehicleTypeId,
       vehicleTypeName != null ? 'vehicle_type_name' : 'empty': vehicleTypeName,
       startTime != null ? 'start_time' : 'empty': startTime,

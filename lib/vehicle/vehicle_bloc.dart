@@ -42,19 +42,6 @@ class VehicleBloc extends Bloc<VehicleEvent, VehicleState> {
     _streamSubscriptionVehicle = authenticationBloc.fireStoreDatabase
         .readAllVehicleToday(date: DateTime.now())
         .listen((vehicleList) {
-      _streamReadAllVehicle = authenticationBloc.fireStoreDatabase
-          .readAllVehicleCategory()
-          .listen((vehicleCate) {
-        vehicleList.forEach((vehicleListElement) {
-          vehicleCate.forEach((vehicleCateElement) {
-            if (vehicleListElement.categoryId == vehicleCateElement.id) {
-              vehicleList[vehicleList.indexOf(vehicleListElement)]
-                  .categoryName = vehicleCateElement.name;
-              vehicleList[vehicleList.indexOf(vehicleListElement)]
-                  .categoryImage = vehicleCateElement.image;
-            }
-          });
-        });
         _streamReadVehicleType = authenticationBloc.fireStoreDatabase
             .readAllVehicleType()
             .listen((vehicleType) {
@@ -100,7 +87,6 @@ class VehicleBloc extends Bloc<VehicleEvent, VehicleState> {
             });
           });
         });
-      });
     });
   }
 

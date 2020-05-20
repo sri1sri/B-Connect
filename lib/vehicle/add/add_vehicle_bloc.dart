@@ -96,9 +96,6 @@ class AddVehicleBloc extends Bloc<AddVehicleEvent, AddVehicleState> {
 
   Vehicle mapEventToVehicle(SubmitVehicle event, EmployeeDetails employee) {
     return Vehicle(
-        categoryId: event?.vehicleCateSelected?.id,
-        categoryName: event?.vehicleCateSelected?.name,
-        categoryImage: event?.vehicleCateSelected?.image,
         sellerName: event.dealerName,
         vehicleNo: event.vehicleNo,
         unitsPerTrip: event.unitPerTrip,

@@ -64,10 +64,17 @@ class ProfilePageState extends State<ProfilePage> {
                   rightActionBar: Container(
                     padding: EdgeInsets.only(top: 10),
                     child: InkWell(
-                        child: Icon(
-                          Icons.more_vert,
-                          color: backgroundColor,
-                          size: 30,
+                        child: SizedBox(
+                          width: 56,
+                          height: 100,
+                          child: Align(
+                            alignment: Alignment.centerRight,
+                            child: Icon(
+                              Icons.more_vert,
+                              color: backgroundColor,
+                              size: 30,
+                            ),
+                          ),
                         ),
                         onTap: () {
                           Navigator.push(

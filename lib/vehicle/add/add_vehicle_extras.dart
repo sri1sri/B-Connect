@@ -7,15 +7,13 @@ import 'package:sealed_flutter_bloc/sealed_flutter_bloc.dart';
 abstract class AddVehicleEvent extends Equatable {}
 
 class SubmitVehicle extends AddVehicleEvent {
-  final VehicleCategory vehicleCateSelected;
   final String dealerName;
   final String vehicleNo;
   final String unitPerTrip;
   final VehicleType vehicleTypeSelected;
 
   SubmitVehicle(
-      {this.vehicleCateSelected,
-      this.dealerName,
+      {this.dealerName,
       this.vehicleNo,
       this.unitPerTrip,
       this.vehicleTypeSelected});

@@ -157,12 +157,6 @@ class VehiclePageState extends State<VehiclePage> {
                       )),
                       DataColumn(
                         label: Text(
-                          "Category",
-                          style: subTitleStyle1,
-                        ),
-                      ),
-                      DataColumn(
-                        label: Text(
                           "Vehicle Type",
                           style: subTitleStyle1,
                         ),
@@ -268,26 +262,6 @@ class VehiclePageState extends State<VehiclePage> {
                                 Text(
                                   itemRow?.sellerName ?? '',
                                   style: descriptionStyleDark,
-                                ),
-                                showEditIcon: false,
-                                placeholder: false,
-                              ),
-                              DataCell(
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    itemRow?.categoryImage != null
-                                        ? Image.network(
-                                            itemRow?.categoryImage ?? '',
-                                            height: 60,
-                                            width: 60,
-                                          )
-                                        : Container(),
-                                    Text(
-                                      itemRow?.categoryName ?? '-',
-                                      style: descriptionStyleDark,
-                                    )
-                                  ],
                                 ),
                                 showEditIcon: false,
                                 placeholder: false,

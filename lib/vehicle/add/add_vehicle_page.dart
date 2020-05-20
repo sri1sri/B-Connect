@@ -179,80 +179,6 @@ class AddVehiclePageState extends State<AddVehiclePage> {
                   ),
                   Padding(
                     padding: const EdgeInsets.all(10.0),
-                    child: Text(
-                      "Vehicle category",
-                      style: titleStyle,
-                    ),
-                  ),
-                  ExpansionTile(
-                      title: Text(
-                        "Choose the Vehicle",
-                        style: descriptionStyleDarkBlur1,
-                      ),
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Container(
-                            height: 420,
-                            child: Expanded(
-                              child: GridView.builder(
-                                itemCount: vehicleCateList.length,
-                                gridDelegate:
-                                    new SliverGridDelegateWithFixedCrossAxisCount(
-                                        crossAxisCount: 3,
-                                        mainAxisSpacing: 5,
-                                        crossAxisSpacing: 10),
-                                itemBuilder: (BuildContext context, int index) {
-                                  return new GestureDetector(
-                                    child: new Card(
-                                      elevation: 10.0,
-                                      child: new Container(
-                                        alignment: Alignment.center,
-                                        decoration: BoxDecoration(
-                                            color: (vehicleCateList[index]
-                                                    .hasSelected)
-                                                ? Colors.grey
-                                                : Colors.white),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: new Column(
-                                            children: <Widget>[
-                                              Image.network(
-                                                vehicleCateList[index].image,
-                                                height: 70,
-                                                cacheHeight: 70,
-                                                cacheWidth: 70,
-                                              ),
-                                              SizedBox(
-                                                height: 5,
-                                              ),
-                                              new Text(
-                                                vehicleCateList[index].name,
-                                                style: descriptionStyle,
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    onTap: () {
-                                      setState(() {
-                                        vehicleCateList.forEach((element) {
-                                          element.hasSelected = false;
-                                        });
-                                        vehicleCateList[index].hasSelected =
-                                            true;
-                                      });
-                                    },
-                                  );
-                                },
-                              ),
-                            ),
-                          ),
-                        ),
-                      ]),
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -420,11 +346,8 @@ class AddVehiclePageState extends State<AddVehiclePage> {
                         width: 180,
                         child: GestureDetector(
                           onTap: () {
-                            _isVehicleSelected(vehicleCateList);
                             if (_formKey.currentState.validate()) {
                               context.bloc<AddVehicleBloc>().add(SubmitVehicle(
-                                  vehicleCateSelected:
-                                      _cateSelected(vehicleCateList),
                                   dealerName: _sellerNameController.value.text,
                                   vehicleNo:
                                       _vehicleNumberController.value.text,
@@ -469,12 +392,6 @@ class AddVehiclePageState extends State<AddVehiclePage> {
       ),
     );
   }
-
-  bool _isVehicleSelected([List<VehicleCategory> vehicleCateList]) =>
-      _cateSelected(vehicleCateList) != null;
-
-  VehicleCategory _cateSelected([List<VehicleCategory> vehicleCateList]) =>
-      vehicleCateList?.firstWhere((element) => element.hasSelected, orElse: () => null);
 
   VehicleType _typeSelected(
           List<VehicleType> vehicleTypeList, String myActivityVehicleType) =>
