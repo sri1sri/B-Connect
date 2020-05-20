@@ -19,15 +19,14 @@ class AddVehicleBloc extends Bloc<AddVehicleEvent, AddVehicleState> {
   AuthenticationBloc authenticationBloc;
   StreamSubscription _subscriptionVehicleCate;
   StreamSubscription _subscriptionVehicleType;
+  StreamSubscription _streamReadCurrentUser;
+  StreamSubscription _streamReadEmployees;
 
-  // Replace with server token from firebase console settings.
   final String serverToken =
       'AAAArg5RNak:APA91bEJeORUU2Vv3DtkjtwbV2GjW1JsBZiPiEkNL3z0jY1n8PVpI7Jjv6D4fgUMgposbty5nNGg9a8MGR0zVBmiTK6iUB6YvOd8Rnecciep-Jpw5OjQp4PCGJmm8adTtfMHCBqTS8Co';
   final FirebaseMessaging firebaseMessaging = FirebaseMessaging();
 
   AddVehicleBloc({this.authenticationBloc});
-
-  final List<AddVehicleEvent> _events = new List<AddVehicleEvent>();
 
   @override
   AddVehicleState get initialState => AddVehicleState.initial();
@@ -37,7 +36,6 @@ class AddVehicleBloc extends Bloc<AddVehicleEvent, AddVehicleState> {
     firebaseMessaging.getToken().then((token) {
       print(token);
     });
-    _events.add(event); // New Line
     if (event is InitDataEvent) {
       yield* _mapLoadVehicleCateToState();
     } else if (event is VehicleCategoryLoaded) {
@@ -46,7 +44,7 @@ class AddVehicleBloc extends Bloc<AddVehicleEvent, AddVehicleState> {
       yield* _mapLoadVehicleInitToState(event);
     } else if (event is SubmitVehicle) {
       yield AddVehicleState.loading();
-      authenticationBloc.fireStoreDatabase
+      _streamReadCurrentUser = authenticationBloc.fireStoreDatabase
           .currentUserDetails()
           .listen((employee) {
         Vehicle vehicleEntity = mapEventToVehicle(event, employee);
@@ -59,10 +57,6 @@ class AddVehicleBloc extends Bloc<AddVehicleEvent, AddVehicleState> {
           .then((value) => {sendNotification(event.vehicleEntity, vehicleId)});
       authenticationBloc.pop();
     }
-  }
-
-  dispatchPreviousState() {
-    this.add(_events.removeLast());
   }
 
   Stream<AddVehicleState> _mapLoadVehicleCateToState() async* {
@@ -92,9 +86,9 @@ class AddVehicleBloc extends Bloc<AddVehicleEvent, AddVehicleState> {
 
   Vehicle mapEventToVehicle(SubmitVehicle event, EmployeeDetails employee) {
     return Vehicle(
-        categoryId: event.vehicleCateSelected.id,
-        categoryName: event.vehicleCateSelected.name,
-        categoryImage: event.vehicleCateSelected.image,
+        categoryId: event?.vehicleCateSelected?.id,
+        categoryName: event?.vehicleCateSelected?.name,
+        categoryImage: event?.vehicleCateSelected?.image,
         sellerName: event.dealerName,
         vehicleNo: event.vehicleNo,
         unitsPerTrip: event.unitPerTrip,
@@ -108,7 +102,7 @@ class AddVehicleBloc extends Bloc<AddVehicleEvent, AddVehicleState> {
   }
 
   sendNotification(Vehicle vehicleEntity, String documentId) {
-    authenticationBloc.fireStoreDatabase.readEmployees().listen((allEmployee) {
+    _streamReadEmployees = authenticationBloc.fireStoreDatabase.readEmployees().listen((allEmployee) {
       allEmployee.forEach((employee) {
         if (employee.role == EmployeeDetails.roleSupervisor ||
             employee.role == EmployeeDetails.roleManager) {
@@ -180,12 +174,3 @@ class AddVehicleBloc extends Bloc<AddVehicleEvent, AddVehicleState> {
   }
 }
 
-class SubmitVehicleLast extends AddVehicleEvent {
-  final Vehicle vehicleEntity;
-
-  SubmitVehicleLast(this.vehicleEntity);
-
-  @override
-  // TODO: implement props
-  List<Object> get props => throw UnimplementedError();
-}

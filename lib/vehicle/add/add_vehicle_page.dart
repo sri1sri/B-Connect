@@ -420,25 +420,18 @@ class AddVehiclePageState extends State<AddVehiclePage> {
                         width: 180,
                         child: GestureDetector(
                           onTap: () {
-                            bool isVehicleTypeSelected = vehicleCateList
-                                    .where((element) => element.hasSelected) !=
-                                null;
-                            if (_formKey.currentState.validate() &&
-                                isVehicleTypeSelected) {
-                              var vehicleCateSelected = vehicleCateList
-                                  .where((element) => element.hasSelected)
-                                  .first;
-                              var vehicleTypeSelected = vehicleTypeList
-                                  .where((element) =>
-                                      element.id == _myActivityVehicleType)
-                                  .first;
+                            _isVehicleSelected(vehicleCateList);
+                            if (_formKey.currentState.validate()) {
                               context.bloc<AddVehicleBloc>().add(SubmitVehicle(
-                                  vehicleCateSelected: vehicleCateSelected,
+                                  vehicleCateSelected:
+                                      _cateSelected(vehicleCateList),
                                   dealerName: _sellerNameController.value.text,
                                   vehicleNo:
                                       _vehicleNumberController.value.text,
                                   unitPerTrip: _UnitController.value.text,
-                                  vehicleTypeSelected: vehicleTypeSelected));
+                                  vehicleTypeSelected: _typeSelected(
+                                      vehicleTypeList,
+                                      _myActivityVehicleType)));
                               final snackBar =
                                   SnackBar(content: Text('Processing Data'));
                               _scaffoldKey.currentState.showSnackBar(snackBar);
@@ -476,4 +469,15 @@ class AddVehiclePageState extends State<AddVehiclePage> {
       ),
     );
   }
+
+  bool _isVehicleSelected([List<VehicleCategory> vehicleCateList]) =>
+      _cateSelected(vehicleCateList) != null;
+
+  VehicleCategory _cateSelected([List<VehicleCategory> vehicleCateList]) =>
+      vehicleCateList?.firstWhere((element) => element.hasSelected, orElse: () => null);
+
+  VehicleType _typeSelected(
+          List<VehicleType> vehicleTypeList, String myActivityVehicleType) =>
+      vehicleTypeList
+          ?.firstWhere((element) => element?.id == myActivityVehicleType, orElse: () => null);
 }

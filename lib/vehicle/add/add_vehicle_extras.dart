@@ -1,4 +1,5 @@
 import 'package:bhavani_connect/database_model/vehicle_category.dart';
+import 'package:bhavani_connect/database_model/vehicle_model.dart';
 import 'package:bhavani_connect/database_model/vehicle_type.dart';
 import 'package:equatable/equatable.dart';
 import 'package:sealed_flutter_bloc/sealed_flutter_bloc.dart';
@@ -20,6 +21,16 @@ class SubmitVehicle extends AddVehicleEvent {
       this.vehicleTypeSelected});
 
   @override
+  List<Object> get props => throw UnimplementedError();
+}
+
+class SubmitVehicleLast extends AddVehicleEvent {
+  final Vehicle vehicleEntity;
+
+  SubmitVehicleLast(this.vehicleEntity);
+
+  @override
+  // TODO: implement props
   List<Object> get props => throw UnimplementedError();
 }
 

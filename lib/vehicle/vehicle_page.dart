@@ -272,19 +272,26 @@ class VehiclePageState extends State<VehiclePage> {
                                 showEditIcon: false,
                                 placeholder: false,
                               ),
-                              DataCell(Column(
-                                children: [
-                                  Image.network(
-                                    itemRow?.categoryImage ?? '',
-                                    height: 60,
-                                    width: 60,
-                                  ),
-                                  Text(
-                                    itemRow?.categoryName ?? '',
-                                    style: descriptionStyleDark,
-                                  )
-                                ],
-                              )),
+                              DataCell(
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    itemRow?.categoryImage != null
+                                        ? Image.network(
+                                            itemRow?.categoryImage ?? '',
+                                            height: 60,
+                                            width: 60,
+                                          )
+                                        : Container(),
+                                    Text(
+                                      itemRow?.categoryName ?? '-',
+                                      style: descriptionStyleDark,
+                                    )
+                                  ],
+                                ),
+                                showEditIcon: false,
+                                placeholder: false,
+                              ),
                               DataCell(
                                 Text(
                                   itemRow?.vehicleTypeName ?? '',
@@ -329,7 +336,8 @@ class VehiclePageState extends State<VehiclePage> {
                               ),
                               DataCell(
                                 Text(
-                                  _parseTotalTiming(itemRow?.startTime, itemRow?.endTime),
+                                  _parseTotalTiming(
+                                      itemRow?.startTime, itemRow?.endTime),
                                   style: descriptionStyleDark,
                                 ),
                                 showEditIcon: false,
@@ -337,7 +345,8 @@ class VehiclePageState extends State<VehiclePage> {
                               ),
                               DataCell(
                                 Text(
-                                  _parseTotalReading(itemRow?.startRead, itemRow?.endRead),
+                                  _parseTotalReading(
+                                      itemRow?.startRead, itemRow?.endRead),
                                   style: descriptionStyleDark,
                                 ),
                                 showEditIcon: false,
@@ -469,17 +478,23 @@ class VehiclePageState extends State<VehiclePage> {
   }
 
   String _parseTotalTiming(Timestamp startTime, Timestamp endTime) {
-    if(startTime == null || endTime == null) return '-';
+    if (startTime == null || endTime == null)
+      return '-';
     else {
-      Timestamp xxx = Timestamp.fromMillisecondsSinceEpoch(endTime.millisecondsSinceEpoch - startTime.millisecondsSinceEpoch);
-      print('xxxx $xxx ${endTime.toDate().millisecondsSinceEpoch - startTime.toDate().millisecondsSinceEpoch}');
+      Timestamp xxx = Timestamp.fromMillisecondsSinceEpoch(
+          endTime.millisecondsSinceEpoch - startTime.millisecondsSinceEpoch);
+      print(
+          'xxxx $xxx ${endTime.toDate().millisecondsSinceEpoch - startTime.toDate().millisecondsSinceEpoch}');
 //      return hhmmFormatOnly(timestamp: xxx.toDate());
-      return _printDuration(Duration(milliseconds: endTime.toDate().millisecondsSinceEpoch - startTime.toDate().millisecondsSinceEpoch));
+      return _printDuration(Duration(
+          milliseconds: endTime.toDate().millisecondsSinceEpoch -
+              startTime.toDate().millisecondsSinceEpoch));
     }
   }
 
   String _parseTotalReading(String startRead, String endRead) {
-    if(startRead == null || endRead == null) return '-';
+    if (startRead == null || endRead == null)
+      return '-';
     else {
       return (int.parse(endRead) - int.parse(startRead)).toString();
     }
