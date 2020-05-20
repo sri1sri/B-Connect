@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:bhavani_connect/auth/authentication_bloc.dart';
 import 'package:bhavani_connect/database_model/approval_status.dart';
+import 'package:bhavani_connect/database_model/employee_details_model.dart';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'notification_extras.dart';
@@ -8,9 +9,12 @@ import 'notification_extras.dart';
 class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
   AuthenticationBloc authenticationBloc;
 
-  StreamSubscription _streamReadAll;
+  StreamSubscription _streamReadNotification;
   StreamSubscription _streamReadVehicle;
   StreamSubscription _streamReadCurrentUser;
+  StreamSubscription _streamReadCurrentUserApproval;
+  StreamSubscription _streamReadCurrentUserDecline;
+  Stream _readNotification;
 
   NotificationBloc({this.authenticationBloc});
 
@@ -19,31 +23,65 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
 
   @override
   Future<void> close() {
-    _streamReadCurrentUser.cancel();
-    _streamReadVehicle.cancel();
-    _streamReadAll.cancel();
+    _streamReadCurrentUser?.cancel();
+    _streamReadCurrentUserApproval?.cancel();
+    _streamReadCurrentUserDecline?.cancel();
+    _streamReadVehicle?.cancel();
+    _streamReadNotification?.cancel();
     return super.close();
   }
 
   @override
   Stream<NotificationState> mapEventToState(NotificationEvent event) async* {
     if (event is InitDataNotification) {
-      _streamReadAll?.cancel();
-      _streamReadAll = authenticationBloc.fireStoreDatabase
-          .readAllNotification()
-          .listen((event) {
-        add(MapNotificationToState(data: event));
+      add(ReadRoleEmployee());
+    } else if (event is ReadRoleEmployee) {
+      _streamReadCurrentUser = authenticationBloc.fireStoreDatabase
+          .currentUserDetails()
+          .listen((currentUser) {
+        add((ReadNotification(currentUser)));
       });
+    } else if (event is ReadNotification) {
+      _streamReadNotification?.cancel();
+      if (isCanApprove(event.currentUser.role)) {
+        _readNotification =
+            authenticationBloc.fireStoreDatabase.readAllNotification();
+      } else {
+        _readNotification = authenticationBloc.fireStoreDatabase
+            .readNotificationBy(requestById: event?.currentUser?.employeeID);
+      }
+      if (_readNotification == null) {
+        add(MapNotificationToEmpty());
+      } else {
+        _streamReadNotification = _readNotification.listen((notificationList) {
+          add(MapNotificationToState(
+              data: notificationList, role: event?.currentUser?.role));
+        });
+      }
+    } else if (event is MapNotificationToEmpty) {
+      yield NotificationState.empty();
     } else if (event is MapNotificationToState) {
-      yield NotificationState.success(data: event.data);
+      if (event.data.isEmpty) {
+        add(MapNotificationToEmpty());
+      } else {
+        event.data.forEach((element) {
+          if (isCanApprove(event.role)) {
+            element.isShowAction = true;
+          }
+        });
+        event.data.sort((a,b) => b.date.compareTo(a.date));
+        yield NotificationState.success(data: event.data);
+      }
     } else if (event is ApproveEvent) {
       _streamReadVehicle = authenticationBloc.fireStoreDatabase
           .readVehicle(event.notificationModel.itemEntryID)
           .listen((vehicle) {
-        _streamReadCurrentUser = authenticationBloc.fireStoreDatabase
+        _streamReadVehicle?.cancel();
+        _streamReadCurrentUserApproval = authenticationBloc.fireStoreDatabase
             .currentUserDetails()
             .listen((user) {
           _streamReadVehicle?.cancel();
+          _streamReadCurrentUserApproval?.cancel();
           vehicle.approvalStatus = ApprovalStatus.approvalApproved;
           vehicle.approvedByUserId = user.employeeID;
           vehicle.approvedByUserName = user.username;
@@ -61,9 +99,11 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
       _streamReadVehicle = authenticationBloc.fireStoreDatabase
           .readVehicle(event.notificationModel.itemEntryID)
           .listen((vehicle) {
-        _streamReadCurrentUser = authenticationBloc.fireStoreDatabase
+        _streamReadVehicle?.cancel();
+        _streamReadCurrentUserDecline = authenticationBloc.fireStoreDatabase
             .currentUserDetails()
             .listen((user) {
+          _streamReadCurrentUserDecline?.cancel();
           _streamReadVehicle?.cancel();
           vehicle.approvalStatus = ApprovalStatus.approvalDecline;
           vehicle.approvedByUserId = user.employeeID;
@@ -79,5 +119,11 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
         });
       });
     }
+  }
+
+  bool isCanApprove([String role]) {
+    return role == EmployeeDetails.roleStoreManager ||
+        role == EmployeeDetails.roleManager ||
+        role == EmployeeDetails.roleSupervisor;
   }
 }

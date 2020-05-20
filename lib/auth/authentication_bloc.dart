@@ -23,6 +23,8 @@ class AuthenticationBloc
 
   FirestoreDatabase fireStoreDatabase;
 
+  StreamSubscription _streamCurrentUser;
+
   AuthenticationBloc(this.authFirebase, this._navigatorKey);
 
   @override
@@ -171,7 +173,8 @@ class AuthenticationBloc
 
   void saveFirebaseToken() async {
     String token = await FirebaseMessaging().getToken();
-    fireStoreDatabase.currentUserDetails().listen((event) {
+    _streamCurrentUser = fireStoreDatabase.currentUserDetails().listen((event) {
+      _streamCurrentUser?.cancel();
       event.firebaseToken = token;
       fireStoreDatabase.updateEmployeeDetails(event, event.employeeID);
     });

@@ -9,11 +9,24 @@ class VehicleBloc extends Bloc<VehicleEvent, VehicleState> {
   AuthenticationBloc authenticationBloc;
   StreamSubscription _streamSubscriptionVehicle;
   StreamSubscription _streamReadCurrentUser;
+  StreamSubscription _streamReadEmployee;
+  StreamSubscription _streamReadAllVehicle;
+  StreamSubscription _streamReadVehicleType;
 
   VehicleBloc({this.authenticationBloc});
 
   @override
   VehicleState get initialState => VehicleState.initial();
+
+  @override
+  Future<void> close() {
+    _streamSubscriptionVehicle?.cancel();
+    _streamReadCurrentUser?.cancel();
+    _streamReadEmployee?.cancel();
+    _streamReadAllVehicle?.cancel();
+    _streamReadVehicleType?.cancel();
+    return super.close();
+  }
 
   @override
   Stream<VehicleState> mapEventToState(VehicleEvent event) async* {
@@ -29,7 +42,7 @@ class VehicleBloc extends Bloc<VehicleEvent, VehicleState> {
     _streamSubscriptionVehicle = authenticationBloc.fireStoreDatabase
         .readAllVehicleToday(date: DateTime.now())
         .listen((vehicleList) {
-      authenticationBloc.fireStoreDatabase
+      _streamReadAllVehicle = authenticationBloc.fireStoreDatabase
           .readAllVehicleCategory()
           .listen((vehicleCate) {
         vehicleList.forEach((vehicleListElement) {
@@ -42,7 +55,7 @@ class VehicleBloc extends Bloc<VehicleEvent, VehicleState> {
             }
           });
         });
-        authenticationBloc.fireStoreDatabase
+        _streamReadVehicleType = authenticationBloc.fireStoreDatabase
             .readAllVehicleType()
             .listen((vehicleType) {
           vehicleList.forEach((vehicleListElement) {
@@ -53,7 +66,7 @@ class VehicleBloc extends Bloc<VehicleEvent, VehicleState> {
               }
             });
           });
-          authenticationBloc.fireStoreDatabase
+          _streamReadEmployee = authenticationBloc.fireStoreDatabase
               .readEmployees()
               .listen((employeeList) {
             vehicleList.forEach((vehicleListElement) {
@@ -77,6 +90,11 @@ class VehicleBloc extends Bloc<VehicleEvent, VehicleState> {
             _streamReadCurrentUser = authenticationBloc.fireStoreDatabase
                 .currentUserDetails()
                 .listen((employee) {
+              _streamSubscriptionVehicle?.cancel();
+              _streamReadCurrentUser?.cancel();
+              _streamReadEmployee?.cancel();
+              _streamReadAllVehicle?.cancel();
+              _streamReadVehicleType?.cancel();
               add(MapVehicleToState(
                   vehicleList: vehicleList, employee: employee));
             });
@@ -89,16 +107,5 @@ class VehicleBloc extends Bloc<VehicleEvent, VehicleState> {
   Stream<VehicleState> _mapUpdateVehicle(MapVehicleToState event) async* {
     yield VehicleState.success(
         vehicleList: event.vehicleList, employee: event.employee);
-  }
-
-  void closeStream() {
-    _streamReadCurrentUser?.cancel();
-    _streamSubscriptionVehicle?.cancel();
-  }
-
-  @override
-  Future<void> close() {
-    closeStream();
-    return super.close();
   }
 }

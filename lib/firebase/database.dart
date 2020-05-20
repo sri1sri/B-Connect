@@ -138,6 +138,8 @@ abstract class Database {
       Timestamp dateTo});
 
   Stream<List<NotificationModel>> readAllNotification();
+
+  Stream<List<NotificationModel>> readNotificationBy({String requestById});
 }
 
 class FirestoreDatabase implements Database {
@@ -474,9 +476,13 @@ class FirestoreDatabase implements Database {
   Stream<List<Vehicle>> readAllVehicleToday({DateTime date}) =>
       _service.collectionStream(
         path: APIPath.viewVehicle(),
-        queryBuilder: (query) => query.where('date',
-            isGreaterThanOrEqualTo:
-                DateTime(date.year, date.month, date.day, 0, 0)).where('date', isLessThanOrEqualTo: DateTime(date.year, date.month, date.day, 23, 59, 59)),
+        queryBuilder: (query) => query
+            .where('date',
+                isGreaterThanOrEqualTo:
+                    DateTime(date.year, date.month, date.day, 0, 0))
+            .where('date',
+                isLessThanOrEqualTo:
+                    DateTime(date.year, date.month, date.day, 23, 59, 59)),
         builder: (data, documentId) => Vehicle.fromMap(data, documentId),
       );
 
@@ -570,6 +576,16 @@ class FirestoreDatabase implements Database {
   Stream<List<NotificationModel>> readAllNotification() =>
       _service.collectionStream(
         path: APIPath.notificationList(),
+        builder: (data, documentId) =>
+            NotificationModel.fromMap(data, documentId),
+      );
+
+  @override
+  Stream<List<NotificationModel>> readNotificationBy({String requestById}) =>
+      _service.collectionStream(
+        path: APIPath.notificationList(),
+        queryBuilder: (query) =>
+            query.where('request_by_id', isEqualTo: requestById),
         builder: (data, documentId) =>
             NotificationModel.fromMap(data, documentId),
       );

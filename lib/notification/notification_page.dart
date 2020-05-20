@@ -75,36 +75,61 @@ class NotificationPageState extends State<NotificationPage> {
             tabBarWidget: null,
           ),
         ),
-        body: SealedBlocBuilder4<NotificationBloc, NotificationState, Initial,
-            Loading, Success, Failure>(builder: (context, states) {
-          return states(
-            (Initial initial) => Center(child: CircularProgressIndicator()),
-            (Loading loading) => Center(child: CircularProgressIndicator()),
-            (Success success) => _bodySuccess(context, data: success.data),
-            (Failure failure) => Center(),
-          );
-        }));
+        body: _bodyContent(context));
   }
 
-  _bodySuccess(BuildContext context, {List<NotificationModel> data}) {
+  Widget _bodyContent(BuildContext context) {
     return ClipRRect(
       borderRadius: BorderRadius.only(
           topRight: Radius.circular(50.0), topLeft: Radius.circular(50.0)),
       child: Container(
         color: Colors.white,
-        child: SingleChildScrollView(
-            child: Column(
-          children: [
-            SizedBox(
-              height: 20,
-            ),
-            ...?generateNotification(data),
-            SizedBox(
-              height: 700,
-            )
-          ],
-        )),
+        child: SingleChildScrollView(child: SealedBlocBuilder5<
+            NotificationBloc,
+            NotificationState,
+            Initial,
+            Loading,
+            Empty,
+            Success,
+            Failure>(builder: (context, states) {
+          return states(
+            (Initial initial) => Center(child: CircularProgressIndicator()),
+            (Loading loading) => Center(
+                child: Container(
+              height: MediaQuery.of(context).size.height - 70,
+              child: Center(
+                child: CircularProgressIndicator(),
+              ),
+            )),
+            (Empty empty) => Center(
+                child: Container(
+              height: MediaQuery.of(context).size.height - 70,
+              child: Center(
+                child: Text(
+                  'No Data',
+                  style: descriptionStyleDark1,
+                ),
+              ),
+            )),
+            (Success success) => _bodySuccess(context, data: success.data),
+            (Failure failure) => Center(),
+          );
+        })),
       ),
+    );
+  }
+
+  Widget _bodySuccess(BuildContext context, {List<NotificationModel> data}) {
+    return Column(
+      children: [
+        SizedBox(
+          height: 20,
+        ),
+        ...?generateNotification(data),
+        SizedBox(
+          height: 700,
+        )
+      ],
     );
   }
 
@@ -138,7 +163,8 @@ class NotificationPageState extends State<NotificationPage> {
               ),
             ),
             //(employee == null ? "Not updated" : employee.username)
-            notificationModel.status == ApprovalStatus.approvalPending
+            notificationModel.status == ApprovalStatus.approvalPending &&
+                    notificationModel.isShowAction
                 ? Row(
                     children: [
                       GestureDetector(

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bhavani_connect/auth/bloc.dart';
 import 'package:bhavani_connect/dashboard/dashboard_bloc.dart';
 import 'package:bhavani_connect/dashboard/dashboard_extras.dart';
@@ -118,7 +120,7 @@ class _F_HomePageState extends State<F_HomePage> {
       onMessage: (Map<String, dynamic> message) async {
         print("onMessage: $message");
       },
-      onBackgroundMessage: myBackgroundMessageHandler,
+      onBackgroundMessage: Platform.isIOS ? null : myBackgroundMessageHandler ,
       onLaunch: (Map<String, dynamic> message) async {
         print("onLaunch: $message");
       },

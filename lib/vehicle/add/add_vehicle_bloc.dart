@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:bhavani_connect/auth/bloc.dart';
 import 'package:bhavani_connect/database_model/employee_details_model.dart';
@@ -30,6 +31,15 @@ class AddVehicleBloc extends Bloc<AddVehicleEvent, AddVehicleState> {
 
   @override
   AddVehicleState get initialState => AddVehicleState.initial();
+
+  @override
+  Future<void> close() {
+    _subscriptionVehicleCate.cancel();
+    _subscriptionVehicleType.cancel();
+    _streamReadCurrentUser.cancel();
+    _streamReadEmployees.cancel();
+    return super.close();
+  }
 
   @override
   Stream<AddVehicleState> mapEventToState(AddVehicleEvent event) async* {
@@ -102,10 +112,14 @@ class AddVehicleBloc extends Bloc<AddVehicleEvent, AddVehicleState> {
   }
 
   sendNotification(Vehicle vehicleEntity, String documentId) {
-    _streamReadEmployees = authenticationBloc.fireStoreDatabase.readEmployees().listen((allEmployee) {
+    _streamReadEmployees = authenticationBloc.fireStoreDatabase
+        .readEmployees()
+        .listen((allEmployee) {
+      _streamReadEmployees?.cancel();
       allEmployee.forEach((employee) {
         if (employee.role == EmployeeDetails.roleSupervisor ||
-            employee.role == EmployeeDetails.roleManager) {
+            employee.role == EmployeeDetails.roleManager ||
+            employee.role == EmployeeDetails.roleStoreManager) {
           sendAndRetrieveMessage(
               vehicleEntity, documentId, employee.firebaseToken);
         }
@@ -125,11 +139,12 @@ class AddVehicleBloc extends Bloc<AddVehicleEvent, AddVehicleState> {
         'Vehicle (${vehicle.sellerName}, ${vehicle.vehicleNo})';
     var notificationModel = NotificationModel(
       notificationID: documentId,
-      senderID: authenticationBloc.fireStoreDatabase.uid,
+      requestById: authenticationBloc.fireStoreDatabase.uid,
       notificationTitle: notificationTitle,
       notificationDescription: notificationBody,
       route: 'vehicle',
       status: 0,
+      date: Timestamp.now(),
       itemEntryID: documentId,
     );
     await authenticationBloc.fireStoreDatabase
@@ -163,7 +178,7 @@ class AddVehicleBloc extends Bloc<AddVehicleEvent, AddVehicleState> {
       onMessage: (Map<String, dynamic> message) async {
         print("onMessage: $message");
       },
-      onBackgroundMessage: myBackgroundMessageHandler,
+      onBackgroundMessage: Platform.isIOS ? null :myBackgroundMessageHandler,
       onLaunch: (Map<String, dynamic> message) async {
         print("onLaunch: $message");
       },
@@ -173,4 +188,3 @@ class AddVehicleBloc extends Bloc<AddVehicleEvent, AddVehicleState> {
     );
   }
 }
-
